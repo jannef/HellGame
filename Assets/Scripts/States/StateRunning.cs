@@ -5,76 +5,50 @@ using UnityEngine;
 using fi.tamk.hellgame.character;
 using System;
 
-public class StateRunning : IInputState
+namespace fi.tamk.hellgame.states
 {
-    public HeroController ControlledCharacter
+    public class StateRunning : StateAbstract
     {
-        get
+        public override InputStates StateID
         {
-            return _hero;
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
-    }
-    private HeroController _hero;
 
-    public InputStates StateID
-    {
-        get
+        public override TransitionType CheckTransitionLegality(InputStates toWhichState)
         {
-            return InputStates.Running;
+            switch (toWhichState)
+            {
+                case InputStates.Dashing:
+                case InputStates.Paused:
+                    return TransitionType.LegalTwoway;
+                case InputStates.Dead:
+                    return TransitionType.LegalOneway;
+                default:
+                    return TransitionType.Illegal;
+            }
         }
-    }
 
-    public float StateTimer
-    {
-        get
+        public override void HandleInput(float deltaTime)
         {
-            return _stateTime;
-        }
-    }
-    private float _stateTime;
+            _stateTime += deltaTime;
 
-    public TransitionType CheckTransitionLegality(InputStates toWhichState)
-    {
-        switch(toWhichState)
+            var movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+            if (Input.GetButtonDown("Jump"))
+            {
+                
+                ControlledCharacter.GoToState(new StateDashing(ControlledCharacter, movementDirection));
+            }
+
+            HeroAvatar.Move(movementDirection * HeroStats.Speed * deltaTime);
+
+        }
+
+        public StateRunning(HeroController hero) : base(hero)
         {
-            case InputStates.Dashing:
-            case InputStates.Paused:
-                return TransitionType.LegalTwoway;
-            case InputStates.Dead:
-                return TransitionType.LegalOneway;
-            default:
-                return TransitionType.Illegal;
+
         }
-    }
-
-    public void HandleInput(float deltaTime)
-    {
-        _stateTime += deltaTime;
-    }
-
-    public void OnEnterState()
-    {
-        Debug.Log("Running::OnEnterState");
-    }
-
-    public void OnExitState()
-    {
-        Debug.Log("Running::OnExitState");
-    }
-
-    public void OnResumeState()
-    {
-        Debug.Log("Running::OnResumeState");
-    }
-
-    public void OnSuspendState()
-    {
-        Debug.Log("Running::OnSuspendState");
-    }
-
-    public StateRunning(HeroController controlledHero)
-    {
-        _stateTime = 0f;
-        _hero = controlledHero;
     }
 }

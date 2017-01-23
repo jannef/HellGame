@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.interfaces;
+using fi.tamk.hellgame.states;
 using System.Collections.Generic;
 using UnityEngine;
 namespace fi.tamk.hellgame.character
@@ -6,6 +7,8 @@ namespace fi.tamk.hellgame.character
     public class HeroController : MonoBehaviour
     {
         public GameObject HeroObject { get { return gameObject; } }
+        [HideInInspector] public CharacterStats HeroStats;
+        [HideInInspector] public CharacterController CharacterController;
         private Stack<IInputState> _inputState = new Stack<IInputState>();
         private IInputState _currentState
         {
@@ -16,7 +19,7 @@ namespace fi.tamk.hellgame.character
             }
         }
 
-        private bool ToPreviousState()
+        public bool ToPreviousState()
         {
             if (_inputState.Count < 2) return false;
 
@@ -26,7 +29,7 @@ namespace fi.tamk.hellgame.character
             return true;
         }
 
-        private bool GoToState(IInputState toWhichState)
+        public bool GoToState(IInputState toWhichState)
         {
             var transitionType = _currentState.CheckTransitionLegality(toWhichState.StateID);
 
@@ -52,14 +55,16 @@ namespace fi.tamk.hellgame.character
             return true;
         }
 
+        private void Update()
+        {
+            _currentState.HandleInput(Time.deltaTime);
+        }
+
         void Awake()
         {
+            HeroStats = gameObject.GetOrAddComponent<CharacterStats>();
+            CharacterController = gameObject.GetOrAddComponent<CharacterController>();
             _inputState.Push(new StateRunning(this));
-            Debug.Log(_currentState);
-            GoToState(new StatePaused(this));
-            Debug.Log(_currentState);
-            ToPreviousState();
-            Debug.Log(_currentState);
         }
     }   
 }

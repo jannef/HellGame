@@ -5,76 +5,55 @@ using UnityEngine;
 using fi.tamk.hellgame.character;
 using System;
 
-public class StateDashing : IInputState
+namespace fi.tamk.hellgame.states
 {
-    public HeroController ControlledCharacter
+    public class StateDashing : StateAbstract
     {
-        get
+        public override InputStates StateID
         {
-            return _hero;
+            get
+            {
+                return InputStates.Dashing;
+            }
         }
-    }
-    private HeroController _hero;
 
-    public InputStates StateID
-    {
-        get
+        private Vector3 dashingDirection;
+
+        public override TransitionType CheckTransitionLegality(InputStates toWhichState)
         {
-            return InputStates.Dashing;
+            switch (toWhichState)
+            {
+                case InputStates.Paused:
+                    return TransitionType.LegalTwoway;
+                case InputStates.Dead:
+                case InputStates.Running:
+                    return TransitionType.LegalOneway;
+                default:
+                    return TransitionType.Illegal;
+            }
         }
-    }
 
-    public float StateTimer
-    {
-        get
+        public override void HandleInput(float deltaTime)
         {
-            return _stateTime;
-        }
-    }
-    private float _stateTime;
+            _stateTime += deltaTime;
 
-    public TransitionType CheckTransitionLegality(InputStates toWhichState)
-    {
-        switch (toWhichState)
+            if (_stateTime > HeroStats.DashDuration)
+            {
+                // For last frame of the dash, move remaining dash distance and change state back to previous.
+                var overTime = (_stateTime - HeroStats.DashDuration) / HeroStats.DashDuration;
+                HeroAvatar.Move(dashingDirection * deltaTime * HeroStats.DashSpeed * overTime);
+
+                ControlledCharacter.ToPreviousState();
+                return;
+            }
+            Debug.Log("StateRunning : " + HeroStats.DashSpeed);
+
+            HeroAvatar.Move(dashingDirection * deltaTime * HeroStats.DashSpeed);
+        }
+
+        public StateDashing(HeroController controlledHero, Vector3 dashingDirection) : base(controlledHero)
         {
-            case InputStates.Paused:
-                return TransitionType.LegalTwoway;
-            case InputStates.Dead:
-            case InputStates.Running:
-                return TransitionType.LegalOneway;
-            default:
-                return TransitionType.Illegal;
+            this.dashingDirection = dashingDirection;
         }
-    }
-
-    public void HandleInput(float deltaTime)
-    {
-        _stateTime += deltaTime;
-    }
-
-    public void OnEnterState()
-    {
-        Debug.Log("Dashing::OnEnterState");
-    }
-
-    public void OnExitState()
-    {
-        Debug.Log("Dashing::OnExitState");
-    }
-
-    public void OnResumeState()
-    {
-        Debug.Log("Dashing::OnResumeState");
-    }
-
-    public void OnSuspendState()
-    {
-        Debug.Log("Dashing::OnSuspendState");
-    }
-
-    public StateDashing(HeroController controlledHero)
-    {
-        _stateTime = 0f;
-        _hero = controlledHero;
     }
 }
