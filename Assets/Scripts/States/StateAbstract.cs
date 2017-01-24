@@ -13,21 +13,13 @@ namespace fi.tamk.hellgame.states
 
         public CharacterController HeroAvatar
         {
-            get
-            {
-                if (_heroAvatar == null) _heroAvatar = ControlledCharacter.CharacterController;
-                return _heroAvatar;
-            }
+            get { return _heroAvatar ?? (_heroAvatar = ControlledCharacter.CharacterController); }
         }
         private CharacterController _heroAvatar;
 
         public CharacterStats HeroStats
         {
-            get
-            {
-                if (_heroStats == null) _heroStats = ControlledCharacter.HeroStats;
-                return _heroStats;
-            }
+            get { return _heroStats ?? (_heroStats = ControlledCharacter.HeroStats); }
         }
         private CharacterStats _heroStats;
 
@@ -69,7 +61,7 @@ namespace fi.tamk.hellgame.states
         {
         }
 
-        public StateAbstract(HeroController controlledHero)
+        protected StateAbstract(HeroController controlledHero)
         {
             _stateTime = 0f;
             ControlledCharacter = controlledHero;
