@@ -17,7 +17,6 @@ public static class Extensions {
     public static void SetLayer(this GameObject gameObject, int layer,
         bool includeChildren = true)
     {
-        Debug.Log(layer);
         gameObject.layer = layer;
         if (includeChildren)
         {

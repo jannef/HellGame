@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.character;
 using System;
+using tamk.fi.hellgame.character;
 
 namespace fi.tamk.hellgame.states
 {
@@ -34,11 +35,9 @@ namespace fi.tamk.hellgame.states
 
             var movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             
-            if (movementDirection.magnitude > 0.015f)
-            {
-                HeroAvatar.transform.LookAt(new Vector3(HeroAvatar.transform.position.x + movementDirection.x, HeroAvatar.transform.position.y, HeroAvatar.transform.position.z + movementDirection.z));
-                HeroAvatar.Move(movementDirection * HeroStats.Speed * deltaTime);
-            }
+            var rawMousePosition = MouseLookUp.Instance.GetMousePosition();
+            HeroAvatar.transform.LookAt(new Vector3(rawMousePosition.x, HeroAvatar.transform.position.y, rawMousePosition.z));
+            HeroAvatar.Move(movementDirection * HeroStats.Speed * deltaTime);
 
             if (Input.GetButtonDown("Jump"))
             {

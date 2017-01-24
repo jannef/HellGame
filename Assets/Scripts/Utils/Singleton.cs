@@ -11,12 +11,14 @@ namespace fi.tamk.hellgame.utils
         /// <summary>
         /// Singleton instance of the class.
         /// </summary>
-        private static T _instance;
+        private static T _instance = null;
 
         /// <summary>
         /// Mutual-exclusion lock.
         /// </summary>
         private static object _lock = new object();
+
+        private static bool _quitting = false;
 
         /// <summary>
         /// Returns, and creates if needed, reference to the singleten object.
@@ -27,6 +29,7 @@ namespace fi.tamk.hellgame.utils
             {
                 lock (_lock)
                 {
+                    if (_quitting) return null;
                     if (_instance != null) return _instance;
 
                     _instance = (T)FindObjectOfType(typeof(T));
@@ -34,6 +37,7 @@ namespace fi.tamk.hellgame.utils
                     if (_instance == null)
                     {
                         var singleton = new GameObject();
+                        DontDestroyOnLoad(singleton);
                         _instance = singleton.AddComponent<T>();
                         singleton.name = "Singleton instance of " + typeof(T).ToString();
                     }
@@ -45,6 +49,11 @@ namespace fi.tamk.hellgame.utils
                     return _instance;
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            _quitting = true;
         }
     }
 }
