@@ -4,36 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.character;
 using System;
+using fi.tamk.hellgame.states;
 
-public class StatePaused : IInputState
+public class StatePaused : StateAbstract
 {
-    public HeroController ControlledCharacter
-    {
-        get
-        {
-            return _hero;
-        }
-    }
-    private HeroController _hero;
-
-    public InputStates StateID
+    public override InputStates StateID
     {
         get
         {
             return InputStates.Paused;
         }
     }
-
-    public float StateTimer
-    {
-        get
-        {
-            return _stateTime;
-        }
-    }
-    private float _stateTime;
-
-    public TransitionType CheckTransitionLegality(InputStates toWhichState)
+    public override TransitionType CheckTransitionLegality(InputStates toWhichState)
     {
         switch (toWhichState)
         {
@@ -46,34 +28,8 @@ public class StatePaused : IInputState
         }
     }
 
-    public void HandleInput(float deltaTime)
+    public StatePaused(HeroController controlledHero) : base(controlledHero)
     {
-        _stateTime += deltaTime;
-    }
 
-    public void OnEnterState()
-    {
-        Debug.Log("Paused::OnEnterState");
-    }
-
-    public void OnExitState()
-    {
-        Debug.Log("Paused::OnExitState");
-    }
-
-    public void OnResumeState()
-    {
-        Debug.Log("Paused::OnResumeState");
-    }
-
-    public void OnSuspendState()
-    {
-        Debug.Log("Paused::OnSuspendState");
-    }
-
-    public StatePaused(HeroController controlledHero)
-    {
-        _stateTime = 0f;
-        _hero = controlledHero;
     }
 }

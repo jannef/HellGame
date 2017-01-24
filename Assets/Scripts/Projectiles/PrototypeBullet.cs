@@ -62,6 +62,14 @@ namespace fi.tamk.hellgame.projectiles
             _rigidbody = GetComponent<Rigidbody>();
         }
 
+        protected void OnTriggerEnter(Collider other)
+        {
+            var hc = Pool.Instance.GetHero(other.gameObject);
+            if (hc == null) return;
+
+            hc.TakeDamage(Damage);
+        }
+
         protected void Deactivate()
         {
             var go = gameObject;

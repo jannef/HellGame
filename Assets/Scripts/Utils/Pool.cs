@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using fi.tamk.hellgame.character;
+using UnityEditor;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.utils
@@ -14,6 +15,13 @@ namespace fi.tamk.hellgame.utils
         /// </summary>
         public sealed class Pool : Singleton<Pool>
         {
+            public Dictionary<GameObject, HeroController> GameObjectToHero = new Dictionary<GameObject, HeroController>();
+
+            public HeroController GetHero(GameObject go)
+            {
+                return !GameObjectToHero.ContainsKey(go) ? null : GameObjectToHero[go];
+            }
+
             /// <summary>
             /// Pooled gameobjects.
             /// </summary>

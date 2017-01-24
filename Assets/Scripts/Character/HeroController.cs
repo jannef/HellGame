@@ -1,6 +1,7 @@
 ﻿using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.states;
 using System.Collections.Generic;
+using fi.tamk.hellgame.utils.Stairs.Utils;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.character
@@ -58,14 +59,14 @@ namespace fi.tamk.hellgame.character
 
         private void Update()
         {
-            _currentState.HandleInput(Time.deltaTime);
+            if (_currentState != null) _currentState.HandleInput(Time.deltaTime);
         }
 
-        public void Action()
+        public void FireGuns()
         {
-            foreach (var Emitter in Emitters)
+            foreach (var emitter in Emitters)
             {
-                Emitter.Fire();
+                emitter.Fire();
             }
         }
 
@@ -73,9 +74,24 @@ namespace fi.tamk.hellgame.character
         {
             HeroStats = gameObject.GetOrAddComponent<CharacterStats>();
             CharacterController = gameObject.GetOrAddComponent<CharacterController>();
-            _inputState.Push(new StateRunning(this));
-
             Emitters = GetComponents<BulletEmitter>();
+
+            Pool.Instance.GameObjectToHero.Add(gameObject, this);
+        }
+
+        public void InitializeStateMachine(IInputState initialState)
+        {
+            if (_inputState.Count == 0) _inputState.Push(initialState);
+        }
+
+        public void TakeDamage(int howMuch)
+        {
+            if (_currentState != null) _currentState.TakeDamage(howMuch);
+        }
+
+        public virtual void Die()
+        {
+            Destroy(gameObject);
         }
     }   
 }

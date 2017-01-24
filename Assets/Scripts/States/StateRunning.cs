@@ -11,10 +11,7 @@ namespace fi.tamk.hellgame.states
     {
         public override InputStates StateID
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return InputStates.Running; }
         }
 
         public override TransitionType CheckTransitionLegality(InputStates toWhichState)
@@ -35,15 +32,21 @@ namespace fi.tamk.hellgame.states
         {
             _stateTime += deltaTime;
 
-            var movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
-            if (Input.GetButtonDown("Jump"))
+            var movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            
+            if (movementDirection.magnitude > 0.015f)
             {
-                
-                ControlledCharacter.GoToState(new StateDashing(ControlledCharacter, movementDirection));
+                HeroAvatar.transform.LookAt(new Vector3(HeroAvatar.transform.position.x + movementDirection.x, HeroAvatar.transform.position.y, HeroAvatar.transform.position.z + movementDirection.z));
+                HeroAvatar.Move(movementDirection * HeroStats.Speed * deltaTime);
             }
 
-            HeroAvatar.Move(movementDirection * HeroStats.Speed * deltaTime);
-
+            if (Input.GetButtonDown("Jump"))
+            {
+                ControlledCharacter.GoToState(new StateDashing(ControlledCharacter, movementDirection.normalized));
+            } else if (Input.GetButton("Fire1"))
+            {
+                ControlledCharacter.FireGuns();
+            }
         }
 
         public StateRunning(HeroController hero) : base(hero)

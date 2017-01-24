@@ -66,5 +66,11 @@ namespace fi.tamk.hellgame.states
             _stateTime = 0f;
             ControlledCharacter = controlledHero;
         }
+
+        public virtual void TakeDamage(int howMuch)
+        {
+            HeroStats.Health -= howMuch;
+            if (HeroStats.Health <= 0) ControlledCharacter.Die();
+        }
     }
 }

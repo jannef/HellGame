@@ -8,7 +8,8 @@ namespace fi.tamk.hellgame.interfaces
         Error       = -1,
         Paused      = 1,
         Dashing     = 2,
-        Dead        = 3 
+        Dead        = 3,
+        EnemyTurret = 4
     }
 
     public enum TransitionType
@@ -28,6 +29,7 @@ namespace fi.tamk.hellgame.interfaces
         void OnResumeState();
         void OnExitState();
         void OnSuspendState();
+        void TakeDamage(int howMuch);
         void HandleInput(float deltaTime);
 
         TransitionType CheckTransitionLegality(InputStates toWhichState);

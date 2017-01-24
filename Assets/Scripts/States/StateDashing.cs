@@ -55,5 +55,10 @@ namespace fi.tamk.hellgame.states
         {
             this.dashingDirection = dashingDirection;
         }
+
+        public override void TakeDamage(int howMuch)
+        {
+            
+        }
     }
 }
