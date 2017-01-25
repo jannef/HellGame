@@ -43,7 +43,9 @@ namespace fi.tamk.hellgame.utils
                     }
                     else
                     {
-                        throw (new System.Exception(string.Format("Singleton instance broke. {0} is contained as _instance", _instance.GetType().ToString())));
+                        throw (new System.Exception(
+                            string.Format("Singleton instance broke. {0} is contained as _instance",
+                                _instance.GetType().ToString())));
                     }
 
                     return _instance;
@@ -51,9 +53,15 @@ namespace fi.tamk.hellgame.utils
             }
         }
 
-        private void OnDestroy()
+        private void OnApplicationQuit()
         {
             _quitting = true;
+        }
+
+        protected virtual void Awake()
+        {
+            if (_instance != null) Destroy(gameObject);
+            if (_instance ?? (_instance = GetComponent<T>()) == null) Destroy(gameObject);
         }
     }
 }
