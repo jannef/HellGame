@@ -23,36 +23,35 @@ public class ScreenShaker : MonoBehaviour
 
     public void Shake(float shakeAmount, float shakeLenght)
     {
-        Debug.Log("Jump");
-        this.enabled = true;
-        
 
-        if (currentShakeAmount > 0)
+        if (this.shakeAmount > 0)
         {
             this.shakeAmount = currentShakeAmount + shakeAmount;
-            this.shakeLenght = shakeLenght + this.shakeLenght - (lerpTimer * this.shakeLenght);
+            this.shakeLenght = Mathf.Max(shakeLenght, this.shakeLenght - lerpTimer * this.shakeLenght);
             lerpTimer = 0;
         } else
         {
             originalPos = camTransform.localPosition;
             this.shakeAmount = shakeAmount;
             this.shakeLenght = shakeLenght;
+            StartCoroutine(ShakeRoutine());
         }
     }
 
-    void Update()
+    private IEnumerator ShakeRoutine()
     {
-        if (lerpTimer <= 1)
+        while ( lerpTimer <= 1)
         {
-            camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
+            camTransform.localPosition = originalPos + Random.insideUnitSphere.normalized * shakeAmount;
 
             lerpTimer += Time.deltaTime / shakeLenght;
-            shakeAmount = Mathf.Lerp(shakeAmount, 0, shakeEasing.Evaluate(lerpTimer));
+            shakeAmount = Mathf.Lerp(shakeAmount, shakeAmount / 2, shakeEasing.Evaluate(lerpTimer));
+            yield return null;
         }
-        else
-        {
-            StopShaking();
-        }
+        
+        StopShaking();
+
+        yield return null;
     }
 
     void StopShaking()
@@ -61,6 +60,5 @@ public class ScreenShaker : MonoBehaviour
         shakeAmount = 0;
         shakeLenght = 0;
         camTransform.localPosition = originalPos;
-        this.enabled = false;
     }
 }

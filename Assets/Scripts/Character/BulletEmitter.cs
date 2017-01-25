@@ -35,7 +35,7 @@ namespace fi.tamk.hellgame.character
 
             foreach (var bul in BulletPrefabs)
             {
-                Pool.Instance.AddToPool(bul, 50, Camera.main.transform);
+                Pool.Instance.AddToPool(bul, 50);
             }
         }
 
