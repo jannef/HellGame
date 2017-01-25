@@ -25,15 +25,16 @@ public class ScreenShaker : MonoBehaviour
     {
         Debug.Log("Jump");
         this.enabled = true;
-        originalPos = camTransform.localPosition;
+        
 
         if (currentShakeAmount > 0)
         {
-            this.shakeAmount += currentShakeAmount + shakeAmount;
-            this.shakeLenght += shakeLenght + lerpTimer * shakeLenght;
+            this.shakeAmount = currentShakeAmount + shakeAmount;
+            this.shakeLenght = shakeLenght + this.shakeLenght - (lerpTimer * this.shakeLenght);
             lerpTimer = 0;
         } else
         {
+            originalPos = camTransform.localPosition;
             this.shakeAmount = shakeAmount;
             this.shakeLenght = shakeLenght;
         }

@@ -15,7 +15,7 @@ public class DebugSimpleController : MonoBehaviour {
 		if (Input.GetButtonDown("Jump"))
         {
             
-            shaker.Shake(1, 1f);
+            shaker.Shake(0.5f, 2f);
         }
 	}
 }
