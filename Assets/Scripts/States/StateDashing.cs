@@ -46,8 +46,6 @@ namespace fi.tamk.hellgame.states
                 ControlledCharacter.ToPreviousState();
                 return;
             }
-            Debug.Log("StateRunning : " + HeroStats.DashSpeed);
-
             HeroAvatar.Move(dashingDirection * deltaTime * HeroStats.DashSpeed);
         }
 

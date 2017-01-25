@@ -9,7 +9,8 @@ namespace fi.tamk.hellgame.interfaces
         Paused      = 1,
         Dashing     = 2,
         Dead        = 3,
-        EnemyTurret = 4
+        EnemyTurret = 4,
+        FreezeFrame = 5
     }
 
     public enum TransitionType
