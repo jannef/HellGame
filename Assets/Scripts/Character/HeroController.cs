@@ -91,7 +91,16 @@ namespace fi.tamk.hellgame.character
 
         public virtual void Die()
         {
-            Destroy(gameObject);
+            DeathEffector effector = GetComponent<DeathEffector>();
+
+            if (effector != null)
+            {
+                effector.Die();
+            } else
+            {
+                Destroy(this);
+            }
+            
         }
     }   
 }

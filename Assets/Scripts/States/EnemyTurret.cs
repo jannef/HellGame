@@ -32,5 +32,10 @@ namespace fi.tamk.hellgame.states
         {
             get { return InputStates.EnemyTurret; }
         }
+
+        public override void TakeDamage(int howMuch)
+        {
+            base.TakeDamage(howMuch);
+        }
     }
 }
