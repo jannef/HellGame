@@ -8,7 +8,7 @@ public class ScreenShaker : MonoBehaviour
     private float shakeAmount = 0;
     private float shakeLenght = 0;
     private float lerpTimer = 0;
-    private float currentShakeAmount;
+    private float currentShakeAmount = 0;
     public AnimationCurve shakeEasing;
 
     Vector3 originalPos;
@@ -42,10 +42,10 @@ public class ScreenShaker : MonoBehaviour
     {
         while ( lerpTimer <= 1)
         {
-            camTransform.localPosition = originalPos + Random.insideUnitSphere.normalized * shakeAmount;
+            camTransform.localPosition = originalPos + Random.insideUnitSphere.normalized * currentShakeAmount * Time.deltaTime;
 
             lerpTimer += Time.deltaTime / shakeLenght;
-            shakeAmount = Mathf.Lerp(shakeAmount, shakeAmount / 2, shakeEasing.Evaluate(lerpTimer));
+            currentShakeAmount = Mathf.Lerp(shakeAmount, 0, shakeEasing.Evaluate(lerpTimer));
             yield return null;
         }
         
