@@ -3,24 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PooledParticle : MonoBehaviour {
-    private ParticleSystem _particleSystem;
-    private float _lifeTimeTimer;
-
-	void OnEnable()
+namespace fi.tamk.hellgame.WORK_IN_PROGRESS
+{
+    public class PooledParticle : MonoBehaviour
     {
-        _lifeTimeTimer = _particleSystem.main.duration;
+        private ParticleSystem _particleSystem;
+        private float _lifeTimeTimer;
 
-    }
-
-    void LateUpdate()
-    {
-        _lifeTimeTimer -= Time.deltaTime;
-
-        if (_lifeTimeTimer <= 0)
+        void OnEnable()
         {
-            GameObject go = this.gameObject;
-            Pool.Instance.ReturnObject(ref go);
+            _lifeTimeTimer = _particleSystem.main.duration;
+
+        }
+
+        void LateUpdate()
+        {
+            _lifeTimeTimer -= Time.deltaTime;
+
+            if (_lifeTimeTimer <= 0)
+            {
+                GameObject go = this.gameObject;
+                Pool.Instance.ReturnObject(ref go);
+            }
         }
     }
 }

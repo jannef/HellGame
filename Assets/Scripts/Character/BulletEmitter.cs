@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using fi.tamk.hellgame.projectiles;
 using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.utils.Stairs.Utils;
 using UnityEngine;
@@ -9,7 +10,6 @@ namespace fi.tamk.hellgame.character
     public class BulletEmitter : MonoBehaviour
     {
         [SerializeField] protected Transform BulletOrigin;
-        [SerializeField] protected GameObject[] BulletPrefabs;
         [SerializeField] protected LayerMask FireAtWhichLayer;
 
         [SerializeField] protected float Cooldown;
@@ -18,6 +18,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField, Range(1, 1000)] protected int NumberOfBullets;
         [SerializeField, Range(0f, 360f)] protected float Dispersion;
 
+        protected ParticleBulletSystem BulletSystem;
         private float _timer;
 
         protected Vector3 GunVector
@@ -28,15 +29,17 @@ namespace fi.tamk.hellgame.character
             }
         }
 
-        protected void FireBullet(Vector3 trajectory, bool shotgunMode = true, int whichBulletIndex = 0)
+        protected void FireBullet(Vector3 trajectory, bool shotgunMode = true)
         {
-            if (whichBulletIndex >= BulletPrefabs.Length) return;
-            trajectory = Quaternion.Euler(0, Random.Range(0f, Dispersion), 0) * trajectory;
+              BulletSystem.EmitBullet(BulletOrigin.position, trajectory);
 
-            var go = Pool.Instance.GetObject(BulletPrefabs[whichBulletIndex]);
-            go.transform.position = shotgunMode ? BulletOrigin.position : transform.position + trajectory;
-            go.transform.LookAt(go.transform.position + trajectory);
-            go.SetLayer(FireAtWhichLayer);
+//            if (whichBulletIndex >= BulletPrefabs.Length) return;
+//            trajectory = Quaternion.Euler(0, Random.Range(0f, Dispersion), 0) * trajectory;
+//
+//            var go = Pool.Instance.GetObject(BulletPrefabs[whichBulletIndex]);
+//            go.transform.position = shotgunMode ? BulletOrigin.position : transform.position + trajectory;
+//            go.transform.LookAt(go.transform.position + trajectory);
+//            go.SetLayer(FireAtWhichLayer);
         }
 
         protected void FireBullets(Vector3 tra)
@@ -54,13 +57,9 @@ namespace fi.tamk.hellgame.character
 
         protected void Awake()
         {
-            FireAtWhichLayer = Utilities.GetFiringLayer((this.gameObject.layer));
+            BulletSystem = GetComponentInChildren<ParticleBulletSystem>();
             _timer = Cooldown + 1f;
-
-            foreach (var bul in BulletPrefabs)
-            {
-                Pool.Instance.AddToPool(bul, 50);
-            }
+            if (BulletSystem != null) BulletSystem.SetCollisionLayer(FireAtWhichLayer);
         }
 
         protected void Update()
