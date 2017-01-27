@@ -5,55 +5,17 @@ using UnityEngine;
 
 namespace fi.tamk.hellgame.character
 {
-    class DeathEffector : MonoBehaviour
+    public class DeathEffector : MonoBehaviour
     {
-        private AbstractDeathEffect[] _deathEffects;
-        public float DeathLenght
+        public static void ScreenShakeEffect(float[] args)
         {
-            private set;
-            get;
+            if (args.Length < 2) return;
+            ScreenShaker.Instance.Shake(args[0], args[1]);
         }
 
-        void Awake()
+        public virtual GenericEffect Die()
         {
-            _deathEffects = GetComponents<AbstractDeathEffect>();
-            _deathEffects.OrderBy(effect => effect.StartDelay);
-            DeathLenght = _deathEffects[_deathEffects.Length - 1].StartDelay;
+            return GenericEffect.GetGenericEffect(transform);
         }
-
-        public void Die()
-        {
-            StartCoroutine(DeathRoutine());
-        }
-
-        IEnumerator DeathRoutine()
-        {
-            float timer = 0;
-
-            for (int i = 0; i < _deathEffects.Length;)
-            {
-                timer += Time.deltaTime;
-
-                for (int index = i; index < _deathEffects.Length; index++)
-                {
-                    if (_deathEffects[index].StartDelay <= timer)
-                    {
-                        _deathEffects[index].Activate();
-                        i++;
-                    } else
-                    {
-                        break;
-                    }
-                }
-
-                yield return null;
-            }
-
-            // TODO: The Destroy must come only after the final effect has happened
-            Destroy(this.gameObject);
-
-            yield return null;
-        }
-
     }
 }

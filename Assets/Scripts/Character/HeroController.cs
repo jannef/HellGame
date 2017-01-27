@@ -96,11 +96,9 @@ namespace fi.tamk.hellgame.character
             if (effector != null)
             {
                 effector.Die();
-            } else
-            {
-                Destroy(this);
             }
-            
+            gameObject.SetActive(false);
+            Destroy(gameObject);         
         }
     }   
 }

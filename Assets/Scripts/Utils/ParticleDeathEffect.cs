@@ -8,12 +8,12 @@ using fi.tamk.hellgame.utils.Stairs.Utils;
 
 namespace fi.tamk.hellgame.effects
 {
-    public class ParticleDeathEffect : AbstractDeathEffect
+    public class ParticleDeathEffect : GenericEffect
     {
         [SerializeField]
         private GameObject ParticleSystemPrefab;
 
-        public override void Activate()
+        public virtual void Activate()
         {
             GameObject PE = Pool.Instance.GetObject(ParticleSystemPrefab, true);
             PE.transform.position = this.transform.position;

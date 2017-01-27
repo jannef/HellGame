@@ -17,14 +17,7 @@ namespace fi.tamk.hellgame.states
 
         public override void HandleInput(float deltaTime)
         {
-            _stateTime += deltaTime;
-
-            if (_stateTime > HeroStats.GunCooldown)
-            {
-                ControlledCharacter.FireGuns();
-                _stateTime = 0f;
-            }
-
+            ControlledCharacter.FireGuns();
             HeroAvatar.transform.Rotate(Vector3.up, HeroStats.Speed * Time.deltaTime);
         }
 

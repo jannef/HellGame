@@ -15,9 +15,6 @@ namespace fi.tamk.hellgame.states
             get { return InputStates.Running; }
         }
 
-        // The timer is to 0.5f to allow firing straight after a dash.
-        private float gunCoolDownTimer = 0.5f;
-
         public override TransitionType CheckTransitionLegality(InputStates toWhichState)
         {
             switch (toWhichState)
@@ -35,7 +32,6 @@ namespace fi.tamk.hellgame.states
         public override void HandleInput(float deltaTime)
         {
             _stateTime += deltaTime;
-            gunCoolDownTimer += deltaTime;
 
             var movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             
@@ -46,9 +42,8 @@ namespace fi.tamk.hellgame.states
             if (Input.GetButtonDown("Jump"))
             {
                 ControlledCharacter.GoToState(new StateDashing(ControlledCharacter, movementDirection.normalized));
-            } else if (Input.GetButton("Fire1") && gunCoolDownTimer >= HeroStats.GunCooldown)
+            } else if (Input.GetButton("Fire1"))
             {
-                gunCoolDownTimer = 0;
                 ControlledCharacter.FireGuns();
             }
         }
