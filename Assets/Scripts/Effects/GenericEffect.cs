@@ -29,27 +29,21 @@ namespace fi.tamk.hellgame.effects
 
         public void SetOnUpdateCycle(Runnable runnableDelegate, float[] args)
         {
-            OnUpdateCycle = runnableDelegate;
-            OnUpdateParams = args;
+            OnTickDelegates.Add(new EffectDelegateHolder(runnableDelegate, args));
         }
-        protected Runnable OnUpdateCycle;
-        protected float[] OnUpdateParams;
+        protected List<EffectDelegateHolder> OnStartDelegates = new List<EffectDelegateHolder>();
 
         public void SetOnstart(Runnable runnableDelegate, float[] args)
         {
-            OnStart = runnableDelegate;
-            OnstartParams = args;
+            OnStartDelegates.Add(new EffectDelegateHolder(runnableDelegate, args));
         }
-        protected Runnable OnStart;
-        protected float[] OnstartParams;
+        protected List<EffectDelegateHolder> OnTickDelegates = new List<EffectDelegateHolder>();
 
         public void SetOnEnd(Runnable runnableDelegate, float[] args)
         {
-            OnEnd = runnableDelegate;
-            OnEndParams = args;
+            OnEndDelegates.Add(new EffectDelegateHolder(runnableDelegate, args));
         }
-        protected Runnable OnEnd;
-        protected float[] OnEndParams;
+        protected List<EffectDelegateHolder> OnEndDelegates = new List<EffectDelegateHolder>();
 
         protected float _timer = 0f;
         bool _once = true;
@@ -58,7 +52,9 @@ namespace fi.tamk.hellgame.effects
         {
             if (_once)
             {
-                if (OnStart != null) OnStart.Invoke(OnstartParams);
+                foreach(EffectDelegateHolder effect in OnStartDelegates) {
+                    effect.runnableDelegate.Invoke(effect.args);
+                }
                 _once = false;
             }
 
@@ -67,14 +63,20 @@ namespace fi.tamk.hellgame.effects
             //TODO: Pooling
             if (_timer > LifeTime)
             {
-                if (OnEnd != null) OnEnd.Invoke(OnEndParams);
+                foreach (EffectDelegateHolder effect in OnEndDelegates)
+                {
+                    effect.runnableDelegate.Invoke(effect.args);
+                }
                 Destroy(gameObject);
             }
         }
 
         protected virtual void OnUpdate()
         {
-            if (OnUpdateCycle != null) OnUpdateCycle.Invoke(OnUpdateParams);
+            foreach (EffectDelegateHolder effect in OnTickDelegates)
+            {
+                effect.runnableDelegate.Invoke(effect.args);
+            }
         }
     }
 }

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Assets.Scripts.World.WorldStates;
 using fi.tamk.hellgame.interfaces;
 using UnityEngine;
-using UnityEngine.Assertions.Comparers;
+using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.world
 {
-    public class WorldStateMachine : MonoBehaviour
+    public class WorldStateMachine : Singleton<WorldStateMachine>
     {
         protected Stack<IWorldState> States = new Stack<IWorldState>();
 
@@ -39,7 +36,7 @@ namespace fi.tamk.hellgame.world
             States.Push(toWhich);
         }
 
-        public void Awake()
+        public void Start()
         {
             States.Push(new GenericTimeState(float.PositiveInfinity, 1f, this));
             CurrentState.OnEnter();
@@ -48,8 +45,7 @@ namespace fi.tamk.hellgame.world
         public void Update()
         {
             if (Input.GetKeyDown(KeyCode.X))
-            {
-                Debug.Log("is pressed");
+            {          
                 EnterState(new GenericTimeState(0.1f, 0f, this));
             }
         }
@@ -61,7 +57,12 @@ namespace fi.tamk.hellgame.world
 
         public void FreezeFrame()
         {
-            
+            EnterState(new GenericTimeState(0.06f, 0.0f, this));
+        }
+
+        public void SlowDownPeriod(float lenght, float timescale)
+        {
+            EnterState(new GenericTimeState(lenght, timescale, this));
         }
     }
 }
