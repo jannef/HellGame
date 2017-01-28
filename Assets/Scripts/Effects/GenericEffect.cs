@@ -25,7 +25,7 @@ namespace fi.tamk.hellgame.effects
             return GetGenericEffect(atWhere).gameObject;
         }
 
-        [SerializeField] float LifeTime;
+        public float LifeTime;
 
         public void SetOnUpdateCycle(Runnable runnableDelegate, float[] args)
         {

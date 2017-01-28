@@ -70,6 +70,14 @@ namespace fi.tamk.hellgame.character
             }
         }
 
+        public void FireGunByIndex(int index)
+        {
+            if (Emitters.Length > index)
+            {
+                Emitters[index].Fire();
+            }
+        }
+
         private void Awake()
         {
             HeroStats = gameObject.GetOrAddComponent<CharacterStats>();

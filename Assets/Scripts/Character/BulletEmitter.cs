@@ -19,7 +19,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField, Range(0f, 360f)] protected float Dispersion;
 
         protected ParticleBulletSystem BulletSystem;
-        private float _timer;
+        protected float _timer;
 
         protected Vector3 GunVector
         {
@@ -45,6 +45,7 @@ namespace fi.tamk.hellgame.character
         protected void FireBullets(Vector3 tra)
         {
             var startPos = BulletOrigin.transform.position;
+            BulletOrigin.transform.RotateAround(transform.position, -transform.up, Spread / 2);
 
             for (var i = 0; i < NumberOfBullets; i++)
             {
