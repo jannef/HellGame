@@ -9,6 +9,8 @@ namespace fi.tamk.hellgame.character
     public class HeroController : MonoBehaviour
     {
         public BulletEmitter[] Emitters;
+        [SerializeField] private DeathEffector _deathEffect;
+        [SerializeField] private DeathEffector _hitFlinchEffect;
 
         public GameObject HeroObject { get { return gameObject; } }
         [HideInInspector] public CharacterStats HeroStats;
@@ -99,11 +101,10 @@ namespace fi.tamk.hellgame.character
 
         public virtual void Die()
         {
-            DeathEffector effector = GetComponent<DeathEffector>();
 
-            if (effector != null)
+            if (_deathEffect != null)
             {
-                effector.Activate();
+                _deathEffect.Activate();
             }
             gameObject.SetActive(false);
             Destroy(gameObject);         
@@ -111,11 +112,9 @@ namespace fi.tamk.hellgame.character
 
         public virtual void FlinchFromHit()
         {
-            DeathEffector effector = GetComponent<DeathEffector>();
-
-            if (effector != null)
+            if (_hitFlinchEffect != null)
             {
-                effector.Activate();
+                _hitFlinchEffect.Activate();
             }
         }
     }   

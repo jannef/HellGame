@@ -1,11 +1,10 @@
-﻿using fi.tamk.hellgame.utils.Stairs.Utils;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace fi.tamk.hellgame.WORK_IN_PROGRESS
+namespace fi.tamk.hellgame.debug
 {
-    public class PooledParticle : MonoBehaviour
+    public class ParticleDestroyer : MonoBehaviour
     {
         private ParticleSystem _particleSystem;
         private float _lifeTimeTimer;
@@ -14,7 +13,6 @@ namespace fi.tamk.hellgame.WORK_IN_PROGRESS
         {
             _particleSystem = GetComponent<ParticleSystem>();
             _lifeTimeTimer = _particleSystem.main.duration;
-            _particleSystem.Play();
         }
 
         void LateUpdate()
@@ -23,8 +21,7 @@ namespace fi.tamk.hellgame.WORK_IN_PROGRESS
 
             if (_lifeTimeTimer <= 0)
             {
-                GameObject go = this.gameObject;
-                Pool.Instance.ReturnObject(ref go);
+                Destroy(this.gameObject);
             }
         }
     }
