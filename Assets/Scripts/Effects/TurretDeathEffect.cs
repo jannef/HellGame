@@ -13,9 +13,9 @@ namespace fi.tamk.hellgame.effects
         [SerializeField] private float _shakeIntensity;
         [SerializeField] private float _shakeLenght;
 
-        public override GenericEffect Die()
+        public override GenericEffect Activate()
         {
-            var de = base.Die();
+            var de = base.Activate();
             de.SetOnstart(FreezeFrame, new float[0] { });
             de.SetOnstart(ScreenShakeEffect, new float[2] { _shakeIntensity, _shakeLenght });
             return de;

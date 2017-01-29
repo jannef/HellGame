@@ -29,6 +29,11 @@ namespace fi.tamk.hellgame.states
         public override void TakeDamage(int howMuch)
         {
             base.TakeDamage(howMuch);
+            
+            if (HeroStats.Health > 0)
+            {
+                ControlledCharacter.FlinchFromHit();
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace fi.tamk.hellgame.character
             {
                 FireBullets(GunVector);
                 _timer = 0f;
-                if (_firingEffect != null) _firingEffect.Die();
+                if (_firingEffect != null) _firingEffect.Activate();
             }
         }
     }

@@ -19,12 +19,17 @@ namespace fi.tamk.hellgame.character
             WorldStateMachine.Instance.FreezeFrame();
         }
 
+        public static void ThreadFreezeFrame(float[] args)
+        {
+            System.Threading.Thread.Sleep(20);
+        }
+
         public static void SlowDown(float[] args)
         {
             if (args.Length >= 2) WorldStateMachine.Instance.SlowDownPeriod(args[0], args[1]);
         }
 
-        public virtual GenericEffect Die()
+        public virtual GenericEffect Activate()
         {
             return GenericEffect.GetGenericEffect(transform);
         }

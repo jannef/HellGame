@@ -103,10 +103,20 @@ namespace fi.tamk.hellgame.character
 
             if (effector != null)
             {
-                effector.Die();
+                effector.Activate();
             }
             gameObject.SetActive(false);
             Destroy(gameObject);         
+        }
+
+        public virtual void FlinchFromHit()
+        {
+            DeathEffector effector = GetComponent<DeathEffector>();
+
+            if (effector != null)
+            {
+                effector.Activate();
+            }
         }
     }   
 }

@@ -10,5 +10,6 @@ namespace fi.tamk.hellgame.character
         public float DashSpeed = 10;
         public float DashDuration = 0.75f;
         public int Health = 1;
+        public float InvulnerabilityLenght = 0;
     }
 }

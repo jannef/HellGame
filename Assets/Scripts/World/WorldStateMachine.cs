@@ -57,7 +57,7 @@ namespace fi.tamk.hellgame.world
 
         public void FreezeFrame()
         {
-            EnterState(new GenericTimeState(0.06f, 0.0f, this));
+            EnterState(new GenericTimeState(0.02f, 0.0f, this));
         }
 
         public void SlowDownPeriod(float lenght, float timescale)

@@ -31,7 +31,11 @@ namespace fi.tamk.hellgame.character
 
         protected void FireBullet(Vector3 trajectory, bool shotgunMode = true)
         {
-              BulletSystem.EmitBullet(BulletOrigin.position, trajectory);
+            if (Dispersion > 0)
+            {
+                trajectory = Quaternion.Euler(0, Random.Range(-Dispersion / 2, Dispersion / 2), 0) * trajectory;
+            }
+            BulletSystem.EmitBullet(BulletOrigin.position, trajectory);
 
 //            if (whichBulletIndex >= BulletPrefabs.Length) return;
 //            trajectory = Quaternion.Euler(0, Random.Range(0f, Dispersion), 0) * trajectory;
