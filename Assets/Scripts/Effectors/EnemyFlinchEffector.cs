@@ -1,11 +1,9 @@
-﻿using fi.tamk.hellgame.character;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
-namespace fi.tamk.hellgame.effects
+namespace fi.tamk.hellgame.effector
 {
-    public class EnemyFlinchEffect : DeathEffector
+    public class EnemyFlinchEffector : Effector
     {
         private Renderer _renderer;
         public Color _BlickColour;
@@ -18,11 +16,10 @@ namespace fi.tamk.hellgame.effects
             _startColor = _renderer.material.color;
         }
 
-        public override GenericEffect Activate()
+        public override void Activate()
         {
             StartCoroutine(ChangeColorAndBack());
             ThreadFreezeFrame(new float[0]);
-            return null;
         }
 
         IEnumerator ChangeColorAndBack()

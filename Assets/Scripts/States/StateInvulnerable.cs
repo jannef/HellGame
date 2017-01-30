@@ -11,7 +11,6 @@ namespace fi.tamk.hellgame.states
     public class StateInvulnerable : StateRunning
     {
         private Renderer _playerRenderer;
-        private bool _isTransparent;
         private float _timeUntilNextBlink = .2f;
 
         public override InputStates StateID
@@ -37,25 +36,8 @@ namespace fi.tamk.hellgame.states
         public override void HandleInput(float deltaTime)
         {
             _stateTime += deltaTime;
-
-            var movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-            var rawMousePosition = MouseLookUp.Instance.GetMousePosition();
-            HeroAvatar.transform.LookAt(new Vector3(rawMousePosition.x, HeroAvatar.transform.position.y, rawMousePosition.z));
-            HeroAvatar.Move(movementDirection * HeroStats.Speed * deltaTime);
-
-            if (Input.GetButtonDown("Jump"))
-            {
-                ControlledCharacter.GoToState(new StateDashing(ControlledCharacter, movementDirection.normalized));
-            }
-            else if (Input.GetButton("Fire2"))
-            {
-                ControlledCharacter.FireGunByIndex(1);
-            }
-            if (Input.GetButton("Fire1"))
-            {
-                ControlledCharacter.FireGunByIndex(0);
-            }
+            
+            RunningMovement(deltaTime);
 
             if (_stateTime > HeroStats.InvulnerabilityLenght)
             {
@@ -68,13 +50,11 @@ namespace fi.tamk.hellgame.states
 
         private void InvulnerabilitylBlink()
         {
-            float t = _stateTime / HeroStats.InvulnerabilityLenght;
+            var t = _stateTime / HeroStats.InvulnerabilityLenght;
+            if (!(_stateTime >= _timeUntilNextBlink)) return;
 
-            if (_stateTime >= _timeUntilNextBlink)
-            {
-                _timeUntilNextBlink = _stateTime + Mathf.Lerp(0.3f, 0.03f, t);
-                _playerRenderer.enabled = !_playerRenderer.enabled;
-            }
+            _timeUntilNextBlink = _stateTime + Mathf.Lerp(0.3f, 0.03f, t);
+            _playerRenderer.enabled = !_playerRenderer.enabled;
         }
 
         public override void OnExitState()
@@ -86,8 +66,7 @@ namespace fi.tamk.hellgame.states
 
         public StateInvulnerable(HeroController hero) : base(hero)
         {
-            _playerRenderer = ControlledCharacter.gameObject.GetComponent<Renderer>();
-            
+            _playerRenderer = hero.gameObject.GetComponent<Renderer>();
         }
 
 

@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.character;
 using System;
+using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.states
 {
     public class StateDashing : StateAbstract
     {
+        protected int OriginalLayer;
+
         public override InputStates StateID
         {
             get
@@ -57,6 +60,17 @@ namespace fi.tamk.hellgame.states
         public override void TakeDamage(int howMuch)
         {
             
+        }
+
+        public override void OnEnterState()
+        {
+            OriginalLayer = ControlledCharacter.gameObject.layer;
+            ControlledCharacter.gameObject.SetLayer(Constants.PlayerDashingLayer);
+        }
+
+        public override void OnExitState()
+        {
+            ControlledCharacter.gameObject.SetLayer(OriginalLayer);
         }
     }
 }

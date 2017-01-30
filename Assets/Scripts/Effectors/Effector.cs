@@ -1,13 +1,13 @@
 ﻿using fi.tamk.hellgame.effects;
 using fi.tamk.hellgame.world;
-using System.Collections;
-using System.Linq;
 using UnityEngine;
 
-namespace fi.tamk.hellgame.character
+namespace fi.tamk.hellgame.effector
 {
-    public class DeathEffector : MonoBehaviour
+    public class Effector : MonoBehaviour
     {
+        protected GenericEffect Effect;
+
         public static void ScreenShakeEffect(float[] args)
         {
             if (args.Length < 2) return;
@@ -29,9 +29,9 @@ namespace fi.tamk.hellgame.character
             if (args.Length >= 2) WorldStateMachine.Instance.SlowDownPeriod(args[0], args[1]);
         }
 
-        public virtual GenericEffect Activate()
+        public virtual void Activate()
         {
-            return GenericEffect.GetGenericEffect(transform);
+            Effect = GenericEffect.GetGenericEffect(transform);
         }
     }
 }

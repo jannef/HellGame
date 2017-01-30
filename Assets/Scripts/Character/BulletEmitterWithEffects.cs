@@ -1,14 +1,13 @@
-﻿using fi.tamk.hellgame.character;
-using System.Collections;
-using System.Collections.Generic;
+﻿using fi.tamk.hellgame.effector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
 {
-    [RequireComponent(typeof(DeathEffector))]
+    [RequireComponent(typeof(Effector))]
     public class BulletEmitterWithEffects : BulletEmitter
     {
-        [SerializeField] protected DeathEffector _firingEffect;
+        [SerializeField] protected UnityEvent _firingEffect;
 
         public override void Fire()
         {
@@ -16,7 +15,7 @@ namespace fi.tamk.hellgame.character
             {
                 FireBullets(GunVector);
                 _timer = 0f;
-                if (_firingEffect != null) _firingEffect.Activate();
+                if (_firingEffect != null) _firingEffect.Invoke();
             }
         }
     }

@@ -33,9 +33,13 @@ namespace fi.tamk.hellgame.states
         public override void HandleInput(float deltaTime)
         {
             _stateTime += deltaTime;
+            RunningMovement(deltaTime);
+        }
 
+        protected virtual void RunningMovement(float deltaTime)
+        {
             var movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            
+
             var rawMousePosition = MouseLookUp.Instance.GetMousePosition();
             HeroAvatar.transform.LookAt(new Vector3(rawMousePosition.x, HeroAvatar.transform.position.y, rawMousePosition.z));
             HeroAvatar.Move(movementDirection * HeroStats.Speed * deltaTime);
@@ -43,18 +47,15 @@ namespace fi.tamk.hellgame.states
             if (Input.GetButtonDown("Jump"))
             {
                 ControlledCharacter.GoToState(new StateDashing(ControlledCharacter, movementDirection.normalized));
-            } else if (Input.GetButton("Fire2"))
+            }
+            else if (Input.GetButton("Fire2"))
             {
                 ControlledCharacter.FireGunByIndex(1);
-            } if (Input.GetButton("Fire1"))
-            {
-                    ControlledCharacter.FireGunByIndex(0);
             }
-        }
-
-        private void InvulnerabilityBlink()
-        {
-
+            if (Input.GetButton("Fire1"))
+            {
+                ControlledCharacter.FireGunByIndex(0);
+            }
         }
 
         public override void TakeDamage(int howMuch)

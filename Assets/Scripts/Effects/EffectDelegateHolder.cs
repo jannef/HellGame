@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace fi.tamk.hellgame.effects
 {
-    public class EffectDelegateHolder
+    public struct EffectDelegateHolder
     {
         public Runnable runnableDelegate;
         public float[] args;
@@ -14,6 +14,5 @@ namespace fi.tamk.hellgame.effects
             this.runnableDelegate = runnableDelegate;
             this.args = args;
         }
-
     }
 }

@@ -3,19 +3,23 @@ using fi.tamk.hellgame.states;
 using System.Collections.Generic;
 using fi.tamk.hellgame.utils.Stairs.Utils;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
 {
     public class HeroController : MonoBehaviour
     {
-        public BulletEmitter[] Emitters;
-        [SerializeField] private DeathEffector _deathEffect;
-        [SerializeField] private DeathEffector _hitFlinchEffect;
+        [SerializeField] private UnityEvent _deathEffect;
+        [SerializeField] private UnityEvent _hitFlinchEffect;
 
         public GameObject HeroObject { get { return gameObject; } }
+
         [HideInInspector] public CharacterStats HeroStats;
         [HideInInspector] public CharacterController CharacterController;
-        private Stack<IInputState> _inputState = new Stack<IInputState>();
+
+        protected BulletEmitter[] Emitters;
+
+        private readonly Stack<IInputState> _inputState = new Stack<IInputState>();
         private IInputState _currentState
         {
             get
@@ -104,7 +108,7 @@ namespace fi.tamk.hellgame.character
 
             if (_deathEffect != null)
             {
-                _deathEffect.Activate();
+                _deathEffect.Invoke();
             }
             gameObject.SetActive(false);
             Destroy(gameObject);         
@@ -114,7 +118,7 @@ namespace fi.tamk.hellgame.character
         {
             if (_hitFlinchEffect != null)
             {
-                _hitFlinchEffect.Activate();
+                _hitFlinchEffect.Invoke();
             }
         }
     }   
