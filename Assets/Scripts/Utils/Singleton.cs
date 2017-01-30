@@ -18,6 +18,10 @@ namespace fi.tamk.hellgame.utils
         /// </summary>
         private static object _lock = new object();
 
+        public static bool Quitting
+        {
+            get { return _quitting; }
+        }
         private static bool _quitting = false;
 
         /// <summary>
@@ -43,9 +47,7 @@ namespace fi.tamk.hellgame.utils
                     }
                     else
                     {
-                        throw (new System.Exception(
-                            string.Format("Singleton instance broke. {0} is contained as _instance",
-                                _instance.GetType().ToString())));
+                        
                     }
 
                     return _instance;
@@ -61,7 +63,14 @@ namespace fi.tamk.hellgame.utils
         protected virtual void Awake()
         {
             if (_instance != null) Destroy(gameObject);
-            if (_instance ?? (_instance = GetComponent<T>()) == null) Destroy(gameObject);
+            if (_instance ?? (_instance = GetComponent<T>()) == null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                DontDestroyOnLoad(gameObject);
+            }
         }
     }
 }

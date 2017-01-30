@@ -6,50 +6,50 @@ namespace fi.tamk.hellgame.effects
 {
     public class ScreenShaker : Singleton<ScreenShaker>
     {
-        private Transform camTransform;
+        public AnimationCurve ShakeEasing;
 
-        private float shakeAmount = 0;
-        private float shakeLenght = 0;
-        private float lerpTimer = 0;
-        private float currentShakeAmount = 0;
-        public AnimationCurve shakeEasing;
+        private Transform _camTransform;
+        private float _shakeAmount = 0;
+        private float _shakeLenght = 0;
+        private float _lerpTimer = 0;
+        private float _currentShakeAmount = 0;
 
         Vector3 originalPos;
 
-        void Start()
+        protected void Start()
         {
-            if (camTransform == null)
+            if (_camTransform == null)
             {
-                camTransform = GetComponent<Transform>();
+                _camTransform = Camera.main.transform;
             }
         }
 
         public void Shake(float shakeAmount, float shakeLenght)
         {
 
-            if (this.shakeAmount > 0)
+            if (_shakeAmount > 0)
             {
-                this.shakeAmount = currentShakeAmount + shakeAmount;
-                this.shakeLenght = Mathf.Max(shakeLenght, this.shakeLenght - lerpTimer * this.shakeLenght);
-                lerpTimer = 0;
+                _shakeAmount = _currentShakeAmount + shakeAmount;
+                _shakeLenght = Mathf.Max(shakeLenght, _shakeLenght - _lerpTimer * _shakeLenght);
+                _lerpTimer = 0;
             }
             else
             {
-                originalPos = camTransform.localPosition;
-                this.shakeAmount = shakeAmount;
-                this.shakeLenght = shakeLenght;
+                originalPos = _camTransform.localPosition;
+                _shakeAmount = shakeAmount;
+                _shakeLenght = shakeLenght;
                 StartCoroutine(ShakeRoutine());
             }
         }
 
         private IEnumerator ShakeRoutine()
         {
-            while (lerpTimer <= 1)
+            while (_lerpTimer <= 1)
             {
-                camTransform.localPosition = originalPos + Random.insideUnitSphere.normalized * currentShakeAmount * Time.deltaTime;
+                _camTransform.localPosition = originalPos + Random.insideUnitSphere.normalized * _currentShakeAmount * Time.deltaTime;
 
-                lerpTimer += Time.deltaTime / shakeLenght;
-                currentShakeAmount = Mathf.Lerp(shakeAmount, 0, shakeEasing.Evaluate(lerpTimer));
+                _lerpTimer += Time.deltaTime / _shakeLenght;
+                _currentShakeAmount = Mathf.Lerp(_shakeAmount, 0, ShakeEasing.Evaluate(_lerpTimer));
                 yield return null;
             }
 
@@ -58,12 +58,12 @@ namespace fi.tamk.hellgame.effects
             yield return null;
         }
 
-        void StopShaking()
+        protected void StopShaking()
         {
-            lerpTimer = 0f;
-            shakeAmount = 0;
-            shakeLenght = 0;
-            camTransform.localPosition = originalPos;
+            _lerpTimer = 0f;
+            _shakeAmount = 0;
+            _shakeLenght = 0;
+            _camTransform.localPosition = originalPos;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.states;
+using fi.tamk.hellgame.utils;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.character
@@ -9,10 +10,15 @@ namespace fi.tamk.hellgame.character
     [RequireComponent(typeof(HeroController))]
     class StateInitializer : MonoBehaviour
     {
-        public InputStates InitialState;
+        [SerializeField] protected InputStates InitialState;
+        [SerializeField] protected bool RegisterAsPlayer;
+        [SerializeField] protected float CameraWeight = 0f;
 
         protected void Awake()
         {
+            if (RegisterAsPlayer) ServiceLocator.Instance.RegisterPlayer(transform);
+            if (CameraWeight > 0f) ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(transform, CameraWeight));
+
             var hc = GetComponent<HeroController>();
             IInputState tmp = null;
             switch (InitialState)
@@ -40,6 +46,12 @@ namespace fi.tamk.hellgame.character
                     throw new ArgumentOutOfRangeException();
             }
             hc.InitializeStateMachine(tmp);
+        }
+
+        protected virtual void OnDestroy()
+        {
+            if (!ServiceLocator.Quitting) ServiceLocator.Instance.UnregisterPlayer(transform);
+            if (!ServiceLocator.Quitting) ServiceLocator.Instance.MainCameraScript.RemoveInterest(transform);
         }
     }
 }
