@@ -96,8 +96,10 @@ namespace fi.tamk.hellgame.character
         public void InitializeStateMachine(IInputState initialState)
         {
             if (_inputState.Count == 0) _inputState.Push(initialState);
+            _currentState.OnEnterState();
         }
 
+        // These to superbase : InteractableObects
         public void TakeDamage(int howMuch)
         {
             if (_currentState != null) _currentState.TakeDamage(howMuch);
@@ -121,5 +123,6 @@ namespace fi.tamk.hellgame.character
                 _hitFlinchEffect.Invoke();
             }
         }
+        //->> superbase
     }   
 }

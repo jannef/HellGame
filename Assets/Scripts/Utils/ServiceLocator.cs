@@ -29,6 +29,7 @@ namespace fi.tamk.hellgame.utils
 
         public Transform GetNearestPlayer(Vector3 requerPosition)
         {
+            if (Quitting) return null;
             return _players.Count < 1 ? null : _players.OrderBy(t => (t.position - requerPosition).magnitude).First();
         }
     }

@@ -34,6 +34,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.Dashing:
                     tmp = new StateDashing(hc, Vector3.forward);
                     break;
+                case InputStates.HomingEnemy:
+                    tmp = new HomingEnemyState(hc);
+                    break;
                 case InputStates.Invulnerable:
                     tmp = new StateInvulnerable(hc);
                     break;

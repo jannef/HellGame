@@ -10,7 +10,8 @@ namespace fi.tamk.hellgame.interfaces
         Dashing     = 2,
         Dead        = 3,
         EnemyTurret = 4,
-        Invulnerable = 5
+        Invulnerable = 5,
+        HomingEnemy = 6
     }
 
     public enum TransitionType

@@ -58,6 +58,7 @@ namespace fi.tamk.hellgame.utils
         private void OnApplicationQuit()
         {
             _quitting = true;
+            _instance = null;
         }
 
         protected virtual void Awake()
