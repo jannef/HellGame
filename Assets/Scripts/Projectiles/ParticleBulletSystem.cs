@@ -22,7 +22,11 @@ namespace fi.tamk.hellgame.projectiles
 
             var hc = Pool.Instance.GetHero(other.gameObject);
             if (hc == null) return;
-            hc.TakeDamage(Damage);
+
+            foreach (var e in CollisionEvents)
+            {
+                hc.TakeDamage(Damage);
+            }
         }
 
         protected void Awake()
