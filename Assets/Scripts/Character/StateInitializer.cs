@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace fi.tamk.hellgame.character
 {
-    [RequireComponent(typeof(HeroController))]
+    [RequireComponent(typeof(ActorComponent))]
     class StateInitializer : MonoBehaviour
     {
         [SerializeField] protected InputStates InitialState;
@@ -19,7 +19,7 @@ namespace fi.tamk.hellgame.character
             if (RegisterAsPlayer) ServiceLocator.Instance.RegisterPlayer(transform);
             if (CameraWeight > 0f) ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(transform, CameraWeight));
 
-            var hc = GetComponent<HeroController>();
+            var hc = GetComponent<ActorComponent>();
             IInputState tmp = null;
             switch (InitialState)
             {

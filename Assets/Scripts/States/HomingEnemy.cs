@@ -24,7 +24,7 @@ namespace fi.tamk.hellgame.states
 
         public override void OnEnterState()
         {
-            _targetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledCharacter.transform.position);
+            _targetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
         }
 
         public override void HandleInput(float deltaTime)
@@ -35,21 +35,21 @@ namespace fi.tamk.hellgame.states
             {
                 // TODO: Rotating speed is now determined by dashingSpeed
                 _ownTransform.forward = Vector3.RotateTowards(_ownTransform.forward, _targetTransform.position - _ownTransform.position,
-                    HeroStats.DashSpeed * Time.deltaTime, 0.0f);
-                HeroAvatar.Move(_ownTransform.forward * HeroStats.Speed * Time.deltaTime);
+                    ControllerHealth.DashSpeed * Time.deltaTime, 0.0f);
+                HeroAvatar.Move(_ownTransform.forward * ControllerHealth.Speed * Time.deltaTime);
             }
 
             _retrytimer += deltaTime;
             if (_retrytimer > RetryTimeout)
             {
                 _retrytimer = 0f;
-                _targetTransform = _targetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledCharacter.transform.position);
+                _targetTransform = _targetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
             }
         }
 
-        public HomingEnemyState(HeroController controlledHero) : base(controlledHero)
+        public HomingEnemyState(ActorComponent controlledHero) : base(controlledHero)
         {
-            _ownTransform = ControlledCharacter.transform;
+            _ownTransform = ControlledActor.transform;
         }
     }
 }

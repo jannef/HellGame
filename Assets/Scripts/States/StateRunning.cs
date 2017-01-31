@@ -42,38 +42,32 @@ namespace fi.tamk.hellgame.states
 
             var rawMousePosition = MouseLookUp.Instance.GetMousePosition();
             HeroAvatar.transform.LookAt(new Vector3(rawMousePosition.x, HeroAvatar.transform.position.y, rawMousePosition.z));
-            HeroAvatar.Move(movementDirection * HeroStats.Speed * deltaTime);
+            HeroAvatar.Move(movementDirection * ControllerHealth.Speed * deltaTime);
 
             if (Input.GetButtonDown("Jump"))
             {
-                ControlledCharacter.GoToState(new StateDashing(ControlledCharacter, movementDirection.normalized));
+                ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized));
             }
             else if (Input.GetButton("Fire2"))
             {
-                ControlledCharacter.FireGunByIndex(1);
+                ControlledActor.FireGunByIndex(1);
             }
             if (Input.GetButton("Fire1"))
             {
-                ControlledCharacter.FireGunByIndex(0);
+                ControlledActor.FireGunByIndex(0);
             }
         }
 
-        public override void TakeDamage(int howMuch)
+        public override bool TakeDamage(int howMuch)
         {
-            HeroStats.Health -= howMuch;
-            if (HeroStats.Health <= 0)
-            {
-                ControlledCharacter.Die();
-            } else
-            {
-                ControlledCharacter.GoToState(new StateInvulnerable(ControlledCharacter));
-                ControlledCharacter.FlinchFromHit();
-            }
-
-            
+            var status = base.TakeDamage(howMuch);
+            if (!status) return false;
+            ControlledActor.GoToState(new StateInvulnerable(ControlledActor));
+            ControllerHealth.FlinchFromHit();
+            return true;
         }
 
-        public StateRunning(HeroController hero) : base(hero)
+        public StateRunning(ActorComponent hero) : base(hero)
         {
 
         }

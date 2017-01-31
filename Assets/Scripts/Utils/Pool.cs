@@ -1,4 +1,5 @@
-﻿using fi.tamk.hellgame.character;
+﻿using System.Collections;
+using fi.tamk.hellgame.character;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,9 +16,9 @@ namespace fi.tamk.hellgame.utils
         /// </summary>
         public sealed class Pool : Singleton<Pool>
         {
-            public Dictionary<GameObject, HeroController> GameObjectToHero = new Dictionary<GameObject, HeroController>();
+            public Dictionary<GameObject, ActorComponent> GameObjectToHero = new Dictionary<GameObject, ActorComponent>();
 
-            public HeroController GetHero(GameObject go)
+            public ActorComponent GetHero(GameObject go)
             {
                 return !GameObjectToHero.ContainsKey(go) ? null : GameObjectToHero[go];
             }
@@ -160,6 +161,18 @@ namespace fi.tamk.hellgame.utils
             private void Initialization()
             {
                 
+            }
+
+            public static void DelayedDestroyGo(GameObject whichToDestroy)
+            {
+                Instance.StartCoroutine(Instance.DelayedDestroyCoroutine(whichToDestroy));
+            }
+
+            private IEnumerator DelayedDestroyCoroutine(GameObject toDestroy, float delay = 1f)
+            {
+                toDestroy.SetActive(false);
+                yield return new WaitForSecondsRealtime(delay);
+                Destroy(toDestroy);
             }
         }
     }

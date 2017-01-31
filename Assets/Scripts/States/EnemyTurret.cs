@@ -11,14 +11,14 @@ namespace fi.tamk.hellgame.states
 {
     public class EnemyTurret : StateAbstract
     {
-        public EnemyTurret(HeroController controlledHero) : base(controlledHero)
+        public EnemyTurret(ActorComponent controlledHero) : base(controlledHero)
         {
         }
 
         public override void HandleInput(float deltaTime)
         {
-            ControlledCharacter.FireGuns();
-            HeroAvatar.transform.Rotate(Vector3.up, HeroStats.Speed * Time.deltaTime);
+            ControlledActor.FireGuns();
+            HeroAvatar.transform.Rotate(Vector3.up, ControllerHealth.Speed * Time.deltaTime);
         }
 
         public override InputStates StateID
@@ -26,14 +26,14 @@ namespace fi.tamk.hellgame.states
             get { return InputStates.EnemyTurret; }
         }
 
-        public override void TakeDamage(int howMuch)
+        public override bool TakeDamage(int howMuch)
         {
-            base.TakeDamage(howMuch);
-            
-            if (HeroStats.Health > 0)
+            var status = base.TakeDamage(howMuch);
+            if (status)
             {
-                ControlledCharacter.FlinchFromHit();
+                ControllerHealth.FlinchFromHit();
             }
+            return status;
         }
     }
 }

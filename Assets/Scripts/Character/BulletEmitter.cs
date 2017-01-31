@@ -36,14 +36,6 @@ namespace fi.tamk.hellgame.character
                 trajectory = Quaternion.Euler(0, Random.Range(-Dispersion / 2, Dispersion / 2), 0) * trajectory;
             }
             BulletSystem.EmitBullet(BulletOrigin.position, trajectory);
-
-//            if (whichBulletIndex >= BulletPrefabs.Length) return;
-//            trajectory = Quaternion.Euler(0, Random.Range(0f, Dispersion), 0) * trajectory;
-//
-//            var go = Pool.Instance.GetObject(BulletPrefabs[whichBulletIndex]);
-//            go.transform.position = shotgunMode ? BulletOrigin.position : transform.position + trajectory;
-//            go.transform.LookAt(go.transform.position + trajectory);
-//            go.SetLayer(FireAtWhichLayer);
         }
 
         protected void FireBullets(Vector3 tra)
@@ -74,11 +66,17 @@ namespace fi.tamk.hellgame.character
 
         public virtual void Fire()
         {
-            if (_timer > Cooldown)
-            {
-                FireBullets(GunVector);
-                _timer = 0f;
-            }
+            if (!(_timer > Cooldown)) return;
+            FireBullets(GunVector);
+            _timer = 0f;
+        }
+
+        public void DetachBulletEmitter()
+        {
+            BulletSystem.gameObject.transform.SetParent(null);
+
+            Debug.Log(BulletSystem.gameObject.name);
+            BulletSystem.gameObject.AddComponent<ParticleSystemCleaner>();
         }
     }
 }

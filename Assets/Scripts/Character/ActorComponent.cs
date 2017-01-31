@@ -7,14 +7,11 @@ using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
 {
-    public class HeroController : MonoBehaviour
+    public class ActorComponent : MonoBehaviour
     {
-        [SerializeField] private UnityEvent _deathEffect;
-        [SerializeField] private UnityEvent _hitFlinchEffect;
-
         public GameObject HeroObject { get { return gameObject; } }
 
-        [HideInInspector] public CharacterStats HeroStats;
+        [HideInInspector] public HealthComponent HeroStats;
         [HideInInspector] public CharacterController CharacterController;
 
         protected BulletEmitter[] Emitters;
@@ -86,7 +83,7 @@ namespace fi.tamk.hellgame.character
 
         private void Awake()
         {
-            HeroStats = gameObject.GetOrAddComponent<CharacterStats>();
+            HeroStats = gameObject.GetOrAddComponent<HealthComponent>();
             CharacterController = gameObject.GetOrAddComponent<CharacterController>();
             Emitters = GetComponents<BulletEmitter>();
 
@@ -99,30 +96,9 @@ namespace fi.tamk.hellgame.character
             _currentState.OnEnterState();
         }
 
-        // These to superbase : InteractableObects
         public void TakeDamage(int howMuch)
         {
             if (_currentState != null) _currentState.TakeDamage(howMuch);
         }
-
-        public virtual void Die()
-        {
-
-            if (_deathEffect != null)
-            {
-                _deathEffect.Invoke();
-            }
-            gameObject.SetActive(false);
-            Destroy(gameObject);         
-        }
-
-        public virtual void FlinchFromHit()
-        {
-            if (_hitFlinchEffect != null)
-            {
-                _hitFlinchEffect.Invoke();
-            }
-        }
-        //->> superbase
     }   
 }

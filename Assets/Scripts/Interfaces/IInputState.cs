@@ -25,13 +25,13 @@ namespace fi.tamk.hellgame.interfaces
     {
         InputStates StateID { get; }
         float StateTimer { get; }
-        HeroController ControlledCharacter { get; }
+        ActorComponent ControlledActor { get; }
 
         void OnEnterState();
         void OnResumeState();
         void OnExitState();
         void OnSuspendState();
-        void TakeDamage(int howMuch);
+        bool TakeDamage(int howMuch);
         void HandleInput(float deltaTime);
 
         TransitionType CheckTransitionLegality(InputStates toWhichState);

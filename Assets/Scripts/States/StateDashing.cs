@@ -20,7 +20,7 @@ namespace fi.tamk.hellgame.states
             }
         }
 
-        private Vector3 dashingDirection;
+        private Vector3 _dashingDirection;
 
         public override TransitionType CheckTransitionLegality(InputStates toWhichState)
         {
@@ -40,37 +40,37 @@ namespace fi.tamk.hellgame.states
         {
             _stateTime += deltaTime;
 
-            if (_stateTime > HeroStats.DashDuration)
+            if (_stateTime > ControllerHealth.DashDuration)
             {
                 // For last frame of the dash, move remaining dash distance and change state back to previous.
-                var overTime = (_stateTime - HeroStats.DashDuration) / HeroStats.DashDuration;
-                HeroAvatar.Move(dashingDirection * deltaTime * HeroStats.DashSpeed * overTime);
+                var overTime = (_stateTime - ControllerHealth.DashDuration) / ControllerHealth.DashDuration;
+                HeroAvatar.Move(_dashingDirection * deltaTime * ControllerHealth.DashSpeed * overTime);
 
-                ControlledCharacter.ToPreviousState();
+                ControlledActor.ToPreviousState();
                 return;
             }
-            HeroAvatar.Move(dashingDirection * deltaTime * HeroStats.DashSpeed);
+            HeroAvatar.Move(_dashingDirection * deltaTime * ControllerHealth.DashSpeed);
         }
 
-        public StateDashing(HeroController controlledHero, Vector3 dashingDirection) : base(controlledHero)
+        public StateDashing(ActorComponent controlledHero, Vector3 dashingDirection) : base(controlledHero)
         {
-            this.dashingDirection = dashingDirection;
+            this._dashingDirection = dashingDirection;
         }
 
-        public override void TakeDamage(int howMuch)
+        public override bool TakeDamage(int howMuch)
         {
-            
+            return true;
         }
 
         public override void OnEnterState()
         {
-            OriginalLayer = ControlledCharacter.gameObject.layer;
-            ControlledCharacter.gameObject.SetLayer(Constants.PlayerDashingLayer);
+            OriginalLayer = ControlledActor.gameObject.layer;
+            ControlledActor.gameObject.SetLayer(Constants.PlayerDashingLayer);
         }
 
         public override void OnExitState()
         {
-            ControlledCharacter.gameObject.SetLayer(OriginalLayer);
+            ControlledActor.gameObject.SetLayer(OriginalLayer);
         }
     }
 }

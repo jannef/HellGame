@@ -39,9 +39,9 @@ namespace fi.tamk.hellgame.states
             
             RunningMovement(deltaTime);
 
-            if (_stateTime > HeroStats.InvulnerabilityLenght)
+            if (_stateTime > ControllerHealth.InvulnerabilityLenght)
             {
-                ControlledCharacter.ToPreviousState();
+                ControlledActor.ToPreviousState();
             } else
             {
                 InvulnerabilitylBlink();
@@ -50,7 +50,7 @@ namespace fi.tamk.hellgame.states
 
         private void InvulnerabilitylBlink()
         {
-            var t = _stateTime / HeroStats.InvulnerabilityLenght;
+            var t = _stateTime / ControllerHealth.InvulnerabilityLenght;
             if (!(_stateTime >= _timeUntilNextBlink)) return;
 
             _timeUntilNextBlink = _stateTime + Mathf.Lerp(0.3f, 0.03f, t);
@@ -64,15 +64,15 @@ namespace fi.tamk.hellgame.states
         }
 
 
-        public StateInvulnerable(HeroController hero) : base(hero)
+        public StateInvulnerable(ActorComponent hero) : base(hero)
         {
             _playerRenderer = hero.gameObject.GetComponent<Renderer>();
         }
 
 
-        public override void TakeDamage(int howMuch)
+        public override bool TakeDamage(int howMuch)
         {
-
+            return true;
         }
     }
 }

@@ -9,19 +9,19 @@ namespace fi.tamk.hellgame.states
 {
     public abstract class StateAbstract : IInputState
     {
-        public virtual HeroController ControlledCharacter { get; private set; }
+        public virtual ActorComponent ControlledActor { get; private set; }
 
         public CharacterController HeroAvatar
         {
-            get { return _heroAvatar ?? (_heroAvatar = ControlledCharacter.CharacterController); }
+            get { return _heroAvatar ?? (_heroAvatar = ControlledActor.CharacterController); }
         }
         private CharacterController _heroAvatar;
 
-        public CharacterStats HeroStats
+        public HealthComponent ControllerHealth
         {
-            get { return _heroStats ?? (_heroStats = ControlledCharacter.HeroStats); }
+            get { return _heroStats ?? (_heroStats = ControlledActor.HeroStats); }
         }
-        private CharacterStats _heroStats;
+        private HealthComponent _heroStats;
 
         protected float _stateTime;
 
@@ -61,16 +61,18 @@ namespace fi.tamk.hellgame.states
         {
         }
 
-        protected StateAbstract(HeroController controlledHero)
+        protected StateAbstract(ActorComponent controlledHero)
         {
             _stateTime = 0f;
-            ControlledCharacter = controlledHero;
+            ControlledActor = controlledHero;
         }
 
-        public virtual void TakeDamage(int howMuch)
+        public virtual bool TakeDamage(int howMuch)
         {
-            HeroStats.Health -= howMuch;
-            if (HeroStats.Health <= 0) ControlledCharacter.Die();
+            ControllerHealth.Health -= howMuch;
+            if (ControllerHealth.Health > 0) return true;
+            ControllerHealth.Die();
+            return false;
         }
     }
 }

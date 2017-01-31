@@ -28,7 +28,7 @@ public class StatePaused : StateAbstract
         }
     }
 
-    public StatePaused(HeroController controlledHero) : base(controlledHero)
+    public StatePaused(ActorComponent controlledHero) : base(controlledHero)
     {
 
     }
