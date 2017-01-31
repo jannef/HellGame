@@ -10,7 +10,7 @@ namespace fi.tamk.hellgame.states
 {
     class StateFalling : StateAbstract
     {
-        private const float fallingDeathLenght = 5f;
+        private const float FallingDeathLenght = 5f;
 
         public StateFalling(ActorComponent controlledHero) : base(controlledHero)
         {
@@ -42,7 +42,7 @@ namespace fi.tamk.hellgame.states
         
         protected override void CheckForFalling()
         {
-            if (_stateTime >= fallingDeathLenght)
+            if (_stateTime >= FallingDeathLenght)
             {
                 ControllerHealth.Die();
             }

@@ -11,20 +11,24 @@ namespace fi.tamk.hellgame.states
 {
     class AirDeploymentState : StateAbstract
     {
-        private InputStates _startingStateID;
+        private IInputState _startingState;
         private float _fallingDuration = 3f;
         private AnimationCurve _animationCurve;
         private Vector3 _landingPosition;
+        private Vector3 _startingPosition;
+        private bool _isDeploying = true;
 
 
-        public AirDeploymentState(ActorComponent controlledHero, InputStates startingStateID, float fallingDuration, 
-            AnimationCurve fallingCurve, Vector3 fallingDirection) : base(controlledHero)
+        public AirDeploymentState(ActorComponent controlledHero, IInputState startingState, Vector3 startingPosition, 
+            float fallingDuration, AnimationCurve fallingCurve, Vector3 landingCoordinates)
+            : base(controlledHero)
         {
-            _startingStateID = startingStateID;
+            _startingState = startingState;
             _fallingDuration = fallingDuration;
             _animationCurve = fallingCurve;
+            _startingPosition = startingPosition;
 
-            var ray = new Ray(ControlledActor.transform.position, fallingDirection);
+            var ray = new Ray(landingCoordinates + Vector3.up * 1000f, Vector3.down);
             RaycastHit hit;
 
             Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity,
@@ -39,14 +43,42 @@ namespace fi.tamk.hellgame.states
             get { return InputStates.AirDeploymentState; }
         }
 
+        public override TransitionType CheckTransitionLegality(InputStates toWhichState)
+        {
+            switch (toWhichState)
+            {
+                case InputStates.Paused:
+                    return TransitionType.LegalTwoway;
+                default:
+                    return TransitionType.LegalOneway;
+            }
+        }
+
         protected override void CheckForFalling()
         {
             
         }
 
+        public override void OnExitState()
+        {
+            base.OnExitState();
+            if (_isDeploying) ControlledActor.transform.position = _landingPosition;
+        }
+
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
+
+            var newPosition = Vector3.Lerp(_startingPosition, _landingPosition,
+                _animationCurve.Evaluate(_stateTime / _fallingDuration));
+
+            ControlledActor.transform.position = newPosition;
+
+            if (_stateTime >= _fallingDuration)
+            {
+                _isDeploying = true;
+                ControlledActor.GoToState(_startingState);
+            }
         }
     }
 }

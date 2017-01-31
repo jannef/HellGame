@@ -8,7 +8,7 @@ using UnityEngine;
 namespace fi.tamk.hellgame.character
 {
     [RequireComponent(typeof(ActorComponent))]
-    class StateInitializer : MonoBehaviour
+    public class StateInitializer : MonoBehaviour
     {
         [SerializeField] protected InputStates InitialState;
         [SerializeField] protected bool RegisterAsPlayer;
@@ -18,37 +18,52 @@ namespace fi.tamk.hellgame.character
         {
             if (RegisterAsPlayer) ServiceLocator.Instance.RegisterPlayer(transform);
             if (CameraWeight > 0f) ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(transform, CameraWeight));
+            InitializeState();
+        }
 
+        protected virtual void InitializeState()
+        {
             var hc = GetComponent<ActorComponent>();
-            IInputState tmp = null;
-            switch (InitialState)
+            IInputState tmp;
+            StateFromStateId(InitialState, out tmp, hc);
+
+            hc.InitializeStateMachine(tmp);
+        }
+
+        public static void StateFromStateId(InputStates stateID, out IInputState outPutState, ActorComponent hc)
+        {
+            switch (stateID)
             {
                 case InputStates.Running:
-                    tmp = new StateRunning(hc);
+                    outPutState = new StateRunning(hc);
                     break;
                 case InputStates.Error:
+                    outPutState = null;
                     break;
                 case InputStates.Paused:
-                    tmp = new StatePaused(hc);
+                    outPutState = new StatePaused(hc);
                     break;
                 case InputStates.Dashing:
-                    tmp = new StateDashing(hc, Vector3.forward);
+                    outPutState = new StateDashing(hc, Vector3.forward);
                     break;
                 case InputStates.HomingEnemy:
-                    tmp = new HomingEnemyState(hc);
+                    outPutState = new HomingEnemyState(hc);
                     break;
                 case InputStates.Invulnerable:
-                    tmp = new StateInvulnerable(hc);
+                    outPutState = new StateInvulnerable(hc);
                     break;
                 case InputStates.Dead:
+                    outPutState = null;
                     break;
                 case InputStates.EnemyTurret:
-                    tmp = new EnemyTurret(hc);
+                    outPutState = new EnemyTurret(hc);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    outPutState = null;
+                    throw new Exception("StateInitializer.StateFromStateId : " +
+                                        "fi.tamk.hellgame.character: Enumerated value is out of range." +
+                                        "Use fi.tamk.hellgame.interfaces enumeration type!");
             }
-            hc.InitializeStateMachine(tmp);
         }
 
         protected virtual void OnDestroy()
