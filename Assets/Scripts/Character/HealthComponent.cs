@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
 {
-    [RequireComponent(typeof(ActorComponent))]
     public class HealthComponent : MonoBehaviour
     {
         public float Speed = 1;
@@ -22,11 +21,12 @@ namespace fi.tamk.hellgame.character
         protected void Awake()
         {
             _actorComponent = GetComponent<ActorComponent>();
+            Pool.Instance.GameObjectToHealth.Add(gameObject, this);
         }
 
         public void TakeDamage(int howMuch)
         {
-            _actorComponent.TakeDamage(howMuch);
+            if (_actorComponent != null) _actorComponent.TakeDamage(howMuch);
         }
 
         public virtual void Die()

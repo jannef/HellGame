@@ -20,7 +20,7 @@ namespace fi.tamk.hellgame.states
 
 
         public AirDeploymentState(ActorComponent controlledHero, IInputState startingState, Vector3 startingPosition, 
-            float fallingDuration, AnimationCurve fallingCurve, Vector3 landingCoordinates)
+            float fallingDuration, AnimationCurve fallingCurve, Vector3 landingCoordinates, Vector3 modelGroundPointLocalPos)
             : base(controlledHero)
         {
             _startingState = startingState;
@@ -32,9 +32,9 @@ namespace fi.tamk.hellgame.states
             RaycastHit hit;
 
             Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity,
-                LayerMask.GetMask(new string[] {Constants.GroundRaycastLayerName, Constants.ObstacleLayerName}));
+                LayerMask.GetMask(new string[] {Constants.GroundRaycastLayerName}));
 
-            _landingPosition = hit.point;
+            _landingPosition = hit.point + -modelGroundPointLocalPos;
 
         }
 

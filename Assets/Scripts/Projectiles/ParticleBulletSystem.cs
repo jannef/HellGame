@@ -20,7 +20,7 @@ namespace fi.tamk.hellgame.projectiles
         {
             BulletSystem.GetCollisionEvents(other, CollisionEvents);
 
-            var hc = Pool.Instance.GetHero(other.gameObject);
+            var hc = Pool.Instance.GetHealthComponent(other.gameObject);
             if (hc == null) return;
 
             foreach (var e in CollisionEvents)

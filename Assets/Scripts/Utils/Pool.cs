@@ -16,11 +16,11 @@ namespace fi.tamk.hellgame.utils
         /// </summary>
         public sealed class Pool : Singleton<Pool>
         {
-            public Dictionary<GameObject, ActorComponent> GameObjectToHero = new Dictionary<GameObject, ActorComponent>();
+            public Dictionary<GameObject, HealthComponent> GameObjectToHealth = new Dictionary<GameObject, HealthComponent>();
 
-            public ActorComponent GetHero(GameObject go)
+            public HealthComponent GetHealthComponent(GameObject go)
             {
-                return !GameObjectToHero.ContainsKey(go) ? null : GameObjectToHero[go];
+                return !GameObjectToHealth.ContainsKey(go) ? null : GameObjectToHealth[go];
             }
 
             /// <summary>

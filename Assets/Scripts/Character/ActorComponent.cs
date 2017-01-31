@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
 {
+    [RequireComponent(typeof(HealthComponent))]
     public class ActorComponent : MonoBehaviour
     {
         public GameObject HeroObject { get { return gameObject; } }
@@ -86,8 +87,6 @@ namespace fi.tamk.hellgame.character
             HeroStats = gameObject.GetOrAddComponent<HealthComponent>();
             CharacterController = gameObject.GetOrAddComponent<CharacterController>();
             Emitters = GetComponents<BulletEmitter>();
-
-            Pool.Instance.GameObjectToHero.Add(gameObject, this);
         }
 
         public void InitializeStateMachine(IInputState initialState)
