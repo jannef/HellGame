@@ -19,12 +19,10 @@ public class StatePaused : StateAbstract
     {
         switch (toWhichState)
         {
-            case InputStates.Dashing:
             case InputStates.Paused:
-            case InputStates.Dead:
-                return TransitionType.LegalTwoway;
-            default:
                 return TransitionType.Illegal;
+            default:
+                return TransitionType.LegalTwoway;
         }
     }
 

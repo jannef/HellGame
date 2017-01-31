@@ -17,6 +17,7 @@ namespace fi.tamk.hellgame.states
 
         public override void HandleInput(float deltaTime)
         {
+            base.HandleInput(deltaTime);
             ControlledActor.FireGuns();
             HeroAvatar.transform.Rotate(Vector3.up, ControllerHealth.Speed * Time.deltaTime);
         }

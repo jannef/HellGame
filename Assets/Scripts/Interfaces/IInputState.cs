@@ -11,7 +11,9 @@ namespace fi.tamk.hellgame.interfaces
         Dead        = 3,
         EnemyTurret = 4,
         Invulnerable = 5,
-        HomingEnemy = 6
+        HomingEnemy = 6,
+        Falling = 7,
+        AirDeploymentState = 8
     }
 
     public enum TransitionType

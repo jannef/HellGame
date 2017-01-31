@@ -22,20 +22,20 @@ namespace fi.tamk.hellgame.states
         {
             switch (toWhichState)
             {
-                case InputStates.Dashing:
-                case InputStates.Paused:
-                    return TransitionType.LegalTwoway;
+                case InputStates.Invulnerable:
+                    return TransitionType.Illegal;
                 case InputStates.Dead:
                 case InputStates.Running:
+                case InputStates.Falling:
                     return TransitionType.LegalOneway;
                 default:
-                    return TransitionType.Illegal;
+                    return TransitionType.LegalTwoway;
             }
         }
 
         public override void HandleInput(float deltaTime)
         {
-            _stateTime += deltaTime;
+            base.HandleInput(deltaTime);
             
             RunningMovement(deltaTime);
 

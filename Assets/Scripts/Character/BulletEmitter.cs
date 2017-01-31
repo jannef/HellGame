@@ -74,8 +74,6 @@ namespace fi.tamk.hellgame.character
         public void DetachBulletEmitter()
         {
             BulletSystem.gameObject.transform.SetParent(null);
-
-            Debug.Log(BulletSystem.gameObject.name);
             BulletSystem.gameObject.AddComponent<ParticleSystemCleaner>();
         }
     }

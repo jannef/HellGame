@@ -37,7 +37,7 @@ namespace fi.tamk.hellgame.utils
 
         public static int GroundRaycastlayer
         {
-            get { return LayerMask.NameToLayer(ObstacleLayerName); }
+            get { return LayerMask.NameToLayer(GroundRaycastLayerName); }
         }
 
         

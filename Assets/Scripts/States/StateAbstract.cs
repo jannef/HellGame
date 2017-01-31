@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.character;
 using System;
+using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.states
 {
@@ -37,12 +38,14 @@ namespace fi.tamk.hellgame.states
 
         public virtual TransitionType CheckTransitionLegality(InputStates toWhichState)
         {
-            return TransitionType.Illegal;
+            if (toWhichState == StateID) return TransitionType.Illegal;
+            return TransitionType.LegalTwoway;
         }
 
         public virtual void HandleInput(float deltaTime)
         {
             _stateTime += deltaTime;
+            CheckForFalling();
         }
 
         public virtual void OnEnterState()
@@ -59,6 +62,15 @@ namespace fi.tamk.hellgame.states
 
         public virtual void OnSuspendState()
         {
+        }
+
+        protected virtual void CheckForFalling()
+        {
+            var ray = new Ray(ControlledActor.transform.position + Vector3.up, Vector3.down);
+            if (!Physics.Raycast(ray, 10f, LayerMask.GetMask(Constants.GroundRaycastLayerName)))
+            {
+                ControlledActor.GoToState(new StateFalling(ControlledActor));
+            }
         }
 
         protected StateAbstract(ActorComponent controlledHero)
