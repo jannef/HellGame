@@ -1,18 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using fi.tamk.hellgame.utils.Stairs.Utils;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
+using UnityEngine.Assertions.Comparers;
 
 namespace fi.tamk.hellgame.character
 {
+    public delegate bool TakeDamageDelegate(int howMuch, ref int health, ref bool flinch);
+
     public class HealthComponent : MonoBehaviour
     {
-        public float Speed = 1;
-        public float DashSpeed = 10;
-        public float DashDuration = 0.75f;
         public int Health = 1;
+        public int Armour = 0;
         public float InvulnerabilityLenght = 0;
+
+        public float InvulnerabilityTimeLeft = 0f;
+
+        protected TakeDamageDelegate DamageDelegate
+        {
+            get
+            {
+                return _actorComponent.TakeDamage;
+            }
+        }
 
         [SerializeField] private UnityEvent _deathEffect;
         [SerializeField] private UnityEvent _hitFlinchEffect;
@@ -26,7 +39,20 @@ namespace fi.tamk.hellgame.character
 
         public void TakeDamage(int howMuch)
         {
-            if (_actorComponent != null) _actorComponent.TakeDamage(howMuch);
+            if (InvulnerabilityTimeLeft > 0) return;
+
+            var hp = Health;
+            bool flinch = false;
+            howMuch = Math.Max(howMuch - Armour, 0);
+            if (DamageDelegate == null) return;
+            if (!DamageDelegate(howMuch, ref Health, ref flinch))
+            {
+                Die();
+                return;
+            }
+
+            if (flinch) FlinchFromHit();
+            if (hp > Health) InvulnerabilityTimeLeft = InvulnerabilityLenght;
         }
 
         public virtual void Die()
@@ -52,6 +78,11 @@ namespace fi.tamk.hellgame.character
             {
                 _hitFlinchEffect.Invoke();
             }
+        }
+
+        protected void Update()
+        {
+            InvulnerabilityTimeLeft -= Time.deltaTime;
         }
     }
 }

@@ -38,6 +38,7 @@ namespace fi.tamk.hellgame.world
             _cameraHolderTransform.position = _playerTransform.position + _offset;
         }
 
+        [ExecuteInEditMode]
         protected void LateUpdate()
         {
             if (_cameraInterestsRaw.Count > 0) _cameraHolderTransform.position = Vector3.SmoothDamp(transform.position, _cameraPosition + _offset, ref velocity, smoothTime);

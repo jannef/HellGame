@@ -33,8 +33,7 @@ namespace fi.tamk.hellgame.states
 
             Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity,
                 LayerMask.GetMask(new string[] {Constants.GroundRaycastLayerName}));
-
-            _landingPosition = hit.point + -modelGroundPointLocalPos;
+            _landingPosition = hit.point - controlledHero.transform.localScale.y * modelGroundPointLocalPos;
 
         }
 

@@ -21,6 +21,7 @@ namespace fi.tamk.hellgame.character
             InitializeState();
         }
 
+
         protected virtual void InitializeState()
         {
             var hc = GetComponent<ActorComponent>();
@@ -48,9 +49,6 @@ namespace fi.tamk.hellgame.character
                     break;
                 case InputStates.HomingEnemy:
                     outPutState = new HomingEnemyState(hc);
-                    break;
-                case InputStates.Invulnerable:
-                    outPutState = new StateInvulnerable(hc);
                     break;
                 case InputStates.Dead:
                     outPutState = null;

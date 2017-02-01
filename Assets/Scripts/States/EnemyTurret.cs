@@ -19,22 +19,12 @@ namespace fi.tamk.hellgame.states
         {
             base.HandleInput(deltaTime);
             ControlledActor.FireGuns();
-            HeroAvatar.transform.Rotate(Vector3.up, ControllerHealth.Speed * Time.deltaTime);
+            HeroAvatar.transform.Rotate(Vector3.up, ControlledActor.Speed * Time.deltaTime);
         }
 
         public override InputStates StateID
         {
             get { return InputStates.EnemyTurret; }
-        }
-
-        public override bool TakeDamage(int howMuch)
-        {
-            var status = base.TakeDamage(howMuch);
-            if (status)
-            {
-                ControllerHealth.FlinchFromHit();
-            }
-            return status;
         }
     }
 }

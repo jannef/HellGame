@@ -40,6 +40,6 @@ namespace fi.tamk.hellgame.utils
             get { return LayerMask.NameToLayer(GroundRaycastLayerName); }
         }
 
-        
+        public const float FallingDeathLenght = 5f;
     }
 }

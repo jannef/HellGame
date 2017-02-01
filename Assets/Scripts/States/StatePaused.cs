@@ -28,6 +28,6 @@ public class StatePaused : StateAbstract
 
     public StatePaused(ActorComponent controlledHero) : base(controlledHero)
     {
-
+        DamageMultiplier = 0f;
     }
 }

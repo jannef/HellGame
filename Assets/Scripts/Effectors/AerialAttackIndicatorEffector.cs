@@ -40,7 +40,6 @@ namespace fi.tamk.hellgame.effectors
             Effect.transform.position = AirDropInitializer.transform.position;
             EffectGameObject.transform.forward = AirDropInitializer.LandingCoordinates.position - transform.position;
             _time += Time.deltaTime / Effect.LifeTime;
-            Debug.Log(Mathf.Lerp(_projectionMinsize, _projectionMaxSize, AirDropInitializer.FallingCurve.Evaluate(_time)));
             _landindProjector.orthographicSize = Mathf.Lerp(_projectionMinsize, _projectionMaxSize, AirDropInitializer.FallingCurve.Evaluate(_time));
         }
     }

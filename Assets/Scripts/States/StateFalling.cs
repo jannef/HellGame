@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.interfaces;
+using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.utils.Stairs.Utils;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.states
 {
     class StateFalling : StateAbstract
     {
-        private const float FallingDeathLenght = 5f;
 
         public StateFalling(ActorComponent controlledHero) : base(controlledHero)
         {
+            DamageMultiplier = 1f;
         }
 
         public override TransitionType CheckTransitionLegality(InputStates toWhichState)
@@ -29,6 +31,10 @@ namespace fi.tamk.hellgame.states
             }
         }
 
+        protected override void CheckForFalling()
+        {
+        }
+
         public override InputStates StateID
         {
             get { return InputStates.Falling; }
@@ -38,13 +44,10 @@ namespace fi.tamk.hellgame.states
         {
             base.HandleInput(deltaTime);
             HeroAvatar.Move(Vector3.down * 10f * deltaTime);
-        }
-        
-        protected override void CheckForFalling()
-        {
-            if (_stateTime >= FallingDeathLenght)
+
+            if (_stateTime > Constants.FallingDeathLenght)
             {
-                ControllerHealth.Die();
+                Pool.Instance.GetHealthComponent(ControlledActor.gameObject).TakeDamage(1000);
             }
         }
     }

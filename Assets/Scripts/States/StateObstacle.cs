@@ -26,16 +26,6 @@ namespace fi.tamk.hellgame.states
         {
         }
 
-        public override bool TakeDamage(int howMuch)
-        {
-            var status = base.TakeDamage(howMuch);
-            if (status)
-            {
-                ControllerHealth.FlinchFromHit();
-            }
-            return status;
-        }
-
         public override void OnEnterState()
         {
             base.OnEnterState();

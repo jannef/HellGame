@@ -11,18 +11,13 @@ namespace fi.tamk.hellgame.states
     public abstract class StateAbstract : IInputState
     {
         public virtual ActorComponent ControlledActor { get; private set; }
+        protected float DamageMultiplier = 1f;
 
         public CharacterController HeroAvatar
         {
             get { return _heroAvatar ?? (_heroAvatar = ControlledActor.CharacterController); }
         }
         private CharacterController _heroAvatar;
-
-        public HealthComponent ControllerHealth
-        {
-            get { return _heroStats ?? (_heroStats = ControlledActor.HeroStats); }
-        }
-        private HealthComponent _heroStats;
 
         protected float _stateTime;
 
@@ -79,12 +74,12 @@ namespace fi.tamk.hellgame.states
             ControlledActor = controlledHero;
         }
 
-        public virtual bool TakeDamage(int howMuch)
+        public virtual bool TakeDamage(int howMuch, ref int health, ref bool flinch)
         {
-            ControllerHealth.Health -= howMuch;
-            if (ControllerHealth.Health > 0) return true;
-            ControllerHealth.Die();
-            return false;
+            var damage = (int) (howMuch * DamageMultiplier);
+            if (damage > 0) flinch = true;
+            health -= damage;
+            return health > 0;
         }
     }
 }

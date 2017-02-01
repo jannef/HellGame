@@ -10,9 +10,11 @@ namespace fi.tamk.hellgame.character
     [RequireComponent(typeof(HealthComponent))]
     public class ActorComponent : MonoBehaviour
     {
+        public float Speed = 1;
+        public float DashSpeed = 10;
+        public float DashDuration = 0.75f;
         public GameObject HeroObject { get { return gameObject; } }
 
-        [HideInInspector] public HealthComponent HeroStats;
         [HideInInspector] public CharacterController CharacterController;
 
         protected BulletEmitter[] Emitters;
@@ -84,7 +86,6 @@ namespace fi.tamk.hellgame.character
 
         private void Awake()
         {
-            HeroStats = gameObject.GetOrAddComponent<HealthComponent>();
             CharacterController = gameObject.GetOrAddComponent<CharacterController>();
             Emitters = GetComponents<BulletEmitter>();
         }
@@ -95,9 +96,13 @@ namespace fi.tamk.hellgame.character
             _currentState.OnEnterState();
         }
 
-        public void TakeDamage(int howMuch)
+        public TakeDamageDelegate TakeDamage
         {
-            if (_currentState != null) _currentState.TakeDamage(howMuch);
+            get
+            {
+                if (_currentState != null) return _currentState.TakeDamage;
+                return null;
+            } 
         }
     }   
 }

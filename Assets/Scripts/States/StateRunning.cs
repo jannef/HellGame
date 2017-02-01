@@ -41,7 +41,7 @@ namespace fi.tamk.hellgame.states
 
             var rawMousePosition = MouseLookUp.Instance.GetMousePosition();
             HeroAvatar.transform.LookAt(new Vector3(rawMousePosition.x, HeroAvatar.transform.position.y, rawMousePosition.z));
-            HeroAvatar.Move(movementDirection * ControllerHealth.Speed * deltaTime);
+            HeroAvatar.Move(movementDirection * ControlledActor.Speed * deltaTime);
 
             if (Input.GetButtonDown("Jump"))
             {
@@ -55,15 +55,6 @@ namespace fi.tamk.hellgame.states
             {
                 ControlledActor.FireGunByIndex(0);
             }
-        }
-
-        public override bool TakeDamage(int howMuch)
-        {
-            var status = base.TakeDamage(howMuch);
-            if (!status) return false;
-            ControlledActor.GoToState(new StateInvulnerable(ControlledActor));
-            ControllerHealth.FlinchFromHit();
-            return true;
         }
 
         public StateRunning(ActorComponent hero) : base(hero)

@@ -34,7 +34,7 @@ namespace fi.tamk.hellgame.interfaces
         void OnResumeState();
         void OnExitState();
         void OnSuspendState();
-        bool TakeDamage(int howMuch);
+        bool TakeDamage(int howMuch, ref int health, ref bool flinch);
         void HandleInput(float deltaTime);
 
         TransitionType CheckTransitionLegality(InputStates toWhichState);

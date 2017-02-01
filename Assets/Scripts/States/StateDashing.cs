@@ -44,26 +44,22 @@ namespace fi.tamk.hellgame.states
         {
             _stateTime += deltaTime;
 
-            if (_stateTime > ControllerHealth.DashDuration)
+            if (_stateTime > ControlledActor.DashDuration)
             {
                 // For last frame of the dash, move remaining dash distance and change state back to previous.
-                var overTime = (_stateTime - ControllerHealth.DashDuration) / ControllerHealth.DashDuration;
-                HeroAvatar.Move(_dashingDirection * deltaTime * ControllerHealth.DashSpeed * overTime);
+                var overTime = (_stateTime - ControlledActor.DashDuration) / ControlledActor.DashDuration;
+                HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.DashSpeed * overTime);
 
                 ControlledActor.ToPreviousState();
                 return;
             }
-            HeroAvatar.Move(_dashingDirection * deltaTime * ControllerHealth.DashSpeed);
+            HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.DashSpeed);
         }
 
         public StateDashing(ActorComponent controlledHero, Vector3 dashingDirection) : base(controlledHero)
         {
-            this._dashingDirection = dashingDirection;
-        }
-
-        public override bool TakeDamage(int howMuch)
-        {
-            return true;
+            _dashingDirection = dashingDirection;
+            DamageMultiplier = 0f;
         }
 
         public override void OnEnterState()
