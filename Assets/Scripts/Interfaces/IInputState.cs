@@ -4,24 +4,26 @@ namespace fi.tamk.hellgame.interfaces
 {
     public enum InputStates
     {
-        Running     = 0,
-        Error       = -1,
-        Paused      = 1,
-        Dashing     = 2,
-        Dead        = 3,
-        EnemyTurret = 4,
-        Invulnerable = 5,
-        HomingEnemy = 6,
-        Falling = 7,
+        Running          = 0,
+        Error            = -1,
+        Paused           = 1,
+        Dashing          = 2,
+        Dead             = 3,
+        EnemyTurret      = 4,
+        Invulnerable     = 5,
+        HomingEnemy      = 6,
+        Falling          = 7,
         AirDeploymentState = 8,
-        Obstacle = 9
+        Obstacle         = 9,
+        PickUp           = 10,
+        PickUpFollowing  = 11
     }
 
     public enum TransitionType
     {
         Illegal         = 0,
         LegalTwoway     = 1,
-        LegalOneway     = 2,
+        LegalOneway     = 2
     }
 
     public interface IInputState

@@ -1,6 +1,7 @@
 ﻿
 using System;
 using fi.tamk.hellgame.interfaces;
+using fi.tamk.hellgame.projectiles;
 using fi.tamk.hellgame.states;
 using fi.tamk.hellgame.utils;
 using UnityEngine;
@@ -58,6 +59,9 @@ namespace fi.tamk.hellgame.character
                     break;
                 case InputStates.EnemyTurret:
                     outPutState = new EnemyTurret(hc);
+                    break;
+                case InputStates.PickUp:
+                    outPutState = new PickupState(hc);
                     break;
                 default:
                     outPutState = null;
