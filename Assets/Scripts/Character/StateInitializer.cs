@@ -59,6 +59,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.EnemyTurret:
                     outPutState = new EnemyTurret(hc);
                     break;
+                case InputStates.BossRoutine:
+                    outPutState = new StateBossRoutine(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +

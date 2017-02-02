@@ -14,7 +14,8 @@ namespace fi.tamk.hellgame.interfaces
         HomingEnemy = 6,
         Falling = 7,
         AirDeploymentState = 8,
-        Obstacle = 9
+        Obstacle = 9,
+        BossRoutine = 10
     }
 
     public enum TransitionType
