@@ -21,7 +21,7 @@ namespace fi.tamk.hellgame.projectiles
         {
             if (OnPickUp(other))
             {
-                ControlledActor.GoToState(new StatePickUpFollowing(2.2f, other.transform, ControlledActor));
+                ControlledActor.GoToState(new StatePickUpFollowing(.33f, other.transform, ControlledActor));
             }
 
         }
