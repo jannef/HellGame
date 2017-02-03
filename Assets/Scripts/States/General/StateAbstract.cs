@@ -10,7 +10,7 @@ namespace fi.tamk.hellgame.states
 {
     public abstract class StateAbstract : IInputState
     {
-        public virtual ActorComponent ControlledActor { get; private set; }
+        public ActorComponent ControlledActor { get; private set; }
         protected float DamageMultiplier = 1f;
 
         public CharacterController HeroAvatar

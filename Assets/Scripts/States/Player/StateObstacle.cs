@@ -1,10 +1,5 @@
-﻿using fi.tamk.hellgame.states;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using fi.tamk.hellgame.character;
+﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.interfaces;
-using System;
 
 namespace fi.tamk.hellgame.states
 {

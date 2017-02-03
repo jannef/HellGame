@@ -1,13 +1,11 @@
 ﻿using fi.tamk.hellgame.interfaces;
-using fi.tamk.hellgame.states;
 using System.Collections.Generic;
-using fi.tamk.hellgame.utils.Stairs.Utils;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
 {
-    [RequireComponent(typeof(HealthComponent))]
+    public delegate void TriggerEventDelegate(Collider other);
+
     public class ActorComponent : MonoBehaviour
     {
         public float Speed = 1;
@@ -15,8 +13,11 @@ namespace fi.tamk.hellgame.character
         public float DashDuration = 0.75f;
         public GameObject HeroObject { get { return gameObject; } }
 
-        [HideInInspector] public CharacterController CharacterController;
+        public event TriggerEventDelegate OnTriggerEnterActions;
+        public event TriggerEventDelegate OnTriggerStayActions;
+        public event TriggerEventDelegate OnTriggerExitActions;
 
+        [HideInInspector] public CharacterController CharacterController;
         protected BulletEmitter[] Emitters;
 
         private readonly Stack<IInputState> _inputState = new Stack<IInputState>();
@@ -61,6 +62,21 @@ namespace fi.tamk.hellgame.character
             _currentState.OnEnterState();
 
             return true;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (OnTriggerEnterActions != null) OnTriggerEnterActions.Invoke(other);
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (OnTriggerStayActions != null) OnTriggerStayActions.Invoke(other);
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (OnTriggerExitActions != null) OnTriggerExitActions.Invoke(other);
         }
 
         private void Update()
