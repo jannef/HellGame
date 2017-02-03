@@ -6,13 +6,13 @@ using UnityEngine;
 namespace fi.tamk.hellgame.character
 {
     public class IndependentBossGO : MonoBehaviour {
-        private StateBossRoutine _attachedState;
+        private AdversiaryCollection _parentCollection;
 
-        public virtual void AddToState(StateBossRoutine routine)
+        public virtual void AddToState(AdversiaryCollection collection)
         {
-            _attachedState = routine;
-            routine.EnabledEvent += Enable;
-            routine.DisabledEvent += Disable;
+            _parentCollection = collection;
+            collection.EnabledEvent += Enable;
+            collection.DisabledEvent += Disable;
         }
 
         public virtual void Enable(object sender)
@@ -28,8 +28,9 @@ namespace fi.tamk.hellgame.character
 
         void OnDestroy()
         {
-            _attachedState.DisabledEvent -= Disable;
-            _attachedState.EnabledEvent -= Enable;
+            if (_parentCollection == null) return; 
+            _parentCollection.DisabledEvent -= Disable;
+            _parentCollection.EnabledEvent -= Enable;
         }
     }
 }

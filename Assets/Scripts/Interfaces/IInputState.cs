@@ -15,7 +15,7 @@ namespace fi.tamk.hellgame.interfaces
         Falling = 7,
         AirDeploymentState = 8,
         Obstacle = 9,
-        BossRoutine = 10,
+        AimingEnemy = 10,
         PickUp = 11,
         PickUpFollowing = 12,
     }

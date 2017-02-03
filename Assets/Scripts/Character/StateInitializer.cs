@@ -60,11 +60,11 @@ namespace fi.tamk.hellgame.character
                 case InputStates.EnemyTurret:
                     outPutState = new EnemyTurret(hc);
                     break;
+                case InputStates.AimingEnemy:
+                    outPutState = new AimingEnemy(hc);
+                    break;
                 case InputStates.PickUp:
                     outPutState = new PickupState(hc);
-                    break;
-                case InputStates.BossRoutine:
-                    outPutState = new StateBossRoutine(hc);
                     break;
                 default:
                     outPutState = null;
