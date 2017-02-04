@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.character;
+using UnityEngine;
 
 namespace fi.tamk.hellgame.interfaces
 {
@@ -38,6 +39,7 @@ namespace fi.tamk.hellgame.interfaces
         void OnExitState();
         void OnSuspendState();
         bool TakeDamage(int howMuch, ref int health, ref bool flinch);
+        void Teleport(Vector3 targetLocation);
         void HandleInput(float deltaTime);
 
         TransitionType CheckTransitionLegality(InputStates toWhichState);

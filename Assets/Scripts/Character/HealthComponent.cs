@@ -6,10 +6,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 using UnityEngine.Assertions.Comparers;
+using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.character
 {
     public delegate bool TakeDamageDelegate(int howMuch, ref int health, ref bool flinch);
+    public delegate void TeleportDelegate(Vector3 targetPosition);
 
     public class HealthComponent : MonoBehaviour
     {
@@ -18,12 +20,21 @@ namespace fi.tamk.hellgame.character
         public float InvulnerabilityLenght = 0;
 
         public float InvulnerabilityTimeLeft = 0f;
+        public bool TeleportToSafetyAfterDisplacingHit;
 
         protected TakeDamageDelegate DamageDelegate
         {
             get
             {
                 return _actorComponent.TakeDamage;
+            }
+        }
+
+        protected TeleportDelegate TeleportToSafety
+        {
+            get
+            {
+                return _actorComponent.Teleport;
             }
         }
 
@@ -53,6 +64,26 @@ namespace fi.tamk.hellgame.character
 
             if (flinch) FlinchFromHit();
             if (hp > Health) InvulnerabilityTimeLeft = InvulnerabilityLenght;
+        }
+
+        public void TakeDisplacingDamage(int howMuch) {
+            if (TeleportToSafetyAfterDisplacingHit)
+            {
+                TakeDamage(howMuch);
+
+                if (Health > 0)
+                {
+                    if (TeleportToSafety != null)
+                    {
+                        //TODO: Have Respawnpoints check for spawn safety
+                        TeleportToSafety(ServiceLocator.Instance.GetNearestRespawnPoint(transform.position).transform.position);
+                    }
+                }
+            } else
+            {
+                Die();
+            }
+            
         }
 
         public virtual void Die()

@@ -112,6 +112,15 @@ namespace fi.tamk.hellgame.character
             _currentState.OnEnterState();
         }
 
+        public TeleportDelegate Teleport
+        {
+            get
+            {
+                if (_currentState != null) return _currentState.Teleport;
+                return null;
+            }
+        }
+
         public TakeDamageDelegate TakeDamage
         {
             get

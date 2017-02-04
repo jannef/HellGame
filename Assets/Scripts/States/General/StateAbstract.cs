@@ -81,5 +81,11 @@ namespace fi.tamk.hellgame.states
             health -= damage;
             return health > 0;
         }
+
+        public void Teleport(Vector3 targetLocation)
+        {
+            if (HeroAvatar.transform == null) return; 
+            HeroAvatar.transform.position = targetLocation;
+        }
     }
 }

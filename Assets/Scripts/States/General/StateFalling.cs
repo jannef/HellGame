@@ -47,7 +47,7 @@ namespace fi.tamk.hellgame.states
 
             if (_stateTime > Constants.FallingDeathLenght)
             {
-                Pool.Instance.GetHealthComponent(ControlledActor.gameObject).TakeDamage(1000);
+                Pool.Instance.GetHealthComponent(ControlledActor.gameObject).TakeDisplacingDamage(1);
             }
         }
     }
