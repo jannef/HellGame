@@ -142,8 +142,9 @@ namespace fi.tamk.hellgame.utils
             /// <summary>
             /// Calls initialization on start.
             /// </summary>
-            public void Awake()
+            protected override void Awake()
             {
+                base.Awake();
                 Initialization();
             }
 
@@ -165,10 +166,10 @@ namespace fi.tamk.hellgame.utils
 
             public static void DelayedDestroyGo(GameObject whichToDestroy)
             {
-                Instance.StartCoroutine(Instance.DelayedDestroyCoroutine(whichToDestroy));
+                Instance.StartCoroutine(DelayedDestroyCoroutine(whichToDestroy));
             }
 
-            private IEnumerator DelayedDestroyCoroutine(GameObject toDestroy, float delay = 1f)
+            private static IEnumerator DelayedDestroyCoroutine(GameObject toDestroy, float delay = 1f)
             {
                 toDestroy.SetActive(false);
                 yield return new WaitForSecondsRealtime(delay);

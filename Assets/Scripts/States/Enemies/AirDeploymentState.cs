@@ -37,7 +37,7 @@ namespace fi.tamk.hellgame.states
 
         }
 
-        public override InputStates StateID
+        public override InputStates StateId
         {
             get { return InputStates.AirDeploymentState; }
         }
@@ -69,11 +69,11 @@ namespace fi.tamk.hellgame.states
             base.HandleInput(deltaTime);
 
             var newPosition = Vector3.Lerp(_startingPosition, _landingPosition,
-                _animationCurve.Evaluate(_stateTime / _fallingDuration));
+                _animationCurve.Evaluate(StateTime / _fallingDuration));
 
             ControlledActor.transform.position = newPosition;
 
-            if (_stateTime >= _fallingDuration)
+            if (StateTime >= _fallingDuration)
             {
                 _isDeploying = true;
                 ControlledActor.GoToState(_startingState);

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using fi.tamk.hellgame.effectors;
-using fi.tamk.hellgame.interfaces;
+﻿using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.states;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,7 +11,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField] public Transform BottomPointTransform;
         [SerializeField] public AnimationCurve FallingCurve;
         [SerializeField, Range(0.1f, 10f)] public float FallingDuration;
-        public UnityEvent _airDropEffects;
+        public UnityEvent AirDropEffects;
 
         protected override void InitializeState()
         {
@@ -25,7 +22,7 @@ namespace fi.tamk.hellgame.character
             StateFromStateId(InitialState, out state, hc);
             IInputState tmp = new AirDeploymentState(hc, state, transform.position, FallingDuration, 
                  FallingCurve, LandingCoordinates.position, BottomPointTransform.localPosition);
-            _airDropEffects.Invoke();
+            AirDropEffects.Invoke();
 
             hc.InitializeStateMachine(tmp);
         }

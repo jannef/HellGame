@@ -11,10 +11,10 @@ namespace fi.tamk.hellgame.character
 
         public override void Fire()
         {
-            if (_timer > Cooldown)
+            if (Timer > Cooldown)
             {
                 FireBullets(GunVector);
-                _timer = 0f;
+                Timer = 0f;
                 if (_firingEffect != null) _firingEffect.Invoke();
             }
         }

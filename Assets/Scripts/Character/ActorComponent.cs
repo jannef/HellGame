@@ -21,7 +21,7 @@ namespace fi.tamk.hellgame.character
         protected BulletEmitter[] Emitters;
 
         private readonly Stack<IInputState> _inputState = new Stack<IInputState>();
-        private IInputState _currentState
+        private IInputState CurrentState
         {
             get
             {
@@ -33,33 +33,33 @@ namespace fi.tamk.hellgame.character
         {
             if (_inputState.Count < 2) return false;
 
-            _currentState.OnExitState();
+            CurrentState.OnExitState();
             _inputState.Pop();
-            _currentState.OnResumeState();
+            CurrentState.OnResumeState();
             return true;
         }
 
         public bool GoToState(IInputState toWhichState)
         {
-            var transitionType = _currentState.CheckTransitionLegality(toWhichState.StateID);
+            var transitionType = CurrentState.CheckTransitionLegality(toWhichState.StateId);
 
             switch (transitionType)
             {
                 case TransitionType.LegalOneway:
                     if (_inputState.Count < 1) return false;
 
-                    _currentState.OnExitState();
+                    CurrentState.OnExitState();
                     _inputState.Clear();
                     break;
                 case TransitionType.Illegal:
                     throw new System.Exception(string.Format("Illegal transition passed to CharacterController.GoToState: {0}", toWhichState.ToString()));
                 default:
-                    _currentState.OnSuspendState();
+                    CurrentState.OnSuspendState();
                     break;
             }
             
             _inputState.Push(toWhichState);
-            _currentState.OnEnterState();
+            CurrentState.OnEnterState();
 
             return true;
         }
@@ -81,7 +81,7 @@ namespace fi.tamk.hellgame.character
 
         private void Update()
         {
-            if (_currentState != null) _currentState.HandleInput(Time.deltaTime);
+            if (CurrentState != null) CurrentState.HandleInput(Time.deltaTime);
         }
 
         public void FireGuns()
@@ -100,25 +100,30 @@ namespace fi.tamk.hellgame.character
             }
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             CharacterController = gameObject.GetOrAddComponent<CharacterController>();
-            Emitters = GetComponents<BulletEmitter>();
+            Emitters = GetComponentsInChildren<BulletEmitter>();
         }
 
         public void InitializeStateMachine(IInputState initialState)
         {
             if (_inputState.Count == 0) _inputState.Push(initialState);
-            _currentState.OnEnterState();
+            CurrentState.OnEnterState();
         }
 
         public TakeDamageDelegate TakeDamage
         {
             get
             {
-                if (_currentState != null) return _currentState.TakeDamage;
+                if (CurrentState != null) return CurrentState.TakeDamage;
                 return null;
             } 
+        }
+
+        public virtual bool RequestStateChange(InputStates whichState)
+        {
+            return CurrentState != null && CurrentState.RequestStateChange(whichState);
         }
     }   
 }

@@ -35,7 +35,7 @@ namespace fi.tamk.hellgame.states
         {
         }
 
-        public override InputStates StateID
+        public override InputStates StateId
         {
             get { return InputStates.Falling; }
         }
@@ -45,7 +45,7 @@ namespace fi.tamk.hellgame.states
             base.HandleInput(deltaTime);
             HeroAvatar.Move(Vector3.down * 10f * deltaTime);
 
-            if (_stateTime > Constants.FallingDeathLenght)
+            if (StateTime > Constants.FallingDeathLenght)
             {
                 Pool.Instance.GetHealthComponent(ControlledActor.gameObject).TakeDamage(1000);
             }

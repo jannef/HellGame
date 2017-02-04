@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using fi.tamk.hellgame.utils.Stairs.Utils;
-using UnityEditor;
+﻿using fi.tamk.hellgame.utils.Stairs.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
-using UnityEngine.Assertions.Comparers;
 
 namespace fi.tamk.hellgame.character
 {
     public delegate bool TakeDamageDelegate(int howMuch, ref int health, ref bool flinch);
+
+    public delegate void ReportHealthChangeDelegate(float percentage, int currentHp, int maxHp);
 
     public class HealthComponent : MonoBehaviour
     {
@@ -17,23 +15,36 @@ namespace fi.tamk.hellgame.character
         public int Armour = 0;
         public float InvulnerabilityLenght = 0;
 
-        public float InvulnerabilityTimeLeft = 0f;
+        /// <summary>
+        /// If this is set to false, character will take damage, but won't die to it as long as it remains
+        /// false.
+        ///
+        /// Some enemies use this to perform final attack sequences before being removed etc. It's left at
+        /// the resposibility of that class to set this back to true and kill itselff off.
+        /// </summary>
+        public bool AllowDeath = true;
+
+        [HideInInspector] public float InvulnerabilityTimeLeft = 0f;
+
+        public event ReportHealthChangeDelegate HealthChangeEvent;
+        public int MaxHp;
 
         protected TakeDamageDelegate DamageDelegate
         {
             get
             {
-                return _actorComponent.TakeDamage;
+                return ActorComponent.TakeDamage;
             }
         }
 
-        [SerializeField] private UnityEvent _deathEffect;
-        [SerializeField] private UnityEvent _hitFlinchEffect;
-        protected ActorComponent _actorComponent;
+        [SerializeField] public UnityEvent DeathEffect;
+        [SerializeField] public UnityEvent HitFlinchEffect;
+        protected ActorComponent ActorComponent;
 
         protected void Awake()
         {
-            _actorComponent = GetComponent<ActorComponent>();
+            MaxHp = Health;
+            ActorComponent = GetComponent<ActorComponent>();
             Pool.Instance.GameObjectToHealth.Add(gameObject, this);
         }
 
@@ -42,10 +53,13 @@ namespace fi.tamk.hellgame.character
             if (InvulnerabilityTimeLeft > 0) return;
 
             var hp = Health;
-            bool flinch = false;
+            var flinch = false;
             howMuch = Math.Max(howMuch - Armour, 0);
             if (DamageDelegate == null) return;
-            if (!DamageDelegate(howMuch, ref Health, ref flinch))
+
+            // Do not optimize the order of this comparison, it will make the actor immune to
+            // damage as well as not being able to die to it!
+            if (!DamageDelegate(howMuch, ref Health, ref flinch) && AllowDeath)
             {
                 Die();
                 return;
@@ -53,14 +67,18 @@ namespace fi.tamk.hellgame.character
 
             if (flinch) FlinchFromHit();
             if (hp > Health) InvulnerabilityTimeLeft = InvulnerabilityLenght;
+
+            // Report health change to subscribers of this event
+            // such as UI and boss logic etc...
+            if (HealthChangeEvent != null) HealthChangeEvent.Invoke((float)Health/(float)MaxHp, Health, MaxHp);
         }
 
         public virtual void Die()
         {
 
-            if (_deathEffect != null)
+            if (DeathEffect != null)
             {
-                _deathEffect.Invoke();
+                DeathEffect.Invoke();
             }
 
             var be = GetComponentsInChildren<BulletEmitter>();
@@ -74,9 +92,9 @@ namespace fi.tamk.hellgame.character
 
         public virtual void FlinchFromHit()
         {
-            if (_hitFlinchEffect != null)
+            if (HitFlinchEffect != null)
             {
-                _hitFlinchEffect.Invoke();
+                HitFlinchEffect.Invoke();
             }
         }
 

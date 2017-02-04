@@ -24,7 +24,7 @@ namespace fi.tamk.hellgame.effector
             if (_turretExplosionPrefab != null)
             {
                 // TODO: Pool particle effects
-                GameObject go = Instantiate(_turretExplosionPrefab);
+                var go = Instantiate(_turretExplosionPrefab);
                 go.transform.position = transform.position;
             }
         }

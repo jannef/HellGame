@@ -66,6 +66,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.PickUp:
                     outPutState = new PickupState(hc);
                     break;
+                case InputStates.BossOneDefault:
+                    outPutState = new BossOneDefaultState(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +

@@ -12,7 +12,7 @@ namespace fi.tamk.hellgame.projectiles
         {
         }
 
-        public override InputStates StateID
+        public override InputStates StateId
         {
             get { return InputStates.PickUp; }
         }

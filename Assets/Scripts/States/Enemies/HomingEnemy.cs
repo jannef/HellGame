@@ -12,7 +12,7 @@ namespace fi.tamk.hellgame.states
         private float _retrytimer = 0f;
         private const float RetryTimeout = 1f;
 
-        public override InputStates StateID
+        public override InputStates StateId
         {
             get { return InputStates.HomingEnemy; }
         }

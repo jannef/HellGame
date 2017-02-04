@@ -19,7 +19,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField, Range(0f, 360f)] protected float Dispersion;
 
         protected ParticleBulletSystem BulletSystem;
-        protected float _timer;
+        protected float Timer;
 
         protected Vector3 GunVector
         {
@@ -55,26 +55,30 @@ namespace fi.tamk.hellgame.character
         protected void Awake()
         {
             BulletSystem = GetComponentInChildren<ParticleBulletSystem>();
-            _timer = Cooldown + 1f;
+            Timer = Cooldown + 1f;
             if (BulletSystem != null) BulletSystem.SetCollisionLayer(FireAtWhichLayer);
         }
 
         protected void Update()
         {
-            _timer += Time.deltaTime;
+            Timer += Time.deltaTime;
         }
 
         public virtual void Fire()
         {
-            if (!(_timer > Cooldown)) return;
+            if (!(Timer > Cooldown)) return;
             FireBullets(GunVector);
-            _timer = 0f;
+            Timer = 0f;
         }
 
         public void DetachBulletEmitter()
         {
+            // Apparently not replicating the scale will fuck up the particle system when it detaches from its
+            // parent...
+            var scale = BulletSystem.gameObject.transform.parent.localScale;
             BulletSystem.gameObject.transform.SetParent(null);
             BulletSystem.gameObject.AddComponent<ParticleSystemCleaner>();
+            BulletSystem.gameObject.transform.localScale = scale;
         }
     }
 }

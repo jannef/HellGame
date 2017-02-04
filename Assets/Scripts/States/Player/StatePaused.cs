@@ -8,7 +8,7 @@ using fi.tamk.hellgame.states;
 
 public class StatePaused : StateAbstract
 {
-    public override InputStates StateID
+    public override InputStates StateId
     {
         get
         {

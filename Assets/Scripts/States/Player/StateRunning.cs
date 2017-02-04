@@ -10,7 +10,7 @@ namespace fi.tamk.hellgame.states
 {
     public class StateRunning : StateAbstract
     {
-        public override InputStates StateID
+        public override InputStates StateId
         {
             get { return InputStates.Running; }
         }

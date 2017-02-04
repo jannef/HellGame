@@ -9,7 +9,7 @@ namespace fi.tamk.hellgame.states
         {
         }
 
-        public override InputStates StateID
+        public override InputStates StateId
         {
             get
             {
@@ -19,13 +19,6 @@ namespace fi.tamk.hellgame.states
 
         protected override void CheckForFalling()
         {
-        }
-
-        public override void OnEnterState()
-        {
-            base.OnEnterState();
-            HeroAvatar.enabled = false;
-            ControlledActor.enabled = false;
         }
     }
 }

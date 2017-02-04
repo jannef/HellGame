@@ -15,7 +15,7 @@ namespace fi.tamk.hellgame.states
         private float _retryTimer = 0;
         private float RetryTimeout = 0.3f;
 
-        public override InputStates StateID
+        public override InputStates StateId
         {
             get
             {

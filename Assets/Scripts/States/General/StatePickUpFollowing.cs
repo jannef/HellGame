@@ -17,7 +17,7 @@ namespace fi.tamk.hellgame.states
             _target = whatToFollow;
         }
 
-        public override InputStates StateID
+        public override InputStates StateId
         {
             get { return InputStates.PickUpFollowing; }
         }

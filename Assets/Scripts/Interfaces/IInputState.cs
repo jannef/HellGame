@@ -18,6 +18,8 @@ namespace fi.tamk.hellgame.interfaces
         AimingEnemy = 10,
         PickUp = 11,
         PickUpFollowing = 12,
+        BossOneDefault = 13,
+        BossOneFrenzy = 14
     }
 
     public enum TransitionType
@@ -29,7 +31,7 @@ namespace fi.tamk.hellgame.interfaces
 
     public interface IInputState
     {
-        InputStates StateID { get; }
+        InputStates StateId { get; }
         float StateTimer { get; }
         ActorComponent ControlledActor { get; }
 
@@ -39,6 +41,13 @@ namespace fi.tamk.hellgame.interfaces
         void OnSuspendState();
         bool TakeDamage(int howMuch, ref int health, ref bool flinch);
         void HandleInput(float deltaTime);
+
+        /// <summary>
+        /// Requests the state to transition to a given state.
+        /// </summary>
+        /// <param name="requestedState">State into which a transition is requested.</param>
+        /// <returns>True if this request is accepted.</returns>
+        bool RequestStateChange(InputStates requestedState);
 
         TransitionType CheckTransitionLegality(InputStates toWhichState);
         string ToString();

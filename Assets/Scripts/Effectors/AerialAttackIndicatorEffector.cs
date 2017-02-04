@@ -7,11 +7,11 @@ namespace fi.tamk.hellgame.effectors
     [RequireComponent(typeof(AirDropInitializer))]
     public class AerialAttackIndicatorEffector : Effector
     {
-        [SerializeField] protected GameObject _projectorPrefab;
-        [SerializeField] protected float _impactScreenShakeIntensity;
-        [SerializeField] protected float _impactScreenShakeLenght;
-        [SerializeField] protected float _projectionMinsize;
-        [SerializeField] protected float _projectionMaxSize;
+        [SerializeField] protected GameObject ProjectorPrefab;
+        [SerializeField] protected float ImpactScreenShakeIntensity;
+        [SerializeField] protected float ImpactScreenShakeLenght;
+        [SerializeField] protected float ProjectionMinsize;
+        [SerializeField] protected float ProjectionMaxSize;
 
         protected AirDropInitializer AirDropInitializer = null;
 
@@ -23,13 +23,13 @@ namespace fi.tamk.hellgame.effectors
         {
             base.Activate();
             AirDropInitializer = GetComponent<AirDropInitializer>();
-            EffectGameObject = Instantiate(_projectorPrefab, Effect.transform);
+            EffectGameObject = Instantiate(ProjectorPrefab, Effect.transform);
             EffectGameObject.transform.localPosition = Vector3.zero;
             _landindProjector = EffectGameObject.GetComponent<Projector>();
             
 
             Effect.SetOnUpdateCycle(FollowAnother, new float[]{0});
-            Effect.SetOnEnd(ScreenShakeEffect, new float[2] { _impactScreenShakeIntensity, _impactScreenShakeLenght });
+            Effect.SetOnEnd(ScreenShakeEffect, new float[2] { ImpactScreenShakeIntensity, ImpactScreenShakeLenght });
 
             if (AirDropInitializer == null) return;
             Effect.LifeTime = AirDropInitializer.FallingDuration;
@@ -40,7 +40,7 @@ namespace fi.tamk.hellgame.effectors
             Effect.transform.position = AirDropInitializer.transform.position;
             EffectGameObject.transform.forward = AirDropInitializer.LandingCoordinates.position - transform.position;
             _time += Time.deltaTime / Effect.LifeTime;
-            _landindProjector.orthographicSize = Mathf.Lerp(_projectionMinsize, _projectionMaxSize, AirDropInitializer.FallingCurve.Evaluate(_time));
+            _landindProjector.orthographicSize = Mathf.Lerp(ProjectionMinsize, ProjectionMaxSize, AirDropInitializer.FallingCurve.Evaluate(_time));
         }
     }
 }

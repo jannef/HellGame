@@ -1,9 +1,6 @@
 ﻿using fi.tamk.hellgame.interfaces;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.character;
-using System;
 using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.states
@@ -19,27 +16,32 @@ namespace fi.tamk.hellgame.states
         }
         private CharacterController _heroAvatar;
 
-        protected float _stateTime;
+        protected float StateTime;
 
-        public abstract InputStates StateID { get; }
+        public abstract InputStates StateId { get; }
 
         public virtual float StateTimer
         {
             get
             {
-                return _stateTime;
+                return StateTime;
             }
+        }
+
+        public virtual bool RequestStateChange(InputStates requestedState)
+        {
+            return false;
         }
 
         public virtual TransitionType CheckTransitionLegality(InputStates toWhichState)
         {
-            if (toWhichState == StateID) return TransitionType.Illegal;
+            if (toWhichState == StateId) return TransitionType.Illegal;
             return TransitionType.LegalTwoway;
         }
 
         public virtual void HandleInput(float deltaTime)
         {
-            _stateTime += deltaTime;
+            StateTime += deltaTime;
             CheckForFalling();
         }
 
@@ -70,7 +72,7 @@ namespace fi.tamk.hellgame.states
 
         protected StateAbstract(ActorComponent controlledHero)
         {
-            _stateTime = 0f;
+            StateTime = 0f;
             ControlledActor = controlledHero;
         }
 

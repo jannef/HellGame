@@ -22,7 +22,7 @@ namespace fi.tamk.hellgame.states
             HeroAvatar.transform.Rotate(Vector3.up, ControlledActor.Speed * Time.deltaTime);
         }
 
-        public override InputStates StateID
+        public override InputStates StateId
         {
             get { return InputStates.EnemyTurret; }
         }

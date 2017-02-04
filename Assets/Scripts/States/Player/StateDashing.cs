@@ -12,7 +12,7 @@ namespace fi.tamk.hellgame.states
     {
         protected int OriginalLayer;
 
-        public override InputStates StateID
+        public override InputStates StateId
         {
             get
             {
@@ -42,12 +42,12 @@ namespace fi.tamk.hellgame.states
 
         public override void HandleInput(float deltaTime)
         {
-            _stateTime += deltaTime;
+            StateTime += deltaTime;
 
-            if (_stateTime > ControlledActor.DashDuration)
+            if (StateTime > ControlledActor.DashDuration)
             {
                 // For last frame of the dash, move remaining dash distance and change state back to previous.
-                var overTime = (_stateTime - ControlledActor.DashDuration) / ControlledActor.DashDuration;
+                var overTime = (StateTime - ControlledActor.DashDuration) / ControlledActor.DashDuration;
                 HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.DashSpeed * overTime);
 
                 ControlledActor.ToPreviousState();
