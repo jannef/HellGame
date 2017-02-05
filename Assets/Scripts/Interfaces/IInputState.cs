@@ -20,7 +20,8 @@ namespace fi.tamk.hellgame.interfaces
         PickUp = 11,
         PickUpFollowing = 12,
         BossOneDefault = 13,
-        BossOneFrenzy = 14
+        BossOneFrenzy = 14,
+        Flying = 15,
     }
 
     public enum TransitionType

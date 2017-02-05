@@ -25,6 +25,7 @@ namespace fi.tamk.hellgame.states
                 case InputStates.Paused:
                     return TransitionType.LegalTwoway;
                 case InputStates.Dead:
+                case InputStates.Running:
                     return TransitionType.LegalOneway;
                 default:
                     return TransitionType.Illegal;
@@ -40,14 +41,22 @@ namespace fi.tamk.hellgame.states
             get { return InputStates.Falling; }
         }
 
+        public override void Teleport(Vector3 targetLocation)
+        {
+            base.Teleport(targetLocation);
+            ControlledActor.GoToState(new StateRunning(ControlledActor));
+        }
+
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
-            HeroAvatar.Move(Vector3.down * 10f * deltaTime);
+            HeroAvatar.Move(Vector3.down * 25f * deltaTime);
 
             if (StateTime > Constants.FallingDeathLenght)
             {
-                Pool.Instance.GetHealthComponent(ControlledActor.gameObject).TakeDisplacingDamage(1);
+                HealthComponent hc = Pool.Instance.GetHealthComponent(ControlledActor.gameObject);
+                if (hc == null) return;
+                hc.TakeDisplacingDamage(1);
             }
         }
     }
