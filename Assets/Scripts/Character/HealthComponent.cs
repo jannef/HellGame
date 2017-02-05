@@ -2,10 +2,12 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.character
 {
     public delegate bool TakeDamageDelegate(int howMuch, ref int health, ref bool flinch);
+    public delegate void TeleportDelegate(Vector3 targetPosition);
 
     public delegate void ReportHealthChangeDelegate(float percentage, int currentHp, int maxHp);
 
@@ -28,6 +30,7 @@ namespace fi.tamk.hellgame.character
 
         public event ReportHealthChangeDelegate HealthChangeEvent;
         public int MaxHp;
+        public bool TeleportToSafetyAfterDisplacingHit;
 
         protected TakeDamageDelegate DamageDelegate
         {
@@ -40,6 +43,13 @@ namespace fi.tamk.hellgame.character
         [SerializeField] public UnityEvent DeathEffect;
         [SerializeField] public UnityEvent HitFlinchEffect;
         protected ActorComponent ActorComponent;
+        protected TeleportDelegate TeleportToSafety
+        {
+            get
+            {
+                return ActorComponent.Teleport;
+            }
+        }
 
         protected void Awake()
         {
@@ -71,6 +81,26 @@ namespace fi.tamk.hellgame.character
             // Report health change to subscribers of this event
             // such as UI and boss logic etc...
             if (HealthChangeEvent != null) HealthChangeEvent.Invoke((float)Health/(float)MaxHp, Health, MaxHp);
+        }
+
+        public void TakeDisplacingDamage(int howMuch) {
+            if (TeleportToSafetyAfterDisplacingHit)
+            {
+                TakeDamage(howMuch);
+
+                if (Health > 0)
+                {
+                    if (TeleportToSafety != null)
+                    {
+                        //TODO: Have Respawnpoints check for spawn safety
+                        TeleportToSafety(ServiceLocator.Instance.GetNearestRespawnPoint(transform.position).transform.position);
+                    }
+                }
+            } else
+            {
+                Die();
+            }
+            
         }
 
         public virtual void Die()
