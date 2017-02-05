@@ -84,23 +84,12 @@ namespace fi.tamk.hellgame.character
         }
 
         public void TakeDisplacingDamage(int howMuch) {
-            if (TeleportToSafetyAfterDisplacingHit)
+            TakeDamage(howMuch);
+            if (TeleportToSafetyAfterDisplacingHit && Health > 0 && TeleportToSafety != null)
             {
-                TakeDamage(howMuch);
-
-                if (Health > 0)
-                {
-                    if (TeleportToSafety != null)
-                    {
-                        //TODO: Have Respawnpoints check for spawn safety
-                        TeleportToSafety(ServiceLocator.Instance.GetNearestRespawnPoint(transform.position).transform.position);
-                    }
-                }
-            } else
-            {
-                Die();
+                //TODO: Have Respawnpoints check for spawn safety
+                TeleportToSafety(ServiceLocator.Instance.GetNearestRespawnPoint(transform.position).transform.position);
             }
-            
         }
 
         public virtual void Die()
