@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using fi.tamk.hellgame.utils.Stairs.Utils;
+﻿using fi.tamk.hellgame.utils;
 using UnityEngine;
 using UnityEngine.Events;
 

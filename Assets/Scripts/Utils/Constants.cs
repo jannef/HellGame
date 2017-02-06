@@ -33,11 +33,18 @@ namespace fi.tamk.hellgame.utils
         }
 
 
-        public const string GroundRaycastLayerName = "CatchRC";
+        public const string GroundRaycastLayerName = "Ground";
 
         public static int GroundRaycastlayer
         {
             get { return LayerMask.NameToLayer(GroundRaycastLayerName); }
+        }
+
+        public const string WorldPointRaycastLayerName = "CatchRC";
+
+        public static int WorldPointRaycastLayer
+        {
+            get { return LayerMask.NameToLayer(WorldPointRaycastLayerName); }
         }
 
         public const float FallingDeathLenght = 2f;

@@ -1,8 +1,6 @@
 ﻿using fi.tamk.hellgame.effector;
-using fi.tamk.hellgame.character;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.effectors
 {
@@ -13,6 +11,11 @@ namespace fi.tamk.hellgame.effectors
         [SerializeField] protected float ScatterForce;
         [SerializeField] protected GameObject DropPrefab;
         [SerializeField] protected float Height;
+
+        protected virtual void Awake()
+        {
+            Pool.Instance.AddToPool(DropPrefab, 500);
+        }
 
         public override void Activate()
         {
@@ -26,7 +29,10 @@ namespace fi.tamk.hellgame.effectors
             for (int i = 0; i < amountDropped; i++)
             {
                 var vec = Quaternion.Euler(0, degrees * i, 0) * Vector3.forward;
-                var go = Instantiate(DropPrefab, transform.position + vec * Radius + Vector3.up * Height, Quaternion.Euler(0, degrees * i, 0));
+                var go = Pool.Instance.GetObject(DropPrefab);
+                go.transform.position = transform.position + vec * Radius + Vector3.up * Height;
+                go.transform.rotation = Quaternion.Euler(0, degrees * i, 0);
+                //var go = Instantiate(DropPrefab, transform.position + vec * Radius + Vector3.up * Height, Quaternion.Euler(0, degrees * i, 0));
                 go.GetComponent<Rigidbody>().AddExplosionForce(ScatterForce, transform.position, Radius + 1f);
             }            
         }

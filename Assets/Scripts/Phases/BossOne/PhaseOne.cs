@@ -21,7 +21,6 @@ namespace fi.tamk.hellgame.phases.bossone
         {
             if (healthPercentage <= 0.5f)
             {
-                Debug.Log("Boss brought to 50%, proceeding to phase 2!");
                 Master.EnterPhase(new PhaseTwo(Master));
                 Master.RemovePhase(this);
             }

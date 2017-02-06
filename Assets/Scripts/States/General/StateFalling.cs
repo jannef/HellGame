@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using fi.tamk.hellgame.character;
+﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.utils;
-using fi.tamk.hellgame.utils.Stairs.Utils;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.states

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using fi.tamk.hellgame.utils;
+using System.Collections.Generic;
 using System.Reflection;
-using fi.tamk.hellgame.utils.Stairs.Utils;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.projectiles

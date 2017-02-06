@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using fi.tamk.hellgame.utils;
 using UnityEngine;
-using fi.tamk.hellgame.effects;
-using fi.tamk.hellgame.character;
-using System;
-using fi.tamk.hellgame.utils.Stairs.Utils;
 
 namespace fi.tamk.hellgame.effects
 {

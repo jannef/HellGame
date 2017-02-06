@@ -1,6 +1,5 @@
-﻿using System;
-using fi.tamk.hellgame.character;
-using fi.tamk.hellgame.utils.Stairs.Utils;
+﻿using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.utils;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.phases.bossone
@@ -30,7 +29,8 @@ namespace fi.tamk.hellgame.phases.bossone
 
         public override void OnExitPhase()
         {
-            Pool.DelayedDestroyGo(_mySpawner.gameObject);
+            var go = _mySpawner.gameObject;
+            Pool.Instance.ReturnObject(ref go);
         }
 
         public PhaseTwo(BossComponent master) : base(master)

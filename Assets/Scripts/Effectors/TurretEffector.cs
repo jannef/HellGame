@@ -1,7 +1,4 @@
-﻿using fi.tamk.hellgame.character;
-using fi.tamk.hellgame.utils.Stairs.Utils;
-using fi.tamk.hellgame.world;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace fi.tamk.hellgame.effector
 {

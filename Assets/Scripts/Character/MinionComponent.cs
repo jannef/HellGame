@@ -1,7 +1,6 @@
 ﻿using System;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.utils;
-using fi.tamk.hellgame.utils.Stairs.Utils;
 using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
@@ -44,8 +43,8 @@ namespace fi.tamk.hellgame.character
             }
             else
             {
-                // Ghetto way of dying without health component
-                Pool.DelayedDestroyGo(gameObject);
+                var go = gameObject;
+                Pool.Instance.ReturnObject(ref go);
             }
         }
     }

@@ -1,6 +1,5 @@
 ﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.utils;
-using fi.tamk.hellgame.utils.Stairs.Utils;
 using System.Collections;
 using UnityEngine;
 
@@ -46,7 +45,8 @@ namespace fi.tamk.hellgame.physicsobjects
             }
 
             ServiceLocator.Instance.GetPickupGatherer(toWhere).PickItem(PickupType);
-            Pool.DelayedDestroyGo(gameObject);
+            var go = gameObject;
+            Pool.Instance.ReturnObject(ref go);
             yield return null;
         }
     }

@@ -1,5 +1,4 @@
-﻿using fi.tamk.hellgame.utils.Stairs.Utils;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using System;
 using fi.tamk.hellgame.utils;
@@ -106,7 +105,8 @@ namespace fi.tamk.hellgame.character
                 b.DetachBulletEmitter(b.transform.localScale);
             }
 
-            Pool.DelayedDestroyGo(gameObject);
+            var go = gameObject;
+            Pool.Instance.ReturnObject(ref go, true);
         }
 
         public virtual void FlinchFromHit()

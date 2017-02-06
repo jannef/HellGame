@@ -12,7 +12,7 @@ namespace tamk.fi.hellgame.character
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit, LayerMask.GetMask(new []{"CatchRC"})))
+            if (Physics.Raycast(ray, out hit, LayerMask.GetMask(new []{Constants.WorldPointRaycastLayerName})))
             {
                 return hit.point;
             }

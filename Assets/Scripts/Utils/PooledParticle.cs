@@ -1,6 +1,4 @@
-﻿using fi.tamk.hellgame.utils.Stairs.Utils;
-using System.Collections;
-using System.Collections.Generic;
+﻿using fi.tamk.hellgame.utils;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.WORK_IN_PROGRESS

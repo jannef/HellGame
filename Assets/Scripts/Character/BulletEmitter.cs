@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using fi.tamk.hellgame.projectiles;
 using fi.tamk.hellgame.utils;
-using fi.tamk.hellgame.utils.Stairs.Utils;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.character
