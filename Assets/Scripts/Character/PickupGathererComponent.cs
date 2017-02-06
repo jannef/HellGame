@@ -12,11 +12,25 @@ namespace fi.tamk.hellgame.character
     {
         protected ActorComponent Actor;
         protected HealthComponent Health;        
-        protected BulletEmitter[] BulletEmitters; // TODO: will change to upgradeable weapon when it is implemented
+        protected UpgradeableBulletEmitter[] BulletEmitters; // TODO: will change to upgradeable weapon when it is implemented
+
+        void Start()
+        {
+            BulletEmitters = GetComponents<UpgradeableBulletEmitter>();
+        }
 
         public virtual void PickItem(PickupType item)
         {
-            // Do shit;
+            switch (item) {
+                case PickupType.Basic:
+                    foreach(UpgradeableBulletEmitter emitter in BulletEmitters)
+                    {
+                        emitter.AddUpgradepoints(1);
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

@@ -55,5 +55,11 @@ namespace fi.tamk.hellgame.projectiles
             var value = instance.GetValue(BulletSystem.collision);
             methdod.Invoke(value, new object[] {value, (int)maskToSet});
         }
+
+        public void AddToDamageAndSpeed(float addedDamage, float addedSpeed)
+        {
+            Damage += (int) addedDamage;
+            Speed += addedSpeed;
+        }
     }
 }
