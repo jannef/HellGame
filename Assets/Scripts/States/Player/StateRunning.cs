@@ -20,12 +20,11 @@ namespace fi.tamk.hellgame.states
             switch (toWhichState)
             {
                 case InputStates.Dead:
-                case InputStates.Falling:
                     return TransitionType.LegalOneway;
-                default:
-                    return TransitionType.LegalTwoway;
                 case InputStates.Running:
                     return TransitionType.Illegal;
+                default:
+                    return TransitionType.LegalTwoway;
             }
         }
 

@@ -44,7 +44,7 @@ namespace fi.tamk.hellgame.states
         public override void Teleport(Vector3 targetLocation)
         {
             base.Teleport(targetLocation);
-            ControlledActor.GoToState(new StateRunning(ControlledActor));
+            while (ControlledActor.ToPreviousState());
         }
 
         public override void HandleInput(float deltaTime)

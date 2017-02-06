@@ -25,13 +25,7 @@ namespace fi.tamk.hellgame.effectors
 
             for (int i = 0; i < amountDropped; i++)
             {
-                GameObject go = Instantiate(_dropPrefab, Effect.transform.position, Quaternion.identity);
-                var initializer = go.GetComponent<EntryMovementInitializer>();
-                if (initializer == null) return;
-                initializer.Initialize(originalRotation);
-
-                originalRotation = Quaternion.Euler(0, turnDegrees, 0) * originalRotation;
-                Debug.Log(originalRotation);
+                // TODO: blow out the sun
             }
 
         }

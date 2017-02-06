@@ -63,9 +63,6 @@ namespace fi.tamk.hellgame.character
                 case InputStates.AimingEnemy:
                     outPutState = new AimingEnemy(hc);
                     break;
-                case InputStates.PickUp:
-                    outPutState = new PickupState(hc);
-                    break;
                 case InputStates.BossOneDefault:
                     outPutState = new BossOneDefaultState(hc);
                     break;
