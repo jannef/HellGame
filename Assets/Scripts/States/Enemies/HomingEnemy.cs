@@ -12,6 +12,9 @@ namespace fi.tamk.hellgame.states
         private float _retrytimer = 0f;
         private const float RetryTimeout = 1f;
 
+        private HomingEnemyStats _homingStats;
+        private float currentSpeed;
+
         public override InputStates StateId
         {
             get { return InputStates.HomingEnemy; }
@@ -20,6 +23,7 @@ namespace fi.tamk.hellgame.states
         public override void OnEnterState()
         {
             _targetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
+            currentSpeed = 0;
         }
 
         public override void HandleInput(float deltaTime)
@@ -28,10 +32,23 @@ namespace fi.tamk.hellgame.states
 
             if (_targetTransform != null)
             {
-                // TODO: Rotating speed is now determined by dashingSpeed
+                float angleToTarget = Vector3.Angle(_ownTransform.forward, _targetTransform.position - _ownTransform.position);
+
+                if (angleToTarget <= _homingStats.AccelerationAngle)
+                {
+                   currentSpeed = Mathf.Clamp(currentSpeed + (_homingStats.AccelerationPerSecond * Time.deltaTime), 0, ControlledActor.Speed);
+                } else
+                {
+                    // TODO: Rotating speed is now determined by dashingSpeed
+                    currentSpeed = Mathf.Clamp(currentSpeed - (_homingStats.DecelerationPerSecond * Time.deltaTime), 0, ControlledActor.Speed);
+                }
+
                 _ownTransform.forward = Vector3.RotateTowards(_ownTransform.forward, _targetTransform.position - _ownTransform.position,
-                    ControlledActor.DashSpeed * Time.deltaTime, 0.0f);
-                HeroAvatar.Move(_ownTransform.forward * ControlledActor.Speed * Time.deltaTime);
+                   Mathf.Lerp(_homingStats.MaxTurningSpeed, _homingStats.MinimumTurningSpeed,
+                   _homingStats.TurningSpeedEasing.Evaluate(1 - (ControlledActor.Speed - currentSpeed) / ControlledActor.Speed))
+                   * Time.deltaTime, 0.0f);
+
+                HeroAvatar.Move(_ownTransform.forward * currentSpeed * Time.deltaTime);
             }
 
             _retrytimer += deltaTime;
@@ -45,6 +62,8 @@ namespace fi.tamk.hellgame.states
         public HomingEnemyState(ActorComponent controlledHero) : base(controlledHero)
         {
             _ownTransform = ControlledActor.transform;
+            // TODO: Decide what is the best way to add state specific data to actors
+            _homingStats = controlledHero.gameObject.GetOrAddComponent<HomingEnemyStats>();
         }
     }
 }
