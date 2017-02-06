@@ -103,7 +103,7 @@ namespace fi.tamk.hellgame.character
             var be = GetComponentsInChildren<BulletEmitter>();
             foreach (var b in be)
             {
-                b.DetachBulletEmitter();
+                b.DetachBulletEmitter(b.transform.localScale);
             }
 
             Pool.DelayedDestroyGo(gameObject);

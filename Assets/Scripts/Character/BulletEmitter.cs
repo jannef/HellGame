@@ -71,14 +71,13 @@ namespace fi.tamk.hellgame.character
             Timer = 0f;
         }
 
-        public void DetachBulletEmitter()
+        public void DetachBulletEmitter(Vector3 localScale)
         {
             // Apparently not replicating the scale will fuck up the particle system when it detaches from its
             // parent...
-            var scale = BulletSystem.gameObject.transform.parent.localScale;
             BulletSystem.gameObject.transform.SetParent(null);
             BulletSystem.gameObject.AddComponent<ParticleSystemCleaner>();
-            BulletSystem.gameObject.transform.localScale = scale;
+            BulletSystem.gameObject.transform.localScale = localScale;
         }
     }
 }

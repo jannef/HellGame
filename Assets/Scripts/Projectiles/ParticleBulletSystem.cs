@@ -40,6 +40,8 @@ namespace fi.tamk.hellgame.projectiles
             var emissionParams = new ParticleSystem.EmitParams();
             emissionParams.position = from;
             emissionParams.velocity = velocity.normalized * Speed;
+            var angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
+            emissionParams.rotation = angle;
 
             BulletSystem.Emit(emissionParams, 1);
         }
