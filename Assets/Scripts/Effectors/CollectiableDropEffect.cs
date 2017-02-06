@@ -8,9 +8,11 @@ namespace fi.tamk.hellgame.effectors
 {
     public class CollectiableDropEffect : Effector
     {
-        [SerializeField] float amountDropped;
-        [SerializeField] float upwardsDegree;
-        [SerializeField] GameObject _dropPrefab;
+        [SerializeField] protected int amountDropped;
+        [SerializeField] protected float Radius;
+        [SerializeField] protected float ScatterForce;
+        [SerializeField] protected GameObject DropPrefab;
+        [SerializeField] protected float Height;
 
         public override void Activate()
         {
@@ -20,16 +22,13 @@ namespace fi.tamk.hellgame.effectors
 
         void LaunchCollectiables(float[] args)
         {
-            float turnDegrees = 360f / amountDropped;
-            Vector3 originalRotation = new Vector3(1, upwardsDegree / 90, 1);
-
+            var degrees = 360 / amountDropped; 
             for (int i = 0; i < amountDropped; i++)
             {
-                // TODO: blow out the sun
-            }
-
+                var vec = Quaternion.Euler(0, degrees * i, 0) * Vector3.forward;
+                var go = Instantiate(DropPrefab, transform.position + vec * Radius + Vector3.up * Height, Quaternion.Euler(0, degrees * i, 0));
+                go.GetComponent<Rigidbody>().AddExplosionForce(ScatterForce, transform.position, Radius + 1f);
+            }            
         }
-
-
     }
 }

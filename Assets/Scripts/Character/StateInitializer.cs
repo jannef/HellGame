@@ -17,7 +17,7 @@ namespace fi.tamk.hellgame.character
 
         protected void Awake()
         {
-            if (RegisterAsPlayer) ServiceLocator.Instance.RegisterPlayer(transform);
+            if (RegisterAsPlayer) ServiceLocator.Instance.RegisterPlayer(gameObject);
             if (CameraWeight > 0f) ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(transform, CameraWeight));
             InitializeState();
         }
@@ -76,7 +76,7 @@ namespace fi.tamk.hellgame.character
 
         protected virtual void OnDestroy()
         {
-            if (!ServiceLocator.Quitting) ServiceLocator.Instance.UnregisterPlayer(transform);
+            if (!ServiceLocator.Quitting) ServiceLocator.Instance.UnregisterPlayer(gameObject);
             if (!ServiceLocator.Quitting) ServiceLocator.Instance.MainCameraScript.RemoveInterest(transform);
         }
     }

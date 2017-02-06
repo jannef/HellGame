@@ -11,7 +11,6 @@ namespace fi.tamk.hellgame.phases.bossone
             base.OnUpdate(deltaTime);
             if (PhaseTime > 8f)
             {
-                Debug.Log("Boss' energy is exhausted and it perishes");
                 Master.TrackedHealth.Die();
             }
         }

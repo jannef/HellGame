@@ -12,8 +12,8 @@ namespace fi.tamk.hellgame.phases.bossone
         {
             if (healthPercentage <= 0)
             {
-                Debug.Log("Boss is about to die! Survive it's desperate final attack in phase 3!");
                 Master.EnterPhase(new PhaseThree(Master));
+                Master.RemovePhase(this);
             }
         }
 
@@ -23,7 +23,6 @@ namespace fi.tamk.hellgame.phases.bossone
 
             if (PhaseTime > 32f)
             {
-                Debug.Log("Boss summons reinforcements!");
                 _mySpawner.SpawnObjects();
                 PhaseTime = 0f;
             }

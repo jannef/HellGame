@@ -1,4 +1,6 @@
-﻿using fi.tamk.hellgame.utils.Stairs.Utils;
+﻿using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.utils.Stairs.Utils;
 using System.Collections;
 using UnityEngine;
 
@@ -13,6 +15,7 @@ namespace fi.tamk.hellgame.physicsobjects
         [SerializeField] protected float EasingTime;
         [SerializeField] protected float Speed;
         [SerializeField] protected LayerMask PickupLayer;
+        [SerializeField] protected PickupType PickupType;
         protected Rigidbody Rigidbody;
 
         protected void Awake()
@@ -42,7 +45,7 @@ namespace fi.tamk.hellgame.physicsobjects
                 yield return null;                    
             }
 
-            // TODO: Call to pickup gatherer thing
+            ServiceLocator.Instance.GetPickupGatherer(toWhere).PickItem(PickupType);
             Pool.DelayedDestroyGo(gameObject);
             yield return null;
         }

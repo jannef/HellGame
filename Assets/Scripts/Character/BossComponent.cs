@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using fi.tamk.hellgame.interfaces;
 using UnityEngine;
+using System.Linq;
 
 namespace fi.tamk.hellgame.character
 {
@@ -13,7 +14,7 @@ namespace fi.tamk.hellgame.character
         public GameObject[] PrefabsUsedByBoss;
 
         protected List<MinionComponent> ControlledMinions;
-        protected IBossPhase CurrentPhase;
+        protected List<IBossPhase> CurrentPhase = new List<IBossPhase>();
 
         public void AddMinion(params MinionComponent[] minionsToAdd)
         {
@@ -27,26 +28,37 @@ namespace fi.tamk.hellgame.character
         protected virtual void OnMinionDeath(MinionComponent whichMinion)
         {
             // count dead minions, gather rage or something
-            if(CurrentPhase != null) CurrentPhase.OnMinionDeath(whichMinion);
+            if (CurrentPhase == null || CurrentPhase.Count == 0) return;
+            CurrentPhase.ForEach(x => x.OnMinionDeath(whichMinion));
         }
 
         protected virtual void Update()
         {
             EncounterTimer += Time.deltaTime;
-            if(CurrentPhase != null) CurrentPhase.OnUpdate(Time.deltaTime);
+            if (CurrentPhase == null || CurrentPhase.Count == 0) return;
+            CurrentPhase.ForEach(x => x.OnUpdate(Time.deltaTime));
         }
 
         protected virtual void OnBossHealthChange(float percentage, int hitpoints, int maxHp)
         {
-            if (CurrentPhase != null) CurrentPhase.OnBossHealthChange(percentage, hitpoints, maxHp);
+            if (CurrentPhase == null || CurrentPhase.Count == 0) return;
+            CurrentPhase.ForEach(x => x.OnBossHealthChange(percentage, hitpoints, maxHp));
         }
 
         public virtual void EnterPhase(IBossPhase toWhichPhase)
         {
-            if (toWhichPhase == null) return;
-            if (CurrentPhase != null) CurrentPhase.OnExitPhase();
-            CurrentPhase = toWhichPhase;
-            CurrentPhase.OnEnterPhase();
+            if (toWhichPhase == null || CurrentPhase.Count(x => x == toWhichPhase) > 0) return;
+            CurrentPhase.Add(toWhichPhase);
+        }
+
+        public virtual void RemovePhase(IBossPhase whichPhase)
+        {
+            CurrentPhase.RemoveAll(x => x == whichPhase);
+        }
+
+        public virtual void EndAllPhases(IBossPhase soleSurvivor = null)
+        {
+            CurrentPhase.RemoveAll(x => x != soleSurvivor);
         }
 
         /// <summary>

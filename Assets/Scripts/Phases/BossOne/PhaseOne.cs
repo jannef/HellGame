@@ -14,7 +14,6 @@ namespace fi.tamk.hellgame.phases.bossone
             {
                 Master.TrackedHealth.Health = Master.TrackedHealth.MaxHp;
                 PhaseTime = 0f;
-                Debug.Log("Boss regenerates it's wounds! (Reduce it to 50% within 10s)");
             }
         }
 
@@ -24,6 +23,7 @@ namespace fi.tamk.hellgame.phases.bossone
             {
                 Debug.Log("Boss brought to 50%, proceeding to phase 2!");
                 Master.EnterPhase(new PhaseTwo(Master));
+                Master.RemovePhase(this);
             }
         }
 
