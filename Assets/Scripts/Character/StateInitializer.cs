@@ -66,6 +66,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.BossOneDefault:
                     outPutState = new BossOneDefaultState(hc);
                     break;
+                case InputStates.BlobSecond:
+                    outPutState = new BlobSecondFiringPhase(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +

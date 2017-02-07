@@ -8,6 +8,8 @@ using UnityEngine;
 namespace fi.tamk.hellgame.states
 {
     public class BlobSecondFiringPhase : AimingEnemy {
+        private float singleBeatLength = 1.6f;
+        private int tempo = 0;
 
         public BlobSecondFiringPhase(ActorComponent hc) : base(hc)
         {
@@ -21,8 +23,20 @@ namespace fi.tamk.hellgame.states
             }
         }
 
+        public override bool RequestStateChange(InputStates requestedState)
+        {
+            if (requestedState == InputStates.Paused)
+            {
+                ControlledActor.GoToState(new StatePaused(ControlledActor));
+                return true;
+            }
+
+            return false;
+        }
+
         public override void HandleInput(float deltaTime)
         {
+            StateTime += Time.deltaTime;
 
             if (_targetTransform != null)
             {
@@ -30,7 +44,31 @@ namespace fi.tamk.hellgame.states
                 ControlledActor.transform.forward = Vector3.RotateTowards(ControlledActor.transform.forward,
                     _targetTransform.position - ControlledActor.transform.position,
                     ControlledActor.DashSpeed * Time.deltaTime, 0.0f);
-                ControlledActor.FireGuns();
+
+                switch (tempo)
+                {
+                    case 3:
+                        break;
+                    case 4:
+                        ControlledActor.FireGunByIndex(1);
+                        break;
+                    default:
+                        ControlledActor.FireGunByIndex(0);
+                        break;
+                }
+
+                if (StateTime >= singleBeatLength)
+                {
+                    StateTime = 0;
+                    if (tempo < 5)
+                    {
+                        tempo++;
+                    } else
+                    {
+                        tempo = 0;
+                    }
+                    
+                }
             }
 
             _retryTimer += deltaTime;
