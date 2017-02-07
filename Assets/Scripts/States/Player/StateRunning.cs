@@ -38,8 +38,18 @@ namespace fi.tamk.hellgame.states
         {
             var movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-            var rawMousePosition = MouseLookUp.Instance.GetMousePosition();
-            HeroAvatar.transform.LookAt(new Vector3(rawMousePosition.x, HeroAvatar.transform.position.y, rawMousePosition.z));
+            var controllerLookInput = new Vector3(Input.GetAxis("HorizontalRight"), 0, Input.GetAxis("VerticalRight"));
+
+            if (controllerLookInput.magnitude < 0.01)
+            {
+                var rawMousePosition = MouseLookUp.Instance.GetMousePosition();
+                HeroAvatar.transform.LookAt(new Vector3(rawMousePosition.x, HeroAvatar.transform.position.y, rawMousePosition.z));
+            } else
+            {
+                HeroAvatar.transform.LookAt(new Vector3(HeroAvatar.transform.position.x + controllerLookInput.x, 
+                    HeroAvatar.transform.position.y, HeroAvatar.transform.position.z + controllerLookInput.z));
+            }
+            
             HeroAvatar.Move(movementDirection * ControlledActor.Speed * deltaTime);
 
             if (Input.GetButtonDown("Jump"))
@@ -50,7 +60,7 @@ namespace fi.tamk.hellgame.states
             {
                 ControlledActor.FireGunByIndex(1);
             }
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButton("Fire1") || controllerLookInput.magnitude > 0.1)
             {
                 ControlledActor.FireGunByIndex(0);
             }

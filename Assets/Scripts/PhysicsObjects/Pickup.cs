@@ -15,11 +15,45 @@ namespace fi.tamk.hellgame.physicsobjects
         [SerializeField] protected float Speed;
         [SerializeField] protected LayerMask PickupLayer;
         [SerializeField] protected PickupType PickupType;
+        [SerializeField] protected float LifeTime;
+        [SerializeField] private float blinkingLenght = 1f;
+        [SerializeField] private float startingBlinkingFrequency = 0.1f;
+        [SerializeField] private float endBlinkingFrequency = 0.05f;
+        [SerializeField] private AnimationCurve blinkingEasing;
+
         protected Rigidbody Rigidbody;
+        private Renderer _renderer;
 
         protected void Awake()
         {
-            Rigidbody = GetComponent<Rigidbody>();
+            _renderer = GetComponent<Renderer>();
+            Rigidbody = GetComponent<Rigidbody>();    
+        }
+        protected void OnEnable()
+        {
+            StartCoroutine(LifeTimeRoutine());
+        }
+
+        IEnumerator LifeTimeRoutine()
+        {
+            float timer = 0;
+            while (timer < LifeTime)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            
+            StartCoroutine(StaticCoroutines.BlinkCoroutine(_renderer, blinkingLenght, startingBlinkingFrequency, endBlinkingFrequency, blinkingEasing));
+            timer = 0;
+
+            while (timer < blinkingLenght)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            GameObject go = gameObject;
+            Pool.Instance.ReturnObject(ref go);
         }
 
         protected virtual void OnTriggerEnter(Collider other)
