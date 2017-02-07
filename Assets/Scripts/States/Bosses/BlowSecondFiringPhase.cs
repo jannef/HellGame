@@ -1,44 +1,36 @@
-﻿using fi.tamk.hellgame.states;
+﻿using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.interfaces;
+using fi.tamk.hellgame.utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using fi.tamk.hellgame.interfaces;
-using System;
-using fi.tamk.hellgame.character;
-using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.states
 {
-    public class AimingEnemy : StateAbstract
-    {
-        protected Transform _targetTransform;
-        protected float _retryTimer = 0;
-        protected float RetryTimeout = 0.3f;
+    public class BlobSecondFiringPhase : AimingEnemy {
+
+        public BlobSecondFiringPhase(ActorComponent hc) : base(hc)
+        {
+        }
 
         public override InputStates StateId
         {
             get
             {
-                return InputStates.AimingEnemy;
+                return InputStates.BlobSecond;
             }
-        }
-
-        public AimingEnemy(ActorComponent hc) : base(hc)
-        {
-            _targetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
         }
 
         public override void HandleInput(float deltaTime)
         {
-            base.HandleInput(deltaTime);
 
             if (_targetTransform != null)
             {
                 // TODO: Rotating speed is now determined by dashingSpeed
-                ControlledActor.transform.forward = Vector3.RotateTowards(ControlledActor.transform.forward, 
+                ControlledActor.transform.forward = Vector3.RotateTowards(ControlledActor.transform.forward,
                     _targetTransform.position - ControlledActor.transform.position,
                     ControlledActor.DashSpeed * Time.deltaTime, 0.0f);
-                ControlledActor.FireGunByIndex(0);
+                ControlledActor.FireGuns();
             }
 
             _retryTimer += deltaTime;

@@ -7,7 +7,7 @@ namespace fi.tamk.hellgame.character
 {
     public class AirSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject prefabToSpawn;
+        [SerializeField] protected GameObject prefabToSpawn;
         public float SpawnAreaSize = 0;
         public float DelayBetweenIndividualSpawns = 0f;
         public Vector3 AirDropOffset = new Vector3(0f, 54f, 0f);
@@ -18,7 +18,7 @@ namespace fi.tamk.hellgame.character
             StartCoroutine(SpawningInstance());
         }
 
-        private IEnumerator SpawningInstance()
+        protected virtual IEnumerator SpawningInstance()
         {
             var t = 0f;
 

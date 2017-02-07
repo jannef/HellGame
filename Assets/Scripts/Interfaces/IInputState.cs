@@ -22,6 +22,7 @@ namespace fi.tamk.hellgame.interfaces
         BossOneDefault = 13,
         BossOneFrenzy = 14,
         Flying = 15,
+        BlobSecond = 16,
     }
 
     public enum TransitionType

@@ -6,7 +6,8 @@ namespace fi.tamk.hellgame.character
 {
     public enum BossToInitialize
     {
-        BossOne        = 1
+        BossOne        = 1,
+        BlobOne         = 2
     }
 
     [RequireComponent(typeof(BossComponent))]
@@ -22,6 +23,9 @@ namespace fi.tamk.hellgame.character
             {
                 case BossToInitialize.BossOne:
                     phase = new fi.tamk.hellgame.phases.bossone.PhaseOne(boss);
+                    break;
+                case BossToInitialize.BlobOne:
+                    phase = new phases.BlobFireState(boss);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

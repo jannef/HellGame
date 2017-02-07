@@ -12,6 +12,7 @@ namespace fi.tamk.hellgame.character
 
         protected void OnControllerColliderHit(ControllerColliderHit hit)
         {
+            Debug.Log("Player Hit!");
             if (SelfDestructLayer != (SelfDestructLayer | (1 << hit.gameObject.layer))) return;
             OnHitEvent.Invoke();
             HealthComponent hc = Pool.Instance.GetHealthComponent(hit.gameObject);

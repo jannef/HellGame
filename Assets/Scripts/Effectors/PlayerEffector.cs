@@ -22,6 +22,7 @@ namespace fi.tamk.hellgame.effector
             base.Activate();
             Effect.LifeTime = _effectLength;
             _renderer = GetComponent<Renderer>();
+            Effect.SetOnstart(ThreadFreezeFrame, new float[0]);
             Effect.SetOnstart(ScreenShakeEffect, new float[2] { _shakeIntensity, _shakeLenght });
             if (!gameObject.activeInHierarchy) return;
             StartCoroutine(StaticCoroutines.BlinkCoroutine(_renderer, _effectLength, _startingBlinkingFrequency, _endBlinkingFrequency, _blinkingEasing));
