@@ -25,6 +25,8 @@ namespace fi.tamk.hellgame.phases.bossone
                 _mySpawner.SpawnObjects();
                 PhaseTime = 0f;
             }
+
+            _mySpawner.SpawnObjects(new SpawnDate());
         }
 
         public override void OnExitPhase()
@@ -36,10 +38,7 @@ namespace fi.tamk.hellgame.phases.bossone
         public PhaseTwo(BossComponent master) : base(master)
         {
             Master.TrackedHealth.AllowDeath = false;
-            var go = GameObject.Instantiate(Master.PrefabsUsedByBoss[0]);
-            go.transform.position = Master.transform.position;
-            go.transform.rotation = Quaternion.identity;
-            _mySpawner = go.GetComponent<AirSpawner>();
+            _mySpawner = InstantiateSpawner(master.PrefabsUsedByBoss[0]);
 
             PhaseTime = 30f;
         }

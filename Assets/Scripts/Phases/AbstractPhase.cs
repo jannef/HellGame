@@ -38,5 +38,13 @@ namespace fi.tamk.hellgame.phases
         {
             Master = master;
         }
+
+        protected AirSpawner InstantiateSpawner(GameObject prefab)
+        {
+            var go = GameObject.Instantiate(Master.PrefabsUsedByBoss[0]); // air drop spawner
+            go.transform.position = Master.transform.position;
+            go.transform.rotation = Quaternion.identity;
+            return go.GetComponent<AirSpawner>();
+        }
     }
 }

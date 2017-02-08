@@ -13,6 +13,7 @@ namespace fi.tamk.hellgame.character
 
         public GameObject[] PrefabsUsedByBoss;
         public GameObject[] ExistingObjectsUsedByBoss;
+        public ScriptableObject[] ScriptableObjectsUsedByBoss;
 
         protected List<MinionComponent> ControlledMinions;
         protected List<IBossPhase> CurrentPhase = new List<IBossPhase>();
