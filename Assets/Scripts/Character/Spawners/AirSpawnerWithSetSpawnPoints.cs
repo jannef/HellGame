@@ -1,54 +1,104 @@
-﻿using fi.tamk.hellgame.utils;
+﻿using fi.tamk.hellgame.interfaces;
+using fi.tamk.hellgame.utils;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace fi.tamk.hellgame.character
 {
 
-    public class AirSpawnerWithSetSpawnPoints : AirSpawner
+    public class AirSpawnerWithSetSpawnPoints : MonoBehaviour, ISpawner
     {
-        [SerializeField] protected Transform[] spawnPoints;
+        [SerializeField] protected Transform spawnPointsParent;
+        [SerializeField] protected Vector3 AirDropOffset;
+        private Transform[] availableSpawnPoints;
 
-        public void SpawnObjects(int number, bool randomPosition = false)
+        [SerializeField] SpawnerInstruction testInstructions;
+
+        void Awake()
         {
-            if (randomPosition)
+            var transformArray = spawnPointsParent.GetComponentsInChildren<Transform>();
+            availableSpawnPoints = new Transform[transformArray.Length - 1];
+
+            int availableSpawnPointIndex = 0;
+
+            // This is used to remove the parent from available spawnPoints.
+            for (int i = 0; i < transformArray.Length; i++)
             {
-                RandomisedSpawningInstance(number);
+                if (transformArray[i].GetInstanceID() != spawnPointsParent.GetInstanceID())
+                {
+                    availableSpawnPoints[availableSpawnPointIndex] = transformArray[i];
+                    availableSpawnPointIndex++;
+                }
+            }
+
+            // Just for testing
+            Spawn(testInstructions);
+        }
+
+        public MinionComponent[] Spawn(SpawnerInstruction instructions)
+        {
+            if (instructions == null)
+            {
+                Debug.Log("AirSpawner: instructions are null");
+                return null;
+            }
+
+            if (instructions.prefabToSpawn == null)
+            {
+                Debug.Log("AirSpawner: prefab to spawn is null");
+                return null;
+            }
+
+            bool returnMinionComponents;
+
+            if (instructions.prefabToSpawn.GetComponent<MinionComponent>() == null)
+            {
+                returnMinionComponents = false;
             } else
             {
-                SpawningInstance(number);
+                returnMinionComponents = true;
             }
+
+            return SpawnObjects(instructions.prefabToSpawn, instructions.numberOfSpawns, instructions.possibleSpawnPoints,
+                    instructions.delayBetweenSpawns, instructions.spawnAreaRandomness, returnMinionComponents);
         }
 
-        public void SpawnObjects(int number, Vector3 position)
+        private MinionComponent[] SpawnObjects(GameObject prefabToSpawn, int numberToSpawn, int[] spawnPoints, float delayBetweenSpawns, float spawnAreaSize, 
+            bool ReturnMinionComponent)
         {
-            SpawningInstance(number, position);
-        }
-
-        public void SpawnObjectsToRandomSpawnPoint(int number)
-        {
-            SpawningInstance(number, spawnPoints[Random.Range(0, spawnPoints.Length)].position);
-        }
-
-        protected IEnumerator SpawningInstance(int number, Vector3 position)
-        {
-            var t = 0f;
+            MinionComponent[] minionComponents = new MinionComponent[numberToSpawn];
+            List<GameObject> spawnedObjects = new List<GameObject>();
             int spawnPointIndex = 0;
 
-            for (var i = 0; i < number; i++)
+            for (int i = 0; i < numberToSpawn; i++)
             {
-                while (t < DelayBetweenIndividualSpawns)
+                Ray ray;
+
+                if (spawnPoints == null || spawnPoints.Length == 0)
                 {
-                    t += Time.deltaTime;
-                    yield return null;
+                    if (spawnPointIndex >= availableSpawnPoints.Length)
+                    {
+                        spawnPointIndex = 0;
+                    }
+                    // If no spawnPoints were chosen, it is assumed that all available spawnpoints are used.
+                    ray = new Ray(AirDropOffset + 
+                        availableSpawnPoints[Mathf.Clamp(spawnPointIndex, 0, availableSpawnPoints.Length - 1)].position
+                    + UnityEngine.Random.insideUnitSphere * spawnAreaSize, Vector3.down);
+
+                } else
+                {
+                    if (spawnPointIndex >= spawnPoints.Length)
+                    {
+                        spawnPointIndex = 0;
+                    }
+
+                    ray = new Ray(AirDropOffset + availableSpawnPoints[Mathf.Clamp(spawnPoints[spawnPointIndex], 0, availableSpawnPoints.Length - 1)].position
+                    + UnityEngine.Random.insideUnitSphere * spawnAreaSize, Vector3.down);
                 }
 
-                t = 0;
-
-                if (spawnPointIndex >= spawnPoints.Length) spawnPointIndex = 0;
-
-                var ray = new Ray(AirDropOffset + position + Random.insideUnitSphere * SpawnAreaSize, Vector3.down);
                 spawnPointIndex++;
 
 
@@ -56,7 +106,10 @@ namespace fi.tamk.hellgame.character
                 {
                     if (prefabToSpawn != null)
                     {
-                        Instantiate(prefabToSpawn, ray.origin, Quaternion.identity);
+                        GameObject go = Instantiate(prefabToSpawn, ray.origin, Quaternion.identity);
+                        go.SetActive(false);
+                        if (ReturnMinionComponent) minionComponents[i] = go.GetComponent<MinionComponent>();
+                        spawnedObjects.Add(go);
                     }
                     else
                     {
@@ -68,89 +121,31 @@ namespace fi.tamk.hellgame.character
                 {
                     Debug.Log("AirSpawner: Ground not found");
                 }
-
-                yield return null;
             }
+
+            StartCoroutine(EnableObjectsWithDelay(spawnedObjects, delayBetweenSpawns));
+
+            return minionComponents.Where(x => x != null).ToArray();
         }
 
-        protected IEnumerator RandomisedSpawningInstance(int number)
+        private IEnumerator EnableObjectsWithDelay(List<GameObject> enabledList, float timeDelay)
         {
-            var t = 0f;
+            float t = 0;
 
-            for (var i = 0; i < number; i++)
+            foreach (GameObject go in enabledList)
             {
-                while (t < DelayBetweenIndividualSpawns)
+
+                while (t < timeDelay)
                 {
                     t += Time.deltaTime;
                     yield return null;
                 }
 
                 t = 0;
-
-                var ray = new Ray(AirDropOffset + spawnPoints[Random.Range(0, spawnPoints.Length)].position + Random.insideUnitSphere * SpawnAreaSize, Vector3.down);
-
-
-                if (Physics.Raycast(ray, 100.0f, LayerMask.GetMask(new string[] { Constants.GroundRaycastLayerName })))
-                {
-                    if (prefabToSpawn != null)
-                    {
-                        Instantiate(prefabToSpawn, ray.origin, Quaternion.identity);
-                    }
-                    else
-                    {
-                        Debug.Log("AirSpawner: No object to Spawn");
-                    }
-
-                }
-                else
-                {
-                    Debug.Log("AirSpawner: Ground not found");
-                }
-
-                yield return null;
-            }
-        }
-
-        protected IEnumerator SpawningInstance(int number)
-        {
-            var t = 0f;
-            int spawnPointIndex = 0;
-
-            for (var i = 0; i < number; i++)
-            {
-                while (t < DelayBetweenIndividualSpawns)
-                {
-                    t += Time.deltaTime;
-                    yield return null;
-                }
-
-                t = 0;
-
-                if (spawnPointIndex >= spawnPoints.Length) spawnPointIndex = 0;
-
-                var ray = new Ray(AirDropOffset + spawnPoints[spawnPointIndex].position + Random.insideUnitSphere * SpawnAreaSize, Vector3.down);
-                spawnPointIndex++;
-
-
-                if (Physics.Raycast(ray, 100.0f, LayerMask.GetMask(new string[] { Constants.GroundRaycastLayerName })))
-                {
-                    if (prefabToSpawn != null)
-                    {
-                        Instantiate(prefabToSpawn, ray.origin, Quaternion.identity);
-                    }
-                    else
-                    {
-                        Debug.Log("AirSpawner: No object to Spawn");
-                    }
-
-                }
-                else
-                {
-                    Debug.Log("AirSpawner: Ground not found");
-                }
-
-                yield return null;
+                go.SetActive(true);
+                go.GetComponent<AirDropInitializer>().StartDropping();
             }
         }
     }
 }
+     

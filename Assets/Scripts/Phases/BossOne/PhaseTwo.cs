@@ -26,7 +26,7 @@ namespace fi.tamk.hellgame.phases.bossone
                 PhaseTime = 0f;
             }
 
-            _mySpawner.SpawnObjects(new SpawnDate());
+            _mySpawner.SpawnObjects();
         }
 
         public override void OnExitPhase()

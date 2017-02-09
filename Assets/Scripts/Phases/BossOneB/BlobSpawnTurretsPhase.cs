@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.phases;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace fi.tamk.hellgame.phases
     public class BlobSpawnTurretsPhase : AbstractPhase
     {
         private HealthComponent _myHealth;
-        private AirSpawner _mySpawner;
+        private ISpawner _mySpawner;
         private float _healthBreakPoint;
         private float _PercentageStep = 33;
 
@@ -19,7 +20,7 @@ namespace fi.tamk.hellgame.phases
             {
                 Debug.Log(healthPercentage);
                 _healthBreakPoint = hitpoints - (_myHealth.MaxHp / (100 / _PercentageStep));
-                _mySpawner.SpawnObjects();
+                //_mySpawner.Spawn();
             }
         }
 

@@ -15,7 +15,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField] protected bool RegisterAsPlayer;
         [SerializeField] protected float CameraWeight = 0f;
 
-        protected void Awake()
+        protected virtual void Awake()
         {
             if (RegisterAsPlayer) ServiceLocator.Instance.RegisterPlayer(gameObject);
             if (CameraWeight > 0f) ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(transform, CameraWeight));
