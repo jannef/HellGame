@@ -13,22 +13,18 @@ namespace fi.tamk.hellgame.phases
 
         public override void OnBossHealthChange(float healthPercentage, int hitpoints, int maxHp)
         {
-            if (!_hasActivatedSecondBlobPhase && hitpoints <= maxHp * .8)
+            if (hitpoints <= maxHp * 0.9f && !_hasActivatedSecondBlobPhase)
             {
                 _hasActivatedSecondBlobPhase = true;
-                Master.EnterPhase(new BlobSpawnTurretsPhase(Master));
+                Master.EnterPhase(new BlowFirstSpanwPhase(Master));
+                Master.BossActor.RequestStateChange(interfaces.InputStates.Obstacle);
+                Master.RemovePhase(this);
             }
         }
 
         public BlobFireState(BossComponent master) : base(master)
         {
             _myHealth = master.TrackedHealth;
-            if (_myHealth.Health <= _myHealth.MaxHp / 2)
-            {
-                Master.BossActor.RequestStateChange(interfaces.InputStates.BlobSecond);
-            }
-
-            Master.EnterPhase(new BlobSpawnHomingsPhase(master));
         }
     }
 }

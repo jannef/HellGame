@@ -6,31 +6,38 @@ using UnityEngine;
 
 namespace fi.tamk.hellgame.phases
 {
-    public class BlobSpawnHomingsPhase : AbstractPhase
+    public class BlowFirstSpanwPhase : AbstractPhase
     {
         private HealthComponent _myHealth;
-        private AirSpawner _mySpawner;
-        private float _healthBreakPoint;
-        private float _PercentageStep = 15;
+        private AirSpawnerWithSetSpawnPoints _mySpawner;
+        private SpawnerInstruction _instructions;
+
+        private float beginnigInterval = 12f;
+        private float finalInterval = 6.66f;
+        private float currentInterval = 12f;
+        private float rampUpTime = 12f;
+        
+        
 
         public override void OnBossHealthChange(float healthPercentage, int hitpoints, int maxHp)
         {
-            if (hitpoints <= _healthBreakPoint)
-            {
-                Debug.Log(healthPercentage);
-                _healthBreakPoint = hitpoints - (_myHealth.MaxHp / (100 / _PercentageStep));
-                _mySpawner.SpawnObjects();
-            }
+            _mySpawner.Spawn(_instructions);
         }
 
-        public BlobSpawnHomingsPhase(BossComponent master) : base(master)
+        public override void OnUpdate(float deltaTime)
         {
-            _myHealth = master.TrackedHealth;
-            var go = GameObject.Instantiate(Master.PrefabsUsedByBoss[0]);
-            go.transform.position = Master.transform.position;
-            go.transform.rotation = Quaternion.identity;
-            _mySpawner = go.GetComponent<AirSpawner>();
-            _healthBreakPoint = _myHealth.Health - (_myHealth.MaxHp / (100 / _PercentageStep));
+            base.OnUpdate(deltaTime);
+        }
+
+        public override void OnMinionDeath(MinionComponent whichMinion)
+        {
+            base.OnMinionDeath(whichMinion);
+        }
+
+        public BlowFirstSpanwPhase(BossComponent master) : base(master)
+        {
+            _mySpawner = Master.ExistingObjectsUsedByBoss[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
+            _instructions = Object.Instantiate(Master.ScriptableObjectsUsedByBoss[0]) as SpawnerInstruction;
         }
     }
 }
