@@ -17,7 +17,7 @@ namespace fi.tamk.hellgame.phases
             {
                 _hasActivatedSecondBlobPhase = true;
                 Master.EnterPhase(new BlowFirstSpanwPhase(Master));
-                Master.BossActor.RequestStateChange(interfaces.InputStates.Obstacle);
+                Master.BossActor.RequestStateChange(interfaces.InputStates.Paused);
                 Master.RemovePhase(this);
             }
         }

@@ -67,7 +67,10 @@ namespace fi.tamk.hellgame.character
                     outPutState = new BossOneDefaultState(hc);
                     break;
                 case InputStates.BlobSecond:
-                    outPutState = new BlobSecondFiringPhase(hc);
+                    outPutState = new BlobSecondFiringPHase(hc);
+                    break;
+                case InputStates.BlobThird:
+                    outPutState = new BlobThirdFiringPhase(hc);
                     break;
                 default:
                     outPutState = null;

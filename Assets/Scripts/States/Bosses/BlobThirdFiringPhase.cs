@@ -7,11 +7,11 @@ using UnityEngine;
 
 namespace fi.tamk.hellgame.states
 {
-    public class BlobSecondFiringPHase : AimingEnemy {
-        private float singleBeatLength = 1.6f;
+    public class BlobThirdFiringPhase : AimingEnemy {
+        private float singleBeatLength = 1.4f;
         private int tempo = 0;
 
-        public BlobSecondFiringPHase(ActorComponent hc) : base(hc)
+        public BlobThirdFiringPhase(ActorComponent hc) : base(hc)
         {
         }
 
@@ -19,15 +19,15 @@ namespace fi.tamk.hellgame.states
         {
             get
             {
-                return InputStates.BlobSecond;
+                return InputStates.BlobThird;
             }
         }
 
         public override bool RequestStateChange(InputStates requestedState)
         {
-            if (requestedState == InputStates.BlobThird)
+            if (requestedState == InputStates.Paused)
             {
-                ControlledActor.GoToState(new BlobThirdFiringPhase(ControlledActor));
+                ControlledActor.GoToState(new StatePaused(ControlledActor));
                 return true;
             }
 
@@ -48,6 +48,7 @@ namespace fi.tamk.hellgame.states
                 switch (tempo)
                 {
                     case 3:
+                        ControlledActor.FireGunByIndex(2);
                         break;
                     case 4:
                         ControlledActor.FireGunByIndex(1);

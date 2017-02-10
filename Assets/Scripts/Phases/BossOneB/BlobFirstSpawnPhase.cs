@@ -12,21 +12,36 @@ namespace fi.tamk.hellgame.phases
         private AirSpawnerWithSetSpawnPoints _mySpawner;
         private SpawnerInstruction _instructions;
 
-        private float beginnigInterval = 12f;
-        private float finalInterval = 6.66f;
-        private float currentInterval = 12f;
-        private float rampUpTime = 12f;
+        private float currentInterval = 9.2f;
+        private int wavesSpawned = 0;
+        private int waveNumber = 5;
+        private float timer = 5;
         
         
 
         public override void OnBossHealthChange(float healthPercentage, int hitpoints, int maxHp)
         {
-            _mySpawner.Spawn(_instructions);
+
         }
 
         public override void OnUpdate(float deltaTime)
         {
             base.OnUpdate(deltaTime);
+            timer += Time.deltaTime;
+
+            if (timer >= currentInterval)
+            {
+                _instructions.numberOfSpawns++;
+                _mySpawner.Spawn(_instructions);
+                timer = 0;
+                wavesSpawned++;
+
+                if (wavesSpawned == waveNumber)
+                {
+                    Master.EndAllPhases();
+                    Master.EnterPhase(new BlobSpawnTurretsPhase(Master));
+                }
+            } 
         }
 
         public override void OnMinionDeath(MinionComponent whichMinion)

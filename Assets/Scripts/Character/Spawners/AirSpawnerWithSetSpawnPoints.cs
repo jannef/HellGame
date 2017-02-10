@@ -33,13 +33,11 @@ namespace fi.tamk.hellgame.character
                     availableSpawnPointIndex++;
                 }
             }
-
-            // Just for testing
-            Spawn(testInstructions);
         }
 
         public MinionComponent[] Spawn(SpawnerInstruction instructions)
         {
+            Debug.Log("Spawn request called in airspawner");
             if (instructions == null)
             {
                 Debug.Log("AirSpawner: instructions are null");
