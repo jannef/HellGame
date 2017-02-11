@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.character;
 using System;
+using fi.tamk.hellgame.input;
 using tamk.fi.hellgame.character;
 
 namespace fi.tamk.hellgame.states
 {
     public class StateRunning : StateAbstract
     {
+        private InputController _myController;
+
         public override InputStates StateId
         {
             get { return InputStates.Running; }
@@ -36,9 +39,8 @@ namespace fi.tamk.hellgame.states
 
         protected virtual void RunningMovement(float deltaTime)
         {
-            var movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-            var controllerLookInput = new Vector3(Input.GetAxis("HorizontalRight"), 0, Input.GetAxis("VerticalRight"));
+            var movementDirection = _myController.PollAxisLeft();
+            var controllerLookInput = _myController.PollAxisRight();
 
             if (controllerLookInput.magnitude < 0.01)
             {
@@ -52,15 +54,15 @@ namespace fi.tamk.hellgame.states
             
             HeroAvatar.Move(movementDirection * ControlledActor.Speed * deltaTime);
 
-            if (Input.GetButtonDown("Jump"))
+            if (_myController.PollButton(Buttons.ButtonScheme.Dash))
             {
                 ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized));
             }
-            else if (Input.GetButton("Fire2"))
+            else if (_myController.PollButton(Buttons.ButtonScheme.Fire_2))
             {
                 ControlledActor.FireGunByIndex(1);
             }
-            if (Input.GetButton("Fire1") || controllerLookInput.magnitude > 0.1)
+            else if (_myController.PollButton(Buttons.ButtonScheme.Fire_1))
             {
                 ControlledActor.FireGunByIndex(0);
             }
@@ -68,7 +70,7 @@ namespace fi.tamk.hellgame.states
 
         public StateRunning(ActorComponent hero) : base(hero)
         {
-
+            _myController = ControlledActor.gameObject.GetComponent<InputController>();
         }
     }
 }
