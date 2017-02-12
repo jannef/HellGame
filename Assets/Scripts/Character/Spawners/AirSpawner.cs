@@ -20,20 +20,11 @@ namespace fi.tamk.hellgame.character
 
         protected virtual IEnumerator SpawningInstance()
         {
-            var t = 0f;
-
             for (var i = 0; i < NumberOfSpawns; i++)
             {
-                while (t < DelayBetweenIndividualSpawns)
-                {
-                    t += Time.deltaTime;
-                    yield return null;
-                }
-
-                t = 0;
+                if (DelayBetweenIndividualSpawns > 0f) yield return new WaitForSeconds(DelayBetweenIndividualSpawns);
 
                 var ray = new Ray(AirDropOffset + transform.position + Random.insideUnitSphere * SpawnAreaSize, Vector3.down);
-
                 if (Physics.Raycast(ray, 100.0f, LayerMask.GetMask(new string[] { Constants.GroundRaycastLayerName })))
                 {
                     if (prefabToSpawn != null)

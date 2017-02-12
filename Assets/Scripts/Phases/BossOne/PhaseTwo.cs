@@ -6,7 +6,9 @@ namespace fi.tamk.hellgame.phases.bossone
 {
     public class PhaseTwo : AbstractPhase
     {
-        private AirSpawner _mySpawner;
+        private AirSpawnerWithSetSpawnPoints _mySpawner;
+        private SpawnerInstruction _mySpawnData;
+
         public override void OnBossHealthChange(float healthPercentage, int hitpoints, int maxHp)
         {
             if (healthPercentage <= 0)
@@ -22,11 +24,9 @@ namespace fi.tamk.hellgame.phases.bossone
 
             if (PhaseTime > 32f)
             {
-                _mySpawner.SpawnObjects();
+                _mySpawner.Spawn(_mySpawnData);
                 PhaseTime = 0f;
             }
-
-            _mySpawner.SpawnObjects();
         }
 
         public override void OnExitPhase()
@@ -38,7 +38,8 @@ namespace fi.tamk.hellgame.phases.bossone
         public PhaseTwo(BossComponent master) : base(master)
         {
             Master.TrackedHealth.AllowDeath = false;
-            _mySpawner = InstantiateSpawner(master.PrefabsUsedByBoss[0]);
+            _mySpawner = Master.ExistingObjectsUsedByBoss[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
+            _mySpawnData = Master.ScriptableObjectsUsedByBoss[0] as SpawnerInstruction;
 
             PhaseTime = 30f;
         }

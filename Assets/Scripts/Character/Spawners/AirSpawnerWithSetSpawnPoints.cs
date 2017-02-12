@@ -15,8 +15,6 @@ namespace fi.tamk.hellgame.character
         [SerializeField] protected Vector3 AirDropOffset;
         private Transform[] availableSpawnPoints;
 
-        [SerializeField] SpawnerInstruction testInstructions;
-
         void Awake()
         {
             var transformArray = spawnPointsParent.GetComponentsInChildren<Transform>();
