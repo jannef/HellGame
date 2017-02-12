@@ -31,9 +31,6 @@ namespace fi.tamk.hellgame.character
                     availableSpawnPointIndex++;
                 }
             }
-
-            if (testInstructions == null) return;
-            Spawn(testInstructions);
         }
 
         public MinionComponent[] Spawn(SpawnerInstruction instructions)
