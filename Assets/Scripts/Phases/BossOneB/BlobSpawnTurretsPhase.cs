@@ -11,25 +11,38 @@ namespace fi.tamk.hellgame.phases
     {
         private HealthComponent _myHealth;
         private ISpawner _mySpawner;
-        private float _healthBreakPoint;
-        private float _PercentageStep = 33;
+        private SpawnerInstruction _myInstructions;
+        private int spawnAmount = 8;
+        private float SpawnDelay = 2.2f;
+        private float ReductionInSpawndelay = 0.2f;
 
-        public override void OnBossHealthChange(float healthPercentage, int hitpoints, int maxHp)
+        private float nextSpawnTime;
+
+        public override void OnUpdate(float deltaTime)
         {
-            if (hitpoints <= _healthBreakPoint)
+            base.OnUpdate(deltaTime);
+            if (PhaseTime >= nextSpawnTime)
             {
-                Debug.Log(healthPercentage);
-                _healthBreakPoint = hitpoints - (_myHealth.MaxHp / (100 / _PercentageStep));
-                //_mySpawner.Spawn();
+                _mySpawner.Spawn(_myInstructions);
+                SpawnDelay -= ReductionInSpawndelay;
+                nextSpawnTime = PhaseTime + SpawnDelay;
+                spawnAmount--;
+
+                if (spawnAmount == 0)
+                {
+                    Master.EndAllPhases();
+                }
             }
+
         }
 
         public BlobSpawnTurretsPhase(BossComponent master) : base(master)
         {
             _myHealth = master.TrackedHealth;
-            var go = Master.ExistingObjectsUsedByBoss[0];
+            var go = Master.ExistingObjectsUsedByBoss[1];
             _mySpawner = go.GetComponent<AirSpawnerWithSetSpawnPoints>();
-            _healthBreakPoint = _myHealth.Health - (_myHealth.MaxHp / (100 / _PercentageStep));
+            nextSpawnTime = SpawnDelay;
+            _myInstructions = Object.Instantiate(Master.ScriptableObjectsUsedByBoss[1]) as SpawnerInstruction;
         }
     }
 }
