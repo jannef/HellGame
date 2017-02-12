@@ -9,6 +9,7 @@ namespace fi.tamk.hellgame.character
         BossOne        = 1,
         BlobOne         = 2,
         BlobSecond     = 3,
+        BlobDropTurrets = 4,
     }
 
     [RequireComponent(typeof(BossComponent))]
@@ -30,6 +31,9 @@ namespace fi.tamk.hellgame.character
                     break;
                 case BossToInitialize.BlobSecond:
                     phase = new phases.BlowFirstSpanwPhase(boss);
+                    break;
+                case BossToInitialize.BlobDropTurrets:
+                    phase = new phases.BlobSpawnTurretsPhase(boss);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -42,7 +42,8 @@ namespace fi.tamk.hellgame.states
             {
                 // TODO: Rotating speed is now determined by dashingSpeed
                 ControlledActor.transform.forward = Vector3.RotateTowards(ControlledActor.transform.forward,
-                    _targetTransform.position - ControlledActor.transform.position,
+                    new Vector3(_targetTransform.position.x, ControlledActor.transform.position.y,
+                    _targetTransform.position.z) - ControlledActor.transform.position,
                     ControlledActor.DashSpeed * Time.deltaTime, 0.0f);
 
                 switch (tempo)

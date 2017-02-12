@@ -31,11 +31,13 @@ namespace fi.tamk.hellgame.character
                     availableSpawnPointIndex++;
                 }
             }
+
+            if (testInstructions == null) return;
+            Spawn(testInstructions);
         }
 
         public MinionComponent[] Spawn(SpawnerInstruction instructions)
         {
-            Debug.Log("Spawn request called in airspawner");
             if (instructions == null)
             {
                 Debug.Log("AirSpawner: instructions are null");
