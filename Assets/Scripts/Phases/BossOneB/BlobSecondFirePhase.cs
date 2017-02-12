@@ -1,30 +1,31 @@
 ﻿using fi.tamk.hellgame.character;
-using fi.tamk.hellgame.phases;
+using fi.tamk.hellgame.utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.phases
 {
-    public class BlobFireState : AbstractPhase
+    public class BlobSecondFirePhase : AbstractPhase
     {
         private HealthComponent _myHealth;
         private static bool _hasActivatedSecondBlobPhase = false;
 
         public override void OnBossHealthChange(float healthPercentage, int hitpoints, int maxHp)
         {
-            if (hitpoints <= maxHp * 0.9f && !_hasActivatedSecondBlobPhase)
+            if (hitpoints <= maxHp * 0.5f && !_hasActivatedSecondBlobPhase)
             {
                 _hasActivatedSecondBlobPhase = true;
-                Master.EnterPhase(new BlowFirstSpanwPhase(Master));
-                Master.BossActor.RequestStateChange(interfaces.InputStates.Paused);
+                Master.EnterPhase(new BlobSpawnTurretsPhase(Master));
                 Master.RemovePhase(this);
             }
         }
 
-        public BlobFireState(BossComponent master) : base(master)
+        public BlobSecondFirePhase(BossComponent master) : base(master)
         {
+            ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(Master.transform, 0.5f));
             _myHealth = master.TrackedHealth;
+            Master.BossActor.RequestStateChange(interfaces.InputStates.BlobThird);
         }
     }
 }

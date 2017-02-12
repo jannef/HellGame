@@ -25,9 +25,9 @@ namespace fi.tamk.hellgame.states
 
         public override bool RequestStateChange(InputStates requestedState)
         {
-            if (requestedState == InputStates.Paused)
+            if (requestedState == InputStates.BlobResting)
             {
-                ControlledActor.GoToState(new StatePaused(ControlledActor));
+                ControlledActor.GoToState(new BlobRestPhase(ControlledActor));
                 return true;
             }
 

@@ -1,5 +1,6 @@
 ﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.phases;
+using fi.tamk.hellgame.utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,6 @@ namespace fi.tamk.hellgame.phases
 
         public override void OnBossHealthChange(float healthPercentage, int hitpoints, int maxHp)
         {
-
         }
 
         public override void OnUpdate(float deltaTime)
@@ -39,7 +39,7 @@ namespace fi.tamk.hellgame.phases
                 if (wavesSpawned == waveNumber)
                 {
                     Master.EndAllPhases();
-                    Master.EnterPhase(new BlobSpawnTurretsPhase(Master));
+                    Master.EnterPhase(new BlobSecondFirePhase(Master));
                 }
             } 
         }
@@ -51,6 +51,7 @@ namespace fi.tamk.hellgame.phases
 
         public BlowFirstSpanwPhase(BossComponent master) : base(master)
         {
+            ServiceLocator.Instance.MainCameraScript.RemoveInterest(Master.transform);
             _mySpawner = Master.ExistingObjectsUsedByBoss[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
             _instructions = Object.Instantiate(Master.ScriptableObjectsUsedByBoss[0]) as SpawnerInstruction;
         }
