@@ -11,7 +11,7 @@ namespace fi.tamk.hellgame.states
 {
     public class StateRunning : StateAbstract
     {
-        private InputController _myController;
+        protected InputController _myController;
 
         public override InputStates StateId
         {
@@ -40,6 +40,7 @@ namespace fi.tamk.hellgame.states
         protected virtual void RunningMovement(float deltaTime)
         {
             var movementDirection = _myController.PollAxisLeft();
+            var movementSpeedMultiplier = (1 - _myController.PollLeftTrigger() * .55f); 
             var controllerLookInput = _myController.PollAxisRight();
 
             if (controllerLookInput.magnitude < 0.01)
@@ -52,15 +53,16 @@ namespace fi.tamk.hellgame.states
                     HeroAvatar.transform.position.y, HeroAvatar.transform.position.z + controllerLookInput.z));
             }
             
-            HeroAvatar.Move(movementDirection * ControlledActor.Speed * deltaTime);
+            HeroAvatar.Move(movementDirection * ControlledActor.Speed * deltaTime * movementSpeedMultiplier);
 
-            if (_myController.PollButton(Buttons.ButtonScheme.Dash))
+            if (movementSpeedMultiplier <= 0.95)
             {
-                ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized));
+                ControlledActor.GoToState(new StateCharging(ControlledActor));
             }
-            else if (_myController.PollButton(Buttons.ButtonScheme.Fire_2))
+
+            if (_myController.PollButtonDown(Buttons.ButtonScheme.Dash))
             {
-                ControlledActor.FireGunByIndex(1);
+                ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized, movementSpeedMultiplier));
             }
             else if (_myController.PollButton(Buttons.ButtonScheme.Fire_1))
             {

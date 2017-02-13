@@ -61,5 +61,17 @@ namespace fi.tamk.hellgame.projectiles
             Damage += (int) addedDamage;
             Speed += addedSpeed;
         }
+
+        public void SetDamageAndSpeed(int damage, float speed)
+        {
+            Damage = damage;
+            Speed = speed;
+        }
+
+        public void GetDamageAndSpeed(out int Damage, out float Speed)
+        {
+            Damage = this.Damage;
+            Speed = this.Speed;
+        }
     }
 }

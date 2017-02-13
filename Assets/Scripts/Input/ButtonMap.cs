@@ -10,6 +10,7 @@ namespace fi.tamk.hellgame.input
         public string FireOneButton;
         public string FireTwoButton;
         public string DashButton;
+        public string LeftTrigger;
 
         public Buttons.InputType InputType;
     }

@@ -42,6 +42,8 @@ namespace fi.tamk.hellgame.input
         /// </summary>
         private string _vercticalAxisLeft;
 
+        private string _leftTriggerAxis;
+
         /// <summary>
         /// Stores combined name for an axis. This depends on which Joypad/keyboard is assigned to this
         /// InputController.
@@ -115,6 +117,11 @@ namespace fi.tamk.hellgame.input
             return GetMouseButtonCode(ref result, ButtonToString(whichButton)) ? Input.GetMouseButtonUp(result) : Input.GetKeyUp(ButtonToString(whichButton));
         }
 
+        public virtual float PollLeftTrigger()
+        {
+            return Mathf.Abs(_myConfig.InputType == Buttons.InputType.PcMasterrace ? (Input.GetKey(_myConfig.LeftTrigger) ? 1f : 0f) : PollTrigger(_leftTriggerAxis));
+        }
+
         /// <summary>
         /// Reserves a joypad number and caches some axis names based on that string.
         /// </summary>
@@ -126,6 +133,7 @@ namespace fi.tamk.hellgame.input
             _vercticalAxisLeft = GetCombinedInputName("Vertical_Left");
             _horizontalAxisRight = GetCombinedInputName("Horizontal_Right");
             _verticalAxisRight = GetCombinedInputName("Vertical_Right");
+            _leftTriggerAxis = GetCombinedInputName("Trigger_Left");
         }
 
         /// <summary>
@@ -171,6 +179,11 @@ namespace fi.tamk.hellgame.input
         private Vector3 PollStickByStrings(string whichHorizontal, string whichVertical)
         {
             return new Vector3(Input.GetAxis(whichHorizontal), 0, Input.GetAxis(whichVertical));
+        }
+
+        private float PollTrigger(string whichTrigger)
+        {
+            return (Input.GetAxis(whichTrigger));
         }
 
         private string ButtonToString(Buttons.ButtonScheme button)

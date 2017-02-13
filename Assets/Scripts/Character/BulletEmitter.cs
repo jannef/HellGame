@@ -16,16 +16,13 @@ namespace fi.tamk.hellgame.character
         [SerializeField, Range(0f, 360f)] protected float Spread;
         [SerializeField, Range(1, 1000)] protected int NumberOfBullets;
         [SerializeField, Range(0f, 360f)] protected float Dispersion;
-
+        
         protected ParticleBulletSystem BulletSystem;
         protected float Timer;
 
         protected Vector3 GunVector
         {
-            get
-            {
-                return (BulletOrigin.position - transform.position).normalized;
-            }
+            get { return (BulletOrigin.position - transform.position).normalized; }
         }
 
         protected void FireBullet(Vector3 trajectory, bool shotgunMode = true)
@@ -40,7 +37,7 @@ namespace fi.tamk.hellgame.character
         protected void FireBullets(Vector3 tra)
         {
             var startPos = BulletOrigin.transform.position;
-            BulletOrigin.transform.RotateAround(transform.position, -transform.up, Spread / 2);
+            BulletOrigin.RotateAround(transform.position, -transform.up, Spread / 2);
 
             for (var i = 0; i < NumberOfBullets; i++)
             {
@@ -58,7 +55,7 @@ namespace fi.tamk.hellgame.character
             if (BulletSystem != null) BulletSystem.SetCollisionLayer(FireAtWhichLayer);
         }
 
-        protected void Update()
+        protected virtual void Update()
         {
             Timer += Time.deltaTime;
         }
