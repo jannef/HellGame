@@ -7,9 +7,10 @@ namespace fi.tamk.hellgame.character
     public enum BossToInitialize
     {
         BossOne        = 1,
-        BlobOne         = 2,
-        BlobSecond     = 3,
+        BlobFirstPhase         = 2,
+        BlobDropHomingsPhase     = 3,
         BlobDropTurrets = 4,
+        BlobSecondFiringPhase = 5,
     }
 
     [RequireComponent(typeof(BossComponent))]
@@ -26,11 +27,14 @@ namespace fi.tamk.hellgame.character
                 case BossToInitialize.BossOne:
                     phase = new fi.tamk.hellgame.phases.bossone.PhaseOne(boss);
                     break;
-                case BossToInitialize.BlobOne:
-                    phase = new phases.BlobFireState(boss);
+                case BossToInitialize.BlobFirstPhase:
+                    phase = new phases.BlobFirePhase(boss);
                     break;
-                case BossToInitialize.BlobSecond:
+                case BossToInitialize.BlobDropHomingsPhase:
                     phase = new phases.BlowFirstSpanwPhase(boss);
+                    break;
+                case BossToInitialize.BlobSecondFiringPhase:
+                    phase = new phases.BlobSecondFirePhase(boss);
                     break;
                 case BossToInitialize.BlobDropTurrets:
                     phase = new phases.BlobSpawnTurretsPhase(boss);
