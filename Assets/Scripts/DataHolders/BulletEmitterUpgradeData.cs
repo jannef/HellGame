@@ -7,7 +7,6 @@ namespace fi.tamk.hellgame.dataholders
     [System.Serializable]
     public class BulletEmitterUpgradeData
     {
-        public int UpgradePointLimitIncrease = 10;
         public float AddedEmitterCooldown = 0f;
         public int AddedBulletNumber;
         public float AddedSpread = 0f;

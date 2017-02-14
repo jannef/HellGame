@@ -10,7 +10,7 @@ namespace fi.tamk.hellgame.effector
         [SerializeField] private float _shakeLenght;
         [SerializeField] private float _slowDownScale;
         [SerializeField] private float _slowDownLenght;
-        [SerializeField] private float _effectLength = 1f;
+        [SerializeField] protected float _effectLength = 1f;
         [SerializeField] private float _startingBlinkingFrequency = 0.1f;
         [SerializeField] private float _endBlinkingFrequency = 0.05f;
         [SerializeField] private AnimationCurve _blinkingEasing;

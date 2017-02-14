@@ -9,47 +9,49 @@ namespace fi.tamk.hellgame.character
 
     public class UpgradeableBulletEmitter : BulletEmitterWithEffects
     {
-        private int _collectedUpgradetokens;
-        private int _currentWeaponLevel = 0;
-        private int _nextWeaponLevelBreakpoint = 0;
-        [SerializeField] protected UnityEvent _upgradeEffect;
-        public BulletEmitterUpgradeData[] UpgradeData;
+        public BulletEmitterUpgradeData UpgradeData;
 
+        private float defaultCooldown;
+        private float defaultSpread;
+        private int defaultNumberOfBullets;
+        private float defaultDispersion;
+        private float defaultBulletSpeed;
+        private int defaultDamage;
+
+        // Use this for initialization
         void Start()
         {
-            AddToUpgradeBreakPoint();
+            defaultCooldown = Cooldown;
+            defaultDispersion = Dispersion;
+            defaultNumberOfBullets = NumberOfBullets;
+            defaultSpread = Spread;
+            BulletSystem.GetDamageAndSpeed(out defaultDamage, out defaultBulletSpeed);
+
+            var limitBreak = GetComponentInParent<PlayerLimitBreak>();
+
+            if (limitBreak == null) return;
+            limitBreak.limitBreakActivation.AddListener(PowerUpWeapon);
+            limitBreak.limitbreakEndEvent.AddListener(RestoreStatsToDefault);
         }
 
-        public virtual void AddUpgradepoints(int howMany)
+        private void PowerUpWeapon()
         {
-            _collectedUpgradetokens += howMany;
+            Cooldown += UpgradeData.AddedEmitterCooldown;
+            Spread += UpgradeData.AddedSpread;
+            NumberOfBullets += UpgradeData.AddedBulletNumber;
+            Dispersion += UpgradeData.AddedDispersion;
 
-            if (_collectedUpgradetokens >= _nextWeaponLevelBreakpoint && UpgradeData.Length > _currentWeaponLevel)
-            {
-                Cooldown += UpgradeData[_currentWeaponLevel].AddedEmitterCooldown;
-                Spread += UpgradeData[_currentWeaponLevel].AddedSpread;
-                NumberOfBullets += UpgradeData[_currentWeaponLevel].AddedBulletNumber;
-                Dispersion += UpgradeData[_currentWeaponLevel].AddedDispersion;
-
-                BulletSystem.AddToDamageAndSpeed(UpgradeData[_currentWeaponLevel].AddedDamage, UpgradeData[_currentWeaponLevel].AddedSpeed);
-
-                AddToUpgradeBreakPoint();
-                _currentWeaponLevel++;
-
-                if (_upgradeEffect == null) return;
-                _upgradeEffect.Invoke();
-            }
+            BulletSystem.AddToDamageAndSpeed(UpgradeData.AddedDamage, UpgradeData.AddedSpeed);
         }
 
-        private void AddToUpgradeBreakPoint()
+        private void RestoreStatsToDefault()
         {
-            if (UpgradeData.Length > _currentWeaponLevel)
-            {
-                _nextWeaponLevelBreakpoint += UpgradeData[_currentWeaponLevel].UpgradePointLimitIncrease;
-            } else
-            {
-                _nextWeaponLevelBreakpoint = int.MaxValue;
-            }           
+            Cooldown = defaultCooldown;
+            Dispersion = defaultDispersion;
+            Spread = defaultSpread;
+            BulletSystem.SetDamageAndSpeed(defaultDamage, defaultBulletSpeed);
+            NumberOfBullets = defaultNumberOfBullets;
+            Cooldown = defaultCooldown;
         }
     }
 }

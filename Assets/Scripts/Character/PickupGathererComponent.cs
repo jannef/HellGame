@@ -11,22 +11,19 @@ namespace fi.tamk.hellgame.character
     public class PickupGathererComponent : MonoBehaviour
     {
         protected ActorComponent Actor;
-        protected HealthComponent Health;        
-        protected UpgradeableBulletEmitter[] BulletEmitters; // TODO: will change to upgradeable weapon when it is implemented
+        protected HealthComponent Health;
+        protected PlayerLimitBreak LimitBreak;
 
         void Start()
         {
-            BulletEmitters = GetComponents<UpgradeableBulletEmitter>();
+            LimitBreak = GetComponent<PlayerLimitBreak>();
         }
 
         public virtual void PickItem(PickupType item)
         {
             switch (item) {
                 case PickupType.Basic:
-                    foreach(UpgradeableBulletEmitter emitter in BulletEmitters)
-                    {
-                        emitter.AddUpgradepoints(1);
-                    }
+                    LimitBreak.GainPoints(1);
                     break;
                 default:
                     break;

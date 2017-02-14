@@ -12,6 +12,7 @@ namespace fi.tamk.hellgame.states
     public class StateRunning : StateAbstract
     {
         protected InputController _myController;
+        protected PlayerLimitBreak _myLimitBreak;
 
         public override InputStates StateId
         {
@@ -57,6 +58,15 @@ namespace fi.tamk.hellgame.states
 
             if (movementSpeedMultiplier <= 0.95)
             {
+                if (_myLimitBreak != null)
+                {
+                    if (_myLimitBreak.LimitBreakActive)
+                    {
+                        _myLimitBreak.ActivateLimitBreak();
+                        return;
+                    }
+                }
+
                 ControlledActor.GoToState(new StateCharging(ControlledActor));
             }
 
@@ -73,6 +83,7 @@ namespace fi.tamk.hellgame.states
         public StateRunning(ActorComponent hero) : base(hero)
         {
             _myController = ControlledActor.gameObject.GetComponent<InputController>();
+            _myLimitBreak = ControlledActor.gameObject.GetComponent<PlayerLimitBreak>();
         }
     }
 }

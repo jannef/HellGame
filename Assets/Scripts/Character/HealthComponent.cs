@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using System;
 using fi.tamk.hellgame.utils;
+using System.Collections;
 
 namespace fi.tamk.hellgame.character
 {
@@ -50,6 +51,9 @@ namespace fi.tamk.hellgame.character
             }
         }
 
+        private bool hasDied = false;
+        private bool hasBeenHitThisFrame = false;
+
         protected void Awake()
         {
             MaxHp = Health;
@@ -59,7 +63,7 @@ namespace fi.tamk.hellgame.character
 
         public void TakeDamage(int howMuch)
         {
-            if (InvulnerabilityTimeLeft > 0) return;
+            if (InvulnerabilityTimeLeft > 0 || hasDied) return;
 
             var hp = Health;
             var flinch = false;
@@ -71,10 +75,11 @@ namespace fi.tamk.hellgame.character
             if (!DamageDelegate(howMuch, ref Health, ref flinch) && AllowDeath)
             {
                 Die();
+                hasDied = true;
                 return;
             }
 
-            if (flinch) FlinchFromHit();
+            if (flinch && !hasBeenHitThisFrame) FlinchFromHit();
             if (hp > Health) InvulnerabilityTimeLeft = InvulnerabilityLenght;
 
             // Report health change to subscribers of this event
@@ -111,15 +116,30 @@ namespace fi.tamk.hellgame.character
 
         public virtual void FlinchFromHit()
         {
+            hasBeenHitThisFrame = true;
+            StartCoroutine(FlipFlinchBooleanAtEndOfFrame());
+
             if (HitFlinchEffect != null)
             {
                 HitFlinchEffect.Invoke();
             }
         }
 
+        public void ActivateInvulnerability(float invulnerabilityLenght)
+        {
+            InvulnerabilityTimeLeft = invulnerabilityLenght;
+        }
+
         protected void Update()
         {
             InvulnerabilityTimeLeft -= Time.deltaTime;
+        }
+
+        private IEnumerator FlipFlinchBooleanAtEndOfFrame()
+        {
+            yield return new WaitForEndOfFrame();
+            hasBeenHitThisFrame = false;
+
         }
     }
 }
