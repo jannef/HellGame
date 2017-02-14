@@ -74,7 +74,7 @@ namespace fi.tamk.hellgame.states
             {
                 ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized, movementSpeedMultiplier));
             }
-            else if (_myController.PollButton(Buttons.ButtonScheme.Fire_1))
+            else if (_myController.PollButton(Buttons.ButtonScheme.Fire_1) || controllerLookInput.magnitude > 0.01)
             {
                 ControlledActor.FireGunByIndex(0);
             }

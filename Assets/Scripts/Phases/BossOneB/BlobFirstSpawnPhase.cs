@@ -15,7 +15,7 @@ namespace fi.tamk.hellgame.phases
 
         private float currentInterval = 9.2f;
         private int wavesSpawned = 0;
-        private int waveNumber = 5;
+        private int waveNumber = 13;
         private float timer = 5;
         
         
