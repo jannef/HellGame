@@ -5,6 +5,7 @@ using fi.tamk.hellgame.states;
 using fi.tamk.hellgame.utils;
 using UnityEngine;
 using fi.tamk.hellgame.projectiles;
+using fi.tamk.hellgame.ui;
 
 namespace fi.tamk.hellgame.character
 {
@@ -17,7 +18,12 @@ namespace fi.tamk.hellgame.character
 
         protected virtual void Awake()
         {
-            if (RegisterAsPlayer) ServiceLocator.Instance.RegisterPlayer(gameObject);
+            if (RegisterAsPlayer)
+            {
+                ServiceLocator.Instance.RegisterPlayer(gameObject);
+                var statTable = FindObjectOfType<PlayerStatTable>();
+                if (statTable != null) statTable.SetUpPlayerStatTable(gameObject);
+            }
             if (CameraWeight > 0f) ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(transform, CameraWeight));
             InitializeState();
         }

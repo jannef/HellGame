@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.VR.WSA.Persistence;
+using Object = UnityEngine.Object;
 
 namespace fi.tamk.hellgame.character
 {
@@ -52,6 +54,18 @@ namespace fi.tamk.hellgame.character
             LimitBreakActive = false;
             limitbreakEndEvent.Invoke();
             powerUpGained.Invoke(0, modifiableStats.BreakPointLimit);
+        }
+
+        public void GetCurrentAmountAndThreshHold(out int currentAmount, out int currentThreshHold)
+        {
+            currentAmount = _collectedPoints;
+
+            if (modifiableStats == null)
+            {
+                modifiableStats = Object.Instantiate(originalStats) as PlayerLimitBreakStats;
+            }
+
+            currentThreshHold = modifiableStats.BreakPointLimit;
         }
 
         private IEnumerator LimitBreakTimer()

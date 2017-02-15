@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using fi.tamk.hellgame.character;
 using UnityEngine;
@@ -10,14 +11,18 @@ namespace fi.tamk.hellgame.ui
     public class LimitBreakIndicator : MonoBehaviour
     {
         private Text _limitBreakText;
-        [SerializeField] private PlayerLimitBreak _testPlayerCoupling;
 
-
-        private void Start()
+        public void ConnectToPlayer(PlayerLimitBreak playerLimitBreakComponent)
         {
+            playerLimitBreakComponent.limitBreakActivation.AddListener(ActivateLimitBreak);
+            playerLimitBreakComponent.powerUpGained += ChangeLimitBreakText;
             _limitBreakText = GetComponent<Text>();
-            _testPlayerCoupling.limitBreakActivation.AddListener(ActivateLimitBreak);
-            _testPlayerCoupling.powerUpGained += ChangeLimitBreakText;
+            int currentNumber;
+            int currentMax;
+
+            playerLimitBreakComponent.GetCurrentAmountAndThreshHold(out currentNumber, out currentMax);
+
+            ChangeLimitBreakText(currentNumber, currentMax);
         }
 
         private void ChangeLimitBreakText(int currentNumber, int maxNumber)
