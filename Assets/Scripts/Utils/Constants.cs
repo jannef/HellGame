@@ -48,5 +48,10 @@ namespace fi.tamk.hellgame.utils
         }
 
         public const float FallingDeathLenght = 2f;
+
+        public static float SmootherstepDerivateEasing(float x)
+        {
+            return -140 * Mathf.Pow(x - 1, 3) * Mathf.Pow(x, 3);
+        }
     }
 }

@@ -48,8 +48,6 @@ namespace fi.tamk.hellgame.world
             var hyp = Mathf.Sqrt(Mathf.Pow(adjustment, 2f) + Mathf.Pow(height, 2f));
             var fowSize = hyp * Mathf.Tan(Camera.main.fieldOfView);
 
-            Debug.Log(fowSize);
-
             _camLimits[0] = Mathf.Min(_corners[0].position.x, _corners[1].position.x) + 2 * fowSize;
             _camLimits[1] = Mathf.Max(_corners[0].position.x, _corners[1].position.x) - 2 * fowSize;
             _camLimits[2] = Mathf.Min(_corners[0].position.z, _corners[1].position.z) - adjustment + (Camera.main.aspect / fowSize) + CheatSlider;

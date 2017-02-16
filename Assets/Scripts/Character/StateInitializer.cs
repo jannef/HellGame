@@ -81,6 +81,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.BlobResting:
                     outPutState = new BlobRestPhase(hc);
                     break;
+                case InputStates.JumpRepeat:
+                    outPutState = new JumpRepeatState(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +

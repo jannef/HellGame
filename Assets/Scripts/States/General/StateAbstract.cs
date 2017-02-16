@@ -64,7 +64,7 @@ namespace fi.tamk.hellgame.states
         protected virtual void CheckForFalling()
         {
             var ray = new Ray(ControlledActor.transform.position + Vector3.up, Vector3.down);
-            if (!Physics.Raycast(ray, 10f, LayerMask.GetMask(Constants.GroundRaycastLayerName)))
+            if (!Physics.Raycast(ray, Mathf.Infinity, LayerMask.GetMask(Constants.GroundRaycastLayerName)))
             {
                 ControlledActor.GoToState(new StateFalling(ControlledActor));
             }

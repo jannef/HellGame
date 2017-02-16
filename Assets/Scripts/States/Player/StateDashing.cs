@@ -49,7 +49,7 @@ namespace fi.tamk.hellgame.states
             {
                 // For last frame of the dash, move remaining dash distance and change state back to previous.
                 var overTime = (StateTime - ControlledActor.DashDuration * _dashLenghtMultiplier) / ControlledActor.DashDuration *_dashLenghtMultiplier;
-                HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.DashSpeed * overTime);
+                HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.DashSpeed * overTime * Constants.SmootherstepDerivateEasing( StateTime / ControlledActor.DashDuration));
 
                 ControlledActor.ToPreviousState();
                 return;
