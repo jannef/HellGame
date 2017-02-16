@@ -23,7 +23,9 @@ namespace fi.tamk.hellgame.states
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
-            _agent.destination = ServiceLocator.Instance.GetNearestPlayer(Vector3.zero).transform.position;
+
+            var agent = ServiceLocator.Instance.GetNearestPlayer(Vector3.zero);
+            if (agent != null) _agent.destination = agent.transform.position;
         }
 
         public HomingEnemyState(ActorComponent controlledHero) : base(controlledHero)
