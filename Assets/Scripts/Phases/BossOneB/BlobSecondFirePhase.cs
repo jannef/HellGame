@@ -8,7 +8,6 @@ namespace fi.tamk.hellgame.phases
 {
     public class BlobSecondFirePhase : AbstractPhase
     {
-        private HealthComponent _myHealth;
         private static bool _hasActivatedSecondBlobPhase = false;
 
         public override void OnBossHealthChange(float healthPercentage, int hitpoints, int maxHp)
@@ -24,7 +23,6 @@ namespace fi.tamk.hellgame.phases
         public BlobSecondFirePhase(BossComponent master) : base(master)
         {
             ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(Master.transform, 0.5f));
-            _myHealth = master.TrackedHealth;
             Master.BossActor.RequestStateChange(interfaces.InputStates.BlobThird);
         }
     }

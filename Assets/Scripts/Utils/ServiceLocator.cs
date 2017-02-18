@@ -67,7 +67,7 @@ namespace fi.tamk.hellgame.utils
 
         public PickupGathererComponent GetPickupGatherer(Transform playerOfWhich)
         {
-            return _players.DefaultIfEmpty(new PlayerData(null, null)).Where(x => x.Transform = playerOfWhich).First().PickupComponent;
+            return _players.DefaultIfEmpty(new PlayerData(null, null)).First(x => x.Transform = playerOfWhich).PickupComponent;
         }
     }
 }

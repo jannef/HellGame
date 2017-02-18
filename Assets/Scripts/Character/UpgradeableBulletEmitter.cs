@@ -1,32 +1,15 @@
 ﻿using fi.tamk.hellgame.dataholders;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
 {
 
-    public class UpgradeableBulletEmitter : BulletEmitterWithEffects
+    public class UpgradeableBulletEmitter : BulletEmitter
     {
         public BulletEmitterUpgradeData UpgradeData;
 
-        private float defaultCooldown;
-        private float defaultSpread;
-        private int defaultNumberOfBullets;
-        private float defaultDispersion;
-        private float defaultBulletSpeed;
-        private int defaultDamage;
-
-        // Use this for initialization
-        void Start()
+        protected override void Awake()
         {
-            defaultCooldown = Cooldown;
-            defaultDispersion = Dispersion;
-            defaultNumberOfBullets = NumberOfBullets;
-            defaultSpread = Spread;
-            BulletSystem.GetDamageAndSpeed(out defaultDamage, out defaultBulletSpeed);
-
+            base.Awake();
             var limitBreak = GetComponentInParent<PlayerLimitBreak>();
 
             if (limitBreak == null) return;
@@ -41,17 +24,8 @@ namespace fi.tamk.hellgame.character
             NumberOfBullets += UpgradeData.AddedBulletNumber;
             Dispersion += UpgradeData.AddedDispersion;
 
-            BulletSystem.AddToDamageAndSpeed(UpgradeData.AddedDamage, UpgradeData.AddedSpeed);
-        }
-
-        private void RestoreStatsToDefault()
-        {
-            Cooldown = defaultCooldown;
-            Dispersion = defaultDispersion;
-            Spread = defaultSpread;
-            BulletSystem.SetDamageAndSpeed(defaultDamage, defaultBulletSpeed);
-            NumberOfBullets = defaultNumberOfBullets;
-            Cooldown = defaultCooldown;
+            BulletSystem.Damage += (int)UpgradeData.AddedDamage;
+            BulletSystem.Speed += UpgradeData.AddedSpeed;
         }
     }
 }

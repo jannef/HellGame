@@ -8,7 +8,6 @@ namespace fi.tamk.hellgame.phases
 {
     public class BlobFirePhase : AbstractPhase
     {
-        private HealthComponent _myHealth;
         private static bool _hasActivatedSecondBlobPhase = false;
 
         public override void OnBossHealthChange(float healthPercentage, int hitpoints, int maxHp)
@@ -24,7 +23,6 @@ namespace fi.tamk.hellgame.phases
 
         public BlobFirePhase(BossComponent master) : base(master)
         {
-            _myHealth = master.TrackedHealth;
         }
     }
 }

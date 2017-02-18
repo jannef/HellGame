@@ -2,7 +2,7 @@
 using tamk.fi.hellgame.world.states;
 using UnityEngine;
 
-namespace Assets.Scripts.World.WorldStates
+namespace fi.tamk.hellgame.world.states
 {
     public class GenericTimeState : AbstractWorldState
     {

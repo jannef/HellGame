@@ -10,9 +10,6 @@ namespace fi.tamk.hellgame.states
 {
     public class BlobRestPhase : AimingEnemy
     {
-        private float singleBeatLength = 1.4f;
-        private int tempo = 0;
-
         public BlobRestPhase(ActorComponent hc) : base(hc)
         {
         }

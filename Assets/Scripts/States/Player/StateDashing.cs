@@ -55,7 +55,7 @@ namespace fi.tamk.hellgame.states
                 ControlledActor.ToPreviousState();
                 return;
             }
-            HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashSpeed]);
+            HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashSpeed] * Constants.SmootherstepDerivateEasing(StateTime / ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashDuration]));
         }
 
         public StateDashing(ActorComponent controlledHero, Vector3 dashingDirection, float dashLengthMultiplier = 1f) : base(controlledHero)

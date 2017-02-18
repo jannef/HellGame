@@ -83,5 +83,12 @@ namespace fi.tamk.hellgame.world
             _cameraInterestsRaw = _cameraInterestsRaw.Where(x => x.InterestTransform != whichInterest).ToList();
             _weightSum = _cameraInterestsRaw.Sum(X => X.InterestWeight);
         }
+
+        public void PlaceParticleEffectInfrontOfCamera(Transform effectTransform, float distanceFromCamera)
+        {
+            effectTransform.position = transform.position + transform.forward * distanceFromCamera;
+            effectTransform.forward = -transform.forward;
+            effectTransform.parent = transform;
+        }
     }
 }

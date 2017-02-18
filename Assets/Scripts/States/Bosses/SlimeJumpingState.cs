@@ -53,7 +53,6 @@ namespace fi.tamk.hellgame.states
                 {
                     // TODO add support to non-flat surfaces
                     _endPosition = targetVec;
-                    Debug.Log(targetVec);
                     StartJump();
                 }
             }
@@ -74,8 +73,6 @@ namespace fi.tamk.hellgame.states
             _jumpTimer += deltaTime;
             // TODO: Easing
             var ratio = (_jumpTimer * _jumpingSpeed) / _lenght;
-
-            Debug.Log(1 - Mathf.Abs(0.5f - ratio));
 
             var vec = Vector3.Lerp(_startingPosition, _endPosition, ratio);
             vec.y = Mathf.Lerp(_startingPosition.y, _startingPosition.y + _jumpHeight * _lenght,

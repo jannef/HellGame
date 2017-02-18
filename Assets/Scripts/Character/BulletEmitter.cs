@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using fi.tamk.hellgame.projectiles;
 using fi.tamk.hellgame.utils;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
 {
     public class BulletEmitter : MonoBehaviour
     {
+        public UnityEvent FiringEvent;
+
         [SerializeField] protected Transform BulletOrigin;
         [SerializeField] protected LayerMask FireAtWhichLayer;
 
@@ -19,6 +23,13 @@ namespace fi.tamk.hellgame.character
         
         protected ParticleBulletSystem BulletSystem;
         protected float Timer;
+
+        protected float DefaultCooldown;
+        protected float DefaultSpread;
+        protected int DefaultNumberOfBullets;
+        protected float DefaultDispersion;
+        protected float DefaultBulletSpeed;
+        protected int DefaultDamage;
 
         protected Vector3 GunVector
         {
@@ -48,11 +59,32 @@ namespace fi.tamk.hellgame.character
             BulletOrigin.transform.position = startPos;
         }
 
-        protected void Awake()
+        protected void RestoreStatsToDefault()
+        {
+            Cooldown = DefaultCooldown;
+            Dispersion = DefaultDispersion;
+            Spread = DefaultSpread;
+            NumberOfBullets = DefaultNumberOfBullets;
+            Cooldown = DefaultCooldown;
+
+            BulletSystem.Speed = DefaultBulletSpeed;
+            BulletSystem.Damage = DefaultDamage;
+        }
+
+        protected virtual void Awake()
         {
             BulletSystem = GetComponentInChildren<ParticleBulletSystem>();
             Timer = Cooldown + 1f;
-            if (BulletSystem != null) BulletSystem.SetCollisionLayer(FireAtWhichLayer);
+            if (BulletSystem == null) throw new AssertionException("Bullet system not found for this gun: " + gameObject , "");
+
+            BulletSystem.SetCollisionLayer(FireAtWhichLayer);
+
+            DefaultCooldown = Cooldown;
+            DefaultDispersion = Dispersion;
+            DefaultNumberOfBullets = NumberOfBullets;
+            DefaultSpread = Spread;
+            DefaultDamage = BulletSystem.Damage;
+            DefaultBulletSpeed = BulletSystem.Speed;
         }
 
         protected virtual void Update()
@@ -65,6 +97,7 @@ namespace fi.tamk.hellgame.character
             if (!(Timer > Cooldown)) return;
             FireBullets(GunVector);
             Timer = 0f;
+            if (FiringEvent != null) FiringEvent.Invoke();
         }
 
         public void DetachBulletEmitter(Vector3 localScale)

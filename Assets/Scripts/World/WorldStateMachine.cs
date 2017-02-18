@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.World.WorldStates;
 using fi.tamk.hellgame.interfaces;
 using UnityEngine;
 using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.world.states;
 
 namespace fi.tamk.hellgame.world
 {

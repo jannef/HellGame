@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using fi.tamk.hellgame.effector;
 using fi.tamk.hellgame.effects;
+using fi.tamk.hellgame.utils;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.effectors
@@ -21,7 +22,7 @@ namespace fi.tamk.hellgame.effectors
             base.Activate();
             if (_particleSystem == null) return;
             GameObject go = Instantiate(_particleSystem);
-            ScreenParticleEffectPlacer.Instance.PlaceParticleEffectInfrontOfCamera(go.transform, 6);
+            ServiceLocator.Instance.MainCameraScript.PlaceParticleEffectInfrontOfCamera(go.transform, 6);
         }
     }
 }

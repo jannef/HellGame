@@ -8,8 +8,8 @@ namespace fi.tamk.hellgame.projectiles
     [RequireComponent(typeof(ParticleSystem))]
     public class ParticleBulletSystem : MonoBehaviour
     {
-        [SerializeField] protected int Damage = 1;
-        [SerializeField] protected float Speed = 10f;
+        public int Damage = 1;
+        public float Speed = 10f;
 
         protected ParticleSystem BulletSystem;
         protected ParticleSystem.Particle[] Bullets;
@@ -54,24 +54,6 @@ namespace fi.tamk.hellgame.projectiles
             var instance = typeof(ParticleSystem.CollisionModule).GetField("m_ParticleSystem", BindingFlags.NonPublic | BindingFlags.Instance);
             var value = instance.GetValue(BulletSystem.collision);
             methdod.Invoke(value, new object[] {value, (int)maskToSet});
-        }
-
-        public void AddToDamageAndSpeed(float addedDamage, float addedSpeed)
-        {
-            Damage += (int) addedDamage;
-            Speed += addedSpeed;
-        }
-
-        public void SetDamageAndSpeed(int damage, float speed)
-        {
-            Damage = damage;
-            Speed = speed;
-        }
-
-        public void GetDamageAndSpeed(out int Damage, out float Speed)
-        {
-            Damage = this.Damage;
-            Speed = this.Speed;
         }
     }
 }

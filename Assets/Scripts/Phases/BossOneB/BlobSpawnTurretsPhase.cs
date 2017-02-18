@@ -11,7 +11,6 @@ namespace fi.tamk.hellgame.phases
 {
     public class BlobSpawnTurretsPhase : AbstractPhase
     {
-        private HealthComponent _myHealth;
         private ISpawner _mySpawner;
         private SpawnerInstruction _myInstructions;
         private int spawnAmount = 7;
@@ -54,7 +53,6 @@ namespace fi.tamk.hellgame.phases
         public BlobSpawnTurretsPhase(BossComponent master) : base(master)
         {
             ServiceLocator.Instance.MainCameraScript.RemoveInterest(Master.transform);
-            _myHealth = master.TrackedHealth;
             var go = Master.ExistingObjectsUsedByBoss[1];
             _mySpawner = go.GetComponent<AirSpawnerWithSetSpawnPoints>();
             nextSpawnTime = SpawnDelay;

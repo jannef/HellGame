@@ -1,9 +1,5 @@
-﻿using fi.tamk.hellgame.states;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using fi.tamk.hellgame.interfaces;
-using System;
 using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.utils;
 
@@ -13,7 +9,7 @@ namespace fi.tamk.hellgame.states
     {
         protected Transform TargetTransform;
         protected float RetryTimer = 0f;
-        protected float RetryTimeout = 0.3f;
+        protected float RetryTimeout = 0.31f;
 
         public override InputStates StateId
         {

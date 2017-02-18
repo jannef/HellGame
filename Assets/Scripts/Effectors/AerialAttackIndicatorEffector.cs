@@ -27,15 +27,6 @@ namespace fi.tamk.hellgame.effectors
             _effectGameObject.transform.localPosition = Vector3.zero;
             _landindProjector = _effectGameObject.GetComponent<Projector>();
 
-            /*
-            var droppingDamageCollider = GetComponentInChildren<DroppingDamageCollider>();
-
-            if (droppingDamageCollider != null)
-            {
-                Effect.SetOnEnd(droppingDamageCollider.SelfDestruct, new float[0]);
-            }
-            */
-
             Effect.SetOnUpdateCycle(FollowAnother, new float[]{0});
             Effect.SetOnEnd(ScreenShakeEffect, new float[] { ImpactScreenShakeIntensity, ImpactScreenShakeLenght });
 

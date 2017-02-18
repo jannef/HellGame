@@ -1,6 +1,4 @@
 ﻿using fi.tamk.hellgame.dataholders;
-using System.Collections;
-using System.Collections.Generic;
 using fi.tamk.hellgame.effector;
 using fi.tamk.hellgame.effects;
 using UnityEngine;
@@ -9,80 +7,58 @@ using UnityEngine.Events;
 namespace fi.tamk.hellgame.character
 {
 
-    public class BulletEmitterCharging : BulletEmitterWithEffects
+    public class BulletEmitterCharging : BulletEmitter
     {
         public UnityEvent StartChargingEvent;
+
         [SerializeField] private float maxChargeTime;
         [SerializeField] private AnimationCurve shotChargeEasing;
         [SerializeField] private float screenShake;
         [SerializeField] private float screenShakeLenght;
         [SerializeField] private BulletEmitterUpgradeData ShotMaxStats;
 
-        private bool isCharging = false;
-        private float chargingTimer = 0f;
+        private bool _isCharging = false;
+        private float _chargingTimer = 0f;
 
-        private float defaultCooldown;
-        private float defaultStartAngle;
-        private float defaultSpread;
-        private int defaultNumberOfBullets;
-        private float defaultDispersion;
-        private float defaultBulletSpeed;
-        private int defaultDamage;
-
-        // Use this for initialization
-        void Start()
+        protected override void Awake()
         {
-            defaultCooldown = Cooldown;
-            defaultDispersion = Dispersion;
-            defaultStartAngle = StartAngle;
-            defaultNumberOfBullets = NumberOfBullets;
-            defaultSpread = Spread;
-            BulletSystem.GetDamageAndSpeed(out defaultDamage, out defaultBulletSpeed);
+            base.Awake();
 
             var laserPointer = GetComponent<LaserPointer>();
             laserPointer.Initialize(shotChargeEasing, maxChargeTime);
         }
 
-        private void RestoreStatsToDefault()
-        {
-            Cooldown = defaultCooldown;
-            Dispersion = defaultDispersion;
-            Spread = defaultSpread;
-            BulletSystem.SetDamageAndSpeed(defaultDamage, defaultBulletSpeed);
-            NumberOfBullets = defaultNumberOfBullets;
-            Cooldown = defaultCooldown;
-        }
-
         public override void Fire()
         {
-            if (!isCharging)
+            if (!_isCharging)
             {
-                isCharging = true;
+                _isCharging = true;
                 StartCharging();
                 return;
             }
 
             ReleaseCharge();
-            isCharging = false;
+            _isCharging = false;
         }
 
         protected override void Update()
         {
             base.Update();
-            if (isCharging && chargingTimer <= maxChargeTime) chargingTimer += Time.deltaTime;
+            if (_isCharging && _chargingTimer <= maxChargeTime) _chargingTimer += Time.deltaTime;
         }
 
         private void ReleaseCharge()
         {
-            var t = shotChargeEasing.Evaluate(chargingTimer / maxChargeTime);
+            var t = shotChargeEasing.Evaluate(_chargingTimer / maxChargeTime);
 
-            var speed = Mathf.Lerp(defaultBulletSpeed, defaultBulletSpeed + ShotMaxStats.AddedSpeed, t);
-            var damage = Mathf.RoundToInt(Mathf.Lerp(defaultDamage, defaultDamage + ShotMaxStats.AddedDamage, t));
+            var speed = Mathf.Lerp(DefaultBulletSpeed, DefaultBulletSpeed + ShotMaxStats.AddedSpeed, t);
+            var damage = Mathf.RoundToInt(Mathf.Lerp(DefaultDamage, DefaultDamage + ShotMaxStats.AddedDamage, t));
 
-            BulletSystem.SetDamageAndSpeed(damage, speed);
+            BulletSystem.Damage = damage;
+            BulletSystem.Speed = speed;
 
-            NumberOfBullets = Mathf.RoundToInt(Mathf.Lerp(defaultNumberOfBullets, defaultNumberOfBullets + ShotMaxStats.AddedBulletNumber, t));
-            Spread = Mathf.Lerp(defaultSpread, defaultSpread + ShotMaxStats.AddedSpread, t);
+            NumberOfBullets = Mathf.RoundToInt(Mathf.Lerp(DefaultNumberOfBullets, DefaultNumberOfBullets + ShotMaxStats.AddedBulletNumber, t));
+            Spread = Mathf.Lerp(DefaultSpread, DefaultSpread + ShotMaxStats.AddedSpread, t);
             Dispersion = Mathf.Lerp(Dispersion, Dispersion + ShotMaxStats.AddedDispersion, t);
 
             base.Fire();
@@ -90,7 +66,7 @@ namespace fi.tamk.hellgame.character
             Effector.ScreenShakeEffect(new float[2] { screenShake * t, screenShakeLenght});
             Effector.ThreadFreezeFrame(new float[0]);
 
-            chargingTimer = 0f;
+            _chargingTimer = 0f;
 
             RestoreStatsToDefault();
         }
