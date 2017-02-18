@@ -79,8 +79,6 @@ namespace fi.tamk.hellgame.character
             }
 
             DeactivateLimitbreak();
-
-
         }
     }
 }

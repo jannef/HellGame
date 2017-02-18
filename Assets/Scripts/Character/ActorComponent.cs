@@ -1,5 +1,6 @@
 ﻿using fi.tamk.hellgame.interfaces;
 using System.Collections.Generic;
+using fi.tamk.hellgame.dataholders;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.character
@@ -8,9 +9,7 @@ namespace fi.tamk.hellgame.character
 
     public class ActorComponent : MonoBehaviour
     {
-        public float Speed = 1;
-        public float DashSpeed = 10;
-        public float DashDuration = 0.75f;
+        public ActorData ActorNumericData;
         public GameObject HeroObject { get { return gameObject; } }
 
         public event TriggerEventDelegate OnTriggerEnterActions;

@@ -11,8 +11,8 @@ namespace fi.tamk.hellgame.states
 {
     public class AimingEnemy : StateAbstract
     {
-        protected Transform _targetTransform;
-        protected float _retryTimer = 0;
+        protected Transform TargetTransform;
+        protected float RetryTimer = 0f;
         protected float RetryTimeout = 0.3f;
 
         public override InputStates StateId
@@ -25,29 +25,32 @@ namespace fi.tamk.hellgame.states
 
         public AimingEnemy(ActorComponent hc) : base(hc)
         {
-            _targetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
+            TargetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
         }
 
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
+            FaceTargetBehaviour(deltaTime);
+            ControlledActor.FireGunByIndex(0);
+        }
 
-            if (_targetTransform != null)
+        protected virtual void FaceTargetBehaviour(float deltaTime)
+        {
+            if (TargetTransform != null)
             {
-                // TODO: Rotating speed is now determined by dashingSpeed
-                ControlledActor.transform.forward = Vector3.RotateTowards(ControlledActor.transform.forward, 
-                    _targetTransform.position - ControlledActor.transform.position,
-                    ControlledActor.DashSpeed * Time.deltaTime, 0.0f);
-                ControlledActor.FireGunByIndex(0);
+                ControlledActor.transform.forward = Vector3.RotateTowards(ControlledActor.transform.forward,
+                    new Vector3(TargetTransform.position.x, ControlledActor.transform.position.y,
+                    TargetTransform.position.z) - ControlledActor.transform.position,
+                    ControlledActor.ActorNumericData.ActorFloatData[2] * deltaTime, 0.0f);
             }
 
-            _retryTimer += deltaTime;
-            if (_retryTimer > RetryTimeout)
+            RetryTimer += deltaTime;
+            if (RetryTimer > RetryTimeout)
             {
-                _retryTimer = 0f;
-                _targetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
+                RetryTimer = 0f;
+                TargetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
             }
-
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using fi.tamk.hellgame.dataholders;
 
 namespace fi.tamk.hellgame.character
 {

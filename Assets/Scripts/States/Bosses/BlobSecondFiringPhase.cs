@@ -8,7 +8,7 @@ using UnityEngine;
 namespace fi.tamk.hellgame.states
 {
     public class BlobFirstFiringState : AimingEnemy {
-        private float singleBeatLength = 1.6f;
+        private float _singleBeatLength = 1.6f;
         private int tempo = 0;
 
         public BlobFirstFiringState(ActorComponent hc) : base(hc)
@@ -25,60 +25,35 @@ namespace fi.tamk.hellgame.states
 
         public override bool RequestStateChange(InputStates requestedState)
         {
-            if (requestedState == InputStates.BlobResting)
-            {
-                ControlledActor.GoToState(new BlobRestPhase(ControlledActor));
-                return true;
-            }
+            if (requestedState != InputStates.BlobResting) return false;
 
-            return false;
+            ControlledActor.GoToState(new BlobRestPhase(ControlledActor));
+            return true;
         }
 
         public override void HandleInput(float deltaTime)
         {
-            StateTime += Time.deltaTime;
+            StateTime += deltaTime;
+            FaceTargetBehaviour(deltaTime);
 
-            if (_targetTransform != null)
+            if (TargetTransform == null) return;
+
+            switch (tempo)
             {
-                // TODO: Rotating speed is now determined by dashingSpeed
-                ControlledActor.transform.forward = Vector3.RotateTowards(ControlledActor.transform.forward,
-                    new Vector3(_targetTransform.position.x, ControlledActor.transform.position.y, 
-                    _targetTransform.position.z) - ControlledActor.transform.position,
-                    ControlledActor.DashSpeed * Time.deltaTime, 0.0f);
-
-                switch (tempo)
-                {
-                    case 3:
-                        break;
-                    case 4:
-                        ControlledActor.FireGunByIndex(1);
-                        break;
-                    default:
-                        ControlledActor.FireGunByIndex(0);
-                        break;
-                }
-
-                if (StateTime >= singleBeatLength)
-                {
-                    StateTime = 0;
-                    if (tempo < 5)
-                    {
-                        tempo++;
-                    } else
-                    {
-                        tempo = 0;
-                    }
-                    
-                }
+                case 3:
+                    break;
+                case 4:
+                    ControlledActor.FireGunByIndex(1);
+                    break;
+                default:
+                    ControlledActor.FireGunByIndex(0);
+                    break;
             }
 
-            _retryTimer += deltaTime;
-            if (_retryTimer > RetryTimeout)
-            {
-                _retryTimer = 0f;
-                _targetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
-            }
+            if (!(StateTime > _singleBeatLength)) return;
 
+            StateTime = 0;
+            tempo = (tempo + 1) % 5;
         }
     }
 }

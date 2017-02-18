@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using fi.tamk.hellgame.interfaces;
 using UnityEngine;
 using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.input;
 using tamk.fi.hellgame.character;
 
@@ -53,7 +54,7 @@ namespace fi.tamk.hellgame.states
                     HeroAvatar.transform.position.y, HeroAvatar.transform.position.z + controllerLookInput.z));
             }
 
-            HeroAvatar.Move(movementDirection * ControlledActor.Speed * deltaTime * movementSpeedMultiplier);
+            HeroAvatar.Move(movementDirection * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.Speed] * deltaTime * movementSpeedMultiplier);
 
             if (movementSpeedMultiplier >= 0.98)
             {

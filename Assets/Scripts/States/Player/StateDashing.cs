@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.character;
 using System;
+using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.states
@@ -45,16 +46,16 @@ namespace fi.tamk.hellgame.states
         {
             StateTime += deltaTime;
 
-            if (StateTime > ControlledActor.DashDuration * _dashLenghtMultiplier)
+            if (StateTime > ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashDuration] * _dashLenghtMultiplier)
             {
                 // For last frame of the dash, move remaining dash distance and change state back to previous.
-                var overTime = (StateTime - ControlledActor.DashDuration * _dashLenghtMultiplier) / ControlledActor.DashDuration *_dashLenghtMultiplier;
-                HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.DashSpeed * overTime * Constants.SmootherstepDerivateEasing( StateTime / ControlledActor.DashDuration));
+                var overTime = (StateTime - ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashDuration] * _dashLenghtMultiplier) / ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashDuration] * _dashLenghtMultiplier;
+                HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashSpeed] * overTime * Constants.SmootherstepDerivateEasing( StateTime / ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashDuration]));
 
                 ControlledActor.ToPreviousState();
                 return;
             }
-            HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.DashSpeed);
+            HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashSpeed]);
         }
 
         public StateDashing(ActorComponent controlledHero, Vector3 dashingDirection, float dashLengthMultiplier = 1f) : base(controlledHero)

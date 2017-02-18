@@ -4,6 +4,7 @@ using fi.tamk.hellgame.utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace fi.tamk.hellgame.states
 {
@@ -26,35 +27,15 @@ namespace fi.tamk.hellgame.states
 
         public override bool RequestStateChange(InputStates requestedState)
         {
-            if (requestedState == InputStates.BlobThird)
-            {
-                ControlledActor.GoToState(new BlobThirdFiringPhase(ControlledActor));
-                return true;
-            }
-
-            return false;
+            if (requestedState != InputStates.BlobThird) return false;
+            ControlledActor.GoToState(new BlobThirdFiringPhase(ControlledActor));
+            return true;
         }
 
         public override void HandleInput(float deltaTime)
         {
             StateTime += Time.deltaTime;
-
-            if (_targetTransform != null)
-            {
-                // TODO: Rotating speed is now determined by dashingSpeed
-                ControlledActor.transform.forward = Vector3.RotateTowards(ControlledActor.transform.forward,
-                    new Vector3(_targetTransform.position.x, ControlledActor.transform.position.y,
-                    _targetTransform.position.z) - ControlledActor.transform.position,
-                    ControlledActor.DashSpeed * Time.deltaTime, 0.0f);
-
-                _retryTimer += deltaTime;
-                if (_retryTimer > RetryTimeout)
-                {
-                    _retryTimer = 0f;
-                    _targetTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
-                }
-
-            }
+            FaceTargetBehaviour(deltaTime);
         }
     }
 }

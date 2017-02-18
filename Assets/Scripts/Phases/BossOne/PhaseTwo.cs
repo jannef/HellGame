@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.utils;
 using UnityEngine;
 
