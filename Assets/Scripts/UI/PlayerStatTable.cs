@@ -12,6 +12,8 @@ namespace fi.tamk.hellgame.ui
 
         public void SetUpPlayerStatTable(GameObject playerGO)
         {
+            LocaleStrings.CurrentLocale = LocaleStrings.en_EN;
+
             var _limitBreakIndicator = GetComponentInChildren<LimitBreakIndicator>();
             var _playerHealthIndicator = GetComponentInChildren<PlayerHealthIndicator>();
 

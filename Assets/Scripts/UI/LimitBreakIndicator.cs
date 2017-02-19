@@ -33,12 +33,12 @@ namespace fi.tamk.hellgame.ui
                 return;
             }
 
-            _limitBreakText.text = "PRESS TO ACTIVATE LIMIT BREAK!";
+            _limitBreakText.text = LocaleStrings.UI_LimitBreakPrompt;
         }
 
         private void ActivateLimitBreak()
         {
-            _limitBreakText.text = "ULTIMATE POWER!";
+            _limitBreakText.text = LocaleStrings.UI_LimitBreakNotification;
         }
     }
 }
