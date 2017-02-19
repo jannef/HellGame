@@ -1,0 +1,62 @@
+# python3 generate_loc.py -i <file> -o <outfile>
+
+import sys, getopt, os.path
+from ODSReader import ODSReader
+
+
+def main(argv):
+    inputFilename = ''
+    outputFilename = ''
+
+    try:
+        opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
+    except getopt.GetoptError:
+        print ('File error: test.py -i <inputfile> -o <outputfile>')
+        sys.exit(2)
+
+    for opt, arg in opts:
+        if opt == '-h':
+            print ('test.py -i <inputfile> -o <outputfile>')
+            sys.exit()
+        elif opt in ("-i", "--ifile"):
+            inputFilename = arg
+        elif opt in ("-o", "--ofile"):
+            outputFilename = arg
+
+
+    if os.path.isfile(inputFilename):
+        print('Found file:', inputFilename)
+    else:
+        print('Unable to find file:', inputFilename)
+        sys.exit()
+
+
+    # Open our output file...
+    outputFile = open(outputFilename, 'w')
+    print('Opened file: ', outputFilename)
+
+    # Open input spreadsheet and grab sheet 1
+    inputFile = ODSReader(inputFilename)
+    sheet1  = inputFile.getSheet(u'Sheet1')
+    print ('Opened input file, starting build...')
+
+    # Build output string
+    outputFile.write('using UnityEngine;\nusing System.Collections;\nusing System;\n\npublic static class LocaleStrings\n{\n')
+    outputFile.write('\tpublic static string[] CurrentLocale;\n\n')
+	
+    for j in range (1, 9):
+        outputFile.write('\tpublic static string[] '+sheet1[0][j]+' = {\n' )
+        for i in range (1, len(sheet1)-1):
+            outputFile.write('\t\t\"'+ sheet1[i][j] + '\",\n')
+        outputFile.write('\t\t\"'+ sheet1[len(sheet1)-1][j] + '\"\n\t};\n\n')
+
+    for i in range (1, len(sheet1)-1):
+        if (sheet1[i][0] != ""):
+            outputFile.write('\tpublic static string ' + sheet1[i][0]+'()\n\t{\n\t\treturn CurrentLocale['+str(i-1)+'];\n\t}\n\n')
+
+    outputFile.write('}')
+
+    outputFile.close()
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
