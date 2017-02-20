@@ -1,0 +1,7 @@
+
+3 - Base radius for landing position verification
+4 - Wind up period lenght
+5 - Jumping height
+6 - Jumping Speed
+7 - Desired jumping lenght, which affects jump duration
+8 - How much 7 affects jump duration [0, 1]

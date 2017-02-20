@@ -23,6 +23,7 @@ namespace fi.tamk.hellgame.utils
         private readonly List<PlayerData> _players = new List<PlayerData>();
         private readonly List<RespawnPoint> _respawnPoints = new List<RespawnPoint>();
         private CameraFollow _mainCameraFollow;
+        public static float[] WorldLimits;
 
         public CameraFollow MainCameraScript
         {

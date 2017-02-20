@@ -13,6 +13,7 @@ namespace fi.tamk.hellgame.states
     {
         protected int OriginalLayer;
         private float _dashLenghtMultiplier;
+        private TrailRenderer _playerTrail;
 
         public override InputStates StateId
         {

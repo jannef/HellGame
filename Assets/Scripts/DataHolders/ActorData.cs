@@ -11,5 +11,6 @@ namespace fi.tamk.hellgame.dataholders
     public class ActorData : ScriptableObject
     {
         public float[] ActorFloatData;
+        public AnimationCurve[] CurveData;
     }
 }

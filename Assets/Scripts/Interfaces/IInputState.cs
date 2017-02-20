@@ -27,7 +27,8 @@ namespace fi.tamk.hellgame.interfaces
         BlobResting = 18,
         Charging = 19,
         SlimeJumping = 20,
-        JumpRepeat = 21
+        JumpRepeat = 21,
+        SlimeHuntJumping = 22
     }
 
     public enum TransitionType

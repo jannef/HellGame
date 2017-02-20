@@ -7,6 +7,7 @@ namespace fi.tamk.hellgame.effector
     public class Effector : MonoBehaviour
     {
         protected GenericEffect Effect;
+        protected static float _lastFreeze = 0f;
 
         public static void ScreenShakeEffect(float[] args)
         {
@@ -21,6 +22,9 @@ namespace fi.tamk.hellgame.effector
 
         public static void ThreadFreezeFrame(float[] args)
         {
+            if (Time.time - _lastFreeze < 0.1f) return;
+
+            _lastFreeze = Time.time;
             System.Threading.Thread.Sleep(20);
         }
 

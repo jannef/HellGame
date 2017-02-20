@@ -53,8 +53,12 @@ namespace fi.tamk.hellgame.world
             _camLimits[2] = Mathf.Min(_corners[0].position.z, _corners[1].position.z) - adjustment + (Camera.main.aspect / fowSize) + CheatSlider;
             _camLimits[3] = Mathf.Max(_corners[0].position.z, _corners[1].position.z) - adjustment - (Camera.main.aspect / fowSize);
 
-            _corners[0].position = new Vector3(_camLimits[0], 0, _camLimits[2]);
-            _corners[1].position = new Vector3(_camLimits[1], 0, _camLimits[3]);
+            ServiceLocator.WorldLimits = new [] {
+                Mathf.Min(_corners[0].position.x, _corners[1].position.x), 
+                Mathf.Max(_corners[0].position.x, _corners[1].position.x), 
+                Mathf.Min(_corners[0].position.z, _corners[1].position.z),
+                Mathf.Max(_corners[0].position.z, _corners[1].position.z)
+            };
         }
 
         [ExecuteInEditMode]
@@ -62,7 +66,7 @@ namespace fi.tamk.hellgame.world
         {
             var pos = new Vector3(
                 Mathf.Clamp((CameraPosition + _offset).x, _camLimits[0], _camLimits[1]),
-                (CameraPosition + _offset).y,
+                _offset.y,
                 Mathf.Clamp((CameraPosition + _offset).z, _camLimits[2], _camLimits[3]));
 
             if (_cameraInterestsRaw.Count > 0) _cameraHolderTransform.position = Vector3.SmoothDamp(transform.position, pos, ref velocity, smoothTime);
