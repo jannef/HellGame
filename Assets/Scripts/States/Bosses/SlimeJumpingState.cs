@@ -76,7 +76,7 @@ namespace fi.tamk.hellgame.states
 
             var vec = Vector3.Lerp(_startingPosition, _endPosition, ratio);
             vec.y = Mathf.Lerp(_startingPosition.y, _startingPosition.y + _jumpHeight * _lenght,
-                0.5f - Mathf.Abs(0.5f - ratio));
+                1f - Mathf.Abs(1f - ratio*2));
 
             ControlledActor.transform.position = vec;
 
