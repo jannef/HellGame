@@ -7,6 +7,7 @@ using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.utils;
 using UnityEngine;
+using fi.tamk.hellgame.dataholders;
 
 namespace fi.tamk.hellgame.states
 {
@@ -27,15 +28,15 @@ namespace fi.tamk.hellgame.states
         private float _jumpTimer = 0f;
         private bool _isJumping = false;
 
-        public SlimeJumpingState(ActorComponent controlledHero, Transform target) : base(controlledHero)
+        public SlimeJumpingState(ActorComponent controlledHero, Transform target, SlimeJumpData jumpData) : base(controlledHero)
         {
             TargetTransform = target;
             _radius = ControlledActor.ActorNumericData.ActorFloatData[3];
-            _windUpTime = ControlledActor.ActorNumericData.ActorFloatData[4];
-            _jumpHeight = ControlledActor.ActorNumericData.ActorFloatData[5];
-            _jumpingSpeed = ControlledActor.ActorNumericData.ActorFloatData[6];
-            _desiredJumpLenght = ControlledActor.ActorNumericData.ActorFloatData[7];
-            _desiredJumpLenghtEfficiency = ControlledActor.ActorNumericData.ActorFloatData[8];
+            _windUpTime = jumpData.JumpDelay;
+            _jumpHeight = jumpData.JumpHeight;
+            _jumpingSpeed = jumpData.JumpSpeed;
+            _desiredJumpLenght = jumpData.TargetJumpLenght;
+            _desiredJumpLenghtEfficiency = jumpData.TargetjumpLenghtStrenght;
         }
 
         public override void HandleInput(float deltaTime)

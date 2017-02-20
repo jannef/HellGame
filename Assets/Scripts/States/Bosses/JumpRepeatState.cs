@@ -23,6 +23,9 @@ namespace fi.tamk.hellgame.states
         int _phase = 0;
         private int jumpAmount = 3;
 
+        private SlimeJumpData _longJumpData;
+        private SlimeJumpData _shortJumpData;
+
         public JumpRepeatState(ActorComponent controlledHero) : base(controlledHero)
         {
             var hc = ControlledActor.GetComponent<HealthComponent>();
@@ -31,6 +34,8 @@ namespace fi.tamk.hellgame.states
 
             _mySpawner = externalObjects.ExistingGameObjects[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
             _spawnerInstance = GameObject.Instantiate(externalObjects.ScriptableObjects[0]) as SpawnerInstruction;
+            _longJumpData = GameObject.Instantiate(externalObjects.ScriptableObjects[1]) as SlimeJumpData;
+            _shortJumpData = GameObject.Instantiate(externalObjects.ScriptableObjects[2]) as SlimeJumpData;
             _currentPhase = JumpPhase.Summon;
         }
 
@@ -66,7 +71,7 @@ namespace fi.tamk.hellgame.states
 
                     if (jumpAmount <= 0)
                     {
-                        jumpAmount = 2;
+                        jumpAmount = 3;
                         _currentPhase = JumpPhase.Summon;
                     }
                     break;
@@ -103,13 +108,13 @@ namespace fi.tamk.hellgame.states
             switch (_currentPhase)
             {
                 case JumpPhase.Hunting:
-                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position)));
+                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _longJumpData));
                     break;
                 case JumpPhase.Summon:
-                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ControlledActor.transform));
+                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ControlledActor.transform, _shortJumpData));
                     break;
                 case JumpPhase.HuntAndSummon:
-                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position)));
+                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _longJumpData));
                     break;
             }
             

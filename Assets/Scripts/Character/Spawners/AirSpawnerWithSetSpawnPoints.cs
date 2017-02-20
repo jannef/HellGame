@@ -59,41 +59,65 @@ namespace fi.tamk.hellgame.character
             }
 
             return SpawnObjects(instructions.prefabToSpawn, instructions.numberOfSpawns, instructions.possibleSpawnPoints,
-                    instructions.delayBetweenSpawns, instructions.spawnAreaRandomness, returnMinionComponents);
+                    instructions.delayBetweenSpawns, instructions.spawnAreaRandomness, returnMinionComponents, instructions.SpawnPointSpread);
         }
 
         private MinionComponent[] SpawnObjects(GameObject prefabToSpawn, int numberToSpawn, int[] spawnPoints, float delayBetweenSpawns, float spawnAreaSize, 
-            bool ReturnMinionComponent)
+            bool ReturnMinionComponent, SpawnPointSpread spreadType)
         {
             MinionComponent[] minionComponents = new MinionComponent[numberToSpawn];
             List<GameObject> spawnedObjects = new List<GameObject>();
             int spawnPointIndex = 0;
+            var maxIndexAmount = spawnPoints.Length;
+
+            if (spreadType == SpawnPointSpread.RandomEvenly)
+            {
+                System.Random rnd = new System.Random();
+                int[] myArray;
+                myArray = spawnPoints;
+                spawnPoints = myArray.OrderBy(x => rnd.Next()).ToArray();
+            }
 
             for (int i = 0; i < numberToSpawn; i++)
             {
                 Ray ray;
 
+                Vector3 targetSpawnPoint;
+
                 if (spawnPoints == null || spawnPoints.Length == 0)
                 {
-                    if (spawnPointIndex >= availableSpawnPoints.Length)
+                    if (spreadType == SpawnPointSpread.CompletelyRandom)
                     {
-                        spawnPointIndex = 0;
+                        spawnPointIndex = UnityEngine.Random.Range(0, maxIndexAmount - 1);
                     }
-                    // If no spawnPoints were chosen, it is assumed that all available spawnpoints are used.
-                    ray = new Ray(AirDropOffset + 
-                        availableSpawnPoints[Mathf.Clamp(spawnPointIndex, 0, availableSpawnPoints.Length - 1)].position
-                    + UnityEngine.Random.insideUnitSphere * spawnAreaSize, Vector3.down);
 
-                } else
-                {
                     if (spawnPointIndex >= spawnPoints.Length)
                     {
                         spawnPointIndex = 0;
                     }
 
-                    ray = new Ray(AirDropOffset + availableSpawnPoints[Mathf.Clamp(spawnPoints[spawnPointIndex], 0, availableSpawnPoints.Length - 1)].position
-                    + UnityEngine.Random.insideUnitSphere * spawnAreaSize, Vector3.down);
+                    maxIndexAmount = spawnPoints.Length;
+
+                    targetSpawnPoint = availableSpawnPoints[Mathf.Clamp(spawnPointIndex, 0, availableSpawnPoints.Length - 1)].position;
+
+                } else
+                {
+                    if (spreadType == SpawnPointSpread.CompletelyRandom)
+                    {
+                        spawnPointIndex = UnityEngine.Random.Range(0, maxIndexAmount - 1);
+                    }
+
+                    if (spawnPointIndex >= spawnPoints.Length)
+                    {
+                        spawnPointIndex = 0;
+                    }
+
+                    targetSpawnPoint = availableSpawnPoints[Mathf.Clamp(spawnPoints[spawnPointIndex], 0, availableSpawnPoints.Length - 1)].position;
                 }
+
+                
+
+                ray = new Ray(AirDropOffset + targetSpawnPoint + UnityEngine.Random.insideUnitSphere * spawnAreaSize, Vector3.down);
 
                 spawnPointIndex++;
 
