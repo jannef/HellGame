@@ -34,11 +34,12 @@ namespace fi.tamk.hellgame.character
             {
                 _isCharging = true;
                 StartCharging();
-                return;
             }
-
-            ReleaseCharge();
-            _isCharging = false;
+            else
+            {
+                _isCharging = false;
+                ReleaseCharge();
+            }
         }
 
         protected override void Update()
