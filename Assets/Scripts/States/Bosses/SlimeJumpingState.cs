@@ -28,15 +28,23 @@ namespace fi.tamk.hellgame.states
         private float _jumpTimer = 0f;
         private bool _isJumping = false;
 
+        private Vector3 _startSize;
+        private Vector3 _minSize;
+        private float _scaleChangeStartY;
+
         public SlimeJumpingState(ActorComponent controlledHero, Transform target, SlimeJumpData jumpData) : base(controlledHero)
         {
             TargetTransform = target;
+            _startSize = ControlledActor.transform.localScale;
+            _minSize = new Vector3(ControlledActor.transform.localScale.x * 1.33f, 
+                ControlledActor.transform.localScale.y * .5f, ControlledActor.transform.localScale.z * 1.33f);
             _radius = ControlledActor.ActorNumericData.ActorFloatData[3];
             _windUpTime = jumpData.JumpDelay;
             _jumpHeight = jumpData.JumpHeight;
             _jumpingSpeed = jumpData.JumpSpeed;
             _desiredJumpLenght = jumpData.TargetJumpLenght;
             _desiredJumpLenghtEfficiency = jumpData.TargetjumpLenghtStrenght;
+            _scaleChangeStartY = ControlledActor.transform.position.y;
         }
 
         public override void HandleInput(float deltaTime)
@@ -50,6 +58,11 @@ namespace fi.tamk.hellgame.states
             else
             {
                 var windUpRatio = StateTime / _windUpTime;
+                ControlledActor.transform.localScale = Vector3.Lerp(_startSize, _minSize, ControlledActor.ActorNumericData.CurveData[2].Evaluate(windUpRatio));
+                ControlledActor.transform.position = new Vector3(ControlledActor.transform.position.x,
+                    Mathf.Lerp(_scaleChangeStartY, _scaleChangeStartY - ((_startSize.y - _minSize.y) / 2), 
+                    ControlledActor.ActorNumericData.CurveData[2].Evaluate(windUpRatio)),
+                    ControlledActor.transform.position.z);
                 // var playerTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
                 if (TargetTransform == null)
                 {
@@ -63,6 +76,7 @@ namespace fi.tamk.hellgame.states
 
                 if (windUpRatio >= 1f)
                 {
+                    ControlledActor.transform.localScale = _startSize;
                     // TODO add support to non-flat surfaces
                     targetVec.x = Mathf.Clamp(targetVec.x, ServiceLocator.WorldLimits[0] + _radius, ServiceLocator.WorldLimits[1] - _radius);
                     targetVec.z = Mathf.Clamp(targetVec.z, ServiceLocator.WorldLimits[2] + _radius, ServiceLocator.WorldLimits[3] - _radius);
