@@ -90,9 +90,9 @@ namespace fi.tamk.hellgame.world
 
         public void PlaceParticleEffectInfrontOfCamera(Transform effectTransform, float distanceFromCamera)
         {
-            effectTransform.position = transform.position + transform.forward * distanceFromCamera;
-            effectTransform.forward = -transform.forward;
-            effectTransform.parent = transform;
+            effectTransform.position = Camera.main.transform.position + Camera.main.transform.forward * distanceFromCamera;
+            effectTransform.forward = -Camera.main.transform.forward;
+            effectTransform.parent = Camera.main.transform;
         }
     }
 }

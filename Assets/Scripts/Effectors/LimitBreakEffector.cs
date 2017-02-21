@@ -11,6 +11,7 @@ namespace fi.tamk.hellgame.effectors
     {
         [SerializeField] private PlayerLimitBreakStats _limitBreakStats;
         [SerializeField] private GameObject _particleSystem;
+        [SerializeField] private GameObject _ambientParticleSystem;
 
         private void Start()
         {
@@ -23,6 +24,8 @@ namespace fi.tamk.hellgame.effectors
             if (_particleSystem == null) return;
             GameObject go = Instantiate(_particleSystem);
             ServiceLocator.Instance.MainCameraScript.PlaceParticleEffectInfrontOfCamera(go.transform, 6);
+            GameObject ambientGO = Instantiate(_ambientParticleSystem);
+            ServiceLocator.Instance.MainCameraScript.PlaceParticleEffectInfrontOfCamera(ambientGO.transform, 6);
         }
     }
 }

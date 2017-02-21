@@ -22,6 +22,8 @@ namespace fi.tamk.hellgame.states
         private SpawnerInstruction _spawnerInstance;
         int _phase = 0;
         private int jumpAmount = 3;
+        private int spawnedWaveAmount = 0;
+        private int totalHuntJumps = 0;
 
         private SlimeJumpData _longJumpData;
         private SlimeJumpData _shortJumpData;
@@ -36,7 +38,7 @@ namespace fi.tamk.hellgame.states
             _spawnerInstance = GameObject.Instantiate(externalObjects.ScriptableObjects[0]) as SpawnerInstruction;
             _longJumpData = GameObject.Instantiate(externalObjects.ScriptableObjects[1]) as SlimeJumpData;
             _shortJumpData = GameObject.Instantiate(externalObjects.ScriptableObjects[2]) as SlimeJumpData;
-            _currentPhase = JumpPhase.Summon;
+            _currentPhase = JumpPhase.Hunting;
         }
 
         private void OnBossHealthChange(float percentage, int health, int maxHealth)
@@ -74,10 +76,23 @@ namespace fi.tamk.hellgame.states
                         jumpAmount = 3;
                         _currentPhase = JumpPhase.Summon;
                     }
+
+                    totalHuntJumps++;
+
+                    if (totalHuntJumps == 6)
+                    {
+                        _longJumpData.JumpDelay = _longJumpData.JumpDelay * 0.8f;
+                    }
+
                     break;
                 case JumpPhase.Summon:
 
                     _mySpawner.Spawn(_spawnerInstance);
+                    spawnedWaveAmount++;
+                    if (spawnedWaveAmount == 3)
+                    {
+                        _spawnerInstance.numberOfSpawns++;
+                    }
 
                     jumpAmount--;
 
