@@ -33,9 +33,9 @@ namespace fi.tamk.hellgame.states
             var externalObjects = ControlledActor.gameObject.GetComponent<BossExternalObjects>();
 
             _mySpawner = externalObjects.ExistingGameObjects[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
-            _spawnerInstance = GameObject.Instantiate(externalObjects.ScriptableObjects[0]) as SpawnerInstruction;
-            _longJumpData = GameObject.Instantiate(externalObjects.ScriptableObjects[1]) as SlimeJumpData;
-            _shortJumpData = GameObject.Instantiate(externalObjects.ScriptableObjects[2]) as SlimeJumpData;
+            _spawnerInstance = externalObjects.ScriptableObjects[0] as SpawnerInstruction;
+            _longJumpData = externalObjects.ScriptableObjects[1] as SlimeJumpData;
+            _shortJumpData = externalObjects.ScriptableObjects[2] as SlimeJumpData;
             _currentPhase = JumpPhase.Summon;
         }
 
@@ -54,11 +54,6 @@ namespace fi.tamk.hellgame.states
         public override InputStates StateId
         {
             get { return InputStates.JumpRepeat; }
-        }
-
-        protected override void CheckForFalling()
-        {
-            base.CheckForFalling();
         }
 
         public override void OnResumeState()
