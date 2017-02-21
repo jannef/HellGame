@@ -29,7 +29,7 @@ namespace fi.tamk.hellgame.effects
 
             if (_shakeAmount > 0)
             {
-                _shakeAmount = Mathf.Max(_currentShakeAmount + shakeAmount);
+                _shakeAmount = Mathf.Max(_currentShakeAmount, shakeAmount);
                 _shakeLenght = Mathf.Max(shakeLenght, _shakeLenght - _lerpTimer * _shakeLenght);
                 _lerpTimer = 0;
             }

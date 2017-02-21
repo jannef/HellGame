@@ -21,6 +21,7 @@ namespace fi.tamk.hellgame.effectors
         public override void Activate()
         {
             base.Activate();
+
             if (_particleSystem == null) return;
             GameObject go = Instantiate(_particleSystem);
             ServiceLocator.Instance.MainCameraScript.PlaceParticleEffectInfrontOfCamera(go.transform, 6);

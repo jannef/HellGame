@@ -35,7 +35,6 @@ namespace fi.tamk.hellgame.states
         public SlimeJumpingState(ActorComponent controlledHero, Transform target, SlimeJumpData jumpData) : base(controlledHero)
         {
             TargetTransform = target;
-            _startSize = ControlledActor.transform.localScale;
             _minSize = new Vector3(ControlledActor.transform.localScale.x * 1.33f, 
                 ControlledActor.transform.localScale.y * .5f, ControlledActor.transform.localScale.z * 1.33f);
             _radius = ControlledActor.ActorNumericData.ActorFloatData[3];
@@ -45,6 +44,18 @@ namespace fi.tamk.hellgame.states
             _desiredJumpLenght = jumpData.TargetJumpLenght;
             _desiredJumpLenghtEfficiency = jumpData.TargetjumpLenghtStrenght;
             _scaleChangeStartY = ControlledActor.transform.position.y;
+        }
+
+        public override void OnEnterState()
+        {
+            base.OnEnterState();
+            _startSize = ControlledActor.gameObject.transform.localScale;
+        }
+
+        public override void OnExitState()
+        {
+            base.OnExitState();
+            ControlledActor.gameObject.transform.localScale = _startSize;
         }
 
         public override void HandleInput(float deltaTime)
@@ -133,7 +144,7 @@ namespace fi.tamk.hellgame.states
         }
 
         protected virtual void AtJumpEnd()
-        {
+        {            
             effector.Effector.ScreenShakeEffect(new float[2] { 33f, .44f });
         }
 
