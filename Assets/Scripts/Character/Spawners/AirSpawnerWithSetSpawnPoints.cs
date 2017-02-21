@@ -1,35 +1,42 @@
-﻿using fi.tamk.hellgame.interfaces;
+﻿using System;
+using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.utils;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using fi.tamk.hellgame.dataholders;
+using Random = UnityEngine.Random;
 
 namespace fi.tamk.hellgame.character
 {
 
     public class AirSpawnerWithSetSpawnPoints : MonoBehaviour, ISpawner
     {
-        [SerializeField] protected Transform spawnPointsParent;
+        [SerializeField] protected Transform SpawnPointsParent;
         [SerializeField] protected Vector3 AirDropOffset;
-        private Transform[] availableSpawnPoints;
+        private Vector3[] _availableSpawnPoints;
 
-        void Awake()
+        protected void Awake()
         {
-            var transformArray = spawnPointsParent.GetComponentsInChildren<Transform>();
-            availableSpawnPoints = new Transform[transformArray.Length - 1];
-
-            int availableSpawnPointIndex = 0;
-
-            // This is used to remove the parent from available spawnPoints.
-            for (int i = 0; i < transformArray.Length; i++)
+            var transformArray = SpawnPointsParent.GetComponentsInChildren<Transform>();
+            if (transformArray.Length <= 1)
             {
-                if (transformArray[i].GetInstanceID() != spawnPointsParent.GetInstanceID())
+                _availableSpawnPoints = new [] { Vector3.zero };
+            }
+            else
+            {
+                _availableSpawnPoints = new Vector3[transformArray.Length - 1];
+
+                // This is used to remove the parent from available spawnPoints.
+                var availableSpawnPointIndex = 0;
+                foreach (var t in transformArray)
                 {
-                    availableSpawnPoints[availableSpawnPointIndex] = transformArray[i];
-                    availableSpawnPointIndex++;
+                    if (t.GetInstanceID() != SpawnPointsParent.GetInstanceID())
+                    {
+                        _availableSpawnPoints[availableSpawnPointIndex] = t.position;
+                        availableSpawnPointIndex++;
+                    }
                 }
             }
         }
@@ -48,94 +55,41 @@ namespace fi.tamk.hellgame.character
                 return null;
             }
 
-            bool returnMinionComponents;
+            var returnMinionComponents = instructions.prefabToSpawn.GetComponent<MinionComponent>() != null;
 
-            if (instructions.prefabToSpawn.GetComponent<MinionComponent>() == null)
-            {
-                returnMinionComponents = false;
-            } else
-            {
-                returnMinionComponents = true;
-            }
-
-            return SpawnObjects(instructions.prefabToSpawn, instructions.numberOfSpawns, instructions.possibleSpawnPoints,
-                    instructions.delayBetweenSpawns, instructions.spawnAreaRandomness, returnMinionComponents, instructions.SpawnPointSpread);
+            return SpawnObjects(instructions.prefabToSpawn, instructions.numberOfSpawns, instructions.delayBetweenSpawns,
+                instructions.spawnAreaRandomness, returnMinionComponents, instructions.SpawnPointSpread);
         }
 
-        private MinionComponent[] SpawnObjects(GameObject prefabToSpawn, int numberToSpawn, int[] spawnPoints, float delayBetweenSpawns, float spawnAreaSize, 
-            bool ReturnMinionComponent, SpawnPointSpread spreadType)
+        private MinionComponent[] SpawnObjects(GameObject prefabToSpawn, int numberToSpawn, float delayBetweenSpawns, float spawnAreaSize, 
+            bool returnMinionComponent, SpawnPointSpread spreadType)
         {
-            MinionComponent[] minionComponents = new MinionComponent[numberToSpawn];
-            List<GameObject> spawnedObjects = new List<GameObject>();
-            int spawnPointIndex = 0;
-            var maxIndexAmount = spawnPoints.Length;
+            if (prefabToSpawn == null) throw new NullReferenceException("PrefabToSpawn set to null!");
+
+            var minionComponents = new MinionComponent[numberToSpawn];
+            var spawnedObjects = new List<GameObject>();
+            var spawnPointIndex = 0;
 
             if (spreadType == SpawnPointSpread.RandomEvenly)
             {
-                System.Random rnd = new System.Random();
-                int[] myArray;
-                myArray = spawnPoints;
-                spawnPoints = myArray.OrderBy(x => rnd.Next()).ToArray();
+                var rnd = new System.Random();
+                var myArray = _availableSpawnPoints;
+                _availableSpawnPoints = myArray.OrderBy(x => rnd.Next()).ToArray();
             }
 
-            for (int i = 0; i < numberToSpawn; i++)
+            for (var i = 0; i < numberToSpawn; i++)
             {
-                Ray ray;
+                var targetSpawnPoint = _availableSpawnPoints.Length == 0 ? Vector3.zero : _availableSpawnPoints[spreadType == SpawnPointSpread.CompletelyRandom ? Random.Range(0, _availableSpawnPoints.Length - 1) : spawnPointIndex];
+                spawnPointIndex = (spawnPointIndex + 1) % _availableSpawnPoints.Length;
 
-                Vector3 targetSpawnPoint;
+                var ray = new Ray(AirDropOffset + targetSpawnPoint + Random.insideUnitSphere * spawnAreaSize, Vector3.down);
 
-                if (spawnPoints == null || spawnPoints.Length == 0)
+                if (Physics.Raycast(ray, 100.0f, LayerMask.GetMask(Constants.GroundRaycastLayerName)))
                 {
-                    if (spreadType == SpawnPointSpread.CompletelyRandom)
-                    {
-                        spawnPointIndex = UnityEngine.Random.Range(0, maxIndexAmount - 1);
-                    }
-
-                    if (spawnPointIndex >= spawnPoints.Length)
-                    {
-                        spawnPointIndex = 0;
-                    }
-
-                    maxIndexAmount = spawnPoints.Length;
-
-                    targetSpawnPoint = availableSpawnPoints[Mathf.Clamp(spawnPointIndex, 0, availableSpawnPoints.Length - 1)].position;
-
-                } else
-                {
-                    if (spreadType == SpawnPointSpread.CompletelyRandom)
-                    {
-                        spawnPointIndex = UnityEngine.Random.Range(0, maxIndexAmount - 1);
-                    }
-
-                    if (spawnPointIndex >= spawnPoints.Length)
-                    {
-                        spawnPointIndex = 0;
-                    }
-
-                    targetSpawnPoint = availableSpawnPoints[Mathf.Clamp(spawnPoints[spawnPointIndex], 0, availableSpawnPoints.Length - 1)].position;
-                }
-
-                
-
-                ray = new Ray(AirDropOffset + targetSpawnPoint + UnityEngine.Random.insideUnitSphere * spawnAreaSize, Vector3.down);
-
-                spawnPointIndex++;
-
-
-                if (Physics.Raycast(ray, 100.0f, LayerMask.GetMask(new string[] { Constants.GroundRaycastLayerName })))
-                {
-                    if (prefabToSpawn != null)
-                    {
-                        GameObject go = Instantiate(prefabToSpawn, ray.origin, Quaternion.identity);
-                        go.SetActive(false);
-                        if (ReturnMinionComponent) minionComponents[i] = go.GetComponent<MinionComponent>();
-                        spawnedObjects.Add(go);
-                    }
-                    else
-                    {
-                        Debug.Log("AirSpawner: No object to Spawn");
-                    }
-
+                    var go = Instantiate(prefabToSpawn, ray.origin, Quaternion.identity);
+                    go.SetActive(false);
+                    if (returnMinionComponent) minionComponents[i] = go.GetComponent<MinionComponent>();
+                    spawnedObjects.Add(go);
                 }
                 else
                 {
@@ -144,17 +98,15 @@ namespace fi.tamk.hellgame.character
             }
 
             StartCoroutine(EnableObjectsWithDelay(spawnedObjects, delayBetweenSpawns));
-
             return minionComponents.Where(x => x != null).ToArray();
         }
 
-        private IEnumerator EnableObjectsWithDelay(List<GameObject> enabledList, float timeDelay)
+        private static IEnumerator EnableObjectsWithDelay(IEnumerable<GameObject> enabledList, float timeDelay)
         {
             float t = 0;
 
-            foreach (GameObject go in enabledList)
+            foreach (var go in enabledList)
             {
-
                 while (t < timeDelay)
                 {
                     t += Time.deltaTime;
