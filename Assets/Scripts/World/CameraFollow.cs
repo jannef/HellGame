@@ -43,15 +43,14 @@ namespace fi.tamk.hellgame.world
 
             // Transformation
             var height = _cameraHolderTransform.position.y - _corners[0].position.y;
-            var adjustment = height * Mathf.Tan(90 - Camera.main.transform.rotation.eulerAngles.x);
+            var fowSize = height * Mathf.Tan(Camera.main.fieldOfView);
 
-            var hyp = Mathf.Sqrt(Mathf.Pow(adjustment, 2f) + Mathf.Pow(height, 2f));
-            var fowSize = hyp * Mathf.Tan(Camera.main.fieldOfView);
+            Debug.Log(fowSize + " " + Camera.main.aspect);
 
-            _camLimits[0] = Mathf.Min(_corners[0].position.x, _corners[1].position.x) + 2 * fowSize;
-            _camLimits[1] = Mathf.Max(_corners[0].position.x, _corners[1].position.x) - 2 * fowSize;
-            _camLimits[2] = Mathf.Min(_corners[0].position.z, _corners[1].position.z) - adjustment + (Camera.main.aspect / fowSize) + CheatSlider;
-            _camLimits[3] = Mathf.Max(_corners[0].position.z, _corners[1].position.z) - adjustment - (Camera.main.aspect / fowSize);
+            _camLimits[0] = Mathf.Min(_corners[0].position.x, _corners[1].position.x) + CheatSlider * fowSize;
+            _camLimits[1] = Mathf.Max(_corners[0].position.x, _corners[1].position.x) - CheatSlider * fowSize;
+            _camLimits[2] = Mathf.Min(_corners[0].position.z, _corners[1].position.z) + CheatSlider * fowSize / Camera.main.aspect;
+            _camLimits[3] = Mathf.Max(_corners[0].position.z, _corners[1].position.z) - CheatSlider * fowSize / Camera.main.aspect;
 
             ServiceLocator.WorldLimits = new [] {
                 Mathf.Min(_corners[0].position.x, _corners[1].position.x), 
