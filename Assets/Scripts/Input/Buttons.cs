@@ -16,7 +16,8 @@ namespace fi.tamk.hellgame.input
         {
             Fire_1 = 0,
             Fire_2 = 1,
-            Dash = 2
+            Dash = 2,
+            LimitBreak = 3
         }
 
         /// <summary>

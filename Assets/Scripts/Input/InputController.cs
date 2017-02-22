@@ -196,6 +196,8 @@ namespace fi.tamk.hellgame.input
                     return _myConfig.FireTwoButton;
                 case Buttons.ButtonScheme.Dash:
                     return _myConfig.DashButton;
+                case Buttons.ButtonScheme.LimitBreak:
+                    return _myConfig.LimitBreakButton;
                 default:
                     throw new ArgumentOutOfRangeException("button", button, null);
             }
