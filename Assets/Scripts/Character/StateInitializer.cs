@@ -21,8 +21,6 @@ namespace fi.tamk.hellgame.character
             if (RegisterAsPlayer)
             {
                 ServiceLocator.Instance.RegisterPlayer(gameObject);
-                var statTable = FindObjectOfType<PlayerStatTable>();
-                if (statTable != null) statTable.SetUpPlayerStatTable(gameObject);
             }
             if (CameraWeight > 0f) ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(transform, CameraWeight));
             InitializeState();

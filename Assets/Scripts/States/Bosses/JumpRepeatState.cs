@@ -20,11 +20,11 @@ namespace fi.tamk.hellgame.states
         private JumpPhase _currentPhase;
         private AirSpawnerWithSetSpawnPoints _mySpawner;
         private SpawnerInstruction _spawnerInstance;
-        int _phase = 0;
-        private int jumpAmount = 3;
-        private int spawnedWaveAmount = 0;
-        private int totalHuntJumps = 0;
-        private float originalShortJumpDelay;
+        private int _phase = 0;
+        private int _jumpAmount = 3;
+        private int _spawnedWaveAmount = 0;
+        private int _totalHuntJumps = 0;
+        private float _originalShortJumpDelay;
 
         private SlimeJumpData _longJumpData;
         private SlimeJumpData _shortJumpData;
@@ -41,7 +41,7 @@ namespace fi.tamk.hellgame.states
             _longJumpData = GameObject.Instantiate(externalObjects.ScriptableObjects[1]) as SlimeJumpData;
             _shortJumpData = GameObject.Instantiate(externalObjects.ScriptableObjects[2]) as SlimeJumpData;
             _quickLongJump = GameObject.Instantiate(externalObjects.ScriptableObjects[3]) as SlimeJumpData;
-            originalShortJumpDelay = _shortJumpData.JumpDelay;
+            _originalShortJumpDelay = _shortJumpData.JumpDelay;
             _currentPhase = JumpPhase.Hunting;
         }
 
@@ -76,76 +76,42 @@ namespace fi.tamk.hellgame.states
             switch (_currentPhase)
             {
                 case JumpPhase.Hunting:
-                    jumpAmount--;
-
-                    if (jumpAmount <= 0)
+                    if (--_jumpAmount <= 0)
                     {
-                        jumpAmount = 3;
+                        _jumpAmount = 3;
                         _currentPhase = JumpPhase.Summon;
-                        _shortJumpData.JumpDelay = originalShortJumpDelay * 4;
+                        _shortJumpData.JumpDelay = _originalShortJumpDelay * 4;
                     }
 
-                    totalHuntJumps++;
-
-                    if (totalHuntJumps == 6)
-                    {
-                        _longJumpData.JumpDelay = _longJumpData.JumpDelay * 0.8f;
-                    }
-
+                    if (++_totalHuntJumps == 6) _longJumpData.JumpDelay = _longJumpData.JumpDelay * 0.8f;
                     break;
+
                 case JumpPhase.Summon:
-
                     _mySpawner.Spawn(_spawnerInstance);
-                    spawnedWaveAmount++;
-                    if (spawnedWaveAmount == 3)
+                    if (++_spawnedWaveAmount == 3) _spawnerInstance.numberOfSpawns++;
+
+                    _shortJumpData.JumpDelay = _originalShortJumpDelay;
+                    if (--_jumpAmount <= 0)
                     {
-                        _spawnerInstance.numberOfSpawns++;
+                        _jumpAmount = 3;
+                        _currentPhase = _phase > 1 ? JumpPhase.QuickLeap : JumpPhase.Hunting;
                     }
-
-                    _shortJumpData.JumpDelay = originalShortJumpDelay;
-
-                    jumpAmount--;
-
-                    if (jumpAmount <= 0)
-                    {
-                        jumpAmount = 3;
-
-                        if (_phase > 1)
-                        {
-                            _currentPhase = JumpPhase.QuickLeap;
-                        } else
-                        {
-                            _currentPhase = JumpPhase.Hunting;
-                        }
-                        
-                    }
-
-
                     break;
+
                 case JumpPhase.HuntAndSummon:
 
-                    jumpAmount--;
+                    if (--_jumpAmount % 2 == 1) _mySpawner.Spawn(_spawnerInstance);
 
-                    if (jumpAmount % 2 == 1) _mySpawner.Spawn(_spawnerInstance);
-
-                    if (jumpAmount <= 0)
+                    if (_jumpAmount <= 0)
                     {
-                        jumpAmount = 3;
+                        _jumpAmount = 3;
                         _currentPhase = JumpPhase.Summon;
                     }
 
                     break;
+
                 case JumpPhase.QuickLeap:
-
-                    if (_phase < 3)
-                    {
-                        _currentPhase = JumpPhase.Hunting;
-                    } else
-                    {
-                        _currentPhase = JumpPhase.HuntAndSummon;
-                    }
-
-                    
+                    _currentPhase = _phase < 3 ? JumpPhase.Hunting : JumpPhase.HuntAndSummon;
                     break;
             }
 
