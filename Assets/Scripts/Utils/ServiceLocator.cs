@@ -37,7 +37,6 @@ namespace fi.tamk.hellgame.utils
 
             _players.Add(new PlayerData(player.transform, player.GetComponent<PickupGathererComponent>()));
 
-            Debug.Log("Players " + _players.Count);
             // Bind first registered player to UI
             if (_players.Count == 1)
             {

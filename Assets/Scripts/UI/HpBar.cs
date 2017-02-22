@@ -38,7 +38,6 @@ namespace fi.tamk.hellgame.ui
 
         private void Update()
         {
-            Debug.Log(DamageDecayRate * Time.deltaTime);
             _latentDamage = Mathf.Clamp(_latentDamage - (DamageDecayRate * Time.deltaTime), 0f, 1f);
             SetBarProgress(_latestHitpoints, _latentDamage);
         }
