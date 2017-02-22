@@ -50,7 +50,7 @@ namespace fi.tamk.hellgame.states
             
             HeroAvatar.Move(movementDirection * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.Speed] * deltaTime * movementSpeedMultiplier);
 
-            if (movementSpeedMultiplier <= 0.95)
+            if (_myController.PollButtonDown(Buttons.ButtonScheme.LimitBreak))
             {
                 if (_myLimitBreak != null)
                 {
@@ -60,15 +60,19 @@ namespace fi.tamk.hellgame.states
                         return;
                     }
                 }
+            }
 
+            if (movementSpeedMultiplier <= .96)
+            {
                 ControlledActor.GoToState(new StateCharging(ControlledActor));
+                return;
             }
 
             if (_myController.PollButtonDown(Buttons.ButtonScheme.Dash))
             {
                 ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized, movementSpeedMultiplier));
             }
-            else if (_myController.PollButton(Buttons.ButtonScheme.Fire_1) || controllerLookInput.magnitude > 0.01)
+            else if (_myController.PollButton(Buttons.ButtonScheme.Fire_1) || _myController.MyConfig.InputType == Buttons.InputType.ConsolePleb && controllerLookInput.magnitude > 0.01)
             {
                 ControlledActor.FireGunByIndex(0);
             }

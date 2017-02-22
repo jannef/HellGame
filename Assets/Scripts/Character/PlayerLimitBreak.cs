@@ -20,7 +20,7 @@ namespace fi.tamk.hellgame.character
 
         void Start()
         {
-            _modifiableStats = Instantiate(_originalStats);
+            _modifiableStats = ScriptableObject.Instantiate(_originalStats) as PlayerLimitBreakStats;
             _hc = GetComponent<HealthComponent>();
             LimitBreakActive = false;
         }
@@ -49,6 +49,7 @@ namespace fi.tamk.hellgame.character
         {
             LimitBreakActive = false;
             LimitbreakEndEvent.Invoke();
+            if (PowerUpGained == null) return;
             PowerUpGained.Invoke(0, _modifiableStats.BreakPointLimit);
         }
 
