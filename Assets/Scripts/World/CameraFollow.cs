@@ -45,8 +45,6 @@ namespace fi.tamk.hellgame.world
             var height = _cameraHolderTransform.position.y - _corners[0].position.y;
             var fowSize = height * Mathf.Tan(Camera.main.fieldOfView);
 
-            Debug.Log(fowSize + " " + Camera.main.aspect);
-
             _camLimits[0] = Mathf.Min(_corners[0].position.x, _corners[1].position.x) + CheatSlider * fowSize;
             _camLimits[1] = Mathf.Max(_corners[0].position.x, _corners[1].position.x) - CheatSlider * fowSize;
             _camLimits[2] = Mathf.Min(_corners[0].position.z, _corners[1].position.z) + CheatSlider * fowSize / Camera.main.aspect;

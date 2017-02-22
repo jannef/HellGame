@@ -13,8 +13,8 @@ namespace fi.tamk.hellgame.character
             var limitBreak = GetComponentInParent<PlayerLimitBreak>();
 
             if (limitBreak == null) return;
-            limitBreak.limitBreakActivation.AddListener(PowerUpWeapon);
-            limitBreak.limitbreakEndEvent.AddListener(RestoreStatsToDefault);
+            limitBreak.LimitBreakActivation.AddListener(PowerUpWeapon);
+            limitBreak.LimitbreakEndEvent.AddListener(RestoreStatsToDefault);
         }
 
         private void PowerUpWeapon()

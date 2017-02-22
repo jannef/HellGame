@@ -2,6 +2,7 @@
 using System.Linq;
 using fi.tamk.hellgame.world;
 using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.ui;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.utils
@@ -35,6 +36,14 @@ namespace fi.tamk.hellgame.utils
             if (_players.Count(x => x.Transform == player.transform) > 0) return;
 
             _players.Add(new PlayerData(player.transform, player.GetComponent<PickupGathererComponent>()));
+
+            Debug.Log("Players " + _players.Count);
+            // Bind first registered player to UI
+            if (_players.Count == 1)
+            {
+                var statTable = FindObjectOfType<PlayerStatTable>();
+                if (statTable != null) statTable.SetUpPlayerStatTable(gameObject);
+            }
         }
 
         public void UnregisterPlayer(GameObject player)

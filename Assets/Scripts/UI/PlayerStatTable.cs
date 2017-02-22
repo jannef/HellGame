@@ -9,7 +9,6 @@ namespace fi.tamk.hellgame.ui
 
     public class PlayerStatTable : MonoBehaviour
     {
-
         public void SetUpPlayerStatTable(GameObject playerGO)
         {
             LocaleStrings.CurrentLocale = LocaleStrings.en_EN;

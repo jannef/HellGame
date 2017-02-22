@@ -14,8 +14,8 @@ namespace fi.tamk.hellgame.ui
 
         public void ConnectToPlayer(PlayerLimitBreak playerLimitBreakComponent)
         {
-            playerLimitBreakComponent.limitBreakActivation.AddListener(ActivateLimitBreak);
-            playerLimitBreakComponent.powerUpGained += ChangeLimitBreakText;
+            playerLimitBreakComponent.LimitBreakActivation.AddListener(ActivateLimitBreak);
+            playerLimitBreakComponent.PowerUpGained += ChangeLimitBreakText;
             _limitBreakText = GetComponent<Text>();
             int currentNumber;
             int currentMax;
