@@ -178,7 +178,8 @@ namespace fi.tamk.hellgame.input
         /// <returns></returns>
         private Vector3 PollStickByStrings(string whichHorizontal, string whichVertical)
         {
-            return new Vector3(Input.GetAxis(whichHorizontal), 0, Input.GetAxis(whichVertical));
+            var vec = new Vector3(Input.GetAxis(whichHorizontal), 0, Input.GetAxis(whichVertical));
+            return vec.magnitude < 0.3f ? Vector3.zero : vec;
         }
 
         private float PollTrigger(string whichTrigger)
