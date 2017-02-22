@@ -8,7 +8,11 @@ namespace fi.tamk.hellgame.ui
     public class HpBar : ProgressBar
     {
         [SerializeField] protected HealthComponent _whichToTrackInitially; // will probably be removed!
+        [SerializeField] protected float DamageDecayRate = 0.011f;
         private HealthComponent _trackedHealth;
+
+        private float _latentDamage = 0f;
+        private float _latestHitpoints = 1f;
 
         protected override void Awake()
         {
@@ -19,7 +23,10 @@ namespace fi.tamk.hellgame.ui
         private void TrackHealthChange(float percentage, int currentHp, int maxHp)
         {
             if (currentHp <= 0) _trackedHealth.HealthChangeEvent -= TrackHealthChange;
-            SetBarProgress(percentage);
+
+            _latentDamage += _latestHitpoints - percentage;
+            _latestHitpoints = percentage;
+            SetBarProgress(percentage, _latentDamage);
         }
 
         public void AttachToHealthComponent(HealthComponent toWhich)
@@ -27,6 +34,13 @@ namespace fi.tamk.hellgame.ui
             if (_trackedHealth != null) _trackedHealth.HealthChangeEvent -= TrackHealthChange;
             toWhich.HealthChangeEvent += TrackHealthChange;
             _trackedHealth = toWhich;
+        }
+
+        private void Update()
+        {
+            Debug.Log(DamageDecayRate * Time.deltaTime);
+            _latentDamage = Mathf.Clamp(_latentDamage - (DamageDecayRate * Time.deltaTime), 0f, 1f);
+            SetBarProgress(_latestHitpoints, _latentDamage);
         }
     }
 }
