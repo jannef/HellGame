@@ -11,6 +11,8 @@ public class PlayerLimitBreakStats : ScriptableObject {
 
     public int GetLatestBreakPointIncrease()
     {
+        if (BreakPointLimitIncreases.Length == 0) return 0;
+
         var returnableValue =
             BreakPointLimitIncreases[Mathf.Clamp(currentBreakPointLimitIndex, 0, BreakPointLimitIncreases.Length -1)];
         currentBreakPointLimitIndex++;

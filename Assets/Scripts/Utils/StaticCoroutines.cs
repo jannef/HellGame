@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,6 +30,19 @@ namespace fi.tamk.hellgame.utils
 
             if (renderer == null) yield break;
             renderer.enabled = true;
+        }
+
+        public static IEnumerator ConstantUIShakeRoutine(RectTransform shakedTransform, float intensity)
+        {
+            var originalPos = shakedTransform.anchoredPosition;
+            var originalIntensity = intensity;
+
+            while (true)
+            {
+                intensity = (Mathf.Abs(Mathf.Sin(Time.time * 4)) * originalIntensity * .77f) + (originalIntensity * .33f); 
+                shakedTransform.anchoredPosition = originalPos + UnityEngine.Random.insideUnitCircle.normalized * intensity * Time.deltaTime;
+                yield return null;
+            }
         }
     }
 }

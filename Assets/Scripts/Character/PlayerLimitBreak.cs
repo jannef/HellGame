@@ -10,7 +10,7 @@ namespace fi.tamk.hellgame.character
     {
         public event PlayerCollectPointsEvent PowerUpGained;
         [SerializeField] private PlayerLimitBreakStats _originalStats;
-        private PlayerLimitBreakStats _modifiableStats;
+        public PlayerLimitBreakStats _modifiableStats;
 
         public UnityEvent LimitBreakActivation;
         public UnityEvent LimitbreakEndEvent;
