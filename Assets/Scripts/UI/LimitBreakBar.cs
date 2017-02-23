@@ -55,7 +55,7 @@ namespace fi.tamk.hellgame.ui
         private void IndicateAvailableLimitBreak()
         {
             _availableText.enabled = true;
-            shakeRoutine = StartCoroutine(StaticCoroutines.ConstantUIShakeRoutine(GetComponent<RectTransform>(), _shakeIntensity));
+            shakeRoutine = StartCoroutine(StaticCoroutines.ConstantUIShakeRoutine(transform as RectTransform, _shakeIntensity));
         }
 
         private IEnumerator DrainRoutine(float lenght)
