@@ -16,6 +16,8 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private float _shakeIntensity; // will probably be removed!
         private Text _availableText;
         private Coroutine shakeRoutine;
+        private Vector2 _startingPositionBeforeShake;
+        private RectTransform _transform;
 
         protected override void Awake()
         {
@@ -23,6 +25,8 @@ namespace fi.tamk.hellgame.ui
             _availableText = GetComponentInChildren<Text>();
             _availableText.enabled = false;
             AttachToLimitBreak(_whichToTrackInitially);
+            _transform = GetComponent<RectTransform>();
+            _startingPositionBeforeShake = _transform.anchoredPosition;
         }
 
         private void ChangeBar(int currentPoints, int maxPoints)
@@ -67,6 +71,8 @@ namespace fi.tamk.hellgame.ui
 
             SetBarProgress(0, 0);
             if (shakeRoutine != null) StopCoroutine(shakeRoutine);
+            _transform.anchoredPosition = _startingPositionBeforeShake;
+
 
             yield return null;
         }

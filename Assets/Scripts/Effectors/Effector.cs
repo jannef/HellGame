@@ -6,6 +6,10 @@ namespace fi.tamk.hellgame.effector
 {
     public class Effector : MonoBehaviour
     {
+        /// <summary>
+        /// This variable is guaranteed to contain teh reference to ONLY THE LATEST effect spawned.
+        /// You it inside inheriting Activate() after base.Activate() has been called!
+        /// </summary>
         protected GenericEffect Effect;
         protected static float _lastFreeze = 0f;
 
