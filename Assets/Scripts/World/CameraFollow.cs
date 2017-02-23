@@ -87,11 +87,9 @@ namespace fi.tamk.hellgame.world
 
         public void PlaceParticleEffectInfrontOfCamera(Transform effectTransform, float distanceFromCamera)
         {
-            Debug.Log("b " + effectTransform.localPosition);
             effectTransform.position = Camera.main.transform.position + Camera.main.transform.forward * distanceFromCamera;
             effectTransform.forward = -Camera.main.transform.forward;
-            effectTransform.SetParent(Camera.main.transform);
-            Debug.Log("a " + effectTransform.localPosition);       
+            effectTransform.SetParent(Camera.main.transform);   
         }
     }
 }

@@ -34,10 +34,25 @@ namespace fi.tamk.hellgame.effectors
             ambientGO.transform.position = Effect.transform.position;
             ambientGO.transform.SetParent(Effect.transform);
 
+            Effect.SetOnstart((args) => StartCoroutine(ParticleEffectDisable(_limitBreakStats.LimitBreakLenght, ambientGO.GetComponent<ParticleSystem>())), new float[] { });
 
             ServiceLocator.Instance.MainCameraScript.PlaceParticleEffectInfrontOfCamera(Effect.transform, 6);
 
-            Effect.LifeTime = _limitBreakStats.LimitBreakLenght;
+            Effect.LifeTime = _limitBreakStats.LimitBreakLenght + 1f;
+        }
+
+        private IEnumerator ParticleEffectDisable(float duration, ParticleSystem particleSystem)
+        {
+            var t = 0f;
+
+            while (t <= 1)
+            {
+                t += Time.deltaTime / duration;
+
+                yield return null;
+            }
+
+            particleSystem.Stop();
         }
     }
 }
