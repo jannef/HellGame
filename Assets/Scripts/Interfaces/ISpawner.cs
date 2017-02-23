@@ -6,6 +6,6 @@ namespace fi.tamk.hellgame.interfaces
 {
     public interface ISpawner
     {
-        MinionComponent[] Spawn(SpawnerInstruction instructions);
+        HealthComponent[] Spawn(SpawnerInstruction instructions);
     }
 }

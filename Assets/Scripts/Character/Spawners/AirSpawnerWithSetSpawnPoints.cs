@@ -41,7 +41,7 @@ namespace fi.tamk.hellgame.character
             }
         }
 
-        public MinionComponent[] Spawn(SpawnerInstruction instructions)
+        public HealthComponent[] Spawn(SpawnerInstruction instructions)
         {
             if (instructions == null)
             {
@@ -55,18 +55,18 @@ namespace fi.tamk.hellgame.character
                 return null;
             }
 
-            var returnMinionComponents = instructions.prefabToSpawn.GetComponent<MinionComponent>() != null;
+            var returnMinionComponents = instructions.prefabToSpawn.GetComponent<HealthComponent>() != null;
 
             return SpawnObjects(instructions.prefabToSpawn, instructions.numberOfSpawns, instructions.delayBetweenSpawns,
                 instructions.spawnAreaRandomness, returnMinionComponents, instructions.SpawnPointSpread);
         }
 
-        private MinionComponent[] SpawnObjects(GameObject prefabToSpawn, int numberToSpawn, float delayBetweenSpawns, float spawnAreaSize, 
+        private HealthComponent[] SpawnObjects(GameObject prefabToSpawn, int numberToSpawn, float delayBetweenSpawns, float spawnAreaSize, 
             bool returnMinionComponent, SpawnPointSpread spreadType)
         {
             if (prefabToSpawn == null) throw new NullReferenceException("PrefabToSpawn set to null!");
 
-            var minionComponents = new MinionComponent[numberToSpawn];
+            var minionComponents = new HealthComponent[numberToSpawn];
             var spawnedObjects = new List<GameObject>();
             var spawnPointIndex = 0;
 
@@ -88,7 +88,7 @@ namespace fi.tamk.hellgame.character
                 {
                     var go = Instantiate(prefabToSpawn, ray.origin, Quaternion.identity);
                     go.SetActive(false);
-                    if (returnMinionComponent) minionComponents[i] = go.GetComponent<MinionComponent>();
+                    if (returnMinionComponent) minionComponents[i] = go.GetComponent<HealthComponent>();
                     spawnedObjects.Add(go);
                 }
                 else

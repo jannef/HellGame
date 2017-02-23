@@ -82,6 +82,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.JumpRepeat:
                     outPutState = new JumpRepeatState(hc);
                     break;
+                case InputStates.MobRoomZero:
+                    outPutState = new MobRoomZero(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +
