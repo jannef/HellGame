@@ -20,13 +20,18 @@ namespace fi.tamk.hellgame.utils
 
                 if (t > lastBlinkT)
                 {
-                    if (renderer == null) yield break;
+                    if (renderer == null) {
+                        Debug.Log("BlinkRoutine ended");
+                        yield break;
+                    } 
                     lastBlinkT = t + Mathf.Lerp(startingFrequency, endFrequency, easingCurve.Evaluate(t));
                     renderer.enabled = !renderer.enabled;
                 }
 
                 yield return null;
             }
+
+            
 
             if (renderer == null) yield break;
             renderer.enabled = true;
