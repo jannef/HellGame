@@ -15,7 +15,8 @@ namespace fi.tamk.hellgame.effectors
 
         private void Start()
         {
-            _effectLength = _limitBreakStats.LimitBreakLenght;
+            EffectLength = _limitBreakStats.LimitBreakLenght;
+            
         }
 
         public override void Activate()
@@ -24,9 +25,34 @@ namespace fi.tamk.hellgame.effectors
 
             if (_particleSystem == null) return;
             GameObject go = Instantiate(_particleSystem);
-            ServiceLocator.Instance.MainCameraScript.PlaceParticleEffectInfrontOfCamera(go.transform, 6);
+            go.transform.position = Effect.transform.position;
+            go.transform.forward = Effect.transform.forward;
+            go.transform.SetParent(Effect.transform);
+
             GameObject ambientGO = Instantiate(_ambientParticleSystem);
-            ServiceLocator.Instance.MainCameraScript.PlaceParticleEffectInfrontOfCamera(ambientGO.transform, 6);
+            ambientGO.transform.forward = Effect.transform.forward;
+            ambientGO.transform.position = Effect.transform.position;
+            ambientGO.transform.SetParent(Effect.transform);
+
+            Effect.SetOnstart((args) => StartCoroutine(ParticleEffectDisable(_limitBreakStats.LimitBreakLenght, ambientGO.GetComponent<ParticleSystem>())), new float[] { });
+
+            ServiceLocator.Instance.MainCameraScript.PlaceParticleEffectInfrontOfCamera(Effect.transform, 6);
+
+            Effect.LifeTime = _limitBreakStats.LimitBreakLenght + 1f;
+        }
+
+        private IEnumerator ParticleEffectDisable(float duration, ParticleSystem particleSystem)
+        {
+            var t = 0f;
+
+            while (t <= 1)
+            {
+                t += Time.deltaTime / duration;
+
+                yield return null;
+            }
+
+            particleSystem.Stop();
         }
     }
 }

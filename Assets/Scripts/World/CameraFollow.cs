@@ -89,7 +89,7 @@ namespace fi.tamk.hellgame.world
         {
             effectTransform.position = Camera.main.transform.position + Camera.main.transform.forward * distanceFromCamera;
             effectTransform.forward = -Camera.main.transform.forward;
-            effectTransform.parent = Camera.main.transform;
+            effectTransform.SetParent(Camera.main.transform);   
         }
     }
 }
