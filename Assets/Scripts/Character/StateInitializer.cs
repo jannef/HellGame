@@ -85,6 +85,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.MobRoomZero:
                     outPutState = new MobRoomZero(hc);
                     break;
+                case InputStates.EightDirectionsTurret:
+                    outPutState = new EightDirectionsTurret(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +

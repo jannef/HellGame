@@ -11,8 +11,7 @@ namespace fi.tamk.hellgame.states
 {
     class MobRoomZero : StateAbstract
     {
-        private SpawnerInstruction _runnerSpawnWave;
-        private SpawnerInstruction _turretSpawnWave;
+        private SpawnWave[] _spawnWaves;
         private AirSpawnerWithSetSpawnPoints _mySpawner;
 
         private int _activeMinions = 0;
@@ -22,12 +21,21 @@ namespace fi.tamk.hellgame.states
         public MobRoomZero(ActorComponent controlledHero) : base(controlledHero)
         {
             var externalObjects = ControlledActor.gameObject.GetComponent<BossExternalObjects>();
-
+           
             _mySpawner = externalObjects.ExistingGameObjects[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
-            _runnerSpawnWave = GameObject.Instantiate(externalObjects.ScriptableObjects[0]) as SpawnerInstruction;
-            _turretSpawnWave = GameObject.Instantiate(externalObjects.ScriptableObjects[1]) as SpawnerInstruction;
 
-            SpawnMore();
+            var waveTemp = new List<SpawnWave>();
+
+            foreach (ScriptableObject sobj in externalObjects.ScriptableObjects)
+            {
+                var wave = GameObject.Instantiate(sobj) as SpawnWave;
+
+                waveTemp.Add(wave);
+            }
+
+            _spawnWaves = waveTemp.ToArray();
+
+            NextWave();
         }
 
         private void MinionHasDied()
@@ -36,21 +44,32 @@ namespace fi.tamk.hellgame.states
             
             if (_activeMinions <= 0)
             {
-                Debug.Log("Wave Cleared !");
+                NextWave();
             }
         }
 
-        private void SpawnMore()
+        private void NextWave()
         {
-            HealthComponent[] minions;
-
-            minions = _mySpawner.Spawn(_runnerSpawnWave);
-
-            foreach(HealthComponent hc in minions)
+            if (_phase >= _spawnWaves.Length)
             {
-                hc.DeathEffect.AddListener(MinionHasDied);
-                _activeMinions++;
+                Debug.Log("No more waves");
+                return;
             }
+
+            foreach (SpawnerInstruction instruction in _spawnWaves[_phase].instructions)
+            {
+                HealthComponent[] minions;
+
+                minions = _mySpawner.Spawn(instruction);
+
+                foreach (HealthComponent hc in minions)
+                {
+                    hc.DeathEffect.AddListener(MinionHasDied);
+                    _activeMinions++;
+                }
+            }
+
+            _phase++;
         }
 
         protected override void CheckForFalling()

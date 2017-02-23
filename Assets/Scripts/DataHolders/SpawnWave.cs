@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnWave : MonoBehaviour {
+namespace fi.tamk.hellgame.dataholders
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public class SpawnWave : ScriptableObject {
+
+        public SpawnerInstruction[] instructions;
+    }
 }
