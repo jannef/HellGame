@@ -13,13 +13,9 @@ namespace fi.tamk.hellgame.ui
         {
             LocaleStrings.CurrentLocale = LocaleStrings.en_EN;
 
-            var _limitBreakIndicator = GetComponentInChildren<LimitBreakIndicator>();
             var _playerHealthIndicator = GetComponentInChildren<PlayerHealthIndicator>();
 
             var limitBreakComponent = playerGO.GetComponent<PlayerLimitBreak>();
-
-            if (limitBreakComponent != null)
-                _limitBreakIndicator.ConnectToPlayer(limitBreakComponent);
 
             var healthComponent = playerGO.GetComponent<HealthComponent>();
 

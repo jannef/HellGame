@@ -8,61 +8,57 @@ namespace fi.tamk.hellgame.character
 
     public class PlayerLimitBreak : MonoBehaviour
     {
+        public event UnityAction<bool, bool> LimitBreakStateChange; 
         public event PlayerCollectPointsEvent PowerUpGained;
-        [SerializeField] private PlayerLimitBreakStats _originalStats;
-        public PlayerLimitBreakStats _modifiableStats;
+        public bool LimitAvailableOrActive { get; private set; }
 
         public UnityEvent LimitBreakActivation;
-        public UnityEvent LimitbreakEndEvent;
-        private int _collectedPoints = 0;
-        public bool LimitBreakActive { get; private set; }
-        private HealthComponent _hc;
+        public UnityEvent LimitbreakEndEvent;        
 
-        void Start()
+        [SerializeField] private PlayerLimitBreakStats _originalStats;
+
+        private int _collectedPoints = 0;
+        private HealthComponent _hc;
+        private PlayerLimitBreakStats _modifiableStats;
+        private bool _limitActive;
+
+        protected void Awake()
         {
             _modifiableStats = ScriptableObject.Instantiate(_originalStats) as PlayerLimitBreakStats;
             _hc = GetComponent<HealthComponent>();
-            LimitBreakActive = false;
+            LimitAvailableOrActive = false;
+            _limitActive = false;
         }
 
         public void GainPoints(int howMany)
         {
-            if (LimitBreakActive) return;
+            if (LimitAvailableOrActive) return;
 
             _collectedPoints = Mathf.Clamp(_collectedPoints + howMany, 0, _modifiableStats.BreakPointLimit);
             if(PowerUpGained != null) PowerUpGained.Invoke(_collectedPoints, _modifiableStats.BreakPointLimit);
-            if (_collectedPoints >= _modifiableStats.BreakPointLimit) LimitBreakActive = true;
+            LimitAvailableOrActive = _collectedPoints >= _modifiableStats.BreakPointLimit;
+            if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(_limitActive, LimitAvailableOrActive);
         }
 
         public void ActivateLimitBreak()
         {
-            if (_collectedPoints < _modifiableStats.BreakPointLimit) return;
+            if (!LimitAvailableOrActive) return;
 
+            _limitActive = true;            
             LimitBreakActivation.Invoke();
+            PowerUpGained.Invoke(0, _modifiableStats.BreakPointLimit);
             _hc.ActivateInvulnerability(_modifiableStats.LimitBreakLenght);
             _collectedPoints = 0;
             StartCoroutine(LimitBreakTimer());
             _modifiableStats.BreakPointLimit += _modifiableStats.GetLatestBreakPointIncrease();
+            if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(_limitActive, LimitAvailableOrActive);
         }
 
-        public void DeactivateLimitbreak()
+        protected void DeactivateLimitbreak()
         {
-            LimitBreakActive = false;
+            LimitAvailableOrActive = false;
             LimitbreakEndEvent.Invoke();
-            if (PowerUpGained == null) return;
-            PowerUpGained.Invoke(0, _modifiableStats.BreakPointLimit);
-        }
-
-        public void GetCurrentAmountAndThreshHold(out int currentAmount, out int currentThreshHold)
-        {
-            currentAmount = _collectedPoints;
-
-            if (_modifiableStats == null)
-            {
-                _modifiableStats = Object.Instantiate(_originalStats) as PlayerLimitBreakStats;
-            }
-
-            currentThreshHold = _modifiableStats.BreakPointLimit;
+            if (PowerUpGained != null) PowerUpGained.Invoke(0, _modifiableStats.BreakPointLimit);
         }
 
         private IEnumerator LimitBreakTimer()
@@ -76,6 +72,8 @@ namespace fi.tamk.hellgame.character
             }
 
             DeactivateLimitbreak();
+            _limitActive = false;
+            if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(_limitActive, LimitAvailableOrActive);
         }
     }
 }

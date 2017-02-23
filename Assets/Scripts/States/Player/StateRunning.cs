@@ -54,7 +54,7 @@ namespace fi.tamk.hellgame.states
             {
                 if (_myLimitBreak != null)
                 {
-                    if (_myLimitBreak.LimitBreakActive)
+                    if (_myLimitBreak.LimitAvailableOrActive)
                     {
                         _myLimitBreak.ActivateLimitBreak();
                         return;
