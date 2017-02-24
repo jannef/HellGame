@@ -4,8 +4,6 @@ using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.states;
 using fi.tamk.hellgame.utils;
 using UnityEngine;
-using fi.tamk.hellgame.projectiles;
-using fi.tamk.hellgame.ui;
 
 namespace fi.tamk.hellgame.character
 {

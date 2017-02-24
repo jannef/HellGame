@@ -8,33 +8,57 @@ namespace fi.tamk.hellgame.physicsobjects
     [RequireComponent(typeof(Rigidbody))]
     class Pickup : MonoBehaviour
     {
-        [SerializeField] protected Collider CollisionCollider;
         [SerializeField] protected float Tolerance;
         [SerializeField] protected AnimationCurve Curve;
         [SerializeField] protected float EasingTime;
         [SerializeField] protected float Speed;
-        [SerializeField] protected LayerMask PickupLayer;
         [SerializeField] protected PickupType PickupType;
         [SerializeField] protected float LifeTime;
         [SerializeField] private float blinkingLenght = 1f;
         [SerializeField] private float startingBlinkingFrequency = 0.1f;
         [SerializeField] private float endBlinkingFrequency = 0.05f;
         [SerializeField] private AnimationCurve blinkingEasing;
+        [SerializeField] private Collider _pickupTrigger;
 
         protected Rigidbody Rigidbody;
         private Renderer _renderer;
 
+
+
         protected void Awake()
         {
             _renderer = GetComponent<Renderer>();
-            Rigidbody = GetComponent<Rigidbody>();    
+            Rigidbody = GetComponent<Rigidbody>();            
         }
         protected void OnEnable()
         {
-            StartCoroutine(LifeTimeRoutine());
+            StartCoroutine(LifeTimeRoutine());            
         }
 
-        IEnumerator LifeTimeRoutine()
+        protected void OnDisable()
+        {
+            Rigidbody.velocity = Vector3.zero;
+            StopAllCoroutines();
+        }
+
+        public void DisablePickupTemporarily(float forHowLong)
+        {
+            StartCoroutine(DisableRoutine(forHowLong));
+        }
+
+        protected IEnumerator DisableRoutine(float lenght)
+        {
+            float timer = 0f;
+            _pickupTrigger.enabled = false;
+            while (timer < lenght)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            _pickupTrigger.enabled = true;
+        }
+
+        protected IEnumerator LifeTimeRoutine()
         {
             float timer = 0;
             while (timer < LifeTime)
@@ -58,10 +82,6 @@ namespace fi.tamk.hellgame.physicsobjects
 
         protected virtual void OnTriggerEnter(Collider other)
         {
-            if (PickupLayer != (PickupLayer | (1 << other.gameObject.layer))) return;
-            Rigidbody.isKinematic = true;
-            CollisionCollider.enabled = false;
-
             StartCoroutine(GoToTransform(other.gameObject.transform));
         }
 
