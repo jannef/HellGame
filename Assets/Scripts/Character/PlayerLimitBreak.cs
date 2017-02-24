@@ -1,4 +1,5 @@
-﻿using fi.tamk.hellgame.utils;
+﻿using fi.tamk.hellgame.physicsobjects;
+using fi.tamk.hellgame.utils;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -41,8 +42,9 @@ namespace fi.tamk.hellgame.character
                 for (var i = 0; i < _collectedPoints; i++)
                 {
                     var go = Pool.Instance.GetObject(Pool.PickupPrefab);
-                    go.transform.position = transform.position + UnityEngine.Random.onUnitSphere;
-                    go.GetComponent<Rigidbody>().AddExplosionForce(200f, transform.position, 5f);
+                    go.transform.position = transform.position + Vector3.up * 3f + UnityEngine.Random.onUnitSphere * 3f;
+                    go.GetComponent<Rigidbody>().AddExplosionForce(60f, transform.position + Vector3.up * 4f, 5f);
+                    go.GetComponent<Pickup>().DisablePickupTemporarily(1f);
                 }                
                 GainPoints(-_collectedPoints);
             }
