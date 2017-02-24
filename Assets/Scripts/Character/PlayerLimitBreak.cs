@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using fi.tamk.hellgame.utils;
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,6 +20,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField] private PlayerLimitBreakStats _originalStats;
 
         private int _collectedPoints = 0;
+        private int _lastSeenHp; // We track this so we can deduce if the health change is due damage or healing...
         private HealthComponent _hc;
         private PlayerLimitBreakStats _modifiableStats;
         private bool _limitActive;
@@ -28,11 +31,27 @@ namespace fi.tamk.hellgame.character
             _hc = GetComponent<HealthComponent>();
             LimitAvailableOrActive = false;
             _limitActive = false;
+            _hc.HealthChangeEvent += OnPlayerHit;
+            _lastSeenHp = _hc.Health;
+        }
+
+        private void OnPlayerHit(float percentage, int currentHp, int maxHp)
+        {
+            if (currentHp < _lastSeenHp) {       
+                for (var i = 0; i < _collectedPoints; i++)
+                {
+                    var go = Pool.Instance.GetObject(Pool.PickupPrefab);
+                    go.transform.position = transform.position + UnityEngine.Random.onUnitSphere;
+                    go.GetComponent<Rigidbody>().AddExplosionForce(200f, transform.position, 5f);
+                }                
+                GainPoints(-_collectedPoints);
+            }
+            _lastSeenHp = currentHp;
         }
 
         public void GainPoints(int howMany)
         {
-            if (LimitAvailableOrActive) return;
+            if (LimitAvailableOrActive && howMany > 0) return;
 
             _collectedPoints = Mathf.Clamp(_collectedPoints + howMany, 0, _modifiableStats.BreakPointLimit);
             if(PowerUpGained != null) PowerUpGained.Invoke(_collectedPoints, _modifiableStats.BreakPointLimit);

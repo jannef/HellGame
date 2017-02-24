@@ -18,12 +18,20 @@ namespace fi.tamk.hellgame.character
         private bool _aura = false;
         private float _timer = 0f;
 
+        private ParticleSystem.Particle[] _indicatorBuffer;
+
         public float ParticlesPerSecond
         {
             set
             {
                 _particlesPerSecond = value;
                 _emissionRateProperty.SetValue(_limitIndicator.emission, value, null);
+                if (_particlesPerSecond == 0)                {
+                    int nbr = _limitIndicator.GetParticles(_indicatorBuffer);
+                    for (var i = 0; i < nbr; ++i) _indicatorBuffer[i].remainingLifetime = -1f;
+                    _limitIndicator.SetParticles(_indicatorBuffer, nbr);
+                }
+                
             }
 
             get { return _particlesPerSecond; }
@@ -34,6 +42,7 @@ namespace fi.tamk.hellgame.character
         public void Awake()
         {
             _emissionRateProperty = typeof(ParticleSystem.EmissionModule).GetProperty("rateOverTimeMultiplier");
+            _indicatorBuffer = new ParticleSystem.Particle[_limitIndicator.main.maxParticles];
 
             _originalAuraEmissionRate = _limitAura.emission.rateOverTimeMultiplier;
             _emissionRateProperty.SetValue(_limitAura.emission, 0f, null);
@@ -52,7 +61,6 @@ namespace fi.tamk.hellgame.character
 
         private void Update()
         {
-            Debug.Log(_aura + " " + _indicatorActive);
             _timer += Time.deltaTime;
             if (_indicatorActive && !_aura && _timer > _indicatorInterval)
             {

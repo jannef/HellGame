@@ -8,7 +8,6 @@ using System.Linq;
 
 namespace fi.tamk.hellgame.states
 {
-
     public class EightDirectionsTurret : AimingEnemy
     {
         private List<Vector3> _possibleRotations = new List<Vector3>();

@@ -9,13 +9,7 @@ namespace fi.tamk.hellgame.effectors
         [SerializeField] protected int amountDropped;
         [SerializeField] protected float Radius;
         [SerializeField] protected float ScatterForce;
-        [SerializeField] protected GameObject DropPrefab;
         [SerializeField] protected float Height;
-
-        protected virtual void Awake()
-        {
-            Pool.Instance.AddToPool(DropPrefab, 500);
-        }
 
         public override void Activate()
         {
@@ -29,7 +23,7 @@ namespace fi.tamk.hellgame.effectors
             for (int i = 0; i < amountDropped; i++)
             {
                 var vec = Quaternion.Euler(0, degrees * i, 0) * Vector3.forward;
-                var go = Pool.Instance.GetObject(DropPrefab);
+                var go = Pool.Instance.GetObject(Pool.PickupPrefab);
                 go.transform.position = transform.position + vec * Radius + Vector3.up * Height;
                 go.transform.rotation = Quaternion.Euler(0, degrees * i, 0);
                 //var go = Instantiate(DropPrefab, transform.position + vec * Radius + Vector3.up * Height, Quaternion.Euler(0, degrees * i, 0));

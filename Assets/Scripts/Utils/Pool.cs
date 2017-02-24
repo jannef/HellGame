@@ -11,6 +11,12 @@ namespace fi.tamk.hellgame.utils
     /// </summary>
     public sealed class Pool : Singleton<Pool>
     {
+        public static GameObject PickupPrefab
+        {
+            get { return _pickupPrefab ?? (_pickupPrefab = Resources.Load("Pickup") as GameObject); }
+        }
+        private static GameObject _pickupPrefab = null;
+
         public Dictionary<GameObject, HealthComponent> GameObjectToHealth = new Dictionary<GameObject, HealthComponent>();
 
         public HealthComponent GetHealthComponent(GameObject go)
@@ -140,23 +146,7 @@ namespace fi.tamk.hellgame.utils
         protected override void Awake()
         {
             base.Awake();
-            Initialization();
-        }
-
-        /// <summary>
-        /// Calls initialization on demand.
-        /// </summary>
-        public void ReInitialize()
-        {
-            Initialization();
-        }
-
-        /// <summary>
-        /// Initialization.
-        /// </summary>
-        private void Initialization()
-        {
-                
+            Pool.Instance.AddToPool(Pool.PickupPrefab, 50);
         }
 
         private static void DelayedDestroyGo(GameObject whichToDestroy)

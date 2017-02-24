@@ -20,9 +20,12 @@ namespace fi.tamk.hellgame.physicsobjects
         [SerializeField] private float startingBlinkingFrequency = 0.1f;
         [SerializeField] private float endBlinkingFrequency = 0.05f;
         [SerializeField] private AnimationCurve blinkingEasing;
+        [SerializeField] private Collider _pickupTrigger;
 
         protected Rigidbody Rigidbody;
         private Renderer _renderer;
+
+
 
         protected void Awake()
         {
@@ -34,7 +37,24 @@ namespace fi.tamk.hellgame.physicsobjects
             StartCoroutine(LifeTimeRoutine());
         }
 
-        IEnumerator LifeTimeRoutine()
+        public void DisablePickupTemporarily(float forHowLong)
+        {
+
+        }
+
+        protected IEnumerator DisableRoutine(float lenght)
+        {
+            float timer = 0f;
+            _pickupTrigger.enabled = false;
+            while (timer < lenght)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            _pickupTrigger.enabled = true;
+        }
+
+        protected IEnumerator LifeTimeRoutine()
         {
             float timer = 0;
             while (timer < LifeTime)
