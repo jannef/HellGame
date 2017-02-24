@@ -88,6 +88,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.EightDirectionsTurret:
                     outPutState = new EightDirectionsTurret(hc);
                     break;
+                case InputStates.ShootingSkirmisher:
+                    outPutState = new ShootingSkirmisherFollowingState(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +

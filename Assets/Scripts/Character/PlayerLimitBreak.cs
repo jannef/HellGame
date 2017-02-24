@@ -46,7 +46,7 @@ namespace fi.tamk.hellgame.character
 
             _limitActive = true;            
             LimitBreakActivation.Invoke();
-            PowerUpGained.Invoke(0, _modifiableStats.BreakPointLimit);
+            if (PowerUpGained != null) PowerUpGained.Invoke(0, _modifiableStats.BreakPointLimit);
             _hc.ActivateInvulnerability(_modifiableStats.LimitBreakLenght);
             _collectedPoints = 0;
             StartCoroutine(LimitBreakTimer());
