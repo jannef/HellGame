@@ -45,29 +45,28 @@ namespace fi.tamk.hellgame.states
             var movementSpeedMultiplier = (1 - _myController.PollLeftTrigger() * .55f); 
             var controllerLookInput = _myController.PollAxisRight();
 
+            // Aim
             HeroAvatar.transform.LookAt(new Vector3(HeroAvatar.transform.position.x + controllerLookInput.x,
                 HeroAvatar.transform.position.y, HeroAvatar.transform.position.z + controllerLookInput.z));
             
+            // Walk
             HeroAvatar.Move(movementDirection * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.Speed] * deltaTime * movementSpeedMultiplier);
 
-            if (_myController.PollButtonDown(Buttons.ButtonScheme.LimitBreak))
+            // Limit break activation input
+            if (_myController.PollButtonDown(Buttons.ButtonScheme.LimitBreak) && _myLimitBreak != null && _myLimitBreak.LimitAvailableOrActive)
             {
-                if (_myLimitBreak != null)
-                {
-                    if (_myLimitBreak.LimitAvailableOrActive)
-                    {
-                        _myLimitBreak.ActivateLimitBreak();
-                        return;
-                    }
-                }
+                _myLimitBreak.ActivateLimitBreak();
+                return;
             }
 
+            // Charge shot activation
             if (movementSpeedMultiplier <= .96)
             {
                 ControlledActor.GoToState(new StateCharging(ControlledActor));
                 return;
             }
 
+            // Dash activation and shooting
             if (_myController.PollButtonDown(Buttons.ButtonScheme.Dash))
             {
                 ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized, movementSpeedMultiplier));

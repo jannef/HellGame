@@ -10,5 +10,4 @@ public class HomingEnemyStats : MonoBehaviour {
     public float MaxTurningSpeed = 4f;
     public float MinimumTurningSpeed = 2f;
     public AnimationCurve TurningSpeedEasing;
-
 }

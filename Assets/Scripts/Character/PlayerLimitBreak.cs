@@ -7,12 +7,11 @@ using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
 {
-    public delegate void PlayerCollectPointsEvent(int howManyPoints, int powerUpBreakPoint);
-
     public class PlayerLimitBreak : MonoBehaviour
     {
         public event UnityAction<bool, bool> LimitBreakStateChange; 
-        public event PlayerCollectPointsEvent PowerUpGained;
+        public event UnityAction<int, int> PowerUpGained;
+        public event UnityAction<float> LimitBreakDurationChange; 
         public bool LimitAvailableOrActive { get; private set; }
 
         public UnityEvent LimitBreakActivation;
@@ -88,6 +87,7 @@ namespace fi.tamk.hellgame.character
 
             while (t <= 1)
             {
+                if (LimitBreakDurationChange != null) LimitBreakDurationChange.Invoke(1 - t);
                 t += Time.deltaTime / _modifiableStats.LimitBreakLenght;
                 yield return null;
             }
