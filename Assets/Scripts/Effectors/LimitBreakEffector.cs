@@ -15,7 +15,7 @@ namespace fi.tamk.hellgame.effectors
 
         private void Start()
         {
-            EffectLength = _limitBreakStats.LimitBreakLenght;
+            EffectLength = _limitBreakStats.DesiredBaseLenght;
             
         }
 
@@ -34,11 +34,11 @@ namespace fi.tamk.hellgame.effectors
             ambientGO.transform.position = Effect.transform.position;
             ambientGO.transform.SetParent(Effect.transform);
 
-            Effect.SetOnstart((args) => StartCoroutine(ParticleEffectDisable(_limitBreakStats.LimitBreakLenght, ambientGO.GetComponent<ParticleSystem>())), new float[] { });
+            Effect.SetOnstart((args) => StartCoroutine(ParticleEffectDisable(_limitBreakStats.DesiredBaseLenght, ambientGO.GetComponent<ParticleSystem>())), new float[] { });
 
             ServiceLocator.Instance.MainCameraScript.PlaceParticleEffectInfrontOfCamera(Effect.transform, 6);
 
-            Effect.LifeTime = _limitBreakStats.LimitBreakLenght + 1f;
+            Effect.LifeTime = _limitBreakStats.DesiredBaseLenght + 1f;
         }
 
         private IEnumerator ParticleEffectDisable(float duration, ParticleSystem particleSystem)
