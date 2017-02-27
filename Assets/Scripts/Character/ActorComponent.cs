@@ -20,7 +20,7 @@ namespace fi.tamk.hellgame.character
         protected BulletEmitter[] Emitters;
 
         private readonly Stack<IInputState> _inputState = new Stack<IInputState>();
-        private IInputState CurrentState
+        public IInputState CurrentState
         {
             get
             {

@@ -12,5 +12,6 @@ namespace fi.tamk.hellgame.dataholders
     {
         public float[] ActorFloatData;
         public AnimationCurve[] CurveData;
+        public GameObject[] GoData;
     }
 }

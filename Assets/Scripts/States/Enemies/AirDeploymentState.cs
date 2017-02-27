@@ -11,7 +11,7 @@ namespace fi.tamk.hellgame.states
 {
     class AirDeploymentState : StateAbstract
     {
-        private IInputState _startingState;
+        public IInputState _startingState;
         private float _fallingDuration = 3f;
         private AnimationCurve _animationCurve;
         private Vector3 _landingPosition;

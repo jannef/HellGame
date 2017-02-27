@@ -89,6 +89,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.ShootingSkirmisher:
                     outPutState = new ShootingSkirmisherFollowingState(hc);
                     break;
+                case InputStates.PatrollingEnemy:
+                    outPutState = new PartollingEnemy(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +

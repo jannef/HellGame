@@ -5,6 +5,7 @@ using System.Text;
 using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.states
@@ -14,6 +15,7 @@ namespace fi.tamk.hellgame.states
         private SpawnWave[] _spawnWaves;
         private AirSpawnerWithSetSpawnPoints _mySpawner;
         private AirSpawnerWithSetSpawnPoints _myCenterSpawner;
+        private PatrolWayPoint[] _patrolWayPoint;
 
         private int _activeMinions = 0;
         private int _phase = 0;
@@ -22,6 +24,8 @@ namespace fi.tamk.hellgame.states
         public MobRoomZero(ActorComponent controlledHero) : base(controlledHero)
         {
             var externalObjects = ControlledActor.gameObject.GetComponent<BossExternalObjects>();
+
+            _patrolWayPoint = externalObjects.ExistingGameObjects[2].GetComponentsInChildren<PatrolWayPoint>();
            
             _mySpawner = externalObjects.ExistingGameObjects[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
             _myCenterSpawner = externalObjects.ExistingGameObjects[1].GetComponent<AirSpawnerWithSetSpawnPoints>();
@@ -65,17 +69,25 @@ namespace fi.tamk.hellgame.states
                 if (instruction.preferredSpawner == 0)
                 {
                     minions = _mySpawner.Spawn(instruction);
+                    ;
                 } else
                 {
                     minions = _myCenterSpawner.Spawn(instruction);
                 }
 
-                
-
-                foreach (HealthComponent hc in minions)
+                foreach (var hc in minions)
                 {
                     hc.DeathEffect.AddListener(MinionHasDied);
                     _activeMinions++;
+
+
+                    // This little rig is responsible for setting waypoints for patrolling enemies. See PatrolWayPoints for 
+                    var ac = hc.gameObject.GetComponent<ActorComponent>();
+                    if (ac != null && ac.ActorNumericData.GoData.Length > 0)
+                    {
+                        
+                        ac.ActorNumericData.GoData[0] = _patrolWayPoint[0].gameObject;
+                    }
                 }
             }
 
