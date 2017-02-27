@@ -13,6 +13,7 @@ namespace fi.tamk.hellgame.states
     {
         private SpawnWave[] _spawnWaves;
         private AirSpawnerWithSetSpawnPoints _mySpawner;
+        private AirSpawnerWithSetSpawnPoints _myCenterSpawner;
 
         private int _activeMinions = 0;
         private int _phase = 0;
@@ -23,6 +24,7 @@ namespace fi.tamk.hellgame.states
             var externalObjects = ControlledActor.gameObject.GetComponent<BossExternalObjects>();
            
             _mySpawner = externalObjects.ExistingGameObjects[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
+            _myCenterSpawner = externalObjects.ExistingGameObjects[1].GetComponent<AirSpawnerWithSetSpawnPoints>();
 
             var waveTemp = new List<SpawnWave>();
 
@@ -60,7 +62,15 @@ namespace fi.tamk.hellgame.states
             {
                 HealthComponent[] minions;
 
-                minions = _mySpawner.Spawn(instruction);
+                if (instruction.preferredSpawner == 0)
+                {
+                    minions = _mySpawner.Spawn(instruction);
+                } else
+                {
+                    minions = _myCenterSpawner.Spawn(instruction);
+                }
+
+                
 
                 foreach (HealthComponent hc in minions)
                 {
