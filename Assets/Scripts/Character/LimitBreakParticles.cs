@@ -12,7 +12,7 @@ namespace fi.tamk.hellgame.character
             set
             {
                 _indicatorParticlesPerSecond = value;
-                _emissionRateProperty.SetValue(_limitIndicator.emission, value, null);
+                _emissionRateProperty.SetValue(_limitIndicator.emission, _indicatorActive || _aura ? 0f : value, null);
                 if (_indicatorParticlesPerSecond < Mathf.Epsilon)
                 {
                     var nbr = _limitIndicator.GetParticles(_indicatorBuffer);
@@ -62,11 +62,13 @@ namespace fi.tamk.hellgame.character
 
         private void SetAura(bool aura, bool indicator)
         {
-            _indicatorActive = indicator;
-            _aura = aura;
+            
             _emissionRateProperty.SetValue(_limitAura.emission, aura ? _originalAuraEmissionRate : 0f, null);
             if (indicator)_emissionRadiusProperty.SetValue(_limitAura.shape, _minRadius, null);
-            if (aura || indicator) IndicatorParticlesPerSecond = 0;
+            if (aura || indicator) IndicatorParticlesPerSecond = 0f;
+
+            _indicatorActive = indicator;
+            _aura = aura;
         }
 
         /// <summary>
