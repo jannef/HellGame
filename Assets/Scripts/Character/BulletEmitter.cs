@@ -48,7 +48,7 @@ namespace fi.tamk.hellgame.character
         protected void FireBullets(Vector3 tra)
         {
             var startPos = BulletOrigin.transform.position;
-            BulletOrigin.RotateAround(transform.position, -transform.up, Spread / 2);
+            BulletOrigin.RotateAround(transform.position, -transform.up, Spread / 2 + StartAngle);
 
             for (var i = 0; i < NumberOfBullets; i++)
             {

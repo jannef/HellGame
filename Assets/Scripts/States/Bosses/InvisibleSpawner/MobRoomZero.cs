@@ -58,7 +58,6 @@ namespace fi.tamk.hellgame.states
         {
             if (_phase >= _spawnWaves.Length)
             {
-                Debug.Log("No more waves");
                 return;
             }
 
@@ -83,7 +82,7 @@ namespace fi.tamk.hellgame.states
 
                     // This little rig is responsible for setting waypoints for patrolling enemies. See PatrolWayPoints for 
                     var ac = hc.gameObject.GetComponent<ActorComponent>();
-                    if (ac != null && ac.ActorNumericData.GoData.Length > 0)
+                    if (ac != null && ac.ActorNumericData != null && ac.ActorNumericData.GoData.Length > 0)
                     {
                         
                         ac.ActorNumericData.GoData[0] = _patrolWayPoint[0].gameObject;

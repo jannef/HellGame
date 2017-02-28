@@ -9,6 +9,8 @@ namespace fi.tamk.hellgame.effectors
         [SerializeField] protected int amountDropped;
         [SerializeField] protected float Radius;
         [SerializeField] protected float ScatterForce;
+        [SerializeField] protected float ScatterForceVariance;
+        [SerializeField] protected float TorqueForce;
         [SerializeField] protected float Height;
 
         public override void Activate()
@@ -27,7 +29,10 @@ namespace fi.tamk.hellgame.effectors
                 go.transform.position = transform.position + vec * Radius + Vector3.up * Height;
                 go.transform.rotation = Quaternion.Euler(0, degrees * i, 0);
                 //var go = Instantiate(DropPrefab, transform.position + vec * Radius + Vector3.up * Height, Quaternion.Euler(0, degrees * i, 0));
-                go.GetComponent<Rigidbody>().AddExplosionForce(ScatterForce, transform.position, Radius + 1f);
+                var rigidBody = go.GetComponent<Rigidbody>();
+                rigidBody.AddExplosionForce(ScatterForce + ScatterForceVariance * Random.value, transform.position, Radius + 1f);
+                rigidBody.AddTorque(new Vector3(Random.value * TorqueForce, Random.value * TorqueForce, Random.value * TorqueForce));
+                
             }            
         }
     }
