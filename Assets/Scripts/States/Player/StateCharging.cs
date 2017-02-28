@@ -12,6 +12,7 @@ namespace fi.tamk.hellgame.states
 
     public class StateCharging : StateRunning
     {
+
         public override InputStates StateId
         {
             get

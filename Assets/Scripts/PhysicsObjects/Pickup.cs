@@ -18,7 +18,7 @@ namespace fi.tamk.hellgame.physicsobjects
         [SerializeField] private float startingBlinkingFrequency = 0.1f;
         [SerializeField] private float endBlinkingFrequency = 0.05f;
         [SerializeField] private AnimationCurve blinkingEasing;
-        [SerializeField] private Collider _pickupTrigger;
+        private bool isGathereable = true;
 
         protected Rigidbody Rigidbody;
         private Renderer _renderer;
@@ -49,13 +49,13 @@ namespace fi.tamk.hellgame.physicsobjects
         protected IEnumerator DisableRoutine(float lenght)
         {
             float timer = 0f;
-            _pickupTrigger.enabled = false;
+            isGathereable = false;
             while (timer < lenght)
             {
                 timer += Time.deltaTime;
                 yield return null;
             }
-            _pickupTrigger.enabled = true;
+            isGathereable = true;
         }
 
         protected IEnumerator LifeTimeRoutine()
@@ -82,7 +82,7 @@ namespace fi.tamk.hellgame.physicsobjects
 
         protected virtual void OnTriggerEnter(Collider other)
         {
-            StartCoroutine(GoToTransform(other.gameObject.transform));
+            if (isGathereable) StartCoroutine(GoToTransform(other.gameObject.transform));
         }
 
         private IEnumerator GoToTransform(Transform toWhere)

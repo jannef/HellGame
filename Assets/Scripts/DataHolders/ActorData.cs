@@ -6,7 +6,7 @@ namespace fi.tamk.hellgame.dataholders
     {
         Speed           = 0,
         DashSpeed       = 1,
-        DashDuration    = 2
+        DashDuration    = 2,
     }
     public class ActorData : ScriptableObject
     {

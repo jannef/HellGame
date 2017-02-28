@@ -69,12 +69,12 @@ namespace fi.tamk.hellgame.states
         public override void OnEnterState()
         {
             OriginalLayer = ControlledActor.gameObject.layer;
-            ControlledActor.gameObject.SetLayer(Constants.PlayerDashingLayer);
+            ControlledActor.gameObject.SetLayer(Constants.PlayerDashingLayer, false);
         }
 
         public override void OnExitState()
         {
-            ControlledActor.gameObject.SetLayer(OriginalLayer);
+            ControlledActor.gameObject.SetLayer(OriginalLayer, false);
         }
     }
 }
