@@ -101,6 +101,9 @@ namespace fi.tamk.hellgame.character
 
         protected virtual void Awake()
         {
+            // Create own copy of the scriptable object, so that the actors can use it to store
+            // instance specific data, without affectign it's peers.
+            if (ActorNumericData != null) ActorNumericData = Instantiate(ActorNumericData);
             CharacterController = gameObject.GetOrAddComponent<CharacterController>();
             Emitters = GetComponentsInChildren<BulletEmitter>();
         }
