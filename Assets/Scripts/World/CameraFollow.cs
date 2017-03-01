@@ -8,7 +8,6 @@ namespace fi.tamk.hellgame.world
 {
     public class CameraFollow : MonoBehaviour
     {
-        [SerializeField] private Transform _playerTransform;
         [SerializeField] private Vector3 _offset;
         [SerializeField] private float smoothTime = 0.3F;
         [SerializeField] private Transform[] _corners;
@@ -39,7 +38,7 @@ namespace fi.tamk.hellgame.world
         protected void Awake()
         {
             _cameraHolderTransform = GetComponent<Transform>();
-            _cameraHolderTransform.position = _playerTransform.position + _offset;
+            _cameraHolderTransform.position = _offset;
 
             // Transformation
             var height = _cameraHolderTransform.position.y - _corners[0].position.y;
