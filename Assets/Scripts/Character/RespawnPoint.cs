@@ -7,13 +7,14 @@ namespace fi.tamk.hellgame.world
 {
     public class RespawnPoint : MonoBehaviour
     {
-        void Awake()
+        protected void Awake()
         {
             ServiceLocator.Instance.RegisterRespawnPoint(this);
         }
 
-        void OnDestroy()
+        protected void OnDestroy()
         {
+            if (SceneLoadLock.SceneChangeInProgress) return;
             if (!ServiceLocator.Quitting) ServiceLocator.Instance.UnregisterRespawnPoint(this);
         }
     }

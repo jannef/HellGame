@@ -30,6 +30,12 @@ namespace fi.tamk.hellgame.utils
             get { return _mainCameraFollow ?? (_mainCameraFollow = FindObjectOfType<CameraFollow>()); }
         }
 
+        public RoomManager RoomManagerReference
+        {
+            get { return _roomManager ?? (_roomManager = FindObjectOfType<RoomManager>());}
+        }
+        private RoomManager _roomManager;
+
         public void RegisterPlayer(GameObject player)
         {
             if (_players.Count(x => x.Transform == player.transform) > 0) return;

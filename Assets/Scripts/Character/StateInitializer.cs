@@ -3,6 +3,7 @@ using System;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.states;
 using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.character
@@ -102,6 +103,8 @@ namespace fi.tamk.hellgame.character
 
         protected virtual void OnDestroy()
         {
+            if (SceneLoadLock.SceneChangeInProgress) return;
+
             if (!ServiceLocator.Quitting) ServiceLocator.Instance.UnregisterPlayer(gameObject);
             if (!ServiceLocator.Quitting) ServiceLocator.Instance.MainCameraScript.RemoveInterest(transform);
         }

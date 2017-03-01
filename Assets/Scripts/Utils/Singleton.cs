@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using fi.tamk.hellgame.world;
 namespace fi.tamk.hellgame.utils
 {
     /// <summary>
@@ -41,7 +41,6 @@ namespace fi.tamk.hellgame.utils
                     if (_instance == null)
                     {
                         var singleton = new GameObject();
-                        DontDestroyOnLoad(singleton);
                         _instance = singleton.AddComponent<T>();
                         singleton.name = "Singleton instance of " + typeof(T).ToString();
                     }
@@ -67,10 +66,6 @@ namespace fi.tamk.hellgame.utils
             if (_instance ?? (_instance = GetComponent<T>()) == null)
             {
                 Destroy(gameObject);
-            }
-            else
-            {
-                DontDestroyOnLoad(gameObject);
             }
         }
     }
