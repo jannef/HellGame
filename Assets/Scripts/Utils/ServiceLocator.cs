@@ -3,6 +3,7 @@ using System.Linq;
 using fi.tamk.hellgame.world;
 using fi.tamk.hellgame.character;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace fi.tamk.hellgame.utils
 {

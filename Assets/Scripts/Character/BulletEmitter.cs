@@ -16,7 +16,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField] protected LayerMask FireAtWhichLayer;
 
         [SerializeField] protected float Cooldown;
-        [SerializeField, Range(0f, 360f)] protected float StartAngle;
+        [SerializeField, Range(-360f, 360f)] protected float StartAngle;
         [SerializeField, Range(0f, 360f)] protected float Spread;
         [SerializeField, Range(1, 1000)] protected int NumberOfBullets;
         [SerializeField, Range(0f, 360f)] protected float Dispersion;
