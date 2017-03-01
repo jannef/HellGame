@@ -7,18 +7,18 @@ namespace fi.tamk.hellgame.world.states
     public class GenericTimeState : AbstractWorldState
     {
         protected float Duration;
-        protected float Timescale;
+        protected float InternalTimeScale;
 
-        public GenericTimeState(float duration, float timescale, WorldStateMachine stateMachine)
+        public GenericTimeState(float duration, float internalTimeScale, WorldStateMachine stateMachine)
             : base(stateMachine)
         {
             Duration = duration;
-            Timescale = timescale;
+            InternalTimeScale = internalTimeScale;
         }
 
-        public override void OnEnter()
+        public override float TimeScale
         {
-            Time.timeScale = Timescale;
+            get { return InternalTimeScale; }
         }
 
         public override void Timestep(float deltaTime)

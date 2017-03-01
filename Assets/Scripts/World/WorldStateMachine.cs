@@ -10,6 +10,11 @@ namespace fi.tamk.hellgame.world
     {
         protected Stack<IWorldState> States = new Stack<IWorldState>();
 
+        public float DeltaTime
+        {
+            get { return CurrentState == null ? Time.deltaTime : CurrentState.TimeScale * Time.deltaTime; }
+        }
+
         protected IWorldState CurrentState
         {
             get

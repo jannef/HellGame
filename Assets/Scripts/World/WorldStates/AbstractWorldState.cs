@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace tamk.fi.hellgame.world.states
 {
-    public class AbstractWorldState : IWorldState
+    public abstract class AbstractWorldState : IWorldState
     {
         protected float StateTime = 0f;
         protected WorldStateMachine StateMachine;
@@ -13,6 +13,8 @@ namespace tamk.fi.hellgame.world.states
         {
             StateMachine = stateMachine;
         }
+
+        public abstract float TimeScale { get; }
 
         public virtual void Timestep(float deltaTime)
         {
