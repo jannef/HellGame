@@ -14,6 +14,7 @@ namespace fi.tamk.hellgame.states
     {
         protected InputController _myController;
         protected PlayerLimitBreak _myLimitBreak;
+        private bool _dashBuffered = false;
 
         public override InputStates StateId
         {
@@ -67,14 +68,20 @@ namespace fi.tamk.hellgame.states
             }
 
             // Dash activation and shooting
-            if (_myController.PollButtonDown(Buttons.ButtonScheme.Dash))
+            if (_myController.PollButtonDown(Buttons.ButtonScheme.Dash) || _dashBuffered)
             {
-                ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized, movementSpeedMultiplier));
+                _dashBuffered = false;
+                ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized, this, movementSpeedMultiplier));
             }
             else if (_myController.PollButton(Buttons.ButtonScheme.Fire_1) || _myController.MyConfig.InputType == Buttons.InputType.ConsolePleb && controllerLookInput.magnitude > 0.01)
             {
                 ControlledActor.FireGunByIndex(0);
             }
+        }
+
+        public void BufferDash()
+        {
+            _dashBuffered = true;
         }
 
         public StateRunning(ActorComponent hero) : base(hero)

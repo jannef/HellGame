@@ -5,6 +5,7 @@ using UnityEngine;
 using fi.tamk.hellgame.character;
 using System;
 using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.input;
 using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.states
@@ -13,7 +14,8 @@ namespace fi.tamk.hellgame.states
     {
         protected int OriginalLayer;
         private float _dashLenghtMultiplier;
-        private TrailRenderer _playerTrail;
+        private StateRunning _previousState;
+        protected InputController _myController;
 
         public override InputStates StateId
         {
@@ -47,6 +49,14 @@ namespace fi.tamk.hellgame.states
         {
             StateTime += deltaTime;
 
+            if (StateTime >= ControlledActor.ActorNumericData.ActorFloatData[(int) ActorDataMap.DashDuration] * _dashLenghtMultiplier * .9f)
+            {
+                if (_myController.PollButtonDown(Buttons.ButtonScheme.Dash))
+                {
+                    _previousState.BufferDash();
+                }
+            }
+
             if (StateTime > ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashDuration] * _dashLenghtMultiplier)
             {
                 // For last frame of the dash, move remaining dash distance and change state back to previous.
@@ -56,14 +66,17 @@ namespace fi.tamk.hellgame.states
                 ControlledActor.ToPreviousState();
                 return;
             }
+
             HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashSpeed] * Constants.SmootherstepDerivateEasing(StateTime / ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashDuration]));
         }
 
-        public StateDashing(ActorComponent controlledHero, Vector3 dashingDirection, float dashLengthMultiplier = 1f) : base(controlledHero)
+        public StateDashing(ActorComponent controlledHero, Vector3 dashingDirection, StateRunning previousState, float dashLengthMultiplier = 1f) : base(controlledHero)
         {
             _dashingDirection = dashingDirection;
             _dashLenghtMultiplier = dashLengthMultiplier;
             DamageMultiplier = 0f;
+            _previousState = previousState;
+            _myController = ControlledActor.gameObject.GetComponent<InputController>();
         }
 
         public override void OnEnterState()

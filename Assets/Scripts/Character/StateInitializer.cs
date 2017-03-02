@@ -48,9 +48,6 @@ namespace fi.tamk.hellgame.character
                 case InputStates.Paused:
                     outPutState = new StatePaused(hc);
                     break;
-                case InputStates.Dashing:
-                    outPutState = new StateDashing(hc, Vector3.forward);
-                    break;
                 case InputStates.HomingEnemy:
                     outPutState = new HomingEnemyState(hc);
                     break;
