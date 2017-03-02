@@ -61,6 +61,12 @@ namespace fi.tamk.hellgame.character
             Pool.Instance.GameObjectToHealth.Add(gameObject, this);
         }
 
+        public void Heal(int howMuch)
+        {
+            Health += howMuch;
+            HealthChangeEvent.Invoke((float)Health / (float)MaxHp, Health, MaxHp);
+        }
+
         public void TakeDamage(int howMuch)
         {
             if (InvulnerabilityTimeLeft > 0 || hasDied) return;

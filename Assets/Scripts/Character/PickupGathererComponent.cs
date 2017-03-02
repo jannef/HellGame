@@ -4,7 +4,8 @@ namespace fi.tamk.hellgame.character
 {
     public enum PickupType
     {
-        Basic       = 1
+        Basic       = 1,
+        Health      = 2
     }
 
     [RequireComponent(typeof(ActorComponent)), RequireComponent(typeof(HealthComponent))]
@@ -17,6 +18,7 @@ namespace fi.tamk.hellgame.character
         void Start()
         {
             LimitBreak = GetComponent<PlayerLimitBreak>();
+            Health = GetComponent<HealthComponent>();
         }
 
         public virtual void PickItem(PickupType item)
@@ -24,6 +26,9 @@ namespace fi.tamk.hellgame.character
             switch (item) {
                 case PickupType.Basic:
                     LimitBreak.GainPoints(1);
+                    break;
+                case PickupType.Health:
+                    Health.Heal(1);
                     break;
                 default:
                     break;

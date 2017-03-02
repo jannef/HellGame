@@ -6,7 +6,7 @@ namespace fi.tamk.hellgame.effectors
 {
     public class CollectiableDropEffect : Effector
     {
-        [SerializeField] protected int amountDropped;
+        [SerializeField] public int amountDropped;
         [SerializeField] protected float Radius;
         [SerializeField] protected float ScatterForce;
         [SerializeField] protected float ScatterForceVariance;
@@ -21,6 +21,7 @@ namespace fi.tamk.hellgame.effectors
 
         void LaunchCollectiables(float[] args)
         {
+            if (amountDropped == 0) return;
             var degrees = 360 / amountDropped; 
             for (int i = 0; i < amountDropped; i++)
             {
