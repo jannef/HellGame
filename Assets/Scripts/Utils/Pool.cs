@@ -24,6 +24,22 @@ namespace fi.tamk.hellgame.utils
             return !GameObjectToHealth.ContainsKey(go) ? null : GameObjectToHealth[go];
         }
 
+        public void AddHealthComponent(GameObject go, HealthComponent hc)
+        {
+            if (!GameObjectToHealth.ContainsKey(go))
+            {
+                GameObjectToHealth.Add(go, hc);
+            }
+        }
+
+        public void RemoveHealthComponent(GameObject go)
+        {
+            if (GameObjectToHealth.ContainsKey(go))
+            {
+                GameObjectToHealth.Remove(go);
+            }
+        }
+
         /// <summary>
         /// Pooled gameobjects.
         /// </summary>

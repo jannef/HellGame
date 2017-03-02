@@ -5,6 +5,7 @@ using fi.tamk.hellgame.states;
 using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.world;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace fi.tamk.hellgame.character
 {
@@ -20,9 +21,16 @@ namespace fi.tamk.hellgame.character
             if (RegisterAsPlayer)
             {
                 ServiceLocator.Instance.RegisterPlayer(gameObject);
+                SceneManager.sceneLoaded += SceneSetup;
             }
             if (CameraWeight > 0f) ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(transform, CameraWeight));
             InitializeState();
+        }
+
+        private void SceneSetup(Scene scene, LoadSceneMode mode)
+        {
+            Pool.Instance.AddHealthComponent(gameObject, GetComponent<HealthComponent>());
+            Awake();
         }
 
 
@@ -104,6 +112,7 @@ namespace fi.tamk.hellgame.character
 
             if (!ServiceLocator.Quitting) ServiceLocator.Instance.UnregisterPlayer(gameObject);
             if (!ServiceLocator.Quitting) ServiceLocator.Instance.MainCameraScript.RemoveInterest(transform);
+            if (!ServiceLocator.Quitting) Pool.Instance.RemoveHealthComponent(gameObject);
         }
     }
 }

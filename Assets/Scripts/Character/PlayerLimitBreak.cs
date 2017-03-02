@@ -78,6 +78,8 @@ namespace fi.tamk.hellgame.character
         /// </summary>
         protected void Awake()
         {
+            DontDestroyOnLoad(gameObject);
+
             _modifiableStats = ScriptableObject.Instantiate(_originalStats) as PlayerLimitBreakStats;
             _hc = GetComponent<HealthComponent>();
             LimitAvailableOrActive = false;

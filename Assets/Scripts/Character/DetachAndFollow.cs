@@ -12,6 +12,7 @@ namespace fi.tamk.hellgame.character
         {
             _parent = transform.parent;
             transform.SetParent(null);
+            DontDestroyOnLoad(this.gameObject);
         }
 
         private void Update()

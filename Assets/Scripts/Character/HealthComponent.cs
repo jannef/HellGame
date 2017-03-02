@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using System;
 using fi.tamk.hellgame.utils;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace fi.tamk.hellgame.character
 {
@@ -58,7 +59,7 @@ namespace fi.tamk.hellgame.character
         {
             MaxHp = Health;
             ActorComponent = GetComponent<ActorComponent>();
-            Pool.Instance.GameObjectToHealth.Add(gameObject, this);
+            Pool.Instance.AddHealthComponent(gameObject, this);
         }
 
         public void Heal(int howMuch)
