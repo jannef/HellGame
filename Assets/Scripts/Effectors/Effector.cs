@@ -28,8 +28,16 @@ namespace fi.tamk.hellgame.effector
         {
             if (Time.time - _lastFreeze < 0.1f) return;
 
+            var freezeLenght = 20;
+
             _lastFreeze = Time.time;
-            System.Threading.Thread.Sleep(20);
+
+            if (args.Length > 0)
+            {
+                freezeLenght = (int) args[0];
+            }
+
+            System.Threading.Thread.Sleep(freezeLenght);
         }
 
         public static void SlowDown(float[] args)
