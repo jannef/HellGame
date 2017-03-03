@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using fi.tamk.hellgame.projectiles;
 using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Events;
@@ -89,7 +90,7 @@ namespace fi.tamk.hellgame.character
 
         protected virtual void Update()
         {
-            Timer += Time.deltaTime;
+            Timer += WorldStateMachine.Instance.DeltaTime;
         }
 
         public virtual void Fire()

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.effector
@@ -29,7 +30,7 @@ namespace fi.tamk.hellgame.effector
 
             while (t < 1)
             {
-                t += Time.deltaTime / blickLenght;
+                t += WorldStateMachine.Instance.DeltaTime / blickLenght;
                 yield return null;
             }
 

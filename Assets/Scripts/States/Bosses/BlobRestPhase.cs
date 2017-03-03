@@ -3,6 +3,7 @@ using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.utils;
 using System.Collections;
 using System.Collections.Generic;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -31,7 +32,7 @@ namespace fi.tamk.hellgame.states
 
         public override void HandleInput(float deltaTime)
         {
-            StateTime += Time.deltaTime;
+            StateTime += WorldStateMachine.Instance.DeltaTime;
             FaceTargetBehaviour(deltaTime);
         }
     }

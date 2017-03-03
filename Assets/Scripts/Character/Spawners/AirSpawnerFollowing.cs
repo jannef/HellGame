@@ -2,6 +2,7 @@
 using fi.tamk.hellgame.utils;
 using System.Collections;
 using System.Collections.Generic;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.character
@@ -25,7 +26,7 @@ namespace fi.tamk.hellgame.character
                 transform.position = targetTransform.position;
             } else
             {
-                secondRequestTimer += Time.deltaTime;
+                secondRequestTimer += WorldStateMachine.Instance.DeltaTime;
                 if (secondRequestTimer > delayBetweenRequests)
                 {
                     secondRequestTimer = 0;

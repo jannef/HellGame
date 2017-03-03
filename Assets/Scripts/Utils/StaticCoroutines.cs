@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.utils
@@ -16,7 +17,7 @@ namespace fi.tamk.hellgame.utils
 
             while (t <= 1)
             {
-                t += Time.deltaTime / effectLenght;
+                t += WorldStateMachine.Instance.DeltaTime / effectLenght;
 
                 if (t > lastBlinkT)
                 {
@@ -45,7 +46,7 @@ namespace fi.tamk.hellgame.utils
             while (true)
             {
                 intensity = (Mathf.Abs(Mathf.Sin(Time.time * 4)) * originalIntensity * .77f) + (originalIntensity * .33f); 
-                shakedTransform.anchoredPosition = originalPos + UnityEngine.Random.insideUnitCircle.normalized * intensity * Time.deltaTime;
+                shakedTransform.anchoredPosition = originalPos + UnityEngine.Random.insideUnitCircle.normalized * intensity * WorldStateMachine.Instance.DeltaTime;
                 yield return null;
             }
         }

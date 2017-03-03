@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.WORK_IN_PROGRESS
@@ -17,7 +18,7 @@ namespace fi.tamk.hellgame.WORK_IN_PROGRESS
 
         void LateUpdate()
         {
-            _lifeTimeTimer -= Time.deltaTime;
+            _lifeTimeTimer -= WorldStateMachine.Instance.DeltaTime;
 
             if (_lifeTimeTimer <= 0)
             {

@@ -1,5 +1,6 @@
 ﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.effector;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.effectors
@@ -38,7 +39,7 @@ namespace fi.tamk.hellgame.effectors
         {
             Effect.transform.position = AirDropInitializer.transform.position;
             _effectGameObject.transform.forward = AirDropInitializer.LandingCoordinates.position - transform.position;
-            _time += Time.deltaTime / Effect.LifeTime;
+            _time += WorldStateMachine.Instance.DeltaTime / Effect.LifeTime;
             _landindProjector.orthographicSize = Mathf.Lerp(ProjectionMinsize, ProjectionMaxSize, AirDropInitializer.FallingCurve.Evaluate(_time));
         }
     }

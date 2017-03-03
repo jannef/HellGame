@@ -87,7 +87,7 @@ namespace fi.tamk.hellgame.states
                 ControlledActor.transform.forward = Vector3.RotateTowards(ControlledActor.transform.forward,
                     new Vector3(TargetTransform.position.x, ControlledActor.transform.position.y,
                     TargetTransform.position.z) - ControlledActor.transform.position,
-                    10 * deltaTime, 0.0f);
+                    100 * deltaTime, 0.0f);
 
                 _rayCastRetrytimer += deltaTime;
                 if (_rayCastRetrytimer > 0.1f)

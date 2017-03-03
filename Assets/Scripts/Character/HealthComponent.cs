@@ -137,7 +137,7 @@ namespace fi.tamk.hellgame.character
 
         protected void Update()
         {
-            InvulnerabilityTimeLeft -= Time.deltaTime;
+            InvulnerabilityTimeLeft -= WorldStateMachine.Instance.DeltaTime;
         }
 
         private IEnumerator FlipFlinchBooleanAtEndOfFrame()

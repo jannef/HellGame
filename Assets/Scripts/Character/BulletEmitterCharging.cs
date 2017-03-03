@@ -2,6 +2,7 @@
 using fi.tamk.hellgame.effector;
 using fi.tamk.hellgame.effects;
 using System.Collections;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -46,7 +47,7 @@ namespace fi.tamk.hellgame.character
         protected override void Update()
         {
             base.Update();
-            if (_isCharging && _chargingTimer <= maxChargeTime) _chargingTimer += Time.deltaTime;
+            if (_isCharging && _chargingTimer <= maxChargeTime) _chargingTimer += WorldStateMachine.Instance.DeltaTime;
         }
 
         private void ReleaseCharge()

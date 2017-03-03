@@ -16,6 +16,18 @@ namespace fi.tamk.hellgame.world.states
             InternalTimeScale = internalTimeScale;
         }
 
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            Time.timeScale = InternalTimeScale;
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            Time.timeScale = 1f;
+        }
+
         public override float TimeScale
         {
             get { return InternalTimeScale; }

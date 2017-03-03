@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using fi.tamk.hellgame.effector;
 using fi.tamk.hellgame.effects;
 using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.effectors
@@ -47,7 +48,7 @@ namespace fi.tamk.hellgame.effectors
 
             while (t <= 1)
             {
-                t += Time.deltaTime / duration;
+                t += WorldStateMachine.Instance.DeltaTime / duration;
 
                 yield return null;
             }
