@@ -76,7 +76,7 @@ namespace fi.tamk.hellgame.states
             RetreatPointSet = shootingSkirmisher.RetreatPointSet;
             RetreatPoint = shootingSkirmisher.RetreatPoint;
             TargetTransform = shootingSkirmisher.TargetTransform;
-            _raycastLayerMask = LayerMask.GetMask(Constants.ObstacleLayerName, Constants.PlayerLayerName, Constants.PlayerDashingLayerName);
+            _raycastLayerMask = LayerMask.GetMask(Constants.ObstacleLayerName);
         }
 
         public override void HandleInput(float deltaTime)
@@ -96,12 +96,9 @@ namespace fi.tamk.hellgame.states
                     var ray = new Ray(ControlledActor.transform.position,
                         TargetTransform.position - ControlledActor.transform.position);
                     RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit, 100f, _raycastLayerMask))
+                    if (!Physics.Raycast(ray, out hit, (TargetTransform.position - ControlledActor.transform.position).magnitude, _raycastLayerMask))
                     {
-                        if (hit.transform.gameObject.layer == Constants.PlayerLayer)
-                        {
-                            ControlledActor.FireGunByIndex(0);
-                        }
+                        ControlledActor.FireGunByIndex(0);
                     }
                 }
 
