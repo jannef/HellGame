@@ -27,11 +27,10 @@ namespace fi.tamk.hellgame.character
             }
         }
 
-        public void DetachFromParent(bool setDontDestroyOnLoad = false)
+        public void DetachFromParent()
         {
             _parent = transform.parent;
             transform.parent = null;
-            if (setDontDestroyOnLoad) DontDestroyOnLoad(gameObject);
         }
     }
 }

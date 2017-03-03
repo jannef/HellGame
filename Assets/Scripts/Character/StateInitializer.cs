@@ -22,21 +22,9 @@ namespace fi.tamk.hellgame.character
             if (RegisterAsPlayer)
             {
                 ServiceLocator.Instance.RegisterPlayer(gameObject);
-                SceneManager.sceneLoaded += SceneSetup;
-                var gunParticles = GetComponentsInChildren<DetachAndFollow>();
-                foreach (var d in gunParticles)
-                {
-                    d.DetachFromParent(true);
-                }
             }
             if (CameraWeight > 0f) ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(transform, CameraWeight));
             InitializeState();
-        }
-
-        private void SceneSetup(Scene scene, LoadSceneMode mode)
-        {
-            Pool.Instance.AddHealthComponent(gameObject, GetComponent<HealthComponent>());
-            Awake();
         }
 
 
