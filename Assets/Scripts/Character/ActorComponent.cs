@@ -45,21 +45,25 @@ namespace fi.tamk.hellgame.character
         {
             var transitionType = CurrentState.CheckTransitionLegality(toWhichState.StateId);
 
-            switch (transitionType)
+            if (_inputState.Count > 0)
             {
-                case TransitionType.LegalOneway:
-                    if (_inputState.Count < 1) return false;
-
-                    CurrentState.OnExitState();
-                    _inputState.Clear();
-                    break;
-                case TransitionType.Illegal:
-                    throw new System.Exception(string.Format("Illegal transition passed to CharacterController.GoToState: {0}", toWhichState.ToString()));
-                default:
-                    CurrentState.OnSuspendState();
-                    break;
+                switch (transitionType)
+                {
+                    case TransitionType.LegalOneway:
+                        CurrentState.OnExitState();
+                        _inputState.Clear();
+                        break;
+                    case TransitionType.Illegal:
+                        throw new System.Exception(
+                            string.Format("Illegal transition passed to CharacterController.GoToState: {0}",
+                                toWhichState.ToString()));
+                    case TransitionType.LegalTwoway:
+                    default:
+                        CurrentState.OnSuspendState();
+                        break;
+                }
             }
-            
+
             _inputState.Push(toWhichState);
             CurrentState.OnEnterState();
             InputBuffer = Buttons.ButtonScheme.None;
