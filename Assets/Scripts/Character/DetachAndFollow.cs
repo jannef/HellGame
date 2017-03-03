@@ -6,12 +6,12 @@ namespace fi.tamk.hellgame.character
 {
     public class DetachAndFollow : MonoBehaviour
     {
+        [SerializeField] private bool _autoDetachOnStart = false;
         private Transform _parent;
 
         private void Awake()
         {
-            _parent = transform.parent;
-            transform.SetParent(null);
+            if (_autoDetachOnStart) DetachFromParent();
         }
 
         private void Update()
@@ -25,6 +25,13 @@ namespace fi.tamk.hellgame.character
             {
                 transform.position = _parent.position;
             }
+        }
+
+        public void DetachFromParent(bool setDontDestroyOnLoad = false)
+        {
+            _parent = transform.parent;
+            transform.parent = null;
+            if (setDontDestroyOnLoad) DontDestroyOnLoad(gameObject);
         }
     }
 }

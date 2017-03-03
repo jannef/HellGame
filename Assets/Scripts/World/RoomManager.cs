@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.input;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,6 +26,7 @@ namespace fi.tamk.hellgame.world
     public sealed class RoomManager : MonoBehaviour
     {
         public bool DebugMode;
+        public ButtonMap[] Inputs;
 
         public LegalScenes CurrentScene { get; private set; }
 
@@ -90,6 +93,32 @@ namespace fi.tamk.hellgame.world
             if (Input.GetKeyDown("3"))
             {
                 LoadRoom((LegalScenes) 3);
+            }
+
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                if (Inputs.Length >= 1)
+                    SetController(Inputs[0]);
+                else
+                    Debug.LogWarning("RoomManager does not have enough buttons schemes set up for debug button scheme change requested (F1)");
+            }
+
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                if (Inputs.Length >= 1)
+                    SetController(Inputs[1]);
+                else
+                    Debug.LogWarning("RoomManager does not have enough buttons schemes set up for debug button scheme change requested (F2)");
+            }
+        }
+
+        private void SetController(ButtonMap scheme)
+        {
+            var player = FindObjectOfType<PlayerLimitBreak>();
+            if (player != null)
+            {
+                var input = player.gameObject.GetComponent<InputController>();
+                if (input != null) input.MyConfig = scheme;
             }
         }
     }

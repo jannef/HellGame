@@ -26,7 +26,7 @@ namespace fi.tamk.hellgame.character
                 var gunParticles = GetComponentsInChildren<DetachAndFollow>();
                 foreach (var d in gunParticles)
                 {
-                    SetDoNotDestroyAtNextFrame(d.gameObject);
+                    d.DetachFromParent(true);
                 }
             }
             if (CameraWeight > 0f) ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(transform, CameraWeight));
@@ -118,12 +118,6 @@ namespace fi.tamk.hellgame.character
 
             if (!ServiceLocator.Quitting) ServiceLocator.Instance.UnregisterPlayer(gameObject);
             if (!ServiceLocator.Quitting) ServiceLocator.Instance.MainCameraScript.RemoveInterest(transform);
-        }
-
-        private static IEnumerator SetDoNotDestroyAtNextFrame(GameObject go)
-        {
-            yield return new WaitForEndOfFrame();
-            DontDestroyOnLoad(go);
         }
     }
 }
