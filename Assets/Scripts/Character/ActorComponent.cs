@@ -62,6 +62,7 @@ namespace fi.tamk.hellgame.character
             
             _inputState.Push(toWhichState);
             CurrentState.OnEnterState();
+            InputBuffer = Buttons.ButtonScheme.None;
 
             return true;
         }
