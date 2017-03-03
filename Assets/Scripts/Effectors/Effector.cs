@@ -1,4 +1,5 @@
-﻿using fi.tamk.hellgame.effects;
+﻿using System.Xml.Serialization;
+using fi.tamk.hellgame.effects;
 using fi.tamk.hellgame.world;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace fi.tamk.hellgame.effector
     public class Effector : MonoBehaviour
     {
         /// <summary>
-        /// This variable is guaranteed to contain teh reference to ONLY THE LATEST effect spawned.
+        /// This variable is guaranteed to contain the reference to ONLY THE LATEST effect spawned.
         /// You it inside inheriting Activate() after base.Activate() has been called!
         /// </summary>
         protected GenericEffect Effect;

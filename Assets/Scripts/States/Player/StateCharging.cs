@@ -12,7 +12,6 @@ namespace fi.tamk.hellgame.states
 
     public class StateCharging : StateRunning
     {
-
         public override InputStates StateId
         {
             get
@@ -23,7 +22,7 @@ namespace fi.tamk.hellgame.states
 
         public StateCharging(ActorComponent hero) : base(hero)
         {
-            _myController = ControlledActor.gameObject.GetComponent<InputController>();
+            
         }
 
         public override void OnEnterState()
@@ -40,9 +39,9 @@ namespace fi.tamk.hellgame.states
 
         protected override void RunningMovement(float deltaTime)
         {
-            var movementDirection = _myController.PollAxisLeft();
-            var movementSpeedMultiplier = (1 - _myController.PollLeftTrigger() * .55f);
-            var controllerLookInput = _myController.PollAxisRight();
+            var movementDirection = MyInputController.PollAxisLeft();
+            var movementSpeedMultiplier = (1 - MyInputController.PollLeftTrigger() * .55f);
+            var controllerLookInput = MyInputController.PollAxisRight();
 
             if (controllerLookInput.magnitude < 0.01)
             {

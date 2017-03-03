@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using System;
 using fi.tamk.hellgame.utils;
 using System.Collections;
-using UnityEngine.SceneManagement;
+using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.character
 {
@@ -52,8 +52,8 @@ namespace fi.tamk.hellgame.character
             }
         }
 
-        private bool hasDied = false;
-        private bool hasBeenHitThisFrame = false;
+        public bool HasDied = false;
+        private bool _hasBeenHitThisFrame = false;
 
         protected void Awake()
         {
@@ -64,13 +64,13 @@ namespace fi.tamk.hellgame.character
 
         public void Heal(int howMuch)
         {
-            Health += howMuch;
-            HealthChangeEvent.Invoke((float)Health / (float)MaxHp, Health, MaxHp);
+            Health = Math.Min(Health + howMuch, MaxHp);
+            if (HealthChangeEvent != null) HealthChangeEvent.Invoke((float)Health / (float)MaxHp, Health, MaxHp);
         }
 
         public void TakeDamage(int howMuch)
         {
-            if (InvulnerabilityTimeLeft > 0 || hasDied) return;
+            if (InvulnerabilityTimeLeft > 0 || HasDied) return;
 
             var hp = Health;
             var flinch = false;
@@ -82,11 +82,10 @@ namespace fi.tamk.hellgame.character
             if (!DamageDelegate(howMuch, ref Health, ref flinch) && AllowDeath)
             {
                 Die();
-                hasDied = true;
                 return;
             }
 
-            if (flinch && !hasBeenHitThisFrame) FlinchFromHit();
+            if (flinch && !_hasBeenHitThisFrame && !HasDied) FlinchFromHit();
             if (hp > Health) InvulnerabilityTimeLeft = InvulnerabilityLenght;
 
             // Report health change to subscribers of this event
@@ -105,11 +104,8 @@ namespace fi.tamk.hellgame.character
 
         public virtual void Die()
         {
-
-            if (DeathEffect != null)
-            {
-                DeathEffect.Invoke();
-            }
+            HasDied = true;
+            if (DeathEffect != null) DeathEffect.Invoke();
 
             var be = GetComponentsInChildren<BulletEmitter>();
             foreach (var b in be)
@@ -123,7 +119,9 @@ namespace fi.tamk.hellgame.character
 
         public virtual void FlinchFromHit()
         {
-            hasBeenHitThisFrame = true;
+            if (HasDied) return;
+
+            _hasBeenHitThisFrame = true;
             StartCoroutine(FlipFlinchBooleanAtEndOfFrame());
 
             if (HitFlinchEffect != null)
@@ -145,8 +143,14 @@ namespace fi.tamk.hellgame.character
         private IEnumerator FlipFlinchBooleanAtEndOfFrame()
         {
             yield return new WaitForEndOfFrame();
-            hasBeenHitThisFrame = false;
+            _hasBeenHitThisFrame = false;
+        }
 
+        private void OnDestroy()
+        {
+            if (SceneLoadLock.SceneChangeInProgress) return;
+
+            if (!Pool.Quitting) Pool.Instance.RemoveHealthComponent(gameObject);
         }
     }
 }

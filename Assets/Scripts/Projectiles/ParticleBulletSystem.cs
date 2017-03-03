@@ -37,9 +37,11 @@ namespace fi.tamk.hellgame.projectiles
 
         public void EmitBullet(Vector3 from, Vector3 velocity)
         {
-            var emissionParams = new ParticleSystem.EmitParams();
-            emissionParams.position = from;
-            emissionParams.velocity = velocity.normalized * Speed;
+            var emissionParams = new ParticleSystem.EmitParams
+            {
+                position = @from,
+                velocity = velocity.normalized*Speed
+            };
             var angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
             emissionParams.rotation = angle;
 

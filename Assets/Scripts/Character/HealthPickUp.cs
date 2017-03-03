@@ -18,7 +18,6 @@ namespace fi.tamk.hellgame.character
 
             var pc = ServiceLocator.Instance.GetPickupGatherer(hit.gameObject.transform);
             if (pc != null) pc.PickItem(PickupType.Health);
-            
 
             var pickUpEffect = GetComponent<CollectiableDropEffect>();
             if (pickUpEffect == null) return;

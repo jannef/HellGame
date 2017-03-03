@@ -1,6 +1,7 @@
 ﻿using fi.tamk.hellgame.interfaces;
 using System.Collections.Generic;
 using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.input;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.character
@@ -11,6 +12,7 @@ namespace fi.tamk.hellgame.character
     {
         public ActorData ActorNumericData;
         public GameObject HeroObject { get { return gameObject; } }
+        public Buttons.ButtonScheme InputBuffer = Buttons.ButtonScheme.None;
 
         public event TriggerEventDelegate OnTriggerEnterActions;
         public event TriggerEventDelegate OnTriggerStayActions;
@@ -35,6 +37,7 @@ namespace fi.tamk.hellgame.character
             CurrentState.OnExitState();
             _inputState.Pop();
             CurrentState.OnResumeState();
+            InputBuffer = Buttons.ButtonScheme.None;
             return true;
         }
 

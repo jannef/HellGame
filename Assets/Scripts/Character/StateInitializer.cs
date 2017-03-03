@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.states;
 using fi.tamk.hellgame.utils;
@@ -22,6 +23,11 @@ namespace fi.tamk.hellgame.character
             {
                 ServiceLocator.Instance.RegisterPlayer(gameObject);
                 SceneManager.sceneLoaded += SceneSetup;
+                var gunParticles = GetComponentsInChildren<DetachAndFollow>();
+                foreach (var d in gunParticles)
+                {
+                    SetDoNotDestroyAtNextFrame(d.gameObject);
+                }
             }
             if (CameraWeight > 0f) ServiceLocator.Instance.MainCameraScript.AddInterest(new CameraInterest(transform, CameraWeight));
             InitializeState();
@@ -112,7 +118,12 @@ namespace fi.tamk.hellgame.character
 
             if (!ServiceLocator.Quitting) ServiceLocator.Instance.UnregisterPlayer(gameObject);
             if (!ServiceLocator.Quitting) ServiceLocator.Instance.MainCameraScript.RemoveInterest(transform);
-            if (!ServiceLocator.Quitting) Pool.Instance.RemoveHealthComponent(gameObject);
+        }
+
+        private static IEnumerator SetDoNotDestroyAtNextFrame(GameObject go)
+        {
+            yield return new WaitForEndOfFrame();
+            DontDestroyOnLoad(go);
         }
     }
 }

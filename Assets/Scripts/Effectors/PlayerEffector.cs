@@ -1,5 +1,6 @@
 ﻿using fi.tamk.hellgame.utils;
 using System.Collections;
+using fi.tamk.hellgame.character;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.effector
@@ -17,19 +18,26 @@ namespace fi.tamk.hellgame.effector
         [SerializeField] private GameObject _deathParticleEffect;
 
         private Renderer _renderer;
+        private HealthComponent _healthComponent;
+
+        private void Awake()
+        {
+            _renderer = GetComponent<Renderer>();
+            _healthComponent = GetComponent<HealthComponent>();
+        }
 
         public override void Activate()
         {
             base.Activate();
             Effect.LifeTime = _slowDownLenght * _slowDownScale;
-            _renderer = GetComponent<Renderer>();
+            
             Effect.SetOnstart(SlowDown, new float[2] { _slowDownLenght, _slowDownScale });
             Effect.SetOnEnd(ScreenShakeEffect, new float[2] { _shakeIntensity, _shakeLenght });
-            GameObject go = Instantiate(_deathParticleEffect);
+            var go = Instantiate(_deathParticleEffect);
             go.transform.position = transform.position;
 
             if (!gameObject.activeInHierarchy) return;
-            Effect.SetOnstart((args) => StartCoroutine(StaticCoroutines.BlinkCoroutine(_renderer, EffectLength, _startingBlinkingFrequency, _endBlinkingFrequency, _blinkingEasing)), new float[] { });
+            if (!(_healthComponent != null && _healthComponent.HasDied))Effect.SetOnstart((args) => StartCoroutine(StaticCoroutines.BlinkCoroutine(_renderer, EffectLength, _startingBlinkingFrequency, _endBlinkingFrequency, _blinkingEasing)), new float[] { });
         }
     }
 }

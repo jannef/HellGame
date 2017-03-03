@@ -17,26 +17,26 @@ namespace fi.tamk.hellgame.utils
         }
         private static GameObject _pickupPrefab = null;
 
-        public Dictionary<GameObject, HealthComponent> GameObjectToHealth = new Dictionary<GameObject, HealthComponent>();
+        private readonly Dictionary<GameObject, HealthComponent> _gameObjectToHealth = new Dictionary<GameObject, HealthComponent>();
 
         public HealthComponent GetHealthComponent(GameObject go)
         {
-            return !GameObjectToHealth.ContainsKey(go) ? null : GameObjectToHealth[go];
+            return !_gameObjectToHealth.ContainsKey(go) ? null : _gameObjectToHealth[go];
         }
 
         public void AddHealthComponent(GameObject go, HealthComponent hc)
         {
-            if (!GameObjectToHealth.ContainsKey(go))
+            if (!_gameObjectToHealth.ContainsKey(go))
             {
-                GameObjectToHealth.Add(go, hc);
+                _gameObjectToHealth.Add(go, hc);
             }
         }
 
         public void RemoveHealthComponent(GameObject go)
         {
-            if (GameObjectToHealth.ContainsKey(go))
+            if (_gameObjectToHealth.ContainsKey(go))
             {
-                GameObjectToHealth.Remove(go);
+                _gameObjectToHealth.Remove(go);
             }
         }
 

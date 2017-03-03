@@ -42,8 +42,6 @@ namespace fi.tamk.hellgame.world
             var roomIdentifier = FindObjectsOfType<RoomIdentifier>();
             if (SceneManager.GetActiveScene().buildIndex != 0) throw new UnityException("RoomManager instansiated outside GameStaging!");
             if (roomIdentifier.Length > 1) throw new UnityException("Too many RoomIdentifier objects!");
-            
-            Debug.Log(roomIdentifier.Length);
 
             if (roomIdentifier.Length == 1)
             {

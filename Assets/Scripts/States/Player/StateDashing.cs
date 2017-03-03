@@ -4,18 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.character;
 using System;
+using Assets.Scripts.States.Player;
 using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.input;
 using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.states
 {
-    public class StateDashing : StateAbstract
+    public class StateDashing : InputTakingState
     {
         protected int OriginalLayer;
         private float _dashLenghtMultiplier;
         private StateRunning _previousState;
-        protected InputController _myController;
 
         public override InputStates StateId
         {
@@ -51,10 +51,7 @@ namespace fi.tamk.hellgame.states
 
             if (StateTime >= ControlledActor.ActorNumericData.ActorFloatData[(int) ActorDataMap.DashDuration] * _dashLenghtMultiplier * .9f)
             {
-                if (_myController.PollButtonDown(Buttons.ButtonScheme.Dash))
-                {
-                    _previousState.BufferDash();
-                }
+                if (MyInputController.PollButtonDown(Buttons.ButtonScheme.Dash)) ControlledActor.InputBuffer = Buttons.ButtonScheme.Dash;
             }
 
             if (StateTime > ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashDuration] * _dashLenghtMultiplier)
@@ -70,13 +67,11 @@ namespace fi.tamk.hellgame.states
             HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashSpeed] * Constants.SmootherstepDerivateEasing(StateTime / ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashDuration]));
         }
 
-        public StateDashing(ActorComponent controlledHero, Vector3 dashingDirection, StateRunning previousState, float dashLengthMultiplier = 1f) : base(controlledHero)
+        public StateDashing(ActorComponent controlledHero, Vector3 dashingDirection, float dashLengthMultiplier = 1f) : base(controlledHero)
         {
             _dashingDirection = dashingDirection;
             _dashLenghtMultiplier = dashLengthMultiplier;
             DamageMultiplier = 0f;
-            _previousState = previousState;
-            _myController = ControlledActor.gameObject.GetComponent<InputController>();
         }
 
         public override void OnEnterState()

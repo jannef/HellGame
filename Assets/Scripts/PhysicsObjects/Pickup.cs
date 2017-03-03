@@ -24,7 +24,6 @@ namespace fi.tamk.hellgame.physicsobjects
         private Renderer _renderer;
 
 
-
         protected void Awake()
         {
             _renderer = GetComponent<Renderer>();

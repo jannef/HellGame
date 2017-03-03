@@ -14,6 +14,7 @@ namespace fi.tamk.hellgame.input
         /// </summary>
         public enum ButtonScheme
         {
+            None = -1,
             Fire_1 = 0,
             Fire_2 = 1,
             Dash = 2,

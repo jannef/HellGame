@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.character;
 using System;
+using Assets.Scripts.States.Player;
 using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.input;
 using tamk.fi.hellgame.character;
 
 namespace fi.tamk.hellgame.states
 {
-    public class StateRunning : StateAbstract
+    public class StateRunning : InputTakingState
     {
-        protected InputController _myController;
-        protected PlayerLimitBreak _myLimitBreak;
+        protected PlayerLimitBreak MyLimitBreak;
         private bool _dashBuffered = false;
 
         public override InputStates StateId
@@ -42,9 +42,9 @@ namespace fi.tamk.hellgame.states
 
         protected virtual void RunningMovement(float deltaTime)
         {
-            var movementDirection = _myController.PollAxisLeft();
-            var movementSpeedMultiplier = (1 - _myController.PollLeftTrigger() * .55f); 
-            var controllerLookInput = _myController.PollAxisRight();
+            var movementDirection = MyInputController.PollAxisLeft();
+            var movementSpeedMultiplier = (1 - MyInputController.PollLeftTrigger() * .55f); 
+            var controllerLookInput = MyInputController.PollAxisRight();
 
             // Aim
             HeroAvatar.transform.LookAt(new Vector3(HeroAvatar.transform.position.x + controllerLookInput.x,
@@ -54,9 +54,9 @@ namespace fi.tamk.hellgame.states
             HeroAvatar.Move(movementDirection * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.Speed] * deltaTime * movementSpeedMultiplier);
 
             // Limit break activation input
-            if (_myController.PollButtonDown(Buttons.ButtonScheme.LimitBreak) && _myLimitBreak != null && _myLimitBreak.LimitAvailableOrActive)
+            if (MyInputController.PollButtonDown(Buttons.ButtonScheme.LimitBreak) && MyLimitBreak != null && MyLimitBreak.LimitAvailableOrActive)
             {
-                _myLimitBreak.ActivateLimitBreak();
+                MyLimitBreak.ActivateLimitBreak();
                 return;
             }
 
@@ -68,26 +68,26 @@ namespace fi.tamk.hellgame.states
             }
 
             // Dash activation and shooting
-            if (_myController.PollButtonDown(Buttons.ButtonScheme.Dash) || _dashBuffered)
+            if (MyInputController.PollButtonDown(Buttons.ButtonScheme.Dash) || _dashBuffered)
             {
                 _dashBuffered = false;
-                ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized, this, movementSpeedMultiplier));
+                ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized, movementSpeedMultiplier));
             }
-            else if (_myController.PollButton(Buttons.ButtonScheme.Fire_1) || _myController.MyConfig.InputType == Buttons.InputType.ConsolePleb && controllerLookInput.magnitude > 0.01)
+            else if (MyInputController.PollButton(Buttons.ButtonScheme.Fire_1) || MyInputController.MyConfig.InputType == Buttons.InputType.ConsolePleb && controllerLookInput.magnitude > 0.01)
             {
                 ControlledActor.FireGunByIndex(0);
             }
         }
 
-        public void BufferDash()
+        public override void OnResumeState()
         {
-            _dashBuffered = true;
+            base.OnResumeState();
+            if (ControlledActor.InputBuffer == Buttons.ButtonScheme.Dash) _dashBuffered = true;
         }
 
         public StateRunning(ActorComponent hero) : base(hero)
         {
-            _myController = ControlledActor.gameObject.GetComponent<InputController>();
-            _myLimitBreak = ControlledActor.gameObject.GetComponent<PlayerLimitBreak>();
+            MyLimitBreak = ControlledActor.gameObject.GetComponent<PlayerLimitBreak>();
         }
     }
 }
