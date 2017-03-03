@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 public class DebugSpawner : MonoBehaviour {
@@ -9,7 +10,7 @@ public class DebugSpawner : MonoBehaviour {
 
     // Update is called once per frame
     public void Update () {
-        timer += Time.deltaTime;
+        timer += WorldStateMachine.Instance.DeltaTime;
 
         if (timer >= _delayinInSpawning)
         {

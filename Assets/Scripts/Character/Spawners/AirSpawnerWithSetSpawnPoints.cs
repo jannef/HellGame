@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.world;
 using Random = UnityEngine.Random;
 
 namespace fi.tamk.hellgame.character
@@ -109,7 +110,7 @@ namespace fi.tamk.hellgame.character
             {
                 while (t < timeDelay)
                 {
-                    t += Time.deltaTime;
+                    t += WorldStateMachine.Instance.DeltaTime;
                     yield return null;
                 }
 

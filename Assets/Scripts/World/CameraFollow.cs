@@ -49,6 +49,22 @@ namespace fi.tamk.hellgame.world
             _camLimits[2] = Mathf.Min(_corners[0].position.z, _corners[1].position.z) + CheatSlider * fowSize / Camera.main.aspect;
             _camLimits[3] = Mathf.Max(_corners[0].position.z, _corners[1].position.z) - CheatSlider * fowSize / Camera.main.aspect;
 
+            if (_camLimits[0] > _camLimits[1])
+            {
+                var middlePoint = (_camLimits[0] + _camLimits[1]) / 2;
+
+                _camLimits[0] = middlePoint;
+                _camLimits[1] = middlePoint;
+            }
+
+            if (_camLimits[2] > _camLimits[3])
+            {
+                var middlePoint = (_camLimits[2] + _camLimits[3]) / 2;
+
+                _camLimits[2] = middlePoint;
+                _camLimits[3] = middlePoint;
+            }
+
             ServiceLocator.WorldLimits = new [] {
                 Mathf.Min(_corners[0].position.x, _corners[1].position.x), 
                 Mathf.Max(_corners[0].position.x, _corners[1].position.x), 

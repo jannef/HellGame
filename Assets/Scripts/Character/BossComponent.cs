@@ -2,6 +2,7 @@
 using fi.tamk.hellgame.interfaces;
 using UnityEngine;
 using System.Linq;
+using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.character
 {
@@ -36,9 +37,9 @@ namespace fi.tamk.hellgame.character
 
         protected virtual void Update()
         {
-            EncounterTimer += Time.deltaTime;
+            EncounterTimer += WorldStateMachine.Instance.DeltaTime;
             if (CurrentPhase == null || CurrentPhase.Count == 0) return;
-            CurrentPhase.ForEach(x => x.OnUpdate(Time.deltaTime));
+            CurrentPhase.ForEach(x => x.OnUpdate(WorldStateMachine.Instance.DeltaTime));
         }
 
         protected virtual void OnBossHealthChange(float percentage, int hitpoints, int maxHp)

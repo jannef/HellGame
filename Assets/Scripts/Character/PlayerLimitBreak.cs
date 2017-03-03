@@ -2,6 +2,7 @@
 using fi.tamk.hellgame.utils;
 using System;
 using System.Collections;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -162,8 +163,8 @@ namespace fi.tamk.hellgame.character
             while (_collectedPoints > 0)
             {
                 if (LimitBreakDurationChange != null) LimitBreakDurationChange.Invoke(_collectedPoints / _modifiableStats.Cost);
-                pps *= 1f + (_modifiableStats.CostMultiplierPerSecond - 1f) * Time.deltaTime;
-                _collectedPoints -= pps * Time.deltaTime;
+                pps *= 1f + (_modifiableStats.CostMultiplierPerSecond - 1f) * WorldStateMachine.Instance.DeltaTime;
+                _collectedPoints -= pps * WorldStateMachine.Instance.DeltaTime;
                 yield return null;
             }
 

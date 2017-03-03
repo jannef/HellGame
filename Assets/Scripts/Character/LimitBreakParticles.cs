@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using System;
+using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.character
 {
@@ -82,7 +83,7 @@ namespace fi.tamk.hellgame.character
 
         private void Update()
         {
-            _timer += Time.deltaTime;
+            _timer += WorldStateMachine.Instance.DeltaTime;
             if (_indicatorActive && !_aura && _timer > _indicatorInterval)
             {
                 _limitAura.Emit(_indicatorAmounth);

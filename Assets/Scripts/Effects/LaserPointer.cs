@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.effects
@@ -52,7 +53,7 @@ namespace fi.tamk.hellgame.effects
         // Update is called once per frame
         void Update()
         {
-            if (_chargeTimer < ChargeTime) _chargeTimer += Time.deltaTime;
+            if (_chargeTimer < ChargeTime) _chargeTimer += WorldStateMachine.Instance.DeltaTime;
             ;
 
             var ray = new Ray(transform.position, GunVector);

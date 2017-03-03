@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.interfaces;
 using System;
+using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.effects
 {
@@ -58,7 +59,7 @@ namespace fi.tamk.hellgame.effects
                 _once = false;
             }
 
-            _timer += Time.deltaTime;
+            _timer += WorldStateMachine.Instance.DeltaTime;
             OnUpdate();
             //TODO: Pooling
             if (_timer > LifeTime)

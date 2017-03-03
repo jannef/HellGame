@@ -1,6 +1,7 @@
 ﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.utils;
 using System.Collections;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.physicsobjects
@@ -51,7 +52,7 @@ namespace fi.tamk.hellgame.physicsobjects
             isGathereable = false;
             while (timer < lenght)
             {
-                timer += Time.deltaTime;
+                timer += WorldStateMachine.Instance.DeltaTime;
                 yield return null;
             }
             isGathereable = true;
@@ -62,7 +63,7 @@ namespace fi.tamk.hellgame.physicsobjects
             float timer = 0;
             while (timer < LifeTime)
             {
-                timer += Time.deltaTime;
+                timer += WorldStateMachine.Instance.DeltaTime;
                 yield return null;
             }
 
@@ -72,7 +73,7 @@ namespace fi.tamk.hellgame.physicsobjects
 
             while (timer < blinkingLenght)
             {
-                timer += Time.deltaTime;
+                timer += WorldStateMachine.Instance.DeltaTime;
                 yield return null;
             }
             GameObject go = gameObject;
@@ -90,7 +91,7 @@ namespace fi.tamk.hellgame.physicsobjects
             while (toWhere != null && (transform.position - toWhere.position).magnitude > Tolerance)
             {
                 var raw = toWhere.position - transform.position;
-                var trajectory = (raw).normalized * Time.deltaTime * Speed * Curve.Evaluate((Time.time - time) / EasingTime);
+                var trajectory = (raw).normalized * WorldStateMachine.Instance.DeltaTime * Speed * Curve.Evaluate((Time.time - time) / EasingTime);
 
                 trajectory = raw.magnitude < trajectory.magnitude ? raw : trajectory;
                 transform.position += trajectory;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.input;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.character
@@ -88,7 +89,7 @@ namespace fi.tamk.hellgame.character
 
         private void Update()
         {
-            if (CurrentState != null) CurrentState.HandleInput(Time.deltaTime);
+            if (CurrentState != null) CurrentState.HandleInput(WorldStateMachine.Instance.DeltaTime);
         }
 
         public void FireGuns()

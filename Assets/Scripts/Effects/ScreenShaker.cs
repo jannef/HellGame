@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.effects
 {
@@ -46,9 +47,9 @@ namespace fi.tamk.hellgame.effects
         {
             while (_lerpTimer <= 1)
             {
-                _camTransform.localPosition = originalPos + Random.insideUnitSphere.normalized * _currentShakeAmount * Time.deltaTime;
+                _camTransform.localPosition = originalPos + Random.insideUnitSphere.normalized * _currentShakeAmount * WorldStateMachine.Instance.DeltaTime;
 
-                _lerpTimer += Time.deltaTime / _shakeLenght;
+                _lerpTimer += WorldStateMachine.Instance.DeltaTime / _shakeLenght;
                 _currentShakeAmount = Mathf.Lerp(_shakeAmount, 0, ShakeEasing.Evaluate(_lerpTimer));
                 yield return null;
             }
