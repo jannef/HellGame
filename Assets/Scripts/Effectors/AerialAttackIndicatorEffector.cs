@@ -1,5 +1,6 @@
 ﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.effector;
+using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.world;
 using UnityEngine;
 
@@ -37,7 +38,7 @@ namespace fi.tamk.hellgame.effectors
 
         public void FollowAnother(float[] args)
         {
-            if (gameObject == null || AirDropInitializer == null) return; // If the this effector is destroyed, return.
+            if (ServiceLocator.Instance.RoomBeaten) return; // If the this effector is destroyed, return.
 
             Effect.transform.position = AirDropInitializer.transform.position;
             _effectGameObject.transform.forward = AirDropInitializer.LandingCoordinates.position - transform.position;

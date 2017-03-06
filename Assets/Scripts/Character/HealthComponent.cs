@@ -154,9 +154,8 @@ namespace fi.tamk.hellgame.character
             if (!Pool.Quitting) Pool.Instance.RemoveHealthComponent(gameObject);
         }
 
-        public void DestroyAllButPlayers()
+        public void LevelCompletingDeath()
         {
-            /*
             ServiceLocator.Instance.RoomBeaten = true;
 
             var doNotDestroy = ServiceLocator.Instance.GetAllPlayerGameObjects();
@@ -182,7 +181,6 @@ namespace fi.tamk.hellgame.character
                     if (!a.HasDied) a.Die();
                 }
             }
-            */
         }
     }
 }
