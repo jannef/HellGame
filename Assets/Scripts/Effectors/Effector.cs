@@ -27,7 +27,7 @@ namespace fi.tamk.hellgame.effector
 
         public static void ThreadFreezeFrame(float[] args)
         {
-            if (Time.time - _lastFreeze < 0.1f) return;
+            if (Time.time - _lastFreeze < 0.2f) return;
 
             var freezeLenght = 20;
 

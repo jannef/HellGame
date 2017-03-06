@@ -32,7 +32,8 @@ namespace fi.tamk.hellgame.interfaces
         MobRoomZero = 23,
         EightDirectionsTurret = 24,
         ShootingSkirmisher = 25,
-        PatrollingEnemy = 26
+        PatrollingEnemy = 26,
+        SlimeMob = 27,
     }
 
     public enum TransitionType

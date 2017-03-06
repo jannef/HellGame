@@ -92,6 +92,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.PatrollingEnemy:
                     outPutState = new PartollingEnemy(hc);
                     break;
+                case InputStates.SlimeMob:
+                    outPutState = new BlobMobVersion(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +
