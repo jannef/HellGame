@@ -37,6 +37,8 @@ namespace fi.tamk.hellgame.effectors
 
         public void FollowAnother(float[] args)
         {
+            if (gameObject == null || AirDropInitializer == null) return; // If the this effector is destroyed, return.
+
             Effect.transform.position = AirDropInitializer.transform.position;
             _effectGameObject.transform.forward = AirDropInitializer.LandingCoordinates.position - transform.position;
             _time += WorldStateMachine.Instance.DeltaTime / Effect.LifeTime;

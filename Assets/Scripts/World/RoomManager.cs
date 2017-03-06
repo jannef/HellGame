@@ -27,7 +27,7 @@ namespace fi.tamk.hellgame.world
 
     public sealed class RoomManager : MonoBehaviour
     {
-        public PlayerSavableData PlayerPersistentData = null;
+        public PlayerSaveableData PlayerPersistentData = null;
         public bool DebugMode;
         public ButtonMap[] Inputs;
 
@@ -72,9 +72,9 @@ namespace fi.tamk.hellgame.world
             var player = FindObjectOfType<PlayerLimitBreak>();
             if (player != null)
             {
-                PlayerPersistentData = new PlayerSavableData();
+                PlayerPersistentData = new PlayerSaveableData();
                 PlayerPersistentData.Health = player.gameObject.GetComponent<HealthComponent>().Health;
-                PlayerPersistentData.MyInput = player.gameObject.GetComponent<InputController>().MyConfig;
+                PlayerPersistentData.MyConfig = player.gameObject.GetComponent<InputController>().MyConfig;
             }
 
             SceneManager.LoadScene((int) whichRoom);

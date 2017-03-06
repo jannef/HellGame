@@ -103,6 +103,8 @@ namespace fi.tamk.hellgame.character
 
         public void DetachBulletEmitter(Vector3 localScale)
         {
+            if (ServiceLocator.Instance.RoomBeaten) return;
+
             // Apparently not replicating the scale will fuck up the particle system when it detaches from its
             // parent...
             BulletSystem.gameObject.transform.SetParent(null);

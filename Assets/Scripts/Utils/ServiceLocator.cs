@@ -20,7 +20,7 @@ namespace fi.tamk.hellgame.utils
                 PickupComponent = pickupComponent;
             }
         }
-
+        public bool RoomBeaten = false;
         private readonly List<PlayerData> _players = new List<PlayerData>();
         private readonly List<RespawnPoint> _respawnPoints = new List<RespawnPoint>();
         private CameraFollow _mainCameraFollow;
@@ -71,6 +71,12 @@ namespace fi.tamk.hellgame.utils
         {
             if (Quitting) return null;
             return _players.Count < 1 ? null : _players.OrderBy(t => (t.Transform.position - requerPosition).magnitude).First().Transform;
+        }
+
+        public GameObject[] GetAllPlayerGameObjects()
+        {
+            if (Quitting) return new GameObject[0];
+            return _players.Select(x => x.Transform.gameObject as GameObject).ToArray();
         }
 
         public PickupGathererComponent GetPickupGatherer(Transform playerOfWhich)

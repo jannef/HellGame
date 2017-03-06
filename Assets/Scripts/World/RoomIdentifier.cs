@@ -44,7 +44,7 @@ namespace fi.tamk.hellgame.world
                     var hc = go.GetComponent<HealthComponent>();
                     var ic = go.GetComponent<InputController>();
                     if (hc != null && hc.MaxHp != hc.Health) hc.TakeDamage(hc.MaxHp - roomManager.PlayerPersistentData.Health);
-                    if (ic != null && roomManager.PlayerPersistentData.MyInput != null) ic.MyConfig = roomManager.PlayerPersistentData.MyInput;
+                    if (ic != null && roomManager.PlayerPersistentData.MyConfig != null) ic.MyConfig = roomManager.PlayerPersistentData.MyConfig;
                 }
             }
         }
