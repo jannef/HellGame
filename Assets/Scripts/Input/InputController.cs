@@ -125,7 +125,7 @@ namespace fi.tamk.hellgame.input
         /// <summary>
         /// Reserves a joypad number and caches some axis names based on that string.
         /// </summary>
-        private void Initialize()
+        public void Initialize()
         {
             _joyNumber = GetJoypadNumber(this);
 
@@ -156,7 +156,6 @@ namespace fi.tamk.hellgame.input
         /// Joypads. -1 is an error.</returns>
         private static int GetJoypadNumber(InputController whichController)
         {
-            // TODO: actual registering for controllers, just returning arbitary JoyPad number for now.
             return whichController.MyConfig.InputType == Buttons.InputType.PcMasterrace ? 0 : 1;
         }
 
