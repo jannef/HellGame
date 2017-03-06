@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using System;
 using fi.tamk.hellgame.utils;
 using System.Collections;
+using System.Collections.Generic;
 using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.character
@@ -151,6 +152,35 @@ namespace fi.tamk.hellgame.character
             if (SceneLoadLock.SceneChangeInProgress) return;
 
             if (!Pool.Quitting) Pool.Instance.RemoveHealthComponent(gameObject);
+        }
+
+        public void LevelCompletingDeath()
+        {
+            ServiceLocator.Instance.RoomBeaten = true;
+
+            var doNotDestroy = ServiceLocator.Instance.GetAllPlayerGameObjects();
+            var all = Pool.Instance.GetAllHealthComponents();
+
+            Stack<HealthComponent> toDestroy = new Stack<HealthComponent>();
+
+            foreach (HealthComponent a in all)
+            {
+                a.enabled = true;
+                var destroy = true;
+                foreach (var b in doNotDestroy)
+                {
+                    destroy = b.GetHashCode() == a.gameObject.GetHashCode();
+                    if (!destroy)
+                    {
+                        break;
+                    }
+                }
+
+                if (!destroy)
+                {
+                    if (!a.HasDied) a.Die();
+                }
+            }
         }
     }
 }

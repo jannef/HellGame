@@ -48,6 +48,11 @@ namespace fi.tamk.hellgame.character
         [SerializeField] private PlayerLimitBreakStats _originalStats;
 
         /// <summary>
+        /// Public getter for _collected points;
+        /// </summary>
+        public float CollectedPoints { get { return _collectedPoints; } }
+
+        /// <summary>
         /// How many motes of power is currently collected.
         /// </summary>
         private float _collectedPoints;

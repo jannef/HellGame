@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: c77a77b65b8049f47a84c27a01f27e89
 timeCreated: 1488788746
+=======
+guid: 0be240d40ce534241861005e5a69201f
+timeCreated: 1488783816
+>>>>>>> Buggy_shit
 licenseType: Free
 DefaultImporter:
   userData: 

@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.input;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,7 +15,8 @@ namespace fi.tamk.hellgame.world
         {
             _playerSpawnPoint = GetComponentInChildren<Transform>();
 
-            if (FindObjectOfType<RoomManager>() == null)
+            var roomManager = FindObjectOfType<RoomManager>();
+            if (roomManager == null)
             {
                 SceneLoadLock.SceneChangeInProgress = true;
                 DontDestroyOnLoad(gameObject);
@@ -25,13 +27,24 @@ namespace fi.tamk.hellgame.world
             {
                 gameObject.SetActive(false);
                 var playerPrefab = FindObjectOfType<PlayerLimitBreak>();
+                GameObject go;
                 if (playerPrefab != null)
                 {
-                    playerPrefab.transform.position = _playerSpawnPoint.position;
+                    go = playerPrefab.gameObject;
+                    playerPrefab.transform.position = _playerSpawnPoint.position;                    
                 }
                 else
                 {
-                    Instantiate(_playerPrefab, _playerSpawnPoint.position, Quaternion.identity);
+                    go = Instantiate(_playerPrefab, _playerSpawnPoint.position, Quaternion.identity);
+                    playerPrefab = go.GetComponent<PlayerLimitBreak>();
+                }
+
+                if (roomManager.PlayerPersistentData != null)
+                {                
+                    var hc = go.GetComponent<HealthComponent>();
+                    var ic = go.GetComponent<InputController>();
+                    if (hc != null && hc.MaxHp != hc.Health) hc.TakeDamage(hc.MaxHp - roomManager.PlayerPersistentData.Health);
+                    if (ic != null && roomManager.PlayerPersistentData.MyConfig != null) ic.MyConfig = roomManager.PlayerPersistentData.MyConfig;
                 }
             }
         }

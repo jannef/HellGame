@@ -5,6 +5,7 @@ using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.input;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using fi.tamk.hellgame.dataholders;
 
 namespace fi.tamk.hellgame.world
 {
@@ -26,6 +27,7 @@ namespace fi.tamk.hellgame.world
 
     public sealed class RoomManager : MonoBehaviour
     {
+        public PlayerSaveableData PlayerPersistentData = null;
         public bool DebugMode;
         public ButtonMap[] Inputs;
 
@@ -66,11 +68,20 @@ namespace fi.tamk.hellgame.world
         public void LoadRoom(LegalScenes whichRoom)
         {
             SceneLoadLock.SceneChangeInProgress = true;
+
+            var player = FindObjectOfType<PlayerLimitBreak>();
+            if (player != null)
+            {
+                PlayerPersistentData = new PlayerSaveableData();
+                PlayerPersistentData.Health = player.gameObject.GetComponent<HealthComponent>().Health;
+                PlayerPersistentData.MyConfig = player.gameObject.GetComponent<InputController>().MyConfig;
+            }
+
             SceneManager.LoadScene((int) whichRoom);
             SceneManager.sceneLoaded += ReleaseLock;
         }
 
-        private static void ReleaseLock(Scene arg0, LoadSceneMode arg1)
+        private void ReleaseLock(Scene arg0, LoadSceneMode arg1)
         {
             SceneLoadLock.SceneChangeInProgress = false;
             SceneManager.sceneLoaded -= ReleaseLock;

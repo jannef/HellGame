@@ -40,6 +40,12 @@ namespace fi.tamk.hellgame.utils
             }
         }
 
+        public HealthComponent[] GetAllHealthComponents()
+        {
+            if (_gameObjectToHealth.Count == 0) return null;
+            return _gameObjectToHealth.Select(x => x.Value).ToArray();
+        }
+
         /// <summary>
         /// Pooled gameobjects.
         /// </summary>
