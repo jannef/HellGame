@@ -31,6 +31,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField] private PlayerLimitBreak _limitController;
         [SerializeField] private float _indicatorInterval;
         [SerializeField] private int _indicatorAmounth;
+        [SerializeField, Range(0.1f, 10f)] float _indicatorParticleAmountMultiplier;
         [SerializeField] private float _maxRadius;
         [SerializeField] private float _minRadius;
         [SerializeField] private AnimationCurve _radiusCurve;
@@ -56,7 +57,7 @@ namespace fi.tamk.hellgame.character
             _originalAuraEmissionRate = _limitAura.emission.rateOverTimeMultiplier;
             _emissionRateProperty.SetValue(_limitAura.emission, 0f, null);
 
-            _limitController.PowerUpGained += (x, y) => IndicatorParticlesPerSecond = x;
+            _limitController.PowerUpGained += (x, y) => IndicatorParticlesPerSecond = x * _indicatorParticleAmountMultiplier;
             _limitController.LimitBreakStateChange += SetAura;
             _limitController.LimitBreakDurationChange += SetEmissionRadius;
         }
