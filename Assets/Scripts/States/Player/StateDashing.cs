@@ -49,7 +49,7 @@ namespace fi.tamk.hellgame.states
         {
             StateTime += deltaTime;
 
-            if (StateTime >= ControlledActor.ActorNumericData.ActorFloatData[(int) ActorDataMap.DashDuration] * _dashLenghtMultiplier * .9f)
+            if (StateTime >= ControlledActor.ActorNumericData.ActorFloatData[(int) ActorDataMap.DashDuration] * _dashLenghtMultiplier * .85f)
             {
                 if (MyInputController.PollButtonDown(Buttons.ButtonScheme.Dash)) ControlledActor.InputBuffer = Buttons.ButtonScheme.Dash;
             }
@@ -64,7 +64,9 @@ namespace fi.tamk.hellgame.states
                 return;
             }
 
-            HeroAvatar.Move(_dashingDirection * deltaTime * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashSpeed] * Constants.SmootherstepDerivateEasing(StateTime / ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashDuration]));
+            HeroAvatar.Move(_dashingDirection * deltaTime * Mathf.Lerp(ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.Speed] / 2, 
+                ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashSpeed], Constants.SmootherstepDerivateEasing(StateTime / 
+                ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.DashDuration])));
         }
 
         public StateDashing(ActorComponent controlledHero, Vector3 dashingDirection, float dashLengthMultiplier = 1f) : base(controlledHero)
