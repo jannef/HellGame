@@ -88,12 +88,12 @@ namespace fi.tamk.hellgame.physicsobjects
         private IEnumerator GoToTransform(Transform toWhere)
         {
             var time = Time.time;
-            while (toWhere != null && (transform.position - toWhere.position).magnitude > Tolerance)
+            while (toWhere != null && (transform.position - toWhere.position).sqrMagnitude > Tolerance)
             {
                 var raw = toWhere.position - transform.position;
                 var trajectory = (raw).normalized * WorldStateMachine.Instance.DeltaTime * Speed * Curve.Evaluate((Time.time - time) / EasingTime);
 
-                trajectory = raw.magnitude < trajectory.magnitude ? raw : trajectory;
+                trajectory = raw.sqrMagnitude < trajectory.sqrMagnitude ? raw : trajectory;
                 transform.position += trajectory;
                 yield return null;                    
             }

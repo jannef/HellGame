@@ -1,13 +1,8 @@
 ﻿using fi.tamk.hellgame.interfaces;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using fi.tamk.hellgame.character;
-using System;
-using Assets.Scripts.States.Player;
 using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.input;
-using tamk.fi.hellgame.character;
 
 namespace fi.tamk.hellgame.states
 {
@@ -73,7 +68,7 @@ namespace fi.tamk.hellgame.states
                 _dashBuffered = false;
                 ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized, movementSpeedMultiplier));
             }
-            else if (MyInputController.PollButton(Buttons.ButtonScheme.Fire_1) || MyInputController.MyConfig.InputType == Buttons.InputType.ConsolePleb && controllerLookInput.magnitude > 0.01)
+            else if (MyInputController.PollButton(Buttons.ButtonScheme.Fire_1) || MyInputController.MyConfig.InputType == Buttons.InputType.ConsolePleb && controllerLookInput.sqrMagnitude > 0.001f)
             {
                 ControlledActor.FireGunByIndex(0);
             }
