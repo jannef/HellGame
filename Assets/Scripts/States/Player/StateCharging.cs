@@ -43,7 +43,7 @@ namespace fi.tamk.hellgame.states
             var movementSpeedMultiplier = (1 - MyInputController.PollLeftTrigger() * .55f);
             var controllerLookInput = MyInputController.PollAxisRight();
 
-            if (controllerLookInput.magnitude < 0.01)
+            if (controllerLookInput.sqrMagnitude < 0.001)
             {
                 var rawMousePosition = MouseLookUp.Instance.GetMousePosition();
                 HeroAvatar.transform.LookAt(new Vector3(rawMousePosition.x, HeroAvatar.transform.position.y, rawMousePosition.z));
