@@ -75,7 +75,7 @@ namespace fi.tamk.hellgame.character
         protected virtual void Awake()
         {
             BulletSystem = GetComponentInChildren<ParticleBulletSystem>();
-            Timer = Cooldown + 1f;
+            Timer = 0;
             if (BulletSystem == null) throw new AssertionException("Bullet system not found for this gun: " + gameObject , "");
 
             BulletSystem.SetCollisionLayer(FireAtWhichLayer);
