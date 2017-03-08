@@ -144,7 +144,7 @@ namespace fi.tamk.hellgame.input
         {
             var rawMouse = MouseLookUp.Instance.GetMousePosition();
             var vec = rawMouse - gameObject.transform.position;
-            return vec.magnitude > 1 ? vec.normalized : vec;
+            return vec.sqrMagnitude > 1f ? vec.normalized : vec;
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace fi.tamk.hellgame.input
         private Vector3 PollStickByStrings(string whichHorizontal, string whichVertical)
         {
             var vec = new Vector3(Input.GetAxis(whichHorizontal), 0, Input.GetAxis(whichVertical));
-            return vec.magnitude < 0.3f ? Vector3.zero : vec;
+            return vec.sqrMagnitude < 0.09f ? Vector3.zero : vec; // sqrMagnitude is a magnitude cheaper than magnitude :)
         }
 
         private float PollTrigger(string whichTrigger)

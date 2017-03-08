@@ -65,13 +65,13 @@ namespace fi.tamk.hellgame.utils
         public RespawnPoint GetNearestRespawnPoint(Vector3 requerPosition)
         {
             if (Quitting) return null;
-            return _respawnPoints.Count < 1 ? null : _respawnPoints.OrderBy(t => (t.transform.position - requerPosition).magnitude).First();
+            return _respawnPoints.Count < 1 ? null : _respawnPoints.OrderBy(t => (t.transform.position - requerPosition).sqrMagnitude).Last();
         }
 
         public Transform GetNearestPlayer(Vector3 requerPosition)
         {
             if (Quitting) return null;
-            return _players.Count < 1 ? null : _players.OrderBy(t => (t.Transform.position - requerPosition).magnitude).First().Transform;
+            return _players.Count < 1 ? null : _players.OrderBy(t => (t.Transform.position - requerPosition).sqrMagnitude).Last().Transform;
         }
 
         public PickupGathererComponent GetPickupGatherer(Transform playerOfWhich)
