@@ -1,4 +1,5 @@
-﻿using fi.tamk.hellgame.interfaces;
+﻿using Assets.Scripts.States.Player;
+using fi.tamk.hellgame.interfaces;
 using UnityEngine;
 using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.dataholders;
