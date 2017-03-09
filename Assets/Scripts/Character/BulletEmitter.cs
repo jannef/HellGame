@@ -21,7 +21,9 @@ namespace fi.tamk.hellgame.character
         [SerializeField, Range(0f, 360f)] protected float Spread;
         [SerializeField, Range(1, 1000)] protected int NumberOfBullets;
         [SerializeField, Range(0f, 360f)] protected float Dispersion;
-        
+        [SerializeField, Range(1, 10)] protected int BurstAmount = 1;
+        [SerializeField, Range(0.04f, 4f)] protected float TimeBetweenBursts = 0.22f;
+
         protected ParticleBulletSystem BulletSystem;
         protected float Timer;
 
@@ -96,9 +98,35 @@ namespace fi.tamk.hellgame.character
         public virtual void Fire()
         {
             if (!(Timer > Cooldown)) return;
-            FireBullets(GunVector);
+            if (BurstAmount == 1)
+            {
+                FireBullets(GunVector);
+            } else
+            {
+                StartCoroutine(FiringCoroutine(BurstAmount, TimeBetweenBursts));
+            }
+
             Timer = 0f;
             if (FiringEvent != null) FiringEvent.Invoke();
+        }
+
+        private IEnumerator FiringCoroutine(int shotAmount, float t)
+        {
+            float time = t;
+
+            for (int i = 0; i < shotAmount; i++)
+            {
+                while (time < t)
+                {
+                    time += Time.deltaTime;
+                    yield return null;
+                }
+
+                time = 0;
+
+                FireBullets(GunVector);
+                yield return null;
+            }
         }
 
         public void DetachBulletEmitter(Vector3 localScale)

@@ -9,24 +9,36 @@ namespace fi.tamk.hellgame.character
     class PassiveTurret : MonoBehaviour
     {
         private BulletEmitter[] emitters;
-        private List<int> gunsToFire;
+        private List<int> gunsToFire = new List<int>();
+        private Transform _targetTransform;
+        private Quaternion _startingRotation;
 
         void Start()
         {
             emitters = GetComponentsInChildren<BulletEmitter>();
+            _startingRotation = transform.rotation;
         }
 
-        public void AddGunToFiringList(int gunToAdd, bool cleanOthers = false)
+        public void AddGunToFiringList(bool clearOthers, params int[] gunToAdd)
         {
-            if (cleanOthers) gunsToFire.Clear();
+            if (clearOthers) gunsToFire.Clear();
 
-            if (!gunsToFire.Contains(gunToAdd))
-            {
-                gunsToFire.Add(gunToAdd);
-            }
+            gunsToFire.AddRange(gunToAdd.Where(x => !gunsToFire.Contains(x)));
         }
 
-        public void Aim(Vector3 position)
+        public void AimAtTransform(Transform target)
+        {
+            _targetTransform = target;
+        }
+
+        public void StopAiming()
+        {
+            _targetTransform = null;
+            transform.rotation = _startingRotation;
+
+        }
+
+        private void Aim(Vector3 position)
         {
             transform.forward = Vector3.RotateTowards(transform.forward,
                     new Vector3(position.x, transform.position.y,
@@ -36,9 +48,18 @@ namespace fi.tamk.hellgame.character
 
         void Update()
         {
+            if (_targetTransform != null)
+            {
+                Aim(_targetTransform.position);
+            }
+
             foreach (int i in gunsToFire)
             {
-                emitters[i].Fire();
+                if (emitters.Length > i)
+                {
+                    emitters[i].Fire();
+                } 
+                
             }
         }
     }
