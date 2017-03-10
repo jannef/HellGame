@@ -14,19 +14,23 @@ namespace fi.tamk.hellgame.states
         private Vector3 _finalPosition;
         private float _moveLenght;
         private float _t = 0;
+        private float _setupTime;
         private AnimationCurve _easingCurve;
 
-        public WallBossMove(ActorComponent controlledHero, Vector3 positionToGoTo, float speed, AnimationCurve curve) : base(controlledHero)
+        public WallBossMove(ActorComponent controlledHero, Vector3 positionToGoTo, float speed, AnimationCurve curve, float setupTime) : base(controlledHero)
         {
             _moveLenght = (ControlledActor.transform.position - positionToGoTo).sqrMagnitude / Mathf.Sqrt(speed);
             _startingPosition = ControlledActor.transform.position;
             _finalPosition = new Vector3(positionToGoTo.x, ControlledActor.transform.position.y, positionToGoTo.z);
             _easingCurve = curve;
+            _setupTime = setupTime;
         }
 
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
+
+            if (StateTime <= _setupTime) return;
 
             _t += deltaTime;
 

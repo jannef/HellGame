@@ -1,6 +1,7 @@
 ﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.world;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,32 @@ public class LaserEmitter : BulletEmitter {
     [SerializeField] private float fullShotWidth;
     [SerializeField] private float shotEndLenght;
     [SerializeField] private AnimationCurve warningToShotEasing;
-    [SerializeField] protected LayerMask stoppingLayer;
 
     [SerializeField, Range(0f, 10f)] protected float WarningLenght;
     [SerializeField, Range(0.06f, 10f)] protected float LaserLenght;
+
+    private CapsuleCollider _laserCollider;
+    private float _parentSizeModifier;
+    private bool coroutineRunning = false;
+
+    private bool StopFiringLaser
+    {
+        get
+        {
+            if (_stopFiringLaser)
+            {
+                _stopFiringLaser = false;
+                return true;
+            }
+
+            return false;
+        }
+        set
+        {
+            _stopFiringLaser = value;
+        }
+    }
+    private bool _stopFiringLaser = false;
 
     public object Servicelocator { get; private set; }
 
@@ -25,41 +48,77 @@ public class LaserEmitter : BulletEmitter {
     {
         if (!(Timer > Cooldown)) return;
 
+        if (coroutineRunning)
+        {
+            StopAllCoroutines();
+        }
+
         StartCoroutine(LaserRoutine());
 
         Timer = 0f;
     }
 
+    public Action FireUntilFurtherNotice()
+    {
+        if (!(Timer > Cooldown)) return null;
+
+        _stopFiringLaser = false;
+
+        if (coroutineRunning)
+        {
+            StopAllCoroutines();
+        }
+
+        StartCoroutine(LaserRoutine());
+
+        Timer = 0f;
+        return StopFiring;
+    }
+
+    public void StopFiring()
+    {
+        _stopFiringLaser = true;
+    }
+
     protected override void Awake()
     {
         Timer = 0f;
+        _parentSizeModifier = transform.parent.localScale.x;
+        _laserCollider = GetComponentInChildren<CapsuleCollider>();
     }
 
-    private IEnumerator LaserRoutine()
+    private Vector3[] FindLaserPositions(Vector3[] positions)
     {
+        var ray = new Ray(transform.position, GunVector);
+        RaycastHit hitData;
+        if (Physics.Raycast(ray.origin, ray.direction, out hitData, 100f, FireAtWhichLayer))
+        {
+            positions[1] = hitData.point;
+        }
+        else
+        {
+            positions[1] = transform.position + GunVector * 100f;
+        }
+
+        positions[0] = transform.position;
+
+        return positions;
+    }
+
+    private IEnumerator LaserRoutine(bool endWithTime = false)
+    {
+        coroutineRunning = true;
         float time = 0;
         Vector3[] laserPositions = new Vector3[2];
         var width = 0f;
         ShotLaserRenderer.enabled = true;
+        ShotLaserRenderer.startWidth = warningShotWidth;
+        ShotLaserRenderer.endWidth = fullShotWidth;
 
         while (time < WarningLenght)
         {
-            var ray = new Ray(transform.position, GunVector);
-            RaycastHit[] hitData = Physics.RaycastAll(ray.origin, ray.direction, 1000f, stoppingLayer).OrderBy(h => h.distance).ToArray();
-
-            foreach (RaycastHit hit in hitData)
-            {
-
-                if (stoppingLayer == (stoppingLayer | (1 << hit.collider.gameObject.layer)))
-                {
-                    //laserPositions[1] = hit.point;
-                    
-                    break;
-                }
-            }
-
-            laserPositions[0] = transform.position;
-            laserPositions[1] = transform.position + GunVector * 100f;
+            laserPositions = FindLaserPositions(laserPositions);
+           
             ShotLaserRenderer.SetPositions(laserPositions);
             width = Mathf.Lerp(warningShotWidth, fullShotWidth, warningToShotEasing.Evaluate(time / WarningLenght));
             ShotLaserRenderer.startWidth = width;
@@ -70,46 +129,31 @@ public class LaserEmitter : BulletEmitter {
             yield return null;
         }
 
-
         time = 0;
         width = Mathf.Lerp(warningShotWidth, fullShotWidth, warningToShotEasing.Evaluate(1));
         ShotLaserRenderer.startWidth = width;
         ShotLaserRenderer.endWidth = width;
+        _laserCollider.enabled = true;
 
-        while (time < LaserLenght)
-        { 
-            var ray = new Ray(transform.position, GunVector);
-            RaycastHit[] hitData = Physics.RaycastAll(ray.origin, ray.direction, 100f, FireAtWhichLayer).OrderBy(h => h.distance).ToArray();
-            
-            
+        while (time < LaserLenght && !StopFiringLaser)
+        {
+            laserPositions = FindLaserPositions(laserPositions);
 
-            foreach (RaycastHit hit in hitData)
-            {
-                var hc = Pool.Instance.GetHealthComponent(hit.collider.gameObject);
-
-                if (hc != null)
-                {
-                    hc.TakeDamage(1);
-                }
-
-                if (stoppingLayer == (stoppingLayer | (1 << hit.collider.gameObject.layer)))
-                {
-                    //laserPositions[1] = hit.point;
-
-                    break;
-                }
-            }
+            SetDamagingCollider(width, laserPositions[0], laserPositions[1]);
 
             if (FiringEvent != null) FiringEvent.Invoke();
-
-            laserPositions[0] = transform.position;
-            laserPositions[1] = transform.position + GunVector * 100f;
             ShotLaserRenderer.SetPositions(laserPositions);
 
 
-            time += WorldStateMachine.Instance.DeltaTime;
+            if (endWithTime) {
+                time += WorldStateMachine.Instance.DeltaTime;
+            }
+
+                
             yield return null;
         }
+
+        _laserCollider.enabled = false;
 
         time = shotEndLenght;
 
@@ -119,8 +163,8 @@ public class LaserEmitter : BulletEmitter {
             ShotLaserRenderer.startWidth = width;
             ShotLaserRenderer.endWidth = width;
 
-            laserPositions[0] = transform.position;
-            laserPositions[1] = transform.position + GunVector * 100f;
+            laserPositions = FindLaserPositions(laserPositions);
+
             ShotLaserRenderer.SetPositions(laserPositions);
 
             time -= WorldStateMachine.Instance.DeltaTime;
@@ -128,6 +172,15 @@ public class LaserEmitter : BulletEmitter {
         }
 
         ShotLaserRenderer.enabled = false;
+        coroutineRunning = false;
+    }
 
+    private void SetDamagingCollider(float width, Vector3 startPoint, Vector3 endPoint)
+    {
+        var direction = endPoint - startPoint;
+        _laserCollider.transform.position = startPoint + (direction) / 2;
+        _laserCollider.transform.up = direction;
+        _laserCollider.height = direction.magnitude / _parentSizeModifier;
+        _laserCollider.radius = width / 2 / _parentSizeModifier;
     }
 }

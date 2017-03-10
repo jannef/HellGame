@@ -28,9 +28,37 @@ namespace fi.tamk.hellgame.character
             gunsToFire.AddRange(gunToAdd.Where(x => !gunsToFire.Contains(x)));
         }
 
+        public void StopFiring()
+        {
+            gunsToFire.Clear();
+        }
+
         public void AimAtTransform(Transform target)
         {
             _targetTransform = target;
+        }
+
+        public void FireGun(int gun)
+        {
+            if (emitters.Length > gun)
+            {
+                emitters[gun].Fire();
+            }
+        }
+
+        public Action StartFiringLaser(int laserIndex)
+        {
+            Action stopFiringDelegate = null;
+
+            if (emitters.Length > laserIndex)
+            {
+                if (emitters[laserIndex].GetType() == typeof(LaserEmitter))
+                {
+                   stopFiringDelegate = ((LaserEmitter)emitters[laserIndex]).FireUntilFurtherNotice();
+                }
+            }
+
+            return stopFiringDelegate;
         }
 
         public void StopAiming()
