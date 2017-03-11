@@ -28,7 +28,7 @@ namespace fi.tamk.hellgame.utils
 
         public CameraFollow MainCameraScript
         {
-            get { return _mainCameraFollow ?? (_mainCameraFollow = FindObjectOfType<CameraFollow>()); }
+            get { return (_mainCameraFollow ?? (_mainCameraFollow = FindObjectOfType<CameraFollow>())) ?? new UnityException("Main camera script not found in the scene!").Throw<CameraFollow>(); }
         }
 
         public RoomManager RoomManagerReference

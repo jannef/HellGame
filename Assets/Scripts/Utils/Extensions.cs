@@ -34,4 +34,9 @@ public static class Extensions {
         foreach (T item in source)
             action(item);
     }
+
+    public static T Throw<T>(this Exception e)
+    {
+        throw e;
+    }
 }

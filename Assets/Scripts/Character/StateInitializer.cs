@@ -1,12 +1,10 @@
 ﻿
 using System;
-using System.Collections;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.states;
 using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.world;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace fi.tamk.hellgame.character
 {
