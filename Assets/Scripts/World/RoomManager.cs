@@ -17,7 +17,8 @@ namespace fi.tamk.hellgame.world
         GameStaging         = 0,
         SlimeBoss           = 1,
         MobRoom0            = 2,
-        MobRoom1            = 3
+        MobRoom1            = 3,
+        MobRoom4
     }
 
     public static class SceneLoadLock
@@ -109,6 +110,11 @@ namespace fi.tamk.hellgame.world
             if (Input.GetKeyDown("3"))
             {
                 LoadRoom((LegalScenes) 3);
+            }
+
+            if (Input.GetKeyDown("4"))
+            {
+                LoadRoom((LegalScenes)4);
             }
 
             if (Input.GetKeyDown(KeyCode.F1))
