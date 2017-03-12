@@ -53,5 +53,9 @@ namespace fi.tamk.hellgame.utils
         {
             return -140 * Mathf.Pow(x - 1, 3) * Mathf.Pow(x, 3);
         }
+
+        public const string SlimeJumpAnimationStateStringName = "SlimeBoss_Jump";
+        public const string SlimeStartJumpAnimationTrigger = "StartJump";
+        public const string SlimeLandAnimationTrigger = "Land";
     }
 }

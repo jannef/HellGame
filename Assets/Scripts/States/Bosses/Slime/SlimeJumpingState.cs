@@ -45,7 +45,7 @@ namespace fi.tamk.hellgame.states
             _animationController = ControlledActor.GetComponent<Animator>();
             foreach (AnimationClip clip in _animationController.runtimeAnimatorController.animationClips)
             {
-                if (String.Equals(clip.name, "SlimeBoss_Jump"))
+                if (String.Equals(clip.name, Constants.SlimeJumpAnimationStateStringName))
                 {
                     
                     _jumpAnimationLenght = clip.length * .33f;
@@ -76,7 +76,7 @@ namespace fi.tamk.hellgame.states
                 if (StateTime >= (_windUpTime - _jumpAnimationLenght) && !_hasStartedJumpAnimation)
                 {
                     _hasStartedJumpAnimation = true;
-                    _animationController.SetTrigger("StartJump");
+                    _animationController.SetTrigger(Constants.SlimeStartJumpAnimationTrigger);
                 }
 
 
@@ -113,7 +113,6 @@ namespace fi.tamk.hellgame.states
         protected void StartJump()
         {
             effector.Effector.ScreenShakeEffect(new float[2] { 28f, .15f });
-            Debug.Log("StartJumpLogic");
             _isJumping = true;
             _startingPosition = ControlledActor.transform.position;
             // TODO clamp to area size. Get size in ServiceLocator
@@ -158,7 +157,7 @@ namespace fi.tamk.hellgame.states
 
         protected virtual void AtJumpEnd()
         {
-            _animationController.SetTrigger("Land");
+            _animationController.SetTrigger(Constants.SlimeLandAnimationTrigger);
             effector.Effector.ScreenShakeEffect(new float[2] { 33f, .44f });
         }
 
