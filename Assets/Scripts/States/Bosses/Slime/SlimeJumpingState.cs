@@ -8,6 +8,7 @@ using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.utils;
 using UnityEngine;
 using fi.tamk.hellgame.dataholders;
+using UnityEditor.Animations;
 
 namespace fi.tamk.hellgame.states
 {
@@ -28,34 +29,38 @@ namespace fi.tamk.hellgame.states
         private float _jumpTimer = 0f;
         private bool _isJumping = false;
 
-        private Vector3 _startSize;
-        private Vector3 _minSize;
-        private float _scaleChangeStartY;
+        private Animator _animationController;
+        private float _jumpAnimationLenght;
+        private bool _hasStartedJumpAnimation = false;
 
         public SlimeJumpingState(ActorComponent controlledHero, Transform target, SlimeJumpData jumpData) : base(controlledHero)
         {
             TargetTransform = target;
-            _minSize = new Vector3(ControlledActor.transform.localScale.x * 1.33f, 
-                ControlledActor.transform.localScale.y * .5f, ControlledActor.transform.localScale.z * 1.33f);
             _radius = ControlledActor.ActorNumericData.ActorFloatData[3];
             _windUpTime = jumpData.JumpDelay;
             _jumpHeight = jumpData.JumpHeight;
             _jumpingSpeed = jumpData.JumpSpeed;
             _desiredJumpLenght = jumpData.TargetJumpLenght;
             _desiredJumpLenghtEfficiency = jumpData.TargetjumpLenghtStrenght;
-            _scaleChangeStartY = ControlledActor.transform.position.y;
+            _animationController = ControlledActor.GetComponent<Animator>();
+            foreach (AnimationClip clip in _animationController.runtimeAnimatorController.animationClips)
+            {
+                if (String.Equals(clip.name, "SlimeBoss_Jump"))
+                {
+                    
+                    _jumpAnimationLenght = clip.length * .33f;
+                }
+            }
         }
 
         public override void OnEnterState()
         {
             base.OnEnterState();
-            _startSize = ControlledActor.gameObject.transform.localScale;
         }
 
         public override void OnExitState()
         {
             base.OnExitState();
-            ControlledActor.gameObject.transform.localScale = _startSize;
         }
 
         public override void HandleInput(float deltaTime)
@@ -68,12 +73,19 @@ namespace fi.tamk.hellgame.states
             }
             else
             {
+                if (StateTime >= (_windUpTime - _jumpAnimationLenght) && !_hasStartedJumpAnimation)
+                {
+                    _hasStartedJumpAnimation = true;
+                    _animationController.SetTrigger("StartJump");
+                }
+
+
                 var windUpRatio = StateTime / _windUpTime;
-                ControlledActor.transform.localScale = Vector3.Lerp(_startSize, _minSize, ControlledActor.ActorNumericData.CurveData[2].Evaluate(windUpRatio));
+                /* ControlledActor.transform.localScale = Vector3.Lerp(_startSize, _minSize, ControlledActor.ActorNumericData.CurveData[2].Evaluate(windUpRatio));
                 ControlledActor.transform.position = new Vector3(ControlledActor.transform.position.x,
                     Mathf.Lerp(_scaleChangeStartY, _scaleChangeStartY - ((_startSize.y - _minSize.y) / 2), 
                     ControlledActor.ActorNumericData.CurveData[2].Evaluate(windUpRatio)),
-                    ControlledActor.transform.position.z);
+                    ControlledActor.transform.position.z); */
                 // var playerTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
                 if (TargetTransform == null)
                 {
@@ -87,7 +99,7 @@ namespace fi.tamk.hellgame.states
 
                 if (windUpRatio >= 1f)
                 {
-                    ControlledActor.transform.localScale = _startSize;
+                    //ControlledActor.transform.localScale = _startSize;
                     // TODO add support to non-flat surfaces
                     targetVec.x = Mathf.Clamp(targetVec.x, ServiceLocator.WorldLimits[0] + _radius, ServiceLocator.WorldLimits[1] - _radius);
                     targetVec.z = Mathf.Clamp(targetVec.z, ServiceLocator.WorldLimits[2] + _radius, ServiceLocator.WorldLimits[3] - _radius);
@@ -101,6 +113,7 @@ namespace fi.tamk.hellgame.states
         protected void StartJump()
         {
             effector.Effector.ScreenShakeEffect(new float[2] { 28f, .15f });
+            Debug.Log("StartJumpLogic");
             _isJumping = true;
             _startingPosition = ControlledActor.transform.position;
             // TODO clamp to area size. Get size in ServiceLocator
@@ -144,7 +157,8 @@ namespace fi.tamk.hellgame.states
         }
 
         protected virtual void AtJumpEnd()
-        {            
+        {
+            _animationController.SetTrigger("Land");
             effector.Effector.ScreenShakeEffect(new float[2] { 33f, .44f });
         }
 
