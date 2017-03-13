@@ -7,6 +7,7 @@ using fi.tamk.hellgame.interfaces;
 using UnityEngine;
 using fi.tamk.hellgame.world;
 using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.dataholders;
 
 namespace fi.tamk.hellgame.states
 {
@@ -25,11 +26,17 @@ namespace fi.tamk.hellgame.states
         private int currentPositionIndex = 0;
         private event Action BackFromMoveState;
         private event Action StopFiringLasers;
+        private delegate void  OnTickDelegate(float deltaTime);
+        private event OnTickDelegate OnTickEvent;
         private AttackState _currentAttackState = AttackState.BulletHell;
 
+        private WallBossMovement _SlowMove;
+        private WallBossMovement _QuickMove;
+        private WallBossMovement _FirstLaserMove;
         private int _phaseNumber = 0;
         private float _movementTimer = 0;
         private float _movementInterval;
+        private float _reasonTimer = 0;
 
         private int _wallRunAmount = 0;
 
@@ -43,6 +50,9 @@ namespace fi.tamk.hellgame.states
             _rightEye = externalObjects.ExistingGameObjects[2].GetComponent<PassiveTurret>();
             _movementInterval = 0.22f;
             _wayPoints = externalObjects.ExistingGameObjects[3].GetComponent<PatrolWayPoint>();
+            _SlowMove = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[0]) as WallBossMovement;
+            _QuickMove = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[1]) as WallBossMovement;
+            _FirstLaserMove = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[2]) as WallBossMovement;
 
         }
 
@@ -56,11 +66,17 @@ namespace fi.tamk.hellgame.states
             base.HandleInput(deltaTime);
             _movementTimer += deltaTime;
 
-            if (_movementTimer >= _movementInterval)
+            if (_reasonTimer > 0)
+            {
+                _reasonTimer -= deltaTime;
+                
+            } else
             {
                 Reason();
-                _movementTimer = 0;
+                
             }
+
+            if (OnTickEvent != null) OnTickEvent.Invoke(deltaTime);
         }
 
         private void Reason()
@@ -69,11 +85,12 @@ namespace fi.tamk.hellgame.states
             {
                 case AttackState.BulletHell:
                     StartLaserAttack();
-                    _movementInterval = .1f;
+                    _reasonTimer = .1f;
                     _currentAttackState = AttackState.LaserHop;
                     break;
                 case AttackState.LaserHop:
-                    _movementInterval = 10f;
+                    _reasonTimer = 10f;
+                    OnTickEvent = null;
                     BulletHell();
                     _currentAttackState = AttackState.BulletHell;
                     break;
@@ -90,6 +107,7 @@ namespace fi.tamk.hellgame.states
         private void BulletHell()
         {
             StartMove();
+            OnTickEvent += BulletHellTick;
             
             var playerTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
             _leftEye.AddGunToFiringList(true, 0);
@@ -114,14 +132,18 @@ namespace fi.tamk.hellgame.states
                     currentPositionIndex = 2;
                 }
 
-                ControlledActor.GoToState(new WallBossMove(ControlledActor, _wayPoints.WayPointList[currentPositionIndex].position,
-                ControlledActor.ActorNumericData.ActorFloatData[0], ControlledActor.ActorNumericData.CurveData[0], 0f));
-
-                BackFromMoveState += FirstLaserAttack;
-                return;
+            } else if (currentPositionIndex == 0)
+            {
+                currentPositionIndex = 2;
+            } else
+            {
+                currentPositionIndex = 0;
             }
 
-            FirstLaserAttack();
+            ControlledActor.GoToState(new WallBossMove(ControlledActor, _wayPoints.WayPointList[currentPositionIndex].position,
+                _QuickMove));
+
+            BackFromMoveState += FirstLaserAttack;
             return;
         }
 
@@ -138,7 +160,7 @@ namespace fi.tamk.hellgame.states
             }
 
             ControlledActor.GoToState(new WallBossMove(ControlledActor, _wayPoints.WayPointList[currentPositionIndex].position,
-               ControlledActor.ActorNumericData.ActorFloatData[0], ControlledActor.ActorNumericData.CurveData[0], .66f));
+               _FirstLaserMove));
 
             StopFiringLasers += _leftEye.StartFiringLaser(1);
             _leftEye.StopAiming();
@@ -168,7 +190,18 @@ namespace fi.tamk.hellgame.states
             }
 
             ControlledActor.GoToState(new WallBossMove(ControlledActor, _wayPoints.WayPointList[currentPositionIndex].position,
-               ControlledActor.ActorNumericData.ActorFloatData[0], ControlledActor.ActorNumericData.CurveData[0], 0));
+               _QuickMove));
+        }
+
+        private void BulletHellTick(float deltaTime)
+        {
+            _movementTimer += deltaTime;
+
+            if (_movementTimer > 4)
+            {
+                StartMove();
+                _movementTimer = 0;
+            }
         }
 
         private void StartMove()
@@ -182,7 +215,7 @@ namespace fi.tamk.hellgame.states
 
             currentPositionIndex = positionIndex;
             ControlledActor.GoToState(new WallBossMove(ControlledActor, _wayPoints.WayPointList[currentPositionIndex].position,
-                ControlledActor.ActorNumericData.ActorFloatData[0], ControlledActor.ActorNumericData.CurveData[0], 3));
+               _SlowMove));
 
             var playerTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
         }

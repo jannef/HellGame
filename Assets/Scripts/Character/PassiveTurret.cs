@@ -10,6 +10,7 @@ namespace fi.tamk.hellgame.character
     class PassiveTurret : MonoBehaviour
     {
         private BulletEmitter[] emitters;
+        public bool IsFiring = true;
         private List<int> gunsToFire = new List<int>();
         private Transform _targetTransform;
         private Quaternion _startingRotation;
@@ -82,6 +83,8 @@ namespace fi.tamk.hellgame.character
             {
                 Aim(_targetTransform.position);
             }
+
+            if (!IsFiring) return;
 
             foreach (int i in gunsToFire)
             {

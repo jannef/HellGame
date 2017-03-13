@@ -5,6 +5,7 @@ using System.Text;
 using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.interfaces;
 using UnityEngine;
+using fi.tamk.hellgame.dataholders;
 
 namespace fi.tamk.hellgame.states
 {
@@ -17,13 +18,14 @@ namespace fi.tamk.hellgame.states
         private float _setupTime;
         private AnimationCurve _easingCurve;
 
-        public WallBossMove(ActorComponent controlledHero, Vector3 positionToGoTo, float speed, AnimationCurve curve, float setupTime) : base(controlledHero)
+        public WallBossMove(ActorComponent controlledHero, Vector3 positionToGoTo, WallBossMovement movementParams) : base(controlledHero)
         {
-            _moveLenght = (ControlledActor.transform.position - positionToGoTo).sqrMagnitude / Mathf.Sqrt(speed);
+            _moveLenght = (ControlledActor.transform.position - positionToGoTo).magnitude / movementParams.MovementSpeed;
+            Debug.Log(_moveLenght);
             _startingPosition = ControlledActor.transform.position;
             _finalPosition = new Vector3(positionToGoTo.x, ControlledActor.transform.position.y, positionToGoTo.z);
-            _easingCurve = curve;
-            _setupTime = setupTime;
+            _easingCurve = movementParams.MovementCurve;
+            _setupTime = movementParams.MovementDelay;
         }
 
         public override void HandleInput(float deltaTime)
@@ -32,7 +34,7 @@ namespace fi.tamk.hellgame.states
 
             if (StateTime <= _setupTime) return;
 
-            _t += deltaTime;
+            _t += deltaTime / _moveLenght;
 
             ControlledActor.transform.position = Vector3.LerpUnclamped(_startingPosition, _finalPosition, _easingCurve.Evaluate(_t));
 
