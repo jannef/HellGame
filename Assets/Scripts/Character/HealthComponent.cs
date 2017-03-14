@@ -161,8 +161,6 @@ namespace fi.tamk.hellgame.character
             var doNotDestroy = ServiceLocator.Instance.GetAllPlayerGameObjects();
             var all = Pool.Instance.GetAllHealthComponents();
 
-            Stack<HealthComponent> toDestroy = new Stack<HealthComponent>();
-
             foreach (HealthComponent a in all)
             {
                 a.enabled = true;
