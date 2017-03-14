@@ -64,16 +64,6 @@ namespace fi.tamk.hellgame.states
             }
         }
 
-        public override void OnEnterState()
-        {
-            base.OnEnterState();
-        }
-
-        public override void OnExitState()
-        {
-            base.OnExitState();
-        }
-
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
@@ -97,7 +87,7 @@ namespace fi.tamk.hellgame.states
                     Mathf.Lerp(_scaleChangeStartY, _scaleChangeStartY - (((_startSize.y - _minSize.y)) / 2), 
                     ControlledActor.ActorNumericData.CurveData[2].Evaluate(windUpRatio)),
                     ControlledActor.transform.position.z);
-                var playerTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
+
                 if (TargetTransform == null)
                 {
                     ControlledActor.ToPreviousState();
