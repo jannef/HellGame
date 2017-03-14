@@ -3,6 +3,7 @@ using fi.tamk.hellgame.character;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.utils
 {
@@ -181,6 +182,21 @@ namespace fi.tamk.hellgame.utils
             toDestroy.SetActive(false);
             yield return new WaitForSecondsRealtime(delay);
             Destroy(toDestroy);
+        }
+
+        public void DestroyStackOfActors(Stack<HealthComponent> toKill)
+        {
+            StartCoroutine(DestroyInSequence(toKill));
+        }
+
+        private static IEnumerator DestroyInSequence(Stack<HealthComponent> collection)
+        {
+            while (collection.Count > 0)
+            {
+                collection.Peek().Die();
+                collection.Pop();
+                yield return null;
+            }
         }
     }
 }
