@@ -129,7 +129,7 @@ namespace fi.tamk.hellgame.character
             }
         }
 
-        public void DetachBulletEmitter(Vector3 localScale)
+        public virtual void DetachBulletEmitter(Vector3 localScale)
         {
             if (ServiceLocator.Instance.RoomBeaten) return;
 

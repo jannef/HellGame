@@ -16,6 +16,7 @@ namespace fi.tamk.hellgame.states
         protected int OriginalLayer;
         private float _dashLenghtMultiplier;
         private StateRunning _previousState;
+        private PlayerDash _dashComponent;
 
         public override InputStates StateId
         {
@@ -74,17 +75,20 @@ namespace fi.tamk.hellgame.states
             _dashingDirection = dashingDirection;
             _dashLenghtMultiplier = dashLengthMultiplier;
             DamageMultiplier = 0f;
+            _dashComponent = ControlledActor.GetComponent<PlayerDash>();
         }
 
         public override void OnEnterState()
         {
             OriginalLayer = ControlledActor.gameObject.layer;
             ControlledActor.gameObject.SetLayer(Constants.PlayerDashingLayer, false);
+            _dashComponent.StartDash();
         }
 
         public override void OnExitState()
         {
             ControlledActor.gameObject.SetLayer(OriginalLayer, false);
+            _dashComponent.StopDash();
         }
     }
 }
