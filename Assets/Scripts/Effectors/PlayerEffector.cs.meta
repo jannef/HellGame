@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: ee0a50d145ca35742aa3769d6b03198f
-timeCreated: 1485766480
+timeCreated: 1489524201
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _deathParticleEffect: {fileID: 1381818566320694, guid: e99c8467564f73c4c98430b9f53ea40b,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
