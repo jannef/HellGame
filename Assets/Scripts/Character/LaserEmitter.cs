@@ -183,4 +183,8 @@ public class LaserEmitter : BulletEmitter {
         _laserCollider.height = direction.magnitude / _parentSizeModifier;
         _laserCollider.radius = width / 2 / _parentSizeModifier;
     }
+
+    public override void DetachBulletEmitter(Vector3 localScale)
+    {
+    }
 }

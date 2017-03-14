@@ -29,12 +29,20 @@ namespace fi.tamk.hellgame.states
         private delegate void  OnTickDelegate(float deltaTime);
         private event OnTickDelegate OnTickEvent;
         private AttackState _currentAttackState = AttackState.LaserHop;
+        private int _phase = 0;
 
         private WallBossMovement _SlowMove;
         private WallBossMovement _QuickMove;
         private WallBossMovement _FirstLaserMove;
         private WallBossBulletHellPhaseStats _firstBulletHellPhase;
         private WallBossLaserAttackStats _firstLaserAttack;
+        private WallBossBulletHellPhaseStats _secondBulletHellPhase;
+        private WallBossLaserAttackStats _secondLaserAttack;
+        private WallBossBulletHellPhaseStats _thirdBulletHellPhase;
+        private WallBossLaserAttackStats _thirdLaserAttack;
+
+        private WallBossLaserAttackStats _currentLaserAttack;
+        private WallBossBulletHellPhaseStats _currentBulletHellStats;
 
         private int _phaseNumber = 0;
 
@@ -52,12 +60,31 @@ namespace fi.tamk.hellgame.states
             _FirstLaserMove = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[2]) as WallBossMovement;
             _firstBulletHellPhase = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[3]) as WallBossBulletHellPhaseStats;
             _firstLaserAttack = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[4]) as WallBossLaserAttackStats;
+            _secondBulletHellPhase = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[5]) as WallBossBulletHellPhaseStats;
+            _secondLaserAttack = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[6]) as WallBossLaserAttackStats;
+            _thirdBulletHellPhase = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[7]) as WallBossBulletHellPhaseStats;
+            _thirdLaserAttack = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[8]) as WallBossLaserAttackStats;
+
+            _currentLaserAttack = _firstLaserAttack;
+            _currentBulletHellStats = _firstBulletHellPhase;
 
         }
 
         private void OnBossHealthChange(float percentage, int health, int maxHealth)
         {
-                    
+            if (_phase <= 0 && percentage < 0.66f)
+            {
+                _currentLaserAttack = _secondLaserAttack;
+                _currentBulletHellStats = _secondBulletHellPhase;
+                _phase++;
+            }
+            else if (_phase <= 1 && percentage < 0.33f)
+            {
+                _currentLaserAttack = _thirdLaserAttack;
+                _currentBulletHellStats = _thirdBulletHellPhase;
+                _phase++;
+
+            }
         }
 
         public override void HandleInput(float deltaTime)
@@ -92,7 +119,7 @@ namespace fi.tamk.hellgame.states
         private void BulletHell()
         {
             ControlledActor.GoToState(new WallBossBulletHell(ControlledActor, _leftEye, _rightEye, _wayPoints,
-                currentPositionIndex, _firstBulletHellPhase));
+                currentPositionIndex, _currentBulletHellStats));
             
         }
 
@@ -131,7 +158,7 @@ namespace fi.tamk.hellgame.states
             BackFromMoveState -= FirstLaserAttack;
 
             ControlledActor.GoToState(new WallBossLaserAttack(ControlledActor, _leftEye, _rightEye, _wayPoints,
-                 currentPositionIndex, _firstLaserAttack));
+                 currentPositionIndex, _currentLaserAttack));
         }
 
         private void LaserAttack()

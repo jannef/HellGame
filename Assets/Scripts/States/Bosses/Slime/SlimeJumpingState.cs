@@ -40,7 +40,7 @@ namespace fi.tamk.hellgame.states
             _startingPosition = ControlledActor.transform.position;
             _scaleChangeStartY = ControlledActor.transform.position.y;
             _minSize = new Vector3(ControlledActor.transform.localScale.x * 2f, ControlledActor.transform.localScale.y * .5f, ControlledActor.transform.localScale.z * 2f);
-            _jumpStretchScale = new Vector3(ControlledActor.transform.localScale.x * .5f, ControlledActor.transform.localScale.y * 1.33f, ControlledActor.transform.localScale.z * .5f);
+            _jumpStretchScale = new Vector3(ControlledActor.transform.localScale.x * .75f, ControlledActor.transform.localScale.y * 1.25f, ControlledActor.transform.localScale.z * .75f);
             TargetTransform = target;
             _radius = ControlledActor.ActorNumericData.ActorFloatData[3];
             _windUpTime = jumpData.JumpDelay;
