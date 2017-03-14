@@ -161,6 +161,8 @@ namespace fi.tamk.hellgame.character
             var doNotDestroy = ServiceLocator.Instance.GetAllPlayerGameObjects();
             var all = Pool.Instance.GetAllHealthComponents();
 
+            var toDestroy = new Stack<HealthComponent>();
+
             foreach (HealthComponent a in all)
             {
                 a.enabled = true;
@@ -176,9 +178,11 @@ namespace fi.tamk.hellgame.character
 
                 if (!destroy)
                 {
-                    if (!a.HasDied) a.Die();
+                    if (!a.HasDied) toDestroy.Push(a);
                 }
             }
+
+            Pool.Instance.DestroyStackOfActors(toDestroy);
         }
     }
 }
