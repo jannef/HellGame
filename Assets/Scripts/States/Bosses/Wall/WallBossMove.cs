@@ -21,7 +21,6 @@ namespace fi.tamk.hellgame.states
         public WallBossMove(ActorComponent controlledHero, Vector3 positionToGoTo, WallBossMovement movementParams) : base(controlledHero)
         {
             _moveLenght = (ControlledActor.transform.position - positionToGoTo).magnitude / movementParams.MovementSpeed;
-            Debug.Log(_moveLenght);
             _startingPosition = ControlledActor.transform.position;
             _finalPosition = new Vector3(positionToGoTo.x, ControlledActor.transform.position.y, positionToGoTo.z);
             _easingCurve = movementParams.MovementCurve;
