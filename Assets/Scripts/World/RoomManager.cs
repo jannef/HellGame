@@ -14,11 +14,12 @@ namespace fi.tamk.hellgame.world
     /// </summary>
     public enum LegalScenes : int
     {
+        ErrorOrNone         = -1,
         GameStaging         = 0,
         SlimeBoss           = 1,
         MobRoom0            = 2,
         MobRoom1            = 3,
-        MobRoom4
+        MobRoom4            = 4
     }
 
     public static class SceneLoadLock
@@ -28,7 +29,7 @@ namespace fi.tamk.hellgame.world
 
     public sealed class RoomManager : MonoBehaviour
     {
-        public PlayerSaveableData PlayerPersistentData = null;
+        public static PlayerSaveableData PlayerPersistentData = null;
         public bool DebugMode;
         public ButtonMap[] Inputs;
 
@@ -66,7 +67,7 @@ namespace fi.tamk.hellgame.world
 #endif
         }
 
-        public void LoadRoom(LegalScenes whichRoom)
+        public static void LoadRoom(LegalScenes whichRoom)
         {
             SceneLoadLock.SceneChangeInProgress = true;
 
@@ -82,7 +83,7 @@ namespace fi.tamk.hellgame.world
             SceneManager.sceneLoaded += ReleaseLock;
         }
 
-        private void ReleaseLock(Scene arg0, LoadSceneMode arg1)
+        private static void ReleaseLock(Scene arg0, LoadSceneMode arg1)
         {
             SceneLoadLock.SceneChangeInProgress = false;
             SceneManager.sceneLoaded -= ReleaseLock;

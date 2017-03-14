@@ -39,12 +39,12 @@ namespace fi.tamk.hellgame.world
                     playerPrefab = go.GetComponent<PlayerLimitBreak>();
                 }
 
-                if (roomManager.PlayerPersistentData != null)
+                if (RoomManager.PlayerPersistentData != null)
                 {                
                     var hc = go.GetComponent<HealthComponent>();
                     var ic = go.GetComponent<InputController>();
-                    if (hc != null && hc.MaxHp != hc.Health) hc.TakeDamage(hc.MaxHp - roomManager.PlayerPersistentData.Health);
-                    if (ic != null && roomManager.PlayerPersistentData.MyConfig != null) ic.MyConfig = roomManager.PlayerPersistentData.MyConfig;
+                    if (hc != null && hc.MaxHp != hc.Health) hc.TakeDamage(hc.MaxHp - RoomManager.PlayerPersistentData.Health);
+                    if (ic != null && RoomManager.PlayerPersistentData.MyConfig != null) ic.MyConfig = RoomManager.PlayerPersistentData.MyConfig;
                 }
             }
         }
