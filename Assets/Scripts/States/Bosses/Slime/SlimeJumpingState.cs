@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
 using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.utils;
 using UnityEngine;
 using fi.tamk.hellgame.dataholders;
-using UnityEditor.Animations;
 
 namespace fi.tamk.hellgame.states
 {
