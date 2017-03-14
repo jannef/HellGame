@@ -3,7 +3,9 @@ using fi.tamk.hellgame.character;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using fi.tamk.hellgame.world;
+using UnityEditor;
 
 namespace fi.tamk.hellgame.utils
 {
@@ -193,9 +195,9 @@ namespace fi.tamk.hellgame.utils
         {
             while (collection.Count > 0)
             {
-                collection.Peek().Die();
-                collection.Pop();
                 yield return null;
+                collection.Peek().TakeDamage(int.MaxValue);
+                collection.Pop();
             }
         }
     }
