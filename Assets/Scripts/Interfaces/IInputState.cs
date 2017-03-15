@@ -34,7 +34,8 @@ namespace fi.tamk.hellgame.interfaces
         ShootingSkirmisher = 25,
         PatrollingEnemy = 26,
         SlimeMob = 27,
-        WallBoss = 28
+        WallBoss = 28,
+        WallBossTransition = 29
     }
 
     public enum TransitionType

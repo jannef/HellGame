@@ -11,7 +11,7 @@ using fi.tamk.hellgame.dataholders;
 
 namespace fi.tamk.hellgame.states
 {
-    class WallBoss : StateAbstract
+    class WallBoss : WallBossAbstract
     {
         private enum AttackState
         {
@@ -21,15 +21,8 @@ namespace fi.tamk.hellgame.states
 
         private PassiveTurret _leftEye;
         private PassiveTurret _rightEye;
-        private AirSpawnerWithSetSpawnPoints _mobSpawner;
-        private PatrolWayPoint _wayPoints;
-        private int currentPositionIndex = 0;
         private event Action BackFromMoveState;
-        private event Action StopFiringLasers;
-        private delegate void  OnTickDelegate(float deltaTime);
-        private event OnTickDelegate OnTickEvent;
         private AttackState _currentAttackState = AttackState.LaserHop;
-        private int _phase = 0;
 
         private WallBossMovement _SlowMove;
         private WallBossMovement _QuickMove;
@@ -44,17 +37,21 @@ namespace fi.tamk.hellgame.states
         private WallBossLaserAttackStats _currentLaserAttack;
         private WallBossBulletHellPhaseStats _currentBulletHellStats;
 
-        private int _phaseNumber = 0;
-
         public WallBoss(ActorComponent controlledHero) : base(controlledHero)
         {
-            var hc = ControlledActor.GetComponent<HealthComponent>();
-            hc.HealthChangeEvent += OnBossHealthChange;
+            Initialize();
+        }
+
+        public WallBoss(ActorComponent controlledHero, WallBossAbstractValues values) : base(controlledHero, values)
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             var externalObjects = ControlledActor.gameObject.GetComponent<BossExternalObjects>();
-            _mobSpawner = externalObjects.ExistingGameObjects[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
             _leftEye = externalObjects.ExistingGameObjects[1].GetComponent<PassiveTurret>();
             _rightEye = externalObjects.ExistingGameObjects[2].GetComponent<PassiveTurret>();
-            _wayPoints = externalObjects.ExistingGameObjects[3].GetComponent<PatrolWayPoint>();
             _SlowMove = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[0]) as WallBossMovement;
             _QuickMove = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[1]) as WallBossMovement;
             _FirstLaserMove = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[2]) as WallBossMovement;
@@ -65,27 +62,27 @@ namespace fi.tamk.hellgame.states
             _thirdBulletHellPhase = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[7]) as WallBossBulletHellPhaseStats;
             _thirdLaserAttack = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[8]) as WallBossLaserAttackStats;
 
-            _currentLaserAttack = _firstLaserAttack;
-            _currentBulletHellStats = _firstBulletHellPhase;
-
+            SetupStats();
         }
 
-        private void OnBossHealthChange(float percentage, int health, int maxHealth)
+        private void SetupStats()
         {
-            if (_phase <= 0 && percentage < 0.66f)
+            if (BaseValues.phaseNumber == 0)
+            {
+                _currentLaserAttack = _firstLaserAttack;
+                _currentBulletHellStats = _firstBulletHellPhase;
+            } else if (BaseValues.phaseNumber == 1)
             {
                 _currentLaserAttack = _secondLaserAttack;
                 _currentBulletHellStats = _secondBulletHellPhase;
-                _phase++;
-            }
-            else if (_phase <= 1 && percentage < 0.33f)
+            } else
             {
                 _currentLaserAttack = _thirdLaserAttack;
                 _currentBulletHellStats = _thirdBulletHellPhase;
-                _phase++;
-
             }
         }
+
+        
 
         public override void HandleInput(float deltaTime)
         {
@@ -118,8 +115,7 @@ namespace fi.tamk.hellgame.states
 
         private void BulletHell()
         {
-            ControlledActor.GoToState(new WallBossBulletHell(ControlledActor, _leftEye, _rightEye, _wayPoints,
-                currentPositionIndex, _currentBulletHellStats));
+            ControlledActor.GoToState(new WallBossBulletHell(ControlledActor, BaseValues, _leftEye, _rightEye, _currentBulletHellStats));
             
         }
 
@@ -128,25 +124,25 @@ namespace fi.tamk.hellgame.states
             _leftEye.StopFiring();
             _rightEye.StopFiring();
 
-            if (currentPositionIndex == 1)
+            if (BaseValues.currentPositionIndex == 1)
             {
                 if (UnityEngine.Random.value < 0.5)
                 {
-                    currentPositionIndex = 0;
+                    BaseValues.currentPositionIndex = 0;
                 } else
                 {
-                    currentPositionIndex = 2;
+                    BaseValues.currentPositionIndex = 2;
                 }
 
-            } else if (currentPositionIndex == 0)
+            } else if (BaseValues.currentPositionIndex == 0)
             {
-                currentPositionIndex = 2;
+                BaseValues.currentPositionIndex = 2;
             } else
             {
-                currentPositionIndex = 0;
+                BaseValues.currentPositionIndex = 0;
             }
 
-            ControlledActor.GoToState(new WallBossMove(ControlledActor, _wayPoints.WayPointList[currentPositionIndex].position,
+            ControlledActor.GoToState(new WallBossMove(ControlledActor, BaseValues, BaseValues.wayPointList.WayPointList[BaseValues.currentPositionIndex].position,
                 _QuickMove));
 
             BackFromMoveState += FirstLaserAttack;
@@ -157,23 +153,22 @@ namespace fi.tamk.hellgame.states
         {
             BackFromMoveState -= FirstLaserAttack;
 
-            ControlledActor.GoToState(new WallBossLaserAttack(ControlledActor, _leftEye, _rightEye, _wayPoints,
-                 currentPositionIndex, _currentLaserAttack));
+            ControlledActor.GoToState(new WallBossLaserAttack(ControlledActor, BaseValues, _leftEye, _rightEye, _currentLaserAttack));
         }
 
         private void LaserAttack()
         {
 
-            if (currentPositionIndex == 0)
+            if (BaseValues.currentPositionIndex == 0)
             {
-                currentPositionIndex = 2;
+                BaseValues.currentPositionIndex = 2;
             }
             else
             {
-                currentPositionIndex = 0;
+                BaseValues.currentPositionIndex = 0;
             }
 
-            ControlledActor.GoToState(new WallBossMove(ControlledActor, _wayPoints.WayPointList[currentPositionIndex].position,
+            ControlledActor.GoToState(new WallBossMove(ControlledActor, BaseValues, BaseValues.wayPointList.WayPointList[BaseValues.currentPositionIndex].position,
                _QuickMove));
         }
 
@@ -181,13 +176,13 @@ namespace fi.tamk.hellgame.states
         {
             int positionIndex = UnityEngine.Random.Range((int)0, (int)3);
 
-            while (positionIndex == currentPositionIndex)
+            while (positionIndex == BaseValues.currentPositionIndex)
             {
                 positionIndex = UnityEngine.Random.Range((int)0, (int)3);
             }
 
-            currentPositionIndex = positionIndex;
-            ControlledActor.GoToState(new WallBossMove(ControlledActor, _wayPoints.WayPointList[currentPositionIndex].position,
+            BaseValues.currentPositionIndex = positionIndex;
+            ControlledActor.GoToState(new WallBossMove(ControlledActor, BaseValues, BaseValues.wayPointList.WayPointList[BaseValues.currentPositionIndex].position,
                _SlowMove));
 
             var playerTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
@@ -197,7 +192,7 @@ namespace fi.tamk.hellgame.states
         {
             get
             {
-                return InputStates.WallBoss;
+                return InputStates.PatrollingEnemy;
             }
         }
     }

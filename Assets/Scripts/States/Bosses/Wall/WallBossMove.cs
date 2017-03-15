@@ -9,7 +9,7 @@ using fi.tamk.hellgame.dataholders;
 
 namespace fi.tamk.hellgame.states
 {
-    class WallBossMove : StateAbstract
+    class WallBossMove : WallBossAbstract
     {
         private Vector3 _startingPosition;
         private Vector3 _finalPosition;
@@ -18,7 +18,8 @@ namespace fi.tamk.hellgame.states
         private float _setupTime;
         private AnimationCurve _easingCurve;
 
-        public WallBossMove(ActorComponent controlledHero, Vector3 positionToGoTo, WallBossMovement movementParams) : base(controlledHero)
+        public WallBossMove(ActorComponent controlledHero, WallBossAbstractValues values, Vector3 positionToGoTo, 
+            WallBossMovement movementParams) : base(controlledHero, values)
         {
             _moveLenght = (ControlledActor.transform.position - positionToGoTo).magnitude / movementParams.MovementSpeed;
             _startingPosition = ControlledActor.transform.position;
@@ -30,6 +31,7 @@ namespace fi.tamk.hellgame.states
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
+            
 
             if (StateTime <= _setupTime) return;
 
@@ -47,6 +49,7 @@ namespace fi.tamk.hellgame.states
         {
             ControlledActor.transform.position = _finalPosition;
             ControlledActor.ToPreviousState();
+            Debug.Log("Moving");
         }
 
         public override InputStates StateId

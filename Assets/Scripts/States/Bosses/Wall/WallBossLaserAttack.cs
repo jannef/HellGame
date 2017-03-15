@@ -8,25 +8,21 @@ using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.states
 {
-    class WallBossLaserAttack : StateAbstract
+    class WallBossLaserAttack : WallBossAbstract
     {
         private PassiveTurret _leftEye;
         private PassiveTurret _rightEye;
-        private PatrolWayPoint _wayPointList;
-        private int _currentWayPoint;
         private float _movementTimer = 0;
         private WallBossLaserAttackStats _stats;
         private int attackNumber = 0;
         private bool attacking = false;
         private event Action _stopFiringLasers;
 
-        public WallBossLaserAttack(ActorComponent controlledHero, PassiveTurret leftEye, PassiveTurret rightEye, PatrolWayPoint wayPointList,
-            int currentWayPoint, WallBossLaserAttackStats stats) : base(controlledHero)
+        public WallBossLaserAttack(ActorComponent controlledHero, WallBossAbstractValues values, PassiveTurret leftEye, PassiveTurret rightEye, 
+            WallBossLaserAttackStats stats) : base(controlledHero, values)
         {
             _leftEye = leftEye;
             _rightEye = rightEye;
-            _wayPointList = wayPointList;
-            _currentWayPoint = currentWayPoint;
             _stats = stats;
 
             _leftEye.StopAiming();
@@ -57,12 +53,12 @@ namespace fi.tamk.hellgame.states
 
         private void ChangeCurrentWayPointIndex()
         {
-            if (_currentWayPoint == 0)
+            if (BaseValues.currentPositionIndex == 0)
             {
-                _currentWayPoint = 2;
+                BaseValues.currentPositionIndex = 2;
             } else
             {
-                _currentWayPoint = 0;
+                BaseValues.currentPositionIndex = 0;
             }
         }
 
@@ -72,7 +68,8 @@ namespace fi.tamk.hellgame.states
             {
                 ChangeCurrentWayPointIndex();
 
-                ControlledActor.GoToState(new WallBossMove(ControlledActor, _wayPointList.WayPointList[_currentWayPoint].position,
+                ControlledActor.GoToState(new WallBossMove(ControlledActor, BaseValues, 
+                    BaseValues.wayPointList.WayPointList[BaseValues.currentPositionIndex].position,
                     _stats._movements[attackNumber]));
                 
             } else
@@ -89,6 +86,12 @@ namespace fi.tamk.hellgame.states
             base.OnResumeState();
             Attack();
             
+        }
+
+        public override void OnExitState()
+        {
+            base.OnExitState();
+            if (_stopFiringLasers != null) _stopFiringLasers.Invoke();
         }
 
         public override InputStates StateId

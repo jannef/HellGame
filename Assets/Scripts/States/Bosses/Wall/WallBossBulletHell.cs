@@ -7,25 +7,23 @@ using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.world;
 using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.dataholders;
+using UnityEngine;
 
 namespace fi.tamk.hellgame.states
 {
-    class WallBossBulletHell : StateAbstract
+    class WallBossBulletHell : WallBossAbstract
     {
         private PassiveTurret _leftEye;
         private PassiveTurret _rightEye;
-        private PatrolWayPoint _wayPointList;
-        private int _currentWayPoint;
         private WallBossBulletHellPhaseStats _stats;
         private float _movementTimer = 0;
 
-        public WallBossBulletHell(ActorComponent controlledHero, PassiveTurret leftEye, PassiveTurret rightEye, PatrolWayPoint wayPointList, 
-            int currentWayPoint, WallBossBulletHellPhaseStats stats) : base(controlledHero)
+
+        public WallBossBulletHell(ActorComponent controlledHero, WallBossAbstractValues values, PassiveTurret leftEye, PassiveTurret rightEye, 
+            WallBossBulletHellPhaseStats stats) : base(controlledHero, values)
         {
             _leftEye = leftEye;
             _rightEye = rightEye;
-            _wayPointList = wayPointList;
-            _currentWayPoint = currentWayPoint;
             _stats = stats;
         }
 
@@ -42,24 +40,30 @@ namespace fi.tamk.hellgame.states
             base.OnEnterState();
             var playerTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
 
-
             _leftEye.AddGunToFiringList(true, _stats.LeftEyeTurrets);
             _leftEye.AimAtTransform(playerTransform);
             _rightEye.AimAtTransform(playerTransform);
             _rightEye.AddGunToFiringList(true, _stats.RightEyeTurret);
         }
 
+        public override void OnExitState()
+        {
+            base.OnExitState();
+            _leftEye.StopFiring();
+            _rightEye.StopFiring();
+        }
+
         private void Move()
         {
             int positionIndex = UnityEngine.Random.Range((int)0, (int)3);
 
-            while (positionIndex == _currentWayPoint)
+            while (positionIndex == BaseValues.currentPositionIndex)
             {
                 positionIndex = UnityEngine.Random.Range((int)0, (int)3);
             }
 
-            _currentWayPoint = positionIndex;
-            ControlledActor.GoToState(new WallBossMove(ControlledActor, _wayPointList.WayPointList[_currentWayPoint].position,
+            BaseValues.currentPositionIndex = positionIndex;
+            ControlledActor.GoToState(new WallBossMove(ControlledActor, BaseValues, BaseValues.wayPointList.WayPointList[BaseValues.currentPositionIndex].position,
                _stats.MovementStats));
         }
 
