@@ -32,3 +32,5 @@ sysinfo.txt
 __pycache__/
 ~*.ods
 Assets/UnitySteer/
+*.db
+*.db.meta
