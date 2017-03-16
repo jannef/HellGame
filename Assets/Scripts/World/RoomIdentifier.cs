@@ -73,7 +73,7 @@ namespace fi.tamk.hellgame.world
             if (PlayerDeath != null) PlayerDeath.Invoke();
         }
 
-        public void OnRoomCompleted()
+        public static void OnRoomCompleted()
         {
             if (RoomCompleted != null) RoomCompleted.Invoke();
         }

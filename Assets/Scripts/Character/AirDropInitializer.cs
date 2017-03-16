@@ -10,8 +10,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField] protected LayerMask DropToLayer;
         [SerializeField] protected float OffsetFromGround;
         [SerializeField] protected AnimationCurve FallingCurve;
-        [SerializeField, Range(0.1f, 10f)] protected float FallingDuration;
-        [SerializeField] protected GameObject IndicatorPrefab;        
+        [SerializeField, Range(0.1f, 10f)] protected float FallingDuration;      
         [SerializeField] protected float IndicatorOffsetFromGround;
 
         protected override void Awake()

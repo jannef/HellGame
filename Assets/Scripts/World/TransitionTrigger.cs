@@ -31,6 +31,7 @@ namespace fi.tamk.hellgame.world
 
         private InputController _playerInput;
 
+        private Renderer _renderer;
         private Material _material;
 
         private Color _originalColor;
@@ -39,22 +40,26 @@ namespace fi.tamk.hellgame.world
         {
             if (!InvisibleTransitionTrigger)
             {
-                var rend = gameObject.GetComponent<Renderer>() ?? new UnityException("No renderer attached to TransitionTrigger object!").Throw<Renderer>();
-                _material = rend.material;
+                _renderer = gameObject.GetComponent<Renderer>() ?? new UnityException("No renderer attached to TransitionTrigger object!").Throw<Renderer>();
+                _material = _renderer.material;
                 _originalColor = _material.color;
             }
+
+            this.enabled = false;
         }
 
         public void Activate()
         {
+            this.enabled = true;
             _active = true;
+            if (_renderer != null) _renderer.enabled = true;
         }
 
         public void OnTriggerEnter(Collider other)
         {
             if (!_active)
             {
-                _playerInput = other.transform.parent.gameObject.GetComponent<InputController>() ?? new UnityException("TransitionTrigger triggered by malformed hero: other.transform.parent.gameObject.GetComponent<InputController>() returned null!").Throw<InputController>();
+                _playerInput = other.transform.gameObject.GetComponent<InputController>() ?? new UnityException("TransitionTrigger triggered by malformed hero: other.transform.parent.gameObject.GetComponent<InputController>() returned null!").Throw<InputController>();
                 if (!InvisibleTransitionTrigger) _material.color = HilightColor;
             }
 

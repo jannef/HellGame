@@ -59,6 +59,7 @@ namespace fi.tamk.hellgame.states
         {
             if (_phase >= _spawnWaves.Length)
             {
+                RoomIdentifier.OnRoomCompleted();
                 return;
             }
 
