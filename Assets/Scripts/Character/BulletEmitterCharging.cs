@@ -82,19 +82,13 @@ namespace fi.tamk.hellgame.character
 
         private IEnumerator FiringCoroutine(int shotAmount, float t)
         {
-            Effector.ScreenShakeEffect(new float[2] { screenShake * t, screenShakeLenght * shotAmount });
-            Effector.ThreadFreezeFrame(new float[0]);
-
             for (int i = 0; i < shotAmount; i++)
             {
                 base.Fire();
                 yield return null;
-            }
-
-            
+            }            
 
             _chargingTimer = 0f;
-
             RestoreStatsToDefault();
         }
     }

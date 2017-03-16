@@ -10,8 +10,6 @@ namespace fi.tamk.hellgame.effectors
     public class AerialAttackIndicatorEffector : Effector
     {
         [SerializeField] protected GameObject ProjectorPrefab;
-        [SerializeField] protected float ImpactScreenShakeIntensity;
-        [SerializeField] protected float ImpactScreenShakeLenght;
         [SerializeField] protected float ProjectionMinsize;
         [SerializeField] protected float ProjectionMaxSize;
 
@@ -30,7 +28,6 @@ namespace fi.tamk.hellgame.effectors
             _landindProjector = _effectGameObject.GetComponent<Projector>();
 
             Effect.SetOnUpdateCycle(FollowAnother, new float[]{0});
-            Effect.SetOnEnd(ScreenShakeEffect, new float[] { ImpactScreenShakeIntensity, ImpactScreenShakeLenght });
 
             if (AirDropInitializer == null) return;
             Effect.LifeTime = AirDropInitializer.FallingDuration;

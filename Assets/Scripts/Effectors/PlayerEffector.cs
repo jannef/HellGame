@@ -7,8 +7,6 @@ namespace fi.tamk.hellgame.effector
 {
     public class PlayerEffector : Effector
     {
-        [SerializeField] private float _shakeIntensity;
-        [SerializeField] private float _shakeLenght;
         [SerializeField] private float _slowDownScale;
         [SerializeField] private float _slowDownLenght;
         [SerializeField] protected float EffectLength = 1f;
@@ -32,7 +30,6 @@ namespace fi.tamk.hellgame.effector
             Effect.LifeTime = _slowDownLenght * _slowDownScale;
             
             Effect.SetOnstart(SlowDown, new float[2] { _slowDownLenght, _slowDownScale });
-            Effect.SetOnEnd(ScreenShakeEffect, new float[2] { _shakeIntensity, _shakeLenght });
             var go = Instantiate(_deathParticleEffect);
             go.transform.position = transform.position;
 

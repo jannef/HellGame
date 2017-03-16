@@ -109,7 +109,6 @@ namespace fi.tamk.hellgame.states
 
         protected void StartJump()
         {
-            effector.Effector.ScreenShakeEffect(new float[2] { 28f, .15f });
             _isJumping = true;
             _startingPosition = ControlledActor.transform.position;
             // TODO clamp to area size. Get size in ServiceLocator
@@ -159,7 +158,6 @@ namespace fi.tamk.hellgame.states
         protected virtual void AtJumpEnd()
         {
             _animationController.SetTrigger(Constants.SlimeLandAnimationTrigger);
-            effector.Effector.ScreenShakeEffect(new float[2] { 33f, .44f });
         }
 
         public override InputStates StateId
