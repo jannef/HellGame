@@ -12,7 +12,6 @@ namespace fi.tamk.hellgame.effector
         /// You it inside inheriting Activate() after base.Activate() has been called!
         /// </summary>
         protected GenericEffect Effect;
-        protected static float _lastFreeze = 0f;
 
         public static void ScreenShakeEffect(float[] args)
         {
@@ -23,22 +22,6 @@ namespace fi.tamk.hellgame.effector
         public static void FreezeFrame(float[] args)
         {
             WorldStateMachine.Instance.FreezeFrame();
-        }
-
-        public static void ThreadFreezeFrame(float[] args)
-        {
-            if (Time.time - _lastFreeze < 0.2f) return;
-
-            var freezeLenght = 20;
-
-            _lastFreeze = Time.time;
-
-            if (args.Length > 0)
-            {
-                freezeLenght = (int) args[0];
-            }
-
-            System.Threading.Thread.Sleep(freezeLenght);
         }
 
         public static void SlowDown(float[] args)

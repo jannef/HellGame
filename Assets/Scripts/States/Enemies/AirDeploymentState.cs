@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using fi.tamk.hellgame.character;
+﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.interfaces;
-using fi.tamk.hellgame.utils;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.states
 {
     class AirDeploymentState : StateAbstract
     {
+        public event UnityAction ExitStateSignal;
+
         public IInputState _startingState;
         private float _fallingDuration = 3f;
         private AnimationCurve _animationCurve;
@@ -18,23 +16,21 @@ namespace fi.tamk.hellgame.states
         private Vector3 _startingPosition;
         private bool _isDeploying = true;
 
-
         public AirDeploymentState(ActorComponent controlledHero, IInputState startingState, Vector3 startingPosition, 
-            float fallingDuration, AnimationCurve fallingCurve, Vector3 landingCoordinates, Vector3 modelGroundPointLocalPos)
+            float fallingDuration, AnimationCurve fallingCurve, Vector3 landingCoordinates)
             : base(controlledHero)
         {
             _startingState = startingState;
             _fallingDuration = fallingDuration;
             _animationCurve = fallingCurve;
             _startingPosition = startingPosition;
+            _landingPosition = landingCoordinates;
+        }
 
-            var ray = new Ray(landingCoordinates + Vector3.up * 1000f, Vector3.down);
-            RaycastHit hit;
-
-            Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity,
-                LayerMask.GetMask(new string[] {Constants.GroundRaycastLayerName}));
-            _landingPosition = hit.point - controlledHero.transform.localScale.y * modelGroundPointLocalPos;
-
+        public override bool TakeDamage(int howMuch, ref int health, ref bool flinch)
+        {
+            // Prevent dying midair to get rid of many problems.
+            return true;
         }
 
         public override InputStates StateId
@@ -61,6 +57,7 @@ namespace fi.tamk.hellgame.states
         public override void OnExitState()
         {
             base.OnExitState();
+            if (ExitStateSignal != null) ExitStateSignal.Invoke();
             if (_isDeploying) ControlledActor.transform.position = _landingPosition;
         }
 

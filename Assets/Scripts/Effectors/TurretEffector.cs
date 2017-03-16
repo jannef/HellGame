@@ -12,9 +12,7 @@ namespace fi.tamk.hellgame.effector
         public override void Activate()
         {
             base.Activate();
-            Effect.SetOnstart(ThreadFreezeFrame, new float[1] { _freezeFrameLenght });
             ActivateParticleEffect();
-            Effect.SetOnstart(ScreenShakeEffect, new float[2] { _shakeIntensity, _shakeLenght });
         }
 
         public void ActivateParticleEffect()

@@ -20,7 +20,6 @@ namespace fi.tamk.hellgame.effector
         public override void Activate()
         {
             StartCoroutine(ChangeColorAndBack());
-            ThreadFreezeFrame(new float[0]);
         }
 
         IEnumerator ChangeColorAndBack()
