@@ -17,6 +17,12 @@ namespace fi.tamk.hellgame.utils
         }
         private static GameObject _pickupPrefab = null;
 
+        public static GameObject IndicatorPrefab
+        {
+            get { return _indicatorPrefab ?? (_indicatorPrefab = Resources.Load("AerialIndicator") as GameObject); }
+        }
+        private static GameObject _indicatorPrefab;
+
         private readonly Dictionary<GameObject, HealthComponent> _gameObjectToHealth = new Dictionary<GameObject, HealthComponent>();
 
         public HealthComponent GetHealthComponent(GameObject go)
@@ -169,6 +175,7 @@ namespace fi.tamk.hellgame.utils
         {
             base.Awake();
             Pool.Instance.AddToPool(Pool.PickupPrefab, 50);
+            Pool.Instance.AddToPool(Pool.IndicatorPrefab, 10);
         }
 
         private static void DelayedDestroyGo(GameObject whichToDestroy)
