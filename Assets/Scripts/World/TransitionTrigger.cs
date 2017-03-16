@@ -45,6 +45,11 @@ namespace fi.tamk.hellgame.world
             }
         }
 
+        public void Activate()
+        {
+            _active = true;
+        }
+
         public void OnTriggerEnter(Collider other)
         {
             if (!_active)

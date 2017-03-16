@@ -16,6 +16,7 @@ namespace fi.tamk.hellgame.states
         private AirSpawnerWithSetSpawnPoints _mySpawner;
         private AirSpawnerWithSetSpawnPoints _myCenterSpawner;
         private PatrolWayPoint[] _patrolWayPoint;
+        private TransitionTrigger _transitionTrigger;
 
         private int _activeMinions = 0;
         private int _phase = 0;

@@ -14,12 +14,14 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private GameObject _playerPrefab;
 
         public static event Action PlayerDeath;
+        public static event Action RoomCompleted;
 
         private void Awake()
         {
             _playerSpawnPoint = GetComponentInChildren<Transform>();
             GameObject go = null;
             PlayerDeath = null;
+            RoomCompleted = null;
             HealthComponent hc = null;
 
             var roomManager = FindObjectOfType<RoomManager>();
@@ -69,6 +71,11 @@ namespace fi.tamk.hellgame.world
         private void OnPlayerDeath()
         {
             if (PlayerDeath != null) PlayerDeath.Invoke();
+        }
+
+        public void OnRoomCompleted()
+        {
+            if (RoomCompleted != null) RoomCompleted.Invoke();
         }
     }
 }
