@@ -1,5 +1,6 @@
 ﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.input;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,12 +9,18 @@ namespace fi.tamk.hellgame.world
     public sealed class RoomIdentifier : MonoBehaviour
     {
         public int SceneId;
+        [SerializeField] private bool _spawnPlayer = true;
         private Transform _playerSpawnPoint;
         [SerializeField] private GameObject _playerPrefab;
+
+        public static event Action PlayerDeath;
 
         private void Awake()
         {
             _playerSpawnPoint = GetComponentInChildren<Transform>();
+            GameObject go = null;
+            PlayerDeath = null;
+            HealthComponent hc = null;
 
             var roomManager = FindObjectOfType<RoomManager>();
             if (roomManager == null)
@@ -27,26 +34,41 @@ namespace fi.tamk.hellgame.world
             {
                 gameObject.SetActive(false);
                 var playerPrefab = FindObjectOfType<PlayerLimitBreak>();
-                GameObject go;
+                
                 if (playerPrefab != null)
                 {
                     go = playerPrefab.gameObject;
                     playerPrefab.transform.position = _playerSpawnPoint.position;                    
                 }
-                else
+                else if (_spawnPlayer)
                 {
                     go = Instantiate(_playerPrefab, _playerSpawnPoint.position, Quaternion.identity);
                     playerPrefab = go.GetComponent<PlayerLimitBreak>();
                 }
 
-                if (RoomManager.PlayerPersistentData != null)
+                if (go != null)
+                {
+                    hc = go.GetComponent<HealthComponent>();
+                    // Listener for player death
+                    if (hc != null) {
+                        hc.DeathEffect.AddListener(OnPlayerDeath); 
+                    }
+
+                }
+
+                if (RoomManager.PlayerPersistentData != null && _spawnPlayer)
                 {                
-                    var hc = go.GetComponent<HealthComponent>();
+                    
                     var ic = go.GetComponent<InputController>();
                     if (hc != null && hc.MaxHp != hc.Health) hc.TakeDamage(hc.MaxHp - RoomManager.PlayerPersistentData.Health);
                     if (ic != null && RoomManager.PlayerPersistentData.MyConfig != null) ic.MyConfig = RoomManager.PlayerPersistentData.MyConfig;
                 }
             }
+        }
+
+        private void OnPlayerDeath()
+        {
+            if (PlayerDeath != null) PlayerDeath.Invoke();
         }
     }
 }
