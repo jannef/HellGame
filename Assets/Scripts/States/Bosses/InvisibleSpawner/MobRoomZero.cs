@@ -7,6 +7,7 @@ using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.world;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace fi.tamk.hellgame.states
 {
@@ -43,6 +44,11 @@ namespace fi.tamk.hellgame.states
             _spawnWaves = waveTemp.ToArray();
 
             NextWave();
+        }
+
+        private void Initialize(Scene scene, LoadSceneMode mode)
+        {
+            RoomIdentifier.EncounterStart += NextWave;
         }
 
         private void MinionHasDied()

@@ -14,6 +14,7 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private GameObject _playerPrefab;
 
         public static event Action PlayerDeath;
+        public static event Action EncounterStart;
         public static event Action RoomCompleted;
 
         private void Awake()
@@ -22,6 +23,7 @@ namespace fi.tamk.hellgame.world
             GameObject go = null;
             PlayerDeath = null;
             RoomCompleted = null;
+            EncounterStart = null;
             HealthComponent hc = null;
 
             var roomManager = FindObjectOfType<RoomManager>();
@@ -76,6 +78,11 @@ namespace fi.tamk.hellgame.world
         public static void OnRoomCompleted()
         {
             if (RoomCompleted != null) RoomCompleted.Invoke();
+        }
+
+        public static void OnEncounterBegin()
+        {
+            if (EncounterStart != null) EncounterStart.Invoke();
         }
     }
 }

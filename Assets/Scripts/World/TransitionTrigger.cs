@@ -51,7 +51,6 @@ namespace fi.tamk.hellgame.world
         public void Activate()
         {
             this.enabled = true;
-            _active = true;
             if (_renderer != null) _renderer.enabled = true;
         }
 
@@ -78,7 +77,8 @@ namespace fi.tamk.hellgame.world
 
         public void Update()
         {
-            if (_active && _playerInput != null && (_playerInput.PollButtonDown(Buttons.ButtonScheme.Dash) || AutomaticTransitionTrigger))
+            if ((_active && _playerInput != null && (_playerInput.PollButtonDown(Buttons.ButtonScheme.Dash)) ||
+                _active && AutomaticTransitionTrigger))
             {
                 if (TargetScene != LegalScenes.ErrorOrNone)
                     RoomManager.LoadRoom(TargetScene);
