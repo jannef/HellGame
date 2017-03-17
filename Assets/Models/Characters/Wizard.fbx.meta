@@ -1,0 +1,649 @@
+fileFormatVersion: 2
+guid: ae0387b12832fbf40ba4d159c0f354ca
+timeCreated: 1489792207
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Belt
+    100002: Head
+    100004: Hood
+    100006: IK_Head
+    100008: IK_L_Arm
+    100010: IK_L_Foot
+    100012: IK_L_IM
+    100014: IK_L_Leg
+    100016: IK_L_Sleeve
+    100018: IK_L_T
+    100020: IK_Neck
+    100022: IK_R_Arm
+    100024: IK_R_Foot
+    100026: IK_R_IM
+    100028: IK_R_Leg
+    100030: IK_R_Sleeve
+    100032: IK_R_T
+    100034: IK_Spine
+    100036: IK_Tail
+    100038: IKs
+    100040: Jaw
+    100042: joint4
+    100044: joint4 1
+    100046: L_Ankle
+    100048: L_Clavicle
+    100050: L_Collar
+    100052: L_Elbow
+    100054: L_Food
+    100056: L_Forearm
+    100058: L_Hand_New
+    100060: L_Hip
+    100062: L_IR1
+    100064: L_IR2
+    100066: L_IR3
+    100068: L_IR4
+    100070: L_Knee
+    100072: L_Shoulder
+    100074: L_SLeeve1
+    100076: L_Sleeve2
+    100078: L_Sleeve3
+    100080: L_T1
+    100082: L_T2
+    100084: L_T3
+    100086: L_T4
+    100088: L_Toes
+    100090: L_Wrist
+    100092: Neck
+    100094: R_Ankle
+    100096: R_Clavicle
+    100098: R_Collar
+    100100: R_Elbow
+    100102: R_Food
+    100104: R_Forearm
+    100106: R_Hip
+    100108: R_IR1
+    100110: R_IR2
+    100112: R_IR3
+    100114: R_IR4
+    100116: R_Knee
+    100118: R_Shoulder
+    100120: R_SLeeve1
+    100122: R_Sleeve2
+    100124: R_Sleeve3
+    100126: R_T1
+    100128: R_T2
+    100130: R_T3
+    100132: R_T4
+    100134: R_Toes
+    100136: R_Wrist
+    100138: RiggityRig
+    100140: Shoulders
+    100142: Spine1
+    100144: Spine2
+    100146: Spine3
+    100148: Spine4
+    100150: Staff
+    100152: Tail1
+    100154: Tail2
+    100156: Tail3
+    100158: Tail4
+    100160: Tail5
+    100162: Wizard
+    100164: //RootNode
+    400000: Belt
+    400002: Head
+    400004: Hood
+    400006: IK_Head
+    400008: IK_L_Arm
+    400010: IK_L_Foot
+    400012: IK_L_IM
+    400014: IK_L_Leg
+    400016: IK_L_Sleeve
+    400018: IK_L_T
+    400020: IK_Neck
+    400022: IK_R_Arm
+    400024: IK_R_Foot
+    400026: IK_R_IM
+    400028: IK_R_Leg
+    400030: IK_R_Sleeve
+    400032: IK_R_T
+    400034: IK_Spine
+    400036: IK_Tail
+    400038: IKs
+    400040: Jaw
+    400042: joint4
+    400044: joint4 1
+    400046: L_Ankle
+    400048: L_Clavicle
+    400050: L_Collar
+    400052: L_Elbow
+    400054: L_Food
+    400056: L_Forearm
+    400058: L_Hand_New
+    400060: L_Hip
+    400062: L_IR1
+    400064: L_IR2
+    400066: L_IR3
+    400068: L_IR4
+    400070: L_Knee
+    400072: L_Shoulder
+    400074: L_SLeeve1
+    400076: L_Sleeve2
+    400078: L_Sleeve3
+    400080: L_T1
+    400082: L_T2
+    400084: L_T3
+    400086: L_T4
+    400088: L_Toes
+    400090: L_Wrist
+    400092: Neck
+    400094: R_Ankle
+    400096: R_Clavicle
+    400098: R_Collar
+    400100: R_Elbow
+    400102: R_Food
+    400104: R_Forearm
+    400106: R_Hip
+    400108: R_IR1
+    400110: R_IR2
+    400112: R_IR3
+    400114: R_IR4
+    400116: R_Knee
+    400118: R_Shoulder
+    400120: R_SLeeve1
+    400122: R_Sleeve2
+    400124: R_Sleeve3
+    400126: R_T1
+    400128: R_T2
+    400130: R_T3
+    400132: R_T4
+    400134: R_Toes
+    400136: R_Wrist
+    400138: RiggityRig
+    400140: Shoulders
+    400142: Spine1
+    400144: Spine2
+    400146: Spine3
+    400148: Spine4
+    400150: Staff
+    400152: Tail1
+    400154: Tail2
+    400156: Tail3
+    400158: Tail4
+    400160: Tail5
+    400162: Wizard
+    400164: //RootNode
+    2300000: Staff
+    3300000: Staff
+    4300000: Wizard
+    4300002: Shoulders
+    4300004: Hood
+    4300006: Belt
+    4300008: Staff
+    4300010: L_Hand_New
+    7400000: Run
+    7400002: Idle
+    9500000: //RootNode
+    13700000: Belt
+    13700002: Hood
+    13700004: L_Hand_New
+    13700006: Shoulders
+    13700008: Wizard
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 2
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Run
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Belt
+        weight: 1
+      - path: Hood
+        weight: 1
+      - path: L_Hand_New
+        weight: 1
+      - path: RiggityRig
+        weight: 1
+      - path: RiggityRig/IKs
+        weight: 1
+      - path: RiggityRig/IKs/IK_L_Leg
+        weight: 1
+      - path: RiggityRig/IKs/IK_L_Leg/IK_L_Foot
+        weight: 1
+      - path: RiggityRig/IKs/IK_R_Leg
+        weight: 1
+      - path: RiggityRig/IKs/IK_R_Leg/IK_R_Foot
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/IK_Neck
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/IK_Neck/IK_Head
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/L_Collar
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/L_Collar/IK_L_Arm
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/L_Collar/IK_L_Arm/IK_L_IM
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/L_Collar/IK_L_Arm/IK_L_Sleeve
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/L_Collar/IK_L_Arm/IK_L_T
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/R_Collar
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/R_Collar/IK_R_Arm
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/R_Collar/IK_R_Arm/IK_R_IM
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/R_Collar/IK_R_Arm/IK_R_Sleeve
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/R_Collar/IK_R_Arm/IK_R_T
+        weight: 1
+      - path: RiggityRig/IKs/IK_Tail
+        weight: 1
+      - path: RiggityRig/L_Hip
+        weight: 1
+      - path: RiggityRig/L_Hip/L_Knee
+        weight: 1
+      - path: RiggityRig/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: RiggityRig/L_Hip/L_Knee/L_Ankle/L_Food
+        weight: 1
+      - path: RiggityRig/L_Hip/L_Knee/L_Ankle/L_Food/L_Toes
+        weight: 1
+      - path: RiggityRig/R_Hip
+        weight: 1
+      - path: RiggityRig/R_Hip/R_Knee
+        weight: 1
+      - path: RiggityRig/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: RiggityRig/R_Hip/R_Knee/R_Ankle/R_Food
+        weight: 1
+      - path: RiggityRig/R_Hip/R_Knee/R_Ankle/R_Food/R_Toes
+        weight: 1
+      - path: RiggityRig/Spine1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_IR1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_IR1/L_IR2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_IR1/L_IR2/L_IR3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_IR1/L_IR2/L_IR3/L_IR4
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_SLeeve1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_SLeeve1/L_Sleeve2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_SLeeve1/L_Sleeve2/L_Sleeve3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_SLeeve1/L_Sleeve2/L_Sleeve3/joint4
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_T1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_T1/L_T2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_T1/L_T2/L_T3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_T1/L_T2/L_T3/L_T4
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/Neck
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/Neck/Jaw
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/Neck/Jaw/Head
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_IR1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_IR1/R_IR2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_IR1/R_IR2/R_IR3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_IR1/R_IR2/R_IR3/R_IR4
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_SLeeve1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_SLeeve1/R_Sleeve2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_SLeeve1/R_Sleeve2/R_Sleeve3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_SLeeve1/R_Sleeve2/R_Sleeve3/joint4
+          1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_T1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_T1/R_T2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_T1/R_T2/R_T3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_T1/R_T2/R_T3/R_T4
+        weight: 1
+      - path: RiggityRig/Tail1
+        weight: 1
+      - path: RiggityRig/Tail1/Tail2
+        weight: 1
+      - path: RiggityRig/Tail1/Tail2/Tail3
+        weight: 1
+      - path: RiggityRig/Tail1/Tail2/Tail3/Tail4
+        weight: 1
+      - path: RiggityRig/Tail1/Tail2/Tail3/Tail4/Tail5
+        weight: 1
+      - path: Shoulders
+        weight: 1
+      - path: Staff
+        weight: 1
+      - path: Wizard
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 40
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Belt
+        weight: 1
+      - path: Hood
+        weight: 1
+      - path: L_Hand_New
+        weight: 1
+      - path: RiggityRig
+        weight: 1
+      - path: RiggityRig/IKs
+        weight: 1
+      - path: RiggityRig/IKs/IK_L_Leg
+        weight: 1
+      - path: RiggityRig/IKs/IK_L_Leg/IK_L_Foot
+        weight: 1
+      - path: RiggityRig/IKs/IK_R_Leg
+        weight: 1
+      - path: RiggityRig/IKs/IK_R_Leg/IK_R_Foot
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/IK_Neck
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/IK_Neck/IK_Head
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/L_Collar
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/L_Collar/IK_L_Arm
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/L_Collar/IK_L_Arm/IK_L_IM
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/L_Collar/IK_L_Arm/IK_L_Sleeve
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/L_Collar/IK_L_Arm/IK_L_T
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/R_Collar
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/R_Collar/IK_R_Arm
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/R_Collar/IK_R_Arm/IK_R_IM
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/R_Collar/IK_R_Arm/IK_R_Sleeve
+        weight: 1
+      - path: RiggityRig/IKs/IK_Spine/R_Collar/IK_R_Arm/IK_R_T
+        weight: 1
+      - path: RiggityRig/IKs/IK_Tail
+        weight: 1
+      - path: RiggityRig/L_Hip
+        weight: 1
+      - path: RiggityRig/L_Hip/L_Knee
+        weight: 1
+      - path: RiggityRig/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: RiggityRig/L_Hip/L_Knee/L_Ankle/L_Food
+        weight: 1
+      - path: RiggityRig/L_Hip/L_Knee/L_Ankle/L_Food/L_Toes
+        weight: 1
+      - path: RiggityRig/R_Hip
+        weight: 1
+      - path: RiggityRig/R_Hip/R_Knee
+        weight: 1
+      - path: RiggityRig/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: RiggityRig/R_Hip/R_Knee/R_Ankle/R_Food
+        weight: 1
+      - path: RiggityRig/R_Hip/R_Knee/R_Ankle/R_Food/R_Toes
+        weight: 1
+      - path: RiggityRig/Spine1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_IR1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_IR1/L_IR2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_IR1/L_IR2/L_IR3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_IR1/L_IR2/L_IR3/L_IR4
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_SLeeve1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_SLeeve1/L_Sleeve2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_SLeeve1/L_Sleeve2/L_Sleeve3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_SLeeve1/L_Sleeve2/L_Sleeve3/joint4
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_T1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_T1/L_T2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_T1/L_T2/L_T3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_T1/L_T2/L_T3/L_T4
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/Neck
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/Neck/Jaw
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/Neck/Jaw/Head
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_IR1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_IR1/R_IR2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_IR1/R_IR2/R_IR3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_IR1/R_IR2/R_IR3/R_IR4
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_SLeeve1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_SLeeve1/R_Sleeve2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_SLeeve1/R_Sleeve2/R_Sleeve3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_SLeeve1/R_Sleeve2/R_Sleeve3/joint4
+          1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_T1
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_T1/R_T2
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_T1/R_T2/R_T3
+        weight: 1
+      - path: RiggityRig/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_T1/R_T2/R_T3/R_T4
+        weight: 1
+      - path: RiggityRig/Tail1
+        weight: 1
+      - path: RiggityRig/Tail1/Tail2
+        weight: 1
+      - path: RiggityRig/Tail1/Tail2/Tail3
+        weight: 1
+      - path: RiggityRig/Tail1/Tail2/Tail3/Tail4
+        weight: 1
+      - path: RiggityRig/Tail1/Tail2/Tail3/Tail4/Tail5
+        weight: 1
+      - path: Shoulders
+        weight: 1
+      - path: Staff
+        weight: 1
+      - path: Wizard
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 40
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
