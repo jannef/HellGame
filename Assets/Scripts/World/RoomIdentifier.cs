@@ -1,7 +1,9 @@
 ﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.input;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace fi.tamk.hellgame.world
@@ -14,17 +16,25 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private GameObject _playerPrefab;
 
         public static event Action PlayerDeath;
-        public static event Action EncounterStart;
         public static event Action RoomCompleted;
+
+        public static event Action GamePaused;
+        public static event Action GameResumed;
+        private static bool isGamePaused = false;
+
+        private static List<Action> _onPausedActions = new List<Action>();
+        private static List<Action> _onGameResumeActions = new List<Action>();
 
         private void Awake()
         {
             _playerSpawnPoint = GetComponentInChildren<Transform>();
             GameObject go = null;
+            GamePaused = null;
+            GameResumed = null;
             PlayerDeath = null;
             RoomCompleted = null;
-            EncounterStart = null;
             HealthComponent hc = null;
+            SceneManager.sceneLoaded += InitializeAtSceneStart;
 
             var roomManager = FindObjectOfType<RoomManager>();
             if (roomManager == null)
@@ -70,6 +80,24 @@ namespace fi.tamk.hellgame.world
             }
         }
 
+        private void InitializeAtSceneStart(Scene scene, LoadSceneMode mode)
+        {
+            SceneManager.sceneLoaded -= InitializeAtSceneStart;
+
+            foreach (Action action in _onPausedActions)
+            {
+                GamePaused += action;
+            }
+
+            foreach (Action action in _onGameResumeActions)
+            {
+                GameResumed += action;
+            }
+
+            _onGameResumeActions = null;
+            _onPausedActions = null;
+        }
+
         private void OnPlayerDeath()
         {
             if (PlayerDeath != null) PlayerDeath.Invoke();
@@ -80,9 +108,30 @@ namespace fi.tamk.hellgame.world
             if (RoomCompleted != null) RoomCompleted.Invoke();
         }
 
-        public static void OnEncounterBegin()
+        public static void PauseGame()
         {
-            if (EncounterStart != null) EncounterStart.Invoke();
+            if (isGamePaused)
+            {
+                if (GameResumed != null) GameResumed.Invoke();
+            } else
+            {
+                if (GamePaused != null) GamePaused.Invoke();
+            }
+
+            isGamePaused = !isGamePaused;
+        }
+
+        public static void AddOnPauseListenerAtAwake(Action action)
+        {
+            if (_onPausedActions == null) _onPausedActions = new List<Action>();
+
+            _onPausedActions.Add(action);
+        }
+
+        public static void AddOnResumeListenerAtAwake(Action action)
+        {
+            if (_onGameResumeActions == null) _onGameResumeActions = new List<Action>();
+            _onGameResumeActions.Add(action);
         }
     }
 }

@@ -48,14 +48,6 @@ namespace fi.tamk.hellgame.world
             CurrentState.OnEnter();
         }
 
-        public void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.X))
-            {          
-                EnterState(new GenericTimeState(0.1f, 0f, this));
-            }
-        }
-
         public void LateUpdate()
         {
             if (States.Count > 0) CurrentState.Timestep(Time.unscaledDeltaTime);
@@ -69,6 +61,23 @@ namespace fi.tamk.hellgame.world
         public void SlowDownPeriod(float lenght, float timescale)
         {
             EnterState(new GenericTimeState(lenght, timescale, this));
+        }
+
+        private void PauseTime()
+        {
+            EnterState(new GenericTimeState(Mathf.Infinity, 0, this));
+        }
+
+        private void ResumeTime()
+        {
+            EndState();
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            RoomIdentifier.AddOnPauseListenerAtAwake(PauseTime);
+            RoomIdentifier.AddOnResumeListenerAtAwake(ResumeTime);
         }
     }
 }

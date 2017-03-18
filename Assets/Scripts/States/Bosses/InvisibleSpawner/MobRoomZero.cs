@@ -46,11 +46,6 @@ namespace fi.tamk.hellgame.states
             NextWave();
         }
 
-        private void Initialize(Scene scene, LoadSceneMode mode)
-        {
-            RoomIdentifier.EncounterStart += NextWave;
-        }
-
         private void MinionHasDied()
         {
             _activeMinions--;

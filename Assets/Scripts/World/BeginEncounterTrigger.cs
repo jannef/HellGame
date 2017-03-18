@@ -6,10 +6,5 @@ namespace fi.tamk.hellgame.world
 {
     public class BeginEncounterTrigger : MonoBehaviour
     {
-
-        public void BeginEncounter()
-        {
-            RoomIdentifier.OnEncounterBegin();
-        }
     }
 }
