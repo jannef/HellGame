@@ -5,6 +5,8 @@ using System.Text;
 using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.world;
+using fi.tamk.hellgame.dataholders;
+using UnityEngine;
 
 namespace fi.tamk.hellgame.states
 {
@@ -60,13 +62,24 @@ namespace fi.tamk.hellgame.states
             return base.CheckTransitionLegality(toWhichState);
         }
 
+        private WallBossTransitionPhaseStats GetTransitionStats(int phase)
+        {
+            Debug.Log(phase);
+
+            var bossExternalObjects = ControlledActor.GetComponent<BossExternalObjects>();
+
+            var stats = UnityEngine.Object.Instantiate(bossExternalObjects.ScriptableObjects[9 + phase]) as WallBossTransitionPhaseStats;
+
+            return stats;
+        }
+
         public override bool TakeDamage(int howMuch, ref int health, ref bool flinch)
         {
             if (BaseValues.phaseNumber < 3)
             {
                 if (health <= BaseValues.MaxHealth - (.33f * BaseValues.MaxHealth * (BaseValues.phaseNumber + 1)))
                 {
-                    ControlledActor.GoToState(new WallBossPhaseTransition(ControlledActor, BaseValues, 10f));
+                    ControlledActor.GoToState(new WallBossPhaseTransition(ControlledActor, BaseValues, GetTransitionStats(BaseValues.phaseNumber)));
                 }
             }
 

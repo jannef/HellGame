@@ -19,7 +19,7 @@ namespace fi.tamk.hellgame.effectors
             Effect.SetOnstart(LaunchCollectiables, new float[0]);
         }
 
-        void LaunchCollectiables(float[] args)
+        protected virtual void LaunchCollectiables(float[] args)
         {
             if (amountDropped == 0) return;
             var degrees = 360 / amountDropped; 

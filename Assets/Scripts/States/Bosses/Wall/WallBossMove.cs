@@ -17,15 +17,30 @@ namespace fi.tamk.hellgame.states
         private float _t = 0;
         private float _setupTime;
         private AnimationCurve _easingCurve;
+        private event Action InterruptionEvent;
 
         public WallBossMove(ActorComponent controlledHero, WallBossAbstractValues values, Vector3 positionToGoTo, 
-            WallBossMovement movementParams) : base(controlledHero, values)
+            WallBossMovement movementParams, Action interruptionAction = null) : base(controlledHero, values)
         {
             _moveLenght = (ControlledActor.transform.position - positionToGoTo).magnitude / movementParams.MovementSpeed;
             _startingPosition = ControlledActor.transform.position;
             _finalPosition = new Vector3(positionToGoTo.x, ControlledActor.transform.position.y, positionToGoTo.z);
             _easingCurve = movementParams.MovementCurve;
             _setupTime = movementParams.MovementDelay;
+            if (interruptionAction != null)
+            {
+                InterruptionEvent += interruptionAction;
+            }
+        }
+
+        public override TransitionType CheckTransitionLegality(InputStates toWhichState)
+        {
+            if (toWhichState == InputStates.WallBossTransition)
+            {
+                InterruptionEvent.Invoke();
+                InterruptionEvent = null;
+            }
+            return base.CheckTransitionLegality(toWhichState);
         }
 
         public override void HandleInput(float deltaTime)
@@ -49,7 +64,6 @@ namespace fi.tamk.hellgame.states
         {
             ControlledActor.transform.position = _finalPosition;
             ControlledActor.ToPreviousState();
-            Debug.Log("Moving");
         }
 
         public override InputStates StateId

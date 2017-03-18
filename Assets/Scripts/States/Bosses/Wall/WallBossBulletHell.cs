@@ -46,9 +46,9 @@ namespace fi.tamk.hellgame.states
             _rightEye.AddGunToFiringList(true, _stats.RightEyeTurret);
         }
 
-        public override void OnExitState()
+        public override void OnSuspendState()
         {
-            base.OnExitState();
+            base.OnSuspendState();
             _leftEye.StopFiring();
             _rightEye.StopFiring();
         }
@@ -70,6 +70,11 @@ namespace fi.tamk.hellgame.states
         public override void OnResumeState()
         {
             base.OnResumeState();
+            var playerTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
+            _leftEye.AddGunToFiringList(true, _stats.LeftEyeTurrets);
+            _leftEye.AimAtTransform(playerTransform);
+            _rightEye.AimAtTransform(playerTransform);
+            _rightEye.AddGunToFiringList(true, _stats.RightEyeTurret);
         }
 
         public override void HandleInput(float deltaTime)

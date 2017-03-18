@@ -70,7 +70,7 @@ namespace fi.tamk.hellgame.states
 
                 ControlledActor.GoToState(new WallBossMove(ControlledActor, BaseValues, 
                     BaseValues.wayPointList.WayPointList[BaseValues.currentPositionIndex].position,
-                    _stats._movements[attackNumber]));
+                    _stats._movements[attackNumber], StopFiringLasers));
                 
             } else
             {
@@ -88,10 +88,15 @@ namespace fi.tamk.hellgame.states
             
         }
 
+        private void StopFiringLasers()
+        {
+            if (_stopFiringLasers != null) _stopFiringLasers.Invoke();
+        }
+
         public override void OnExitState()
         {
             base.OnExitState();
-            if (_stopFiringLasers != null) _stopFiringLasers.Invoke();
+            StopFiringLasers();
         }
 
         public override InputStates StateId
