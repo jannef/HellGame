@@ -1,6 +1,9 @@
-﻿using fi.tamk.hellgame.utils;
+﻿using System;
+using fi.tamk.hellgame.utils;
 using System.Collections.Generic;
 using System.Reflection;
+using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.projectiles
@@ -8,6 +11,11 @@ namespace fi.tamk.hellgame.projectiles
     [RequireComponent(typeof(ParticleSystem))]
     public class ParticleBulletSystem : MonoBehaviour
     {
+        public delegate void HandleOneParticle(ref ParticleSystem.Particle particle);
+
+        [SerializeField] protected AdvancedBulletBehavior[] AdvancedBehavior;
+        [SerializeField] protected float[] RuntimeConfigFloats;
+
         public int Damage = 1;
         public float Speed = 10f;
 
@@ -29,6 +37,26 @@ namespace fi.tamk.hellgame.projectiles
             }
         }
 
+        protected void LateUpdate()
+        {
+            if (AdvancedBehavior.Length > 1) return;
+            var numberOfBullets = BulletSystem.GetParticles(Bullets);
+            foreach (var behavior in AdvancedBehavior)
+            {
+                behavior.CacheFrameData(WorldStateMachine.Instance.DeltaTime);
+                ParticleManipulationLoop(ref Bullets, numberOfBullets, behavior.Action);
+            }
+            BulletSystem.SetParticles(Bullets, numberOfBullets);
+        }
+
+        protected virtual void ParticleManipulationLoop(ref ParticleSystem.Particle[] particles, int numberOfParticles, HandleOneParticle action)
+        {
+            for (var i = 0; i < numberOfParticles; ++i)
+            {
+                action(ref particles[i]);
+            }    
+        }
+
         protected void Awake()
         {
             BulletSystem = GetComponentInChildren<ParticleSystem>();
@@ -39,7 +67,7 @@ namespace fi.tamk.hellgame.projectiles
         {
             var emissionParams = new ParticleSystem.EmitParams
             {
-                position = @from,
+                position = from,
                 velocity = velocity.normalized*Speed
             };
             var angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
