@@ -12,11 +12,12 @@ namespace Assets.Scripts.States.Player
     public abstract class InputTakingState : StateAbstract
     {
         protected InputController MyInputController;
+        protected Animator CharacterAnimator;
 
         protected InputTakingState(ActorComponent controlledHero) : base(controlledHero)
         {
-            MyInputController = ControlledActor.gameObject.GetComponent<InputController>();
-            if (MyInputController == null) throw new UnityException("Input handling state can't find InputController in the GameObject!");
+            MyInputController = ControlledActor.gameObject.GetComponent<InputController>() ?? new UnityException("Input handling state can't find InputController in the player GameObject!").Throw<InputController>();
+            CharacterAnimator = ControlledActor.gameObject.GetComponentInChildren<Animator>();
         }
     }
 }

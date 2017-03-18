@@ -7,7 +7,7 @@ namespace fi.tamk.hellgame.character
 
     public class HealthBlinkComponent : MonoBehaviour
     {
-        private Renderer _renderer;
+        [SerializeField] private Renderer _renderer;
         [SerializeField] private float _startFrequency;
         [SerializeField] private float _endFrequency;
         [SerializeField] private Color _colorToBlinkInto;
@@ -19,7 +19,6 @@ namespace fi.tamk.hellgame.character
         void Awake()
         {
             var hc = GetComponent<HealthComponent>();
-            _renderer = GetComponent<Renderer>();
             hc.HealthChangeEvent += HealthChanged;
             this.enabled = false;
             _startColor = _renderer.material.color;

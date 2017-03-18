@@ -48,7 +48,7 @@ namespace fi.tamk.hellgame.states
 
         public override void HandleInput(float deltaTime)
         {
-            StateTime += deltaTime;
+            base.HandleInput(deltaTime);
 
             if (StateTime >= ControlledActor.ActorNumericData.ActorFloatData[(int) ActorDataMap.DashDuration] * _dashLenghtMultiplier * .85f)
             {
@@ -83,12 +83,14 @@ namespace fi.tamk.hellgame.states
             OriginalLayer = ControlledActor.gameObject.layer;
             ControlledActor.gameObject.SetLayer(Constants.PlayerDashingLayer, false);
             _dashComponent.StartDash();
+            CharacterAnimator.speed = 0f;
         }
 
         public override void OnExitState()
         {
             ControlledActor.gameObject.SetLayer(OriginalLayer, false);
             _dashComponent.StopDash();
+            CharacterAnimator.speed = 1f;
         }
     }
 }

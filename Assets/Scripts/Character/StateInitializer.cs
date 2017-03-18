@@ -45,17 +45,11 @@ namespace fi.tamk.hellgame.character
                 case InputStates.Error:
                     outPutState = null;
                     break;
-                case InputStates.Paused:
-                    outPutState = new StatePaused(hc);
-                    break;
                 case InputStates.HomingEnemy:
                     outPutState = new HomingEnemyState(hc);
                     break;
                 case InputStates.Dead:
                     outPutState = null;
-                    break;
-                case InputStates.Obstacle:
-                    outPutState = new StateObstacle(hc);
                     break;
                 case InputStates.EnemyTurret:
                     outPutState = new EnemyTurret(hc);

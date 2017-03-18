@@ -60,8 +60,6 @@ namespace fi.tamk.hellgame.states
             {
                 ControlledActor.ToPreviousState();
             }
-
         }
-
     }
 }

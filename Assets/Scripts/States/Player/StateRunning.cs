@@ -47,7 +47,10 @@ namespace fi.tamk.hellgame.states
                 HeroAvatar.transform.position.y, HeroAvatar.transform.position.z + controllerLookInput.z));
             
             // Walk
-            HeroAvatar.Move(movementDirection * ControlledActor.ActorNumericData.ActorFloatData[(int)ActorDataMap.Speed] * deltaTime * movementSpeedMultiplier);
+            var speed = movementDirection * ControlledActor.ActorNumericData.ActorFloatData[(int) ActorDataMap.Speed] *
+                        deltaTime * movementSpeedMultiplier;
+            HeroAvatar.Move(speed);
+            CharacterAnimator.SetFloat("speed", speed.magnitude);
 
             // Limit break activation input
             if (MyInputController.PollButtonDown(Buttons.ButtonScheme.LimitBreak) && MyLimitBreak != null && MyLimitBreak.LimitAvailableOrActive)
@@ -79,6 +82,13 @@ namespace fi.tamk.hellgame.states
         {
             base.OnResumeState();
             if (ControlledActor.InputBuffer == Buttons.ButtonScheme.Dash) _dashBuffered = true;
+            CharacterAnimator.speed = 1f;
+        }
+
+        public override void OnEnterState()
+        {
+            base.OnEnterState();
+            CharacterAnimator.speed = 1f;
         }
 
         public StateRunning(ActorComponent hero) : base(hero)
