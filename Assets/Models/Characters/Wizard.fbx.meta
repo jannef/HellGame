@@ -88,6 +88,7 @@ ModelImporter:
     100160: Tail5
     100162: Wizard
     100164: //RootNode
+    100166: StaffHead_Fire
     400000: Belt
     400002: Head
     400004: Hood
@@ -171,14 +172,18 @@ ModelImporter:
     400160: Tail5
     400162: Wizard
     400164: //RootNode
+    400166: StaffHead_Fire
     2300000: Staff
+    2300002: StaffHead_Fire
     3300000: Staff
+    3300002: StaffHead_Fire
     4300000: Wizard
     4300002: Shoulders
     4300004: Hood
     4300006: Belt
     4300008: Staff
     4300010: L_Hand_New
+    4300012: StaffHead_Fire
     7400000: Run
     7400002: Idle
     9500000: //RootNode
