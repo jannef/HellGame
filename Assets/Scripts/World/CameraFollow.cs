@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using fi.tamk.hellgame.utils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace fi.tamk.hellgame.world
 {
@@ -71,6 +72,19 @@ namespace fi.tamk.hellgame.world
                 Mathf.Min(_corners[0].position.z, _corners[1].position.z),
                 Mathf.Max(_corners[0].position.z, _corners[1].position.z)
             };
+
+            SceneManager.sceneLoaded += SetCameraStartPosition;
+        }
+
+        private void SetCameraStartPosition(Scene scene, LoadSceneMode mode)
+        {
+            SceneManager.sceneLoaded -= SetCameraStartPosition;
+            var pos = new Vector3(
+                Mathf.Clamp((CameraPosition + _offset).x, _camLimits[0], _camLimits[1]),
+                _offset.y,
+                Mathf.Clamp((CameraPosition + _offset).z, _camLimits[2], _camLimits[3]));
+
+            if (_cameraInterestsRaw.Count > 0) transform.position = pos;
         }
 
         [ExecuteInEditMode]

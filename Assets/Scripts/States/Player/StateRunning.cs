@@ -32,7 +32,6 @@ namespace fi.tamk.hellgame.states
 
         public override void HandleInput(float deltaTime)
         {
-            Debug.Log("HandleInput");
             base.HandleInput(deltaTime);
             RunningMovement(deltaTime);
         }

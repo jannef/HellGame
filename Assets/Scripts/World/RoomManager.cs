@@ -20,7 +20,8 @@ namespace fi.tamk.hellgame.world
         SlimeBoss           = 1,
         MobRoom0            = 2,
         MobRoom1            = 3,
-        MobRoom4            = 4
+        MobRoom4            = 4,
+        MainMenu            = 5
     }
 
     public static class SceneLoadLock
@@ -31,7 +32,7 @@ namespace fi.tamk.hellgame.world
     public sealed class RoomManager : MonoBehaviour
     {
         public static PlayerSaveableData PlayerPersistentData = null;
-        public bool DebugMode;
+        public static bool DebugMode;
         public ButtonMap[] Inputs;
 
         public LegalScenes CurrentScene { get; private set; }
@@ -60,7 +61,7 @@ namespace fi.tamk.hellgame.world
             }
             else
             {
-                LoadRoom(LegalScenes.SlimeBoss);
+                LoadRoom(LegalScenes.MainMenu);
             }
 
 #if DEBUG_TEST
@@ -80,7 +81,18 @@ namespace fi.tamk.hellgame.world
                 PlayerPersistentData.MyConfig = player.gameObject.GetComponent<InputController>().MyConfig;
             }
 
-            SceneManager.LoadScene((int) whichRoom);
+            var transitionEffect = FindObjectOfType<SceneTransitionEffect>();
+
+            if (transitionEffect != null && !DebugMode)
+            {
+                Debug.Log("");
+                transitionEffect.StartSceneTransition((int)whichRoom);
+            } else
+            {
+                SceneManager.LoadScene((int)whichRoom);
+            }
+
+            
             SceneManager.sceneLoaded += ReleaseLock;
         }
 
