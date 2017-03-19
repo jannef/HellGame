@@ -1,5 +1,4 @@
-﻿using System;
-using fi.tamk.hellgame.utils;
+﻿using fi.tamk.hellgame.utils;
 using System.Collections.Generic;
 using System.Reflection;
 using fi.tamk.hellgame.dataholders;
@@ -43,8 +42,16 @@ namespace fi.tamk.hellgame.projectiles
             var numberOfBullets = BulletSystem.GetParticles(Bullets);
             foreach (var behavior in AdvancedBehavior)
             {
-                behavior.CacheFrameData(WorldStateMachine.Instance.DeltaTime);
-                ParticleManipulationLoop(ref Bullets, numberOfBullets, behavior.Action);
+                var gpuBehavior = behavior as GpuAcceleratedBulletBehavior;
+                if (gpuBehavior == null)
+                {
+                    behavior.CacheFrameData(WorldStateMachine.Instance.DeltaTime);
+                    ParticleManipulationLoop(ref Bullets, numberOfBullets, behavior.Action);
+                }
+                else
+                {
+                    gpuBehavior.BatchedAction(ref Bullets, numberOfBullets);
+                }
             }
             BulletSystem.SetParticles(Bullets, numberOfBullets);
         }
@@ -61,6 +68,12 @@ namespace fi.tamk.hellgame.projectiles
         {
             BulletSystem = GetComponentInChildren<ParticleSystem>();
             Bullets = new ParticleSystem.Particle[BulletSystem.main.maxParticles];
+
+            foreach (var behavior in AdvancedBehavior)
+            {
+                var gpuBehavior = behavior as GpuAcceleratedBulletBehavior;
+                if (gpuBehavior != null) gpuBehavior.InitializeBatch(BulletSystem.main.maxParticles);
+            }
         }
 
         public void EmitBullet(Vector3 from, Vector3 velocity)
@@ -84,6 +97,14 @@ namespace fi.tamk.hellgame.projectiles
             var instance = typeof(ParticleSystem.CollisionModule).GetField("m_ParticleSystem", BindingFlags.NonPublic | BindingFlags.Instance);
             var value = instance.GetValue(BulletSystem.collision);
             methdod.Invoke(value, new object[] {value, (int)maskToSet});
+        }
+
+        public void OnDestroy()
+        {
+            foreach (var behavior in AdvancedBehavior)
+            {
+                behavior.ReleaseResources();
+            }
         }
     }
 }

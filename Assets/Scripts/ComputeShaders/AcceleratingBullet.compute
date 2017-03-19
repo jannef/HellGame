@@ -1,0 +1,16 @@
+﻿#pragma kernel CSMain
+
+struct DataStruct
+{
+	float3 velocity;
+};
+
+RWStructuredBuffer<DataStruct> dataBuffer;
+float accelerate;
+float delta;
+
+[numthreads(64,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+	dataBuffer[id.x].velocity.xyz += normalize(dataBuffer[id.x].velocity.xyz) * delta * accelerate;
+}

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace fi.tamk.hellgame.dataholders
 {
@@ -16,6 +15,10 @@ namespace fi.tamk.hellgame.dataholders
             // Shit can get very real when doing stuff inside this method. It is called for EACH particle during EACH FRAME of affected systems.
             // For reference consult: https://msdn.microsoft.com/en-us/library/ms973852.aspx about what you should avoid doing...
         }
+
+        public virtual void BatchedAction(ref ParticleSystem.Particle[] particleBuffer, int numberOfParticles) { }
+
+        public virtual void InitializeBatch(int maxBatchSize) { }
 
         /// <summary>
         /// Caches values for calculations happening during a frame.
@@ -34,7 +37,12 @@ namespace fi.tamk.hellgame.dataholders
         /// <param name="additionalParams">the parameters passed from the outside.</param>
         protected virtual void AdditionalParameters(params object[] additionalParams)
         {
-            
+            // Will probably be removed...
         }
+
+        /// <summary>
+        /// Releases allocated resources.
+        /// </summary>
+        public virtual void ReleaseResources() { }
     }
 }
