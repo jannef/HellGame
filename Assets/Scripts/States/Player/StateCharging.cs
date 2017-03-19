@@ -20,6 +20,19 @@ namespace fi.tamk.hellgame.states
             }
         }
 
+        public override TransitionType CheckTransitionLegality(InputStates toWhichState)
+        {
+            switch (toWhichState)
+            {
+                case InputStates.Dead:
+                    return TransitionType.LegalOneway;
+                case InputStates.Paused:
+                    return TransitionType.LegalTwoway;
+                default:
+                    return TransitionType.LegalOneway;
+            }
+        }
+
         public StateCharging(ActorComponent hero) : base(hero)
         {
             

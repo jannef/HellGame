@@ -30,6 +30,7 @@ namespace fi.tamk.hellgame.world
             _playerSpawnPoint = GetComponentInChildren<Transform>();
             GameObject go = null;
             GamePaused = null;
+            isGamePaused = false;
             GameResumed = null;
             PlayerDeath = null;
             RoomCompleted = null;
@@ -94,8 +95,8 @@ namespace fi.tamk.hellgame.world
                 GameResumed += action;
             }
 
-            _onGameResumeActions = null;
-            _onPausedActions = null;
+            _onGameResumeActions.Clear();
+            _onPausedActions.Clear();
         }
 
         private void OnPlayerDeath()
@@ -124,7 +125,6 @@ namespace fi.tamk.hellgame.world
         public static void AddOnPauseListenerAtAwake(Action action)
         {
             if (_onPausedActions == null) _onPausedActions = new List<Action>();
-
             _onPausedActions.Add(action);
         }
 

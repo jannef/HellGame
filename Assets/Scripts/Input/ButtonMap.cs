@@ -12,6 +12,7 @@ namespace fi.tamk.hellgame.input
         public string DashButton;
         public string LeftTrigger;
         public string LimitBreakButton;
+        public string PauseButton;
 
         public Buttons.InputType InputType;
     }

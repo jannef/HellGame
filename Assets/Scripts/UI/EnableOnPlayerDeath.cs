@@ -28,12 +28,20 @@ namespace fi.tamk.hellgame.ui
             RoomIdentifier.PlayerDeath += Activate;
         }
 
-        private void Activate()
+        public void Activate()
         {
             gameObject.SetActive(true);
             _canvasGroup.alpha = 1;
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
+        }
+
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+            _canvasGroup.alpha = 0;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
         }
     }
 }
