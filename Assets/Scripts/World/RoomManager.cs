@@ -34,6 +34,7 @@ namespace fi.tamk.hellgame.world
         public static PlayerSaveableData PlayerPersistentData = null;
         public static bool DebugMode;
         public ButtonMap[] Inputs;
+        private int currentInputModeIndex = 0;
 
         public LegalScenes CurrentScene { get; private set; }
 
@@ -104,6 +105,28 @@ namespace fi.tamk.hellgame.world
 
         private void LateUpdate()
         {
+            if (currentInputModeIndex != 1 && Input.GetKeyDown(KeyCode.Joystick1Button0))
+            {
+                if (Inputs.Length >= 1)
+                {
+                    SetController(Inputs[1]);
+                    currentInputModeIndex = 1;
+                }
+                else
+                    Debug.LogWarning("RoomManager does not have enough buttons schemes set up for debug button scheme change requested (F2)");
+            }
+
+            if (currentInputModeIndex != 0 && Input.GetKeyDown(KeyCode.Space))
+            {
+                if (Inputs.Length >= 1)
+                {
+                    SetController(Inputs[0]);
+                    currentInputModeIndex = 0;
+                }
+                else
+                    Debug.LogWarning("RoomManager does not have enough buttons schemes set up for debug button scheme change requested (F2)");
+            }
+
             if (!DebugMode) return;
 
             if (Input.GetKeyDown("1"))
