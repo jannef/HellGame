@@ -1,0 +1,17 @@
+﻿#pragma kernel CSMain
+
+struct DataStruct
+{
+	float3 position;
+	float stateTime;
+};
+
+RWStructuredBuffer<DataStruct> dataBuffer;
+float level;
+float maxTime;
+
+[numthreads(64,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+	dataBuffer[id.x].position.z = level + abs(2.6 * sin((maxTime - dataBuffer[id.x].stateTime) * 50));
+}
