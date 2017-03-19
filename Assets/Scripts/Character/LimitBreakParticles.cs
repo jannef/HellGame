@@ -1,8 +1,11 @@
-﻿using System.Reflection;
+﻿#define USE_CS
+
+using System.Reflection;
 using System.Linq;
 using UnityEngine;
 using System;
 using fi.tamk.hellgame.world;
+using NUnit.Compatibility;
 
 namespace fi.tamk.hellgame.character
 {
@@ -40,7 +43,9 @@ namespace fi.tamk.hellgame.character
         private bool _indicatorActive = false;
         private bool _aura = false;
         private float _timer = 0f;
+
         private ParticleSystem.Particle[] _indicatorBuffer;
+
         private float _indicatorParticlesPerSecond;
         private PropertyInfo _emissionRateProperty;
         private PropertyInfo _emissionRadiusProperty;
@@ -60,6 +65,13 @@ namespace fi.tamk.hellgame.character
             _limitController.PowerUpGained += (x, y) => IndicatorParticlesPerSecond = x * _indicatorParticleAmountMultiplier;
             _limitController.LimitBreakStateChange += SetAura;
             _limitController.LimitBreakDurationChange += SetEmissionRadius;
+
+// Initialization for compute shaders.
+#if USE_CS
+            _auraBuffer = new ParticleSystem.Particle[_limitAura.main.maxParticles];
+            _particlePositions = new BufferDataType[_limitAura.main.maxParticles];
+            _computeBuffer = new ComputeBuffer(_limitAura.main.maxParticles, 16); // second parameter is bytecount to be held in the buffer
+#endif
         }
 
         private void SetAura(bool aura, bool indicator)
@@ -90,6 +102,60 @@ namespace fi.tamk.hellgame.character
                 _limitAura.Emit(_indicatorAmounth);
                 _timer = 0f;
             }
+#if USE_CS
+            if (_aura && _cs != null)
+            {
+                ControlAura();
+            }
+#endif
+        }
+
+        [SerializeField] private ComputeShader _cs; // Unity can't serialize fields inside custom precompiler conditional statement.
+// Compute shader block
+#if USE_CS
+        private struct BufferDataType
+        {
+            public Vector3 position;
+            public float time;
+        }
+
+        private ParticleSystem.Particle[] _auraBuffer;
+        private BufferDataType[] _particlePositions;
+        private ComputeBuffer _computeBuffer;
+
+        private void ControlAura()
+        {
+            var numberOfParticles = _limitAura.GetParticles(_auraBuffer);
+            if (numberOfParticles < 1) return;
+
+            for (var i = 0; i < numberOfParticles; ++i)
+            {
+                _particlePositions[i].position = _auraBuffer[i].position;
+                _particlePositions[i].time = _auraBuffer[i].remainingLifetime;
+            }
+
+            _computeBuffer.SetData(_particlePositions);
+            var kernel = _cs.FindKernel("CSMain");
+
+            _cs.SetBuffer(kernel, "dataBuffer", _computeBuffer);
+            _cs.SetFloat("maxTime", _auraBuffer[0].startLifetime); // We have tested that the buffer has atleast one particle in it at the start of the method.
+            _cs.SetFloat("level", _limitAura.gameObject.transform.position.y);
+
+            _cs.Dispatch(kernel, numberOfParticles, 1, 1);
+            _computeBuffer.GetData(_particlePositions);
+
+            for (var i = 0; i < numberOfParticles; ++i)
+            {
+                _auraBuffer[i].position = _particlePositions[i].position;
+            }
+
+            _limitAura.SetParticles(_auraBuffer, numberOfParticles);
+        }
+#endif
+
+        private void OnDestroy()
+        {
+            _computeBuffer.Dispose();
         }
     }
 }
