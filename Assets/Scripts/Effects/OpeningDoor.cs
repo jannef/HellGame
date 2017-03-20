@@ -11,9 +11,14 @@ public class OpeningDoor : MonoBehaviour
     [SerializeField] private float openingDegreeAmount;
     [SerializeField] private AnimationCurve openingCurve;
 
-    public void OpenDoor()
+    private void Start()
     {
         StartCoroutine(OpeningCoroutine());
+    }
+
+    public void OpenDoor()
+    {
+        //StartCoroutine(OpeningCoroutine());
     }
 
     IEnumerator OpeningCoroutine()
@@ -24,6 +29,7 @@ public class OpeningDoor : MonoBehaviour
 
         while (t < 1)
         {
+            Debug.Log(t);
             t += WorldStateMachine.Instance.DeltaTime / openingLenght;
             transform.RotateAround(hindeTransform.position, openingAxis, (openingCurve.Evaluate(t) - lastT) * baseSpeed);
             lastT = openingCurve.Evaluate(t);

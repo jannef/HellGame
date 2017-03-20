@@ -21,7 +21,8 @@ namespace fi.tamk.hellgame.world
         MobRoom0            = 2,
         MobRoom1            = 3,
         MobRoom4            = 4,
-        MainMenu            = 5
+        MainMenu            = 5,
+        LevelSelectHub      = 6
     }
 
     public static class SceneLoadLock
