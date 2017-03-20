@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
@@ -17,10 +16,16 @@ namespace fi.tamk.hellgame.dataholders
         private const string SaveFile = "save.game";
         private static string SavePath { get { return string.Format("{0}/{1}", Application.persistentDataPath, SaveFile); } }
 
+//        [SerializeField] public static RoomSaveDataList RoomData = null;
         [SerializeField] public static RoomSaveDataList RoomData = new RoomSaveDataList();
 
         public static RoomSaveData GetRoomData(int roomIndex)
         {
+            // Uncomment to enable auto load. Also, remove = new RoomSaveDataList() from RoomData declaration
+//            if (RoomData == null)
+//            {
+//                LoadData();
+//            }
             return RoomData.Count < 1 ? null : RoomData.DefaultIfEmpty(null).FirstOrDefault(x => x.RoomIndex == roomIndex);
         }
 
@@ -34,6 +39,9 @@ namespace fi.tamk.hellgame.dataholders
             {
                 RoomData.Add(data);
             }
+
+            // Just uncommet to enable autosaving each time data is updated...
+//            SaveData();
         }
 
         public static void SaveData()
