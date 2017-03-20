@@ -1,20 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.dataholders
 {
-
+    [Serializable]
     public class RoomSaveData
     {
-
-        public int roomIndex;
-        public float recordTime;
+        [SerializeField] public int RoomIndex;
+        [SerializeField] public float RecordTime;
 
         public RoomSaveData(int roomIndex, float recordTime)
         {
-            this.roomIndex = roomIndex;
-            this.recordTime = recordTime;
+            RoomIndex = roomIndex;
+            RecordTime = recordTime;
         }
     }
 }
