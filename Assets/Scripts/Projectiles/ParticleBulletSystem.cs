@@ -69,10 +69,14 @@ namespace fi.tamk.hellgame.projectiles
             BulletSystem = GetComponentInChildren<ParticleSystem>();
             Bullets = new ParticleSystem.Particle[BulletSystem.main.maxParticles];
 
-            foreach (var behavior in AdvancedBehavior)
+            for (var index = 0; index < AdvancedBehavior.Length; index++)
             {
-                var gpuBehavior = behavior as GpuAcceleratedBulletBehavior;
-                if (gpuBehavior != null) gpuBehavior.InitializeBatch(BulletSystem.main.maxParticles);
+                AdvancedBehavior[index] = Instantiate(AdvancedBehavior[index]);
+                var gpuBehavior = AdvancedBehavior[index] as GpuAcceleratedBulletBehavior;
+                if (gpuBehavior != null)
+                {
+                    gpuBehavior.InitializeBatch(BulletSystem.main.maxParticles);
+                }
             }
         }
 
@@ -104,6 +108,7 @@ namespace fi.tamk.hellgame.projectiles
             foreach (var behavior in AdvancedBehavior)
             {
                 behavior.ReleaseResources();
+                DestroyImmediate(behavior);
             }
         }
     }
