@@ -11,14 +11,9 @@ public class OpeningDoor : MonoBehaviour
     [SerializeField] private float openingDegreeAmount;
     [SerializeField] private AnimationCurve openingCurve;
 
-    private void Start()
-    {
-        StartCoroutine(OpeningCoroutine());
-    }
-
     public void OpenDoor()
     {
-        //StartCoroutine(OpeningCoroutine());
+        StartCoroutine(OpeningCoroutine());
     }
 
     IEnumerator OpeningCoroutine()
