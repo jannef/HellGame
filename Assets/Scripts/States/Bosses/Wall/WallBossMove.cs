@@ -37,7 +37,7 @@ namespace fi.tamk.hellgame.states
         {
             if (toWhichState == InputStates.WallBossTransition)
             {
-                InterruptionEvent.Invoke();
+                if (InterruptionEvent != null) InterruptionEvent.Invoke();
                 InterruptionEvent = null;
             }
             return base.CheckTransitionLegality(toWhichState);

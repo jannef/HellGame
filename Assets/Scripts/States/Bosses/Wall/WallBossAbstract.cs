@@ -75,7 +75,7 @@ namespace fi.tamk.hellgame.states
 
         public override bool TakeDamage(int howMuch, ref int health, ref bool flinch)
         {
-            if (BaseValues.phaseNumber < 3)
+            if (BaseValues.phaseNumber < 2)
             {
                 if (health <= BaseValues.MaxHealth - (.33f * BaseValues.MaxHealth * (BaseValues.phaseNumber + 1)))
                 {

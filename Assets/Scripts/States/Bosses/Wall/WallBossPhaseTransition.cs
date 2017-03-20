@@ -55,6 +55,8 @@ namespace fi.tamk.hellgame.states
             var playerTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
             _leftEye.AimAtTransform(playerTransform);
             _rightEye.AimAtTransform(playerTransform);
+            _leftEye.StopFiring();
+            _rightEye.StopFiring();
 
             if (BaseValues.currentPositionIndex != 1)
             {
