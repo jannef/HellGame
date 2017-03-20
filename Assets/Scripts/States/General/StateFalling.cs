@@ -36,12 +36,6 @@ namespace fi.tamk.hellgame.states
             get { return InputStates.Falling; }
         }
 
-        public override void Teleport(Vector3 targetLocation)
-        {
-            base.Teleport(targetLocation);
-            while (ControlledActor.ToPreviousState());
-        }
-
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);

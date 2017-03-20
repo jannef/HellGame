@@ -56,7 +56,6 @@ namespace fi.tamk.hellgame.interfaces
         void OnExitState();
         void OnSuspendState();
         bool TakeDamage(int howMuch, ref int health, ref bool flinch);
-        void Teleport(Vector3 targetLocation);
         void HandleInput(float deltaTime);
 
         /// <summary>
