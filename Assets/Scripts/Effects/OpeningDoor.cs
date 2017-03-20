@@ -24,7 +24,6 @@ public class OpeningDoor : MonoBehaviour
 
         while (t < 1)
         {
-            Debug.Log(t);
             t += WorldStateMachine.Instance.DeltaTime / openingLenght;
             transform.RotateAround(hindeTransform.position, openingAxis, (openingCurve.Evaluate(t) - lastT) * baseSpeed);
             lastT = openingCurve.Evaluate(t);

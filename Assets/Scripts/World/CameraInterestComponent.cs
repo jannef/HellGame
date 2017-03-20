@@ -22,6 +22,8 @@ namespace fi.tamk.hellgame.world
 
         private void OnDestroy()
         {
+            if (SceneLoadLock.SceneChangeInProgress) return;
+
             if (!ServiceLocator.Quitting) Disable();
         }
     }

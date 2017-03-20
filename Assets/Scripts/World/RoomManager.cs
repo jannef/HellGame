@@ -155,6 +155,11 @@ namespace fi.tamk.hellgame.world
                 LoadRoom((LegalScenes)4);
             }
 
+            if (Input.GetKeyDown("5"))
+            {
+                LoadRoom((LegalScenes)5);
+            }
+
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 if (Inputs.Length >= 1)

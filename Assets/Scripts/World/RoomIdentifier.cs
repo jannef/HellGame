@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.input;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,7 @@ namespace fi.tamk.hellgame.world
             RoomCompleted = null;
             HealthComponent hc = null;
             SceneManager.sceneLoaded += InitializeAtSceneStart;
+            RoomCompleted += RoomClearedSave;
 
             var roomManager = FindObjectOfType<RoomManager>();
             if (roomManager == null)
@@ -79,6 +81,12 @@ namespace fi.tamk.hellgame.world
                     if (ic != null && RoomManager.PlayerPersistentData.MyConfig != null) ic.MyConfig = RoomManager.PlayerPersistentData.MyConfig;
                 }
             }
+        }
+
+        private void RoomClearedSave()
+        {
+            RoomCompleted -= RoomClearedSave;
+            UserStaticData.RoomClearedSave(new RoomSaveData(SceneId, 0));
         }
 
         private void InitializeAtSceneStart(Scene scene, LoadSceneMode mode)
