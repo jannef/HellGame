@@ -9,7 +9,6 @@ using fi.tamk.hellgame.world;
 namespace fi.tamk.hellgame.character
 {
     public delegate bool TakeDamageDelegate(int howMuch, ref int health, ref bool flinch);
-    public delegate void TeleportDelegate(Vector3 targetPosition);
 
     public delegate void ReportHealthChangeDelegate(float percentage, int currentHp, int maxHp);
 
@@ -32,7 +31,6 @@ namespace fi.tamk.hellgame.character
 
         public event ReportHealthChangeDelegate HealthChangeEvent;
         public int MaxHp;
-        public bool TeleportToSafetyAfterDisplacingHit;
 
         protected TakeDamageDelegate DamageDelegate
         {
@@ -45,13 +43,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField] public UnityEvent DeathEffect;
         [SerializeField] public UnityEvent HitFlinchEffect;
         protected ActorComponent ActorComponent;
-        protected TeleportDelegate TeleportToSafety
-        {
-            get
-            {
-                return ActorComponent.Teleport;
-            }
-        }
+
 
         public bool HasDied = false;
         private bool _hasBeenHitThisFrame = false;
@@ -95,12 +87,7 @@ namespace fi.tamk.hellgame.character
         }
 
         public void TakeDisplacingDamage(int howMuch) {
-            TakeDamage(howMuch);
-            if (TeleportToSafetyAfterDisplacingHit && Health > 0 && TeleportToSafety != null)
-            {
-                //TODO: Have Respawnpoints check for spawn safety
-                TeleportToSafety(ServiceLocator.Instance.GetNearestRespawnPoint(transform.position).transform.position);
-            }
+            TakeDamage(howMuch);            
         }
 
         public virtual void Die()

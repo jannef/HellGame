@@ -22,7 +22,6 @@ namespace fi.tamk.hellgame.utils
         }
         public bool RoomBeaten = false;
         private readonly List<PlayerData> _players = new List<PlayerData>();
-        private readonly List<RespawnPoint> _respawnPoints = new List<RespawnPoint>();
         private CameraFollow _mainCameraFollow;
         public static float[] WorldLimits;
 
@@ -47,24 +46,6 @@ namespace fi.tamk.hellgame.utils
         public void UnregisterPlayer(GameObject player)
         {
             if (_players.Count(x => x.Transform = player.transform) > 0) _players.RemoveAll(x => x.Transform == player.transform);
-        }
-
-        public void RegisterRespawnPoint(RespawnPoint respawnPoint)
-        {
-            if (_respawnPoints.Contains(respawnPoint)) return;
-
-            _respawnPoints.Add(respawnPoint);
-        }
-
-        public void UnregisterRespawnPoint(RespawnPoint respawnPoint)
-        {
-            if (_respawnPoints.Contains(respawnPoint)) _respawnPoints.Remove(respawnPoint);
-        }
-
-        public RespawnPoint GetNearestRespawnPoint(Vector3 requerPosition)
-        {
-            if (Quitting) return null;
-            return _respawnPoints.Count < 1 ? null : _respawnPoints.OrderBy(t => (t.transform.position - requerPosition).sqrMagnitude).Last();
         }
 
         public Transform GetNearestPlayer(Vector3 requerPosition)
