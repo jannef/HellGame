@@ -12,6 +12,7 @@ namespace fi.tamk.hellgame.world
     public sealed class RoomIdentifier : MonoBehaviour
     {
         public int SceneId;
+        public static float RoomCompletionTime;
         [SerializeField] private bool _spawnPlayer = true;
         private Transform _playerSpawnPoint;
         [SerializeField] private GameObject _playerPrefab;
@@ -86,7 +87,7 @@ namespace fi.tamk.hellgame.world
         private void RoomClearedSave()
         {
             RoomCompleted -= RoomClearedSave;
-            UserStaticData.RoomClearedSave(new RoomSaveData(SceneId, 0));
+            UserStaticData.RoomClearedSave(new RoomSaveData(SceneId, RoomCompletionTime));
         }
 
         private void InitializeAtSceneStart(Scene scene, LoadSceneMode mode)

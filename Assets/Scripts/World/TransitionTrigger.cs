@@ -1,4 +1,7 @@
-﻿using fi.tamk.hellgame.input;
+﻿using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.input;
+using fi.tamk.hellgame.ui;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +14,9 @@ namespace fi.tamk.hellgame.world
         [SerializeField] protected bool InvisibleTransitionTrigger = false;
         [SerializeField] protected bool AutomaticTransitionTrigger = false;
         [SerializeField] protected Color HilightColor;
+        [SerializeField] protected RoomPopUpData popUpData;
+        public event RoomPopUpAction PlayerEnterEvent;
+        public event Action PlayerExitTriggerEvent;
 
         private int PlayersInside
         {
@@ -62,6 +68,8 @@ namespace fi.tamk.hellgame.world
                 if (!InvisibleTransitionTrigger) _material.color = HilightColor;
             }
 
+            if (PlayerEnterEvent != null && popUpData != null) PlayerEnterEvent.Invoke(popUpData);
+
             PlayersInside++;
         }
 
@@ -73,6 +81,8 @@ namespace fi.tamk.hellgame.world
                 _playerInput = null;
                 if (!InvisibleTransitionTrigger) _material.color = _originalColor;
             }
+
+            if (PlayerExitTriggerEvent != null) PlayerExitTriggerEvent.Invoke();
         }
 
         public void Update()

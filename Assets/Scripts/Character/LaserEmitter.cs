@@ -53,7 +53,7 @@ public class LaserEmitter : BulletEmitter {
             StopAllCoroutines();
         }
 
-        StartCoroutine(LaserRoutine());
+        StartCoroutine(LaserRoutine(true));
 
         Timer = 0f;
     }

@@ -56,11 +56,18 @@ namespace fi.tamk.hellgame.states
             }
         }
 
+        private void EndEncounter()
+        {
+            RoomIdentifier.RoomCompletionTime = StateTime;
+            RoomIdentifier.OnRoomCompleted();
+
+        }
+
         private void NextWave()
         {
             if (_phase >= _spawnWaves.Length)
             {
-                RoomIdentifier.OnRoomCompleted();
+                EndEncounter();
                 return;
             }
 
