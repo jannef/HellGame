@@ -18,6 +18,7 @@ public class LaserEmitter : BulletEmitter {
 
     [SerializeField, Range(0f, 10f)] protected float WarningLenght;
     [SerializeField, Range(0.06f, 10f)] protected float LaserLenght;
+    [SerializeField, Range(0.01f, 1f)] protected float LaserColliderWidthMultiplier;
 
     private CapsuleCollider _laserCollider;
     private float _parentSizeModifier;
@@ -181,7 +182,7 @@ public class LaserEmitter : BulletEmitter {
         _laserCollider.transform.position = startPoint + (direction) / 2;
         _laserCollider.transform.up = direction;
         _laserCollider.height = direction.magnitude / _parentSizeModifier;
-        _laserCollider.radius = width / 2 / _parentSizeModifier / 3;
+        _laserCollider.radius = (width / 2 / _parentSizeModifier) * LaserColliderWidthMultiplier;
     }
 
     public override void DetachBulletEmitter(Vector3 localScale)

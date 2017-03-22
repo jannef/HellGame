@@ -124,6 +124,7 @@ namespace fi.tamk.hellgame.character
 
                 time = 0;
 
+                if (FiringEvent != null) FiringEvent.Invoke();
                 FireBullets(GunVector);
                 yield return null;
             }

@@ -121,6 +121,8 @@ namespace fi.tamk.hellgame.states
 
         private void StartLaserAttack()
         {
+            
+            BaseValues.currentPositionIndex = DetermineCurrentPositionIndex();
             _leftEye.StopFiring();
             _rightEye.StopFiring();
 
@@ -149,27 +151,28 @@ namespace fi.tamk.hellgame.states
             return;
         }
 
+        private int DetermineCurrentPositionIndex()
+        {
+            var magnitudeToClosestPoint = Mathf.Infinity;
+            int returnValue = 0;
+
+            for (int i = 0; i < BaseValues.wayPointList.WayPointList.Length; i++)
+            {
+                if ((BaseValues.wayPointList.WayPointList[i].position - ControlledActor.transform.position).sqrMagnitude < magnitudeToClosestPoint)
+                {
+                    returnValue = i;
+                    magnitudeToClosestPoint = (BaseValues.wayPointList.WayPointList[i].position - ControlledActor.transform.position).sqrMagnitude;
+                }
+            }
+
+            return returnValue;
+        }
+
         private void FirstLaserAttack()
         {
             BackFromMoveState -= FirstLaserAttack;
 
             ControlledActor.GoToState(new WallBossLaserAttack(ControlledActor, BaseValues, _leftEye, _rightEye, _currentLaserAttack));
-        }
-
-        private void LaserAttack()
-        {
-
-            if (BaseValues.currentPositionIndex == 0)
-            {
-                BaseValues.currentPositionIndex = 2;
-            }
-            else
-            {
-                BaseValues.currentPositionIndex = 0;
-            }
-
-            ControlledActor.GoToState(new WallBossMove(ControlledActor, BaseValues, BaseValues.wayPointList.WayPointList[BaseValues.currentPositionIndex].position,
-               _QuickMove));
         }
 
         private void StartMove()

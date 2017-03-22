@@ -8,9 +8,11 @@ namespace fi.tamk.hellgame.character
     {
         [SerializeField] private bool _autoDetachOnStart = false;
         private Transform _parent;
+        private Vector3 _offSet;
 
         private void Awake()
         {
+            _offSet = transform.localPosition;
             if (_autoDetachOnStart) DetachFromParent();
         }
 
@@ -23,7 +25,7 @@ namespace fi.tamk.hellgame.character
             }
             else
             {
-                transform.position = _parent.position;
+                transform.position = _parent.position + _offSet;
             }
         }
 
