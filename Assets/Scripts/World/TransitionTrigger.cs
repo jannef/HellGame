@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.world
 {
@@ -15,6 +16,7 @@ namespace fi.tamk.hellgame.world
         [SerializeField] protected bool AutomaticTransitionTrigger = false;
         [SerializeField] protected Color HilightColor;
         [SerializeField] protected RoomPopUpData popUpData;
+        public UnityEvent TriggerActivated;
         public event RoomPopUpAction PlayerEnterEvent;
         public event Action PlayerExitTriggerEvent;
 
@@ -87,7 +89,9 @@ namespace fi.tamk.hellgame.world
 
         internal virtual void ActivateTransition()
         {
+            if (TriggerActivated != null) TriggerActivated.Invoke();
             RoomManager.LoadRoom(TargetScene);
+            _active = false;
         }
 
         public void Update()

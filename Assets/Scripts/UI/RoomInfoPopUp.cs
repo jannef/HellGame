@@ -34,9 +34,9 @@ namespace fi.tamk.hellgame.ui
             _roomImage = GetComponentInChildren<Image>();
             _roomName = GetComponentInChildren<Text>();
 
-            var transitionTriggers = FindObjectsOfType<TransitionTrigger>();
+            var transitionTriggers = FindObjectsOfType<RoomPopUpTrigger>();
 
-            foreach (TransitionTrigger trigger in transitionTriggers)
+            foreach (RoomPopUpTrigger trigger in transitionTriggers)
             {
                 trigger.PlayerEnterEvent += StartPopUp;
                 trigger.PlayerExitTriggerEvent += RemovePopUp;

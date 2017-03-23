@@ -73,7 +73,7 @@ namespace fi.tamk.hellgame.world
 #endif
         }
 
-        public static void LoadRoom(LegalScenes whichRoom, bool resetPlayerStats = true)
+        public static void LoadRoom(LegalScenes whichRoom, bool transitionEffects = true, bool resetPlayerStats = true)
         {
             SceneLoadLock.SceneChangeInProgress = true;
 
@@ -92,9 +92,8 @@ namespace fi.tamk.hellgame.world
 
             var transitionEffect = FindObjectOfType<SceneTransitionEffect>();
 
-            if (transitionEffect != null && !DebugMode)
+            if (transitionEffect != null && transitionEffects)
             {
-                Debug.Log("");
                 transitionEffect.StartSceneTransition((int)whichRoom);
             } else
             {
@@ -139,47 +138,47 @@ namespace fi.tamk.hellgame.world
 
             if (Input.GetKeyDown("1"))
             {
-                LoadRoom((LegalScenes) 1);
+                LoadRoom((LegalScenes) 1, false);
             }
 
             if (Input.GetKeyDown("2"))
             {
-                LoadRoom((LegalScenes) 2);
+                LoadRoom((LegalScenes) 2, false);
             }
 
             if (Input.GetKeyDown("0"))
             {
-                LoadRoom((LegalScenes) 0);
+                LoadRoom((LegalScenes) 0, false);
             }
 
             if (Input.GetKeyDown("3"))
             {
-                LoadRoom((LegalScenes) 3);
+                LoadRoom((LegalScenes) 3, false);
             }
 
             if (Input.GetKeyDown("4"))
             {
-                LoadRoom((LegalScenes)4);
+                LoadRoom((LegalScenes)4, false);
             }
 
             if (Input.GetKeyDown("5"))
             {
-                LoadRoom((LegalScenes)5);
+                LoadRoom((LegalScenes)5, false);
             }
 
             if (Input.GetKeyDown("6"))
             {
-                LoadRoom((LegalScenes)6);
+                LoadRoom((LegalScenes)6, false);
             }
 
             if (Input.GetKeyDown("7"))
             {
-                LoadRoom((LegalScenes)7);
+                LoadRoom((LegalScenes)7, false);
             }
 
             if (Input.GetKeyDown("8"))
             {
-                LoadRoom((LegalScenes)8);
+                LoadRoom((LegalScenes)8, false);
             }
 
             if (Input.GetKeyDown(KeyCode.F1))
