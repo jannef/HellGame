@@ -85,13 +85,18 @@ namespace fi.tamk.hellgame.world
             if (PlayerExitTriggerEvent != null) PlayerExitTriggerEvent.Invoke();
         }
 
+        internal virtual void ActivateTransition()
+        {
+            RoomManager.LoadRoom(TargetScene);
+        }
+
         public void Update()
         {
             if ((_active && _playerInput != null && (_playerInput.PollButtonDown(Buttons.ButtonScheme.Dash)) ||
                 _active && AutomaticTransitionTrigger))
             {
                 if (TargetScene != LegalScenes.ErrorOrNone)
-                    RoomManager.LoadRoom(TargetScene);
+                    ActivateTransition();
                 else
                     throw new UnityException("TransitionTrigger with incorrectly set target was activated!");
             }

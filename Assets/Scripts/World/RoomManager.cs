@@ -73,7 +73,7 @@ namespace fi.tamk.hellgame.world
 #endif
         }
 
-        public static void LoadRoom(LegalScenes whichRoom)
+        public static void LoadRoom(LegalScenes whichRoom, bool resetPlayerStats = true)
         {
             SceneLoadLock.SceneChangeInProgress = true;
 
@@ -81,7 +81,12 @@ namespace fi.tamk.hellgame.world
             if (player != null)
             {
                 PlayerPersistentData = new PlayerSaveableData();
-                PlayerPersistentData.Health = player.gameObject.GetComponent<HealthComponent>().Health;
+                if (!resetPlayerStats)
+                {
+                    PlayerPersistentData.Health = player.gameObject.GetComponent<HealthComponent>().Health;
+                }
+                
+                
                 PlayerPersistentData.MyConfig = player.gameObject.GetComponent<InputController>().MyConfig;
             }
 

@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 using System;
 using fi.tamk.hellgame.world;
-using NUnit.Compatibility;
 
 namespace fi.tamk.hellgame.character
 {

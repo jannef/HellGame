@@ -23,6 +23,7 @@ namespace fi.tamk.hellgame.world
         public static event Action GamePaused;
         public static event Action GameResumed;
         private static bool isGamePaused = false;
+        public static bool IsPartOfWingRun = false;
 
         private static List<Action> _onPausedActions = new List<Action>();
         private static List<Action> _onGameResumeActions = new List<Action>();
@@ -75,10 +76,12 @@ namespace fi.tamk.hellgame.world
                 }
 
                 if (RoomManager.PlayerPersistentData != null && _spawnPlayer)
-                {                
-                    
+                {
                     var ic = go.GetComponent<InputController>();
-                    if (hc != null && hc.MaxHp != hc.Health) hc.TakeDamage(hc.MaxHp - RoomManager.PlayerPersistentData.Health);
+                    if (hc != null && hc.MaxHp != RoomManager.PlayerPersistentData.Health)
+                    {
+                        hc.Health = (hc.MaxHp - RoomManager.PlayerPersistentData.Health);
+                    }
                     if (ic != null && RoomManager.PlayerPersistentData.MyConfig != null) ic.MyConfig = RoomManager.PlayerPersistentData.MyConfig;
                 }
             }
@@ -87,6 +90,7 @@ namespace fi.tamk.hellgame.world
         private void RoomClearedSave()
         {
             RoomCompleted -= RoomClearedSave;
+            Debug.Log("Room save data: Scene: " + SceneId + ", Time: " + RoomCompletionTime);
             UserStaticData.RoomClearedSave(new RoomSaveData(SceneId, RoomCompletionTime));
         }
 
