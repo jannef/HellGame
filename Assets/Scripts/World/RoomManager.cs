@@ -22,7 +22,9 @@ namespace fi.tamk.hellgame.world
         MobRoom1            = 3,
         MobRoom4            = 4,
         MainMenu            = 5,
-        LevelSelectHub      = 6
+        LevelSelectHub      = 6,
+        MobRoom3            = 7,
+        WallBoss            = 8
     }
 
     public static class SceneLoadLock
@@ -158,6 +160,21 @@ namespace fi.tamk.hellgame.world
             if (Input.GetKeyDown("5"))
             {
                 LoadRoom((LegalScenes)5);
+            }
+
+            if (Input.GetKeyDown("6"))
+            {
+                LoadRoom((LegalScenes)6);
+            }
+
+            if (Input.GetKeyDown("7"))
+            {
+                LoadRoom((LegalScenes)7);
+            }
+
+            if (Input.GetKeyDown("8"))
+            {
+                LoadRoom((LegalScenes)8);
             }
 
             if (Input.GetKeyDown(KeyCode.F1))

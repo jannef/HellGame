@@ -45,7 +45,6 @@ namespace fi.tamk.hellgame.ui
 
         public void StartPopUp(RoomPopUpData popUpData)
         {
-            Debug.Log("Start");
 
             if (popUpData.popUpPicture != null)
             {
@@ -72,7 +71,6 @@ namespace fi.tamk.hellgame.ui
 
         public void RemovePopUp()
         {
-            Debug.Log("REmoce");
             StopAllCoroutines();
             StartCoroutine(MoveCanvas(_rectTransform, retractionLenght, _rectTransform.anchoredPosition, endPosition, retractionCurve));
         }
