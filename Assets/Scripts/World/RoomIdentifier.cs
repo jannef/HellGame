@@ -16,9 +16,12 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private bool _spawnPlayer = true;
         private Transform _playerSpawnPoint;
         [SerializeField] private GameObject _playerPrefab;
+        [SerializeField] private RoomClearingRanks roomClearingRankField;
+        public static RoomClearingRanks Ranks;
 
         public static event Action PlayerDeath;
         public static event Action RoomCompleted;
+        public static event Action<ClearingRank> RankGained;
 
         public static event Action GamePaused;
         public static event Action GameResumed;
@@ -30,11 +33,13 @@ namespace fi.tamk.hellgame.world
 
         private void Awake()
         {
+            Ranks = roomClearingRankField;
             _playerSpawnPoint = GetComponentInChildren<Transform>();
             GameObject go = null;
             GamePaused = null;
             isGamePaused = false;
             GameResumed = null;
+            RankGained = null;
             PlayerDeath = null;
             RoomCompleted = null;
             HealthComponent hc = null;
@@ -120,6 +125,11 @@ namespace fi.tamk.hellgame.world
         public static void OnRoomCompleted()
         {
             if (RoomCompleted != null) RoomCompleted.Invoke();
+        }
+
+        public static void OnRankGained(float time)
+        {
+            if (RankGained != null) RankGained.Invoke(Ranks.GetRankFromTime(time));
         }
 
         public static void PauseGame()
