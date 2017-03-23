@@ -57,18 +57,6 @@ namespace fi.tamk.hellgame.character
                 case InputStates.AimingEnemy:
                     outPutState = new AimingEnemy(hc);
                     break;
-                case InputStates.BossOneDefault:
-                    outPutState = new BossOneDefaultState(hc);
-                    break;
-                case InputStates.BlobSecond:
-                    outPutState = new BlobFirstFiringState(hc);
-                    break;
-                case InputStates.BlobThird:
-                    outPutState = new BlobThirdFiringPhase(hc);
-                    break;
-                case InputStates.BlobResting:
-                    outPutState = new BlobRestPhase(hc);
-                    break;
                 case InputStates.JumpRepeat:
                     outPutState = new JumpRepeatState(hc);
                     break;
