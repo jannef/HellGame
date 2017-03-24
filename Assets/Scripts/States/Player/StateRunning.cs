@@ -39,7 +39,6 @@ namespace fi.tamk.hellgame.states
         protected virtual void RunningMovement(float deltaTime)
         {
             var movementDirection = MyInputController.PollAxisLeft();
-            var movementSpeedMultiplier = (1 - MyInputController.PollLeftTrigger() * .55f); 
             var controllerLookInput = MyInputController.PollAxisRight();
 
             // Aim
@@ -48,7 +47,7 @@ namespace fi.tamk.hellgame.states
             
             // Walk
             var speed = movementDirection * ControlledActor.ActorNumericData.ActorFloatData[(int) ActorDataMap.Speed] *
-                        deltaTime * movementSpeedMultiplier;
+                        deltaTime;
             HeroAvatar.Move(speed);
             CharacterAnimator.SetFloat("speed", speed.magnitude);
 
@@ -59,18 +58,11 @@ namespace fi.tamk.hellgame.states
                 return;
             }
 
-            // Charge shot activation
-            if (movementSpeedMultiplier <= .96)
-            {
-                ControlledActor.GoToState(new StateCharging(ControlledActor));
-                return;
-            }
-
             // Dash activation and shooting
             if (MyInputController.PollButtonDown(Buttons.ButtonScheme.Dash) || _dashBuffered)
             {
                 _dashBuffered = false;
-                ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized, movementSpeedMultiplier));
+                ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized));
             }
             else if (MyInputController.PollButton(Buttons.ButtonScheme.Fire_1) || MyInputController.MyConfig.InputType == Buttons.InputType.ConsolePleb && controllerLookInput.sqrMagnitude > 0.001f)
             {
