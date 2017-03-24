@@ -10,7 +10,7 @@ namespace fi.tamk.hellgame.utils
     public static class StaticCoroutines
     {
 
-        public static IEnumerator BlinkCoroutine(Renderer renderer, float effectLenght, float startingFrequency, float endFrequency, AnimationCurve easingCurve)
+        public static IEnumerator BlinkCoroutine(Renderer renderer, float effectLenght, float startingFrequency, float endFrequency, AnimationCurve easingCurve, bool enableRendererAtEnd = true)
         {
             float t = 0;
             float lastBlinkT = startingFrequency;
@@ -34,7 +34,7 @@ namespace fi.tamk.hellgame.utils
             
 
             if (renderer == null) yield break;
-            renderer.enabled = true;
+            renderer.enabled = enableRendererAtEnd;
         }
 
         public static IEnumerator ConstantUIShakeRoutine(RectTransform shakedTransform, float intensity)

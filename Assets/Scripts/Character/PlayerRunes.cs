@@ -25,11 +25,12 @@ namespace fi.tamk.hellgame.character
             _runes = GetComponentsInChildren<ParticleSystem>();
             _idleRotation = GetComponentInChildren<IdleRotation>();
             startRotationSpeed = _idleRotation._rotationSpeed;
+            var detachAndFollow = GetComponentInChildren<DetachAndFollow>();
+            detachAndFollow.DetachFromParent();
         }
 
         public void UpdateRunes(float percentage, int currentHp, int maxHp)
         {
-            Debug.Log(currentHp);
             if (currentHp == _amountOfActiveRunes) return;
 
             if (currentHp < _amountOfActiveRunes)
@@ -78,7 +79,7 @@ namespace fi.tamk.hellgame.character
 
         private void UpdateRotation()
         {
-            _idleRotation._rotationSpeed = startRotationSpeed + ((maxActiveRuneAmount - _amountOfActiveRunes) * rotationSpeedIncreasePerHit);
+            _idleRotation._rotationSpeed = startRotationSpeed + ((maxActiveRuneAmount - Mathf.Clamp(_amountOfActiveRunes, 1, maxActiveRuneAmount)) * rotationSpeedIncreasePerHit);
         }
     }
 }
