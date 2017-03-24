@@ -48,6 +48,12 @@ namespace fi.tamk.hellgame.character
         [SerializeField] private PlayerLimitBreakStats _originalStats;
 
         /// <summary>
+        /// Original stats of the player.
+        /// </summary>
+        [SerializeField]
+        private float _onExplosionCollectiableDropAmountMultiplier;
+
+        /// <summary>
         /// Public getter for _collected points;
         /// </summary>
         public float CollectedPoints { get { return _collectedPoints; } }
@@ -102,7 +108,7 @@ namespace fi.tamk.hellgame.character
         private void OnPlayerHit(float percentage, int currentHp, int maxHp)
         {
             if (currentHp < _lastSeenHp) {       
-                for (var i = 0; i < _collectedPoints; i++)
+                for (var i = 0; i < _collectedPoints * _onExplosionCollectiableDropAmountMultiplier; i++)
                 {
                     var go = Pool.Instance.GetObject(Pool.PickupPrefab);
                     go.transform.position = transform.position + Vector3.up * 3f + UnityEngine.Random.onUnitSphere * 3f;
