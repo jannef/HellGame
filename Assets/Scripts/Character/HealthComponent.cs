@@ -26,6 +26,7 @@ namespace fi.tamk.hellgame.character
         /// the resposibility of that class to set this back to true and kill itselff off.
         /// </summary>
         public bool AllowDeath = true;
+        public bool ReturnToPoolAfterDeath = true;
 
         [HideInInspector] public float InvulnerabilityTimeLeft = 0f;
 
@@ -101,8 +102,11 @@ namespace fi.tamk.hellgame.character
                 b.DetachBulletEmitter(b.transform.localScale);
             }
 
-            var go = gameObject;
-            Pool.Instance.ReturnObject(ref go, true);
+            if (ReturnToPoolAfterDeath)
+            {
+                var go = gameObject;
+                Pool.Instance.ReturnObject(ref go, true);
+            }
         }
 
         public virtual void FlinchFromHit()
