@@ -12,6 +12,13 @@ public class OpeningDoor : MonoBehaviour
     [SerializeField] private AnimationCurve openingCurve;
     [SerializeField] private float closingLenght;
     [SerializeField] private AnimationCurve closingCurve;
+    [SerializeField] bool startOpen = false;
+
+    void Awake()
+    {
+        if (startOpen)
+        transform.RotateAround(hindeTransform.position, openingAxis, openingDegreeAmount);
+    }
 
     public void CloseDoor()
     {
