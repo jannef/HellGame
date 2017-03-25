@@ -11,11 +11,12 @@ namespace fi.tamk.hellgame.character
 
         [SerializeField] public float _rotationSpeed;
         [SerializeField] private Vector3 _rotationDirection;
+        [SerializeField] private Space _rotationSpace = Space.Self;
 
         // Update is called once per frame
         void Update()
         {
-            transform.Rotate(_rotationDirection.normalized * _rotationSpeed * WorldStateMachine.Instance.DeltaTime);
+            transform.Rotate(_rotationDirection.normalized * _rotationSpeed * WorldStateMachine.Instance.DeltaTime, _rotationSpace);
         }
     }
 }
