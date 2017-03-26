@@ -59,6 +59,7 @@ namespace fi.tamk.hellgame.states
             base.OnExitState();
             if (ExitStateSignal != null) ExitStateSignal.Invoke();
             if (_isDeploying) ControlledActor.transform.position = _landingPosition;
+            Debug.Log(_landingPosition);
         }
 
         public override void HandleInput(float deltaTime)
