@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 5a6dc94284e119e48bcdb58d3ebf0dc9
-timeCreated: 1490456671
+guid: 401f7418fc4f3af42b3eec4acc0c7780
+timeCreated: 1490529208
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,8 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: AutomatonShooter
-    4300002: AutomatonShooter1
+    4300000: pCylinder1
     9500000: //RootNode
   materials:
     importMaterials: 1

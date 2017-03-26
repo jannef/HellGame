@@ -6,11 +6,46 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Body
+    100004: BodyLow
+    100006: HugeAutomaton
+    100008: L
+    100010: L_1
+    100012: L_2
+    100014: L_3
+    100016: L_4
+    100018: L_5
+    100020: R
+    100022: R_1
+    100024: R_2
+    100026: R_3
+    100028: R_4
+    100030: R_5
+    100032: Rig
     400000: //RootNode
+    400002: Body
+    400004: BodyLow
+    400006: HugeAutomaton
+    400008: L
+    400010: L_1
+    400012: L_2
+    400014: L_3
+    400016: L_4
+    400018: L_5
+    400020: R
+    400022: R_1
+    400024: R_2
+    400026: R_3
+    400028: R_4
+    400030: R_5
+    400032: Rig
     2300000: //RootNode
     3300000: //RootNode
     4300000: LargeChaser2
+    4300002: HugeAutomaton
+    7400000: OMNOMNOMNOM
     9500000: //RootNode
+    13700000: HugeAutomaton
   materials:
     importMaterials: 1
     materialName: 1
@@ -33,7 +68,69 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: OMNOMNOMNOM
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: HugeAutomaton
+        weight: 1
+      - path: Rig
+        weight: 1
+      - path: Rig/Body
+        weight: 1
+      - path: Rig/Body/BodyLow
+        weight: 1
+      - path: Rig/L
+        weight: 1
+      - path: Rig/L/L_1
+        weight: 1
+      - path: Rig/L/L_1/L_2
+        weight: 1
+      - path: Rig/L/L_1/L_2/L_3
+        weight: 1
+      - path: Rig/L/L_1/L_2/L_3/L_4
+        weight: 1
+      - path: Rig/L/L_1/L_2/L_3/L_4/L_5
+        weight: 1
+      - path: Rig/R
+        weight: 1
+      - path: Rig/R/R_1
+        weight: 1
+      - path: Rig/R/R_1/R_2
+        weight: 1
+      - path: Rig/R/R_1/R_2/R_3
+        weight: 1
+      - path: Rig/R/R_1/R_2/R_3/R_4
+        weight: 1
+      - path: Rig/R/R_1/R_2/R_3/R_4/R_5
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
