@@ -134,7 +134,7 @@ namespace fi.tamk.hellgame.world
                     Debug.LogWarning("RoomManager does not have enough buttons schemes set up for debug button scheme change requested (F2)");
             }
 
-            if (!DebugMode) return;
+            //if (!DebugMode) return;
 
             if (Input.GetKeyDown("1"))
             {
