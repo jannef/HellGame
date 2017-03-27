@@ -22,6 +22,7 @@ namespace fi.tamk.hellgame.states
         private SpawnWave _spawnWave;
         private PassiveTurret _leftEye;
         private PassiveTurret _rightEye;
+        bool hasStoppedTransitionEffects = false;
 
         public WallBossPhaseTransition(ActorComponent controlledHero, WallBossAbstractValues values, WallBossTransitionPhaseStats stats) : base(controlledHero, values)
         {
@@ -42,6 +43,11 @@ namespace fi.tamk.hellgame.states
             if (StateTime >= lenght)
             {
                 MoveToNextState();
+            } else if (!hasStoppedTransitionEffects && StateTime >= lenght - 2.0f)
+            {
+                var PhaseEndedEvent = ControlledActor.GetComponent<BossStateCompletedEvent>();
+                if (PhaseEndedEvent != null) PhaseEndedEvent.TransitionPhaseCompleted();
+                hasStoppedTransitionEffects = true;
             }
         }
 
@@ -84,7 +90,6 @@ namespace fi.tamk.hellgame.states
 
         private void MoveToNextState()
         {
-            Debug.Log("To new state");
             ControlledActor.GoToState(new WallBoss(ControlledActor, BaseValues));
         }
 
