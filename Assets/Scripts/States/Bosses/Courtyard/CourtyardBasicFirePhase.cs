@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using fi.tamk.hellgame.character;
-using fi.tamk.hellgame.interfaces;
+﻿using fi.tamk.hellgame.character;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.states
 {
     public class CourtyardBasicFirePhase : CourtyardBase
     {
-        private float _endHp;
+        private readonly float _endHp;
 
         public CourtyardBasicFirePhase(ActorComponent controlledHero, float endHealthPercentage = .75f, CourtyardBase clonedState = null) : base(controlledHero, clonedState)
         {
@@ -26,7 +23,7 @@ namespace fi.tamk.hellgame.states
 
         protected override void OnHealthChange(float percentage, int currentHp, int maxHp)
         {
-            if (percentage < _endHp) Debug.Log("Phase ended!");
+            if (percentage < _endHp) ControlledActor.GoToState(new CourtyardFloodPhase(ControlledActor, this));
         }
     }
 }
