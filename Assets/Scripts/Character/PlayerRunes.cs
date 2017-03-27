@@ -20,11 +20,11 @@ namespace fi.tamk.hellgame.character
         {
             _amountOfActiveRunes = maxActiveRuneAmount;
             var hc = GetComponentInParent<HealthComponent>();
-            if (hc == null) Debug.Log("null");
             if (hc != null) hc.HealthChangeEvent += UpdateRunes;
             _runes = GetComponentsInChildren<ParticleSystem>();
             _idleRotation = GetComponentInChildren<IdleRotation>();
             startRotationSpeed = _idleRotation._rotationSpeed;
+
             var detachAndFollow = GetComponentInChildren<DetachAndFollow>();
             detachAndFollow.DetachFromParent();
         }

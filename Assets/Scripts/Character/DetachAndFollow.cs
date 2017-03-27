@@ -11,8 +11,7 @@ namespace fi.tamk.hellgame.character
         private Vector3 _offSet;
 
         private void Awake()
-        {
-            _offSet = transform.localPosition;
+        {            
             if (_autoDetachOnStart) DetachFromParent();
         }
 
@@ -31,8 +30,11 @@ namespace fi.tamk.hellgame.character
 
         public void DetachFromParent()
         {
+            var scale = transform.parent.localScale;
+            _offSet = transform.localPosition;
             _parent = transform.parent;
             transform.parent = null;
+            transform.localScale = scale;
         }
     }
 }
