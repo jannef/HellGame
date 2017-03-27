@@ -52,7 +52,9 @@ public class CourtyardBase : StateAbstract {
 
         if (GunTarget != null)
         {
-            GunTransform.localPosition = (GunTarget.position - ControlledActor.gameObject.transform.position).normalized * GunDistance;
+            var gunPos = (GunTarget.position - ControlledActor.gameObject.transform.position).normalized * GunDistance;
+            gunPos.y = GunTransform.localPosition.y;
+            GunTransform.localPosition = gunPos;
             GunTransform.LookAt(new Vector3(GunTarget.position.x, GunTransform.position.y, GunTarget.position.z));
         }
     }
