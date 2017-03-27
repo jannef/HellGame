@@ -29,7 +29,7 @@ namespace fi.tamk.hellgame.states
             }
         }
 
-        public CourtyardBase(ActorComponent controlledHero, CourtyardBase clonedState = null) : base(controlledHero)
+        protected CourtyardBase(ActorComponent controlledHero, CourtyardBase clonedState = null) : base(controlledHero)
         {
             if (clonedState == null)
             {
