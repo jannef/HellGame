@@ -78,8 +78,8 @@ namespace fi.tamk.hellgame.character
                 case InputStates.WallBoss:
                     outPutState = new WallBoss(hc);
                     break;
-                case InputStates.CourtyardBase:
-                    outPutState = new CourtyardBase(hc);
+                case InputStates.CourtyardBasicFire:
+                    outPutState = new CourtyardFloodPhase(hc);
                     break;
                 default:
                     outPutState = null;
