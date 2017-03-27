@@ -9,14 +9,11 @@ public class IdleFloatingSway : MonoBehaviour {
     [SerializeField] private float SwayingFrequency;
     [SerializeField] private float DegreeTipped;
     private Vector3 _startingLocalPosition;
-    private Vector3 _startingUp;
     private float timer = 0;
-    private Vector3 _currentDestination;
 
 	// Use this for initialization
 	void Start () {
         _startingLocalPosition = transform.localPosition;
-        _startingUp = transform.up;
 	}
 	
 	// Update is called once per frame
@@ -27,5 +24,12 @@ public class IdleFloatingSway : MonoBehaviour {
         {
             timer = 0;
         }
+
+        ChangeRotation();
 	}
+
+    private void ChangeRotation()
+    {
+        transform.localRotation = Quaternion.Euler((transform.localPosition.z - _startingLocalPosition.z) * DegreeTipped, transform.localRotation.y, (transform.localPosition.x - _startingLocalPosition.x) * DegreeTipped);
+    }
 }
