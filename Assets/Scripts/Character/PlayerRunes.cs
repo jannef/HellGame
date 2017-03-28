@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.character;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,78 +9,61 @@ namespace fi.tamk.hellgame.character
 
     public class PlayerRunes : MonoBehaviour
     {
-        private ParticleSystem[] _runes;
         private IdleRotation _idleRotation;
+        private SpriteRenderer[] _runes;
         [SerializeField] private float rotationSpeedIncreasePerHit;
-        [SerializeField] private GameObject runeExplosionParticle;
+        [SerializeField] private float _radius;
         private float startRotationSpeed;
         [SerializeField] private int maxActiveRuneAmount = 4;
-        private int _amountOfActiveRunes;
 
         private void Awake()
         {
-            _amountOfActiveRunes = maxActiveRuneAmount;
+            _runes = gameObject.GetComponentFromChildrenOnly<SpriteRenderer>();
             var hc = GetComponentInParent<HealthComponent>();
             if (hc != null) hc.HealthChangeEvent += UpdateRunes;
-            _runes = GetComponentsInChildren<ParticleSystem>();
-            _idleRotation = GetComponentInChildren<IdleRotation>();
+            _idleRotation = GetComponent<IdleRotation>();
             startRotationSpeed = _idleRotation._rotationSpeed;
 
-            var detachAndFollow = GetComponentInChildren<DetachAndFollow>();
+            var detachAndFollow = GetComponent<DetachAndFollow>();
             detachAndFollow.DetachFromParent();
+            UpdateRunes(0, hc.Health, 0);
         }
 
         public void UpdateRunes(float percentage, int currentHp, int maxHp)
         {
-            if (currentHp == _amountOfActiveRunes) return;
+            var activatedRuneAmount = 0;
+            List<Transform> activeRuneTransforms = new List<Transform>();
 
-            if (currentHp < _amountOfActiveRunes)
+            foreach(SpriteRenderer renderer in _runes)
             {
-                int amountToDeActivate = _amountOfActiveRunes - currentHp;
-
-                foreach (ParticleSystem system in _runes)
+                if (activatedRuneAmount < currentHp)
                 {
-                    if (system.isPlaying)
-                    {
-                        system.Stop();
-                        amountToDeActivate--;
-
-                        GameObject instantiatedExplosion = Instantiate(runeExplosionParticle, system.transform);
-                        instantiatedExplosion.transform.localPosition = Vector3.zero;
-
-
-                        if (amountToDeActivate <= 0)
-                        {
-                            break;
-                        }
-                    }
-                }
-
-            } else
-            {
-                int amountActivate = currentHp - _amountOfActiveRunes;
-
-                foreach (ParticleSystem system in _runes)
+                    renderer.enabled = true;
+                    activatedRuneAmount++;
+                    activeRuneTransforms.Add(renderer.transform.parent);
+                } else
                 {
-                    if (!system.isPlaying)
-                    {
-                        system.Play();
-                        amountActivate--;
-                        if (amountActivate <= 0)
-                        {
-                            break;
-                        }
-                    }
+                    renderer.enabled = false;
                 }
             }
 
-            _amountOfActiveRunes = currentHp;
-            UpdateRotation();
+            UpdateRunePositions(activeRuneTransforms);
+            UpdateRotation(activatedRuneAmount);
         }
 
-        private void UpdateRotation()
+        private void UpdateRunePositions(List<Transform> transforms)
         {
-            _idleRotation._rotationSpeed = startRotationSpeed + ((maxActiveRuneAmount - Mathf.Clamp(_amountOfActiveRunes, 1, maxActiveRuneAmount)) * rotationSpeedIncreasePerHit);
+            float degreeAmount = 360f / transforms.Count;
+
+            for (int i = 0; i < transforms.Count; ++i)
+            {
+                transforms[i].localRotation = Quaternion.Euler(new Vector3(0, 0, degreeAmount * i));
+            }
+        }
+
+        private void UpdateRotation(int runeAmount)
+        {
+            _idleRotation._rotationSpeed = startRotationSpeed + ((maxActiveRuneAmount - Mathf.Clamp(runeAmount, 1, maxActiveRuneAmount)) * rotationSpeedIncreasePerHit);
         }
     }
 }

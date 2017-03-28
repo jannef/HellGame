@@ -15,6 +15,34 @@ public static class Extensions {
         return component;
     }
 
+    public static TComponent[] GetComponentFromChildrenOnly<TComponent>(this GameObject gameObject)
+            where TComponent : Component
+    {
+        var array = gameObject.GetComponentsInChildren<TComponent>();
+        if (array.Length <= 1)
+        {
+            return null;
+        }
+        else
+        {
+            var returnValue = new TComponent[array.Length - 1];
+
+            // This is used to remove the parent from available spawnPoints.
+            var availableIndex = 0;
+            foreach (var t in array)
+            {
+                if (t.gameObject.GetInstanceID() != gameObject.GetInstanceID())
+                {
+                    if (availableIndex >= returnValue.Length) break;
+                    returnValue[availableIndex] = t;
+                    availableIndex++;
+                }
+            }
+
+            return returnValue;
+        }
+    }
+
     public static void SetLayer(this GameObject gameObject, int layer,
         bool includeChildren = true)
     {

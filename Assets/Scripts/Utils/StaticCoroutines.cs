@@ -37,6 +37,18 @@ namespace fi.tamk.hellgame.utils
             renderer.enabled = enableRendererAtEnd;
         }
 
+        public static IEnumerator DoAfterDelay(float lenght, Action callBack)
+        {
+            var t = 0f;
+            while (t <= 1)
+            {
+                t += WorldStateMachine.Instance.DeltaTime / lenght;
+                yield return null;
+            }
+
+            if (callBack != null) callBack.Invoke();
+        }
+
         public static IEnumerator ConstantUIShakeRoutine(RectTransform shakedTransform, float intensity)
         {
             var originalPos = shakedTransform.anchoredPosition;
