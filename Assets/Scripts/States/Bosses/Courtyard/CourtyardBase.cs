@@ -14,10 +14,16 @@ namespace fi.tamk.hellgame.states
             Pivot = 1
         }
 
+        protected enum ExternalFloats : int
+        {
+            FollowRotationSpeed         = 0,
+            AutoRotationSpeed           = 1            
+        }
+
         protected Transform GunPivot = null;
         protected Transform GunTarget = null;
         protected BossExternalObjects Externals = null;
-        protected float RotationSpeed = 1f;
+        protected float RotationSpeed ;
 
         protected HealthComponent Health;
 
@@ -36,6 +42,7 @@ namespace fi.tamk.hellgame.states
                 Externals = controlledHero.gameObject.GetComponent<BossExternalObjects>();
                 GunPivot = Externals.ExistingGameObjects[(int)ExternalLabel.Pivot].transform;
                 Health = controlledHero.gameObject.GetComponent<HealthComponent>();
+                RotationSpeed = controlledHero.ActorNumericData.ActorFloatData[(int)ExternalFloats.FollowRotationSpeed];
             }
             else
             {
@@ -43,6 +50,7 @@ namespace fi.tamk.hellgame.states
                 GunTarget = clonedState.GunTarget;
                 Externals = clonedState.Externals;
                 Health = clonedState.Health;
+                RotationSpeed = clonedState.RotationSpeed;
             }
         }
 
