@@ -7,7 +7,6 @@ namespace fi.tamk.hellgame.world
 {
     public class FairTrailHazardRail : MonoBehaviour
     {
-        // TODO: pool these
         [SerializeField] private GameObject HazardPrefab;
         [Range(0.1f, 20f), SerializeField] private float FlameSpeed;
         [Range(1f, 4f), SerializeField] private float IndicatorSpeedMultiplier;
@@ -30,8 +29,7 @@ namespace fi.tamk.hellgame.world
 
         public FireHazard GetHazardObject()
         {
-            // TODO: Get from pool instead
-            return Instantiate(HazardPrefab).GetComponent<FireHazard>() ?? new UnityException(string.Format("FireHazard prefab {0} does not have FireHazard component!", HazardPrefab)).Throw<FireHazard>();
+            return Pool.Instance.GetObject(HazardPrefab).GetComponent<FireHazard>();
         }
 
         private IEnumerator FireTrailRun(FireHazard hazardObject)
@@ -64,17 +62,8 @@ namespace fi.tamk.hellgame.world
             }
 
             hazardObject.EndHazard();
-            hazardObject.gameObject.SetActive(false);
-            Destroy(hazardObject.gameObject);
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Delete))
-            {
-                Debug.Log("Running FireHazard test.");
-                PlayTheFlame();
-            }
+            var go = hazardObject.gameObject;
+            Pool.Instance.ReturnObject(ref go);
         }
     }
 }

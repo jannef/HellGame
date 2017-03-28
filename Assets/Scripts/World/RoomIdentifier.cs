@@ -1,6 +1,7 @@
 ﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.input;
+using fi.tamk.hellgame.utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,16 @@ using UnityEngine.SceneManagement;
 
 namespace fi.tamk.hellgame.world
 {
+    [Serializable]
+    public struct PoolInstruction
+    {
+        [SerializeField] public GameObject Prefab;
+        [SerializeField] public int HowMany;
+    }
+
     public sealed class RoomIdentifier : MonoBehaviour
     {
-        public int SceneId;
+        [HideInInspector] public int SceneId;
         public static float RoomCompletionTime;
         [SerializeField] private bool _spawnPlayer = true;
         private Transform _playerSpawnPoint;
@@ -30,6 +38,8 @@ namespace fi.tamk.hellgame.world
 
         private static List<Action> _onPausedActions = new List<Action>();
         private static List<Action> _onGameResumeActions = new List<Action>();
+
+        [SerializeField] private PoolInstruction[] PoolingInstructions;
 
         private void Awake()
         {
@@ -89,7 +99,15 @@ namespace fi.tamk.hellgame.world
                     }
                     if (ic != null && RoomManager.PlayerPersistentData.MyConfig != null) ic.MyConfig = RoomManager.PlayerPersistentData.MyConfig;
                 }
-            }
+
+                if (PoolingInstructions != null)
+                {
+                    foreach (var pi in PoolingInstructions)
+                    {
+                        Pool.Instance.AddToPool(pi.Prefab, pi.HowMany);
+                    }
+                }
+            }            
         }
 
         private void RoomClearedSave()
