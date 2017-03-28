@@ -5,10 +5,11 @@ namespace fi.tamk.hellgame.states
 {
     public class CourtyardFloodPhase : CourtyardBase
     {
-        private const float rotationSpeed = 15f;
+        private float _rotationSpeed;
 
         public CourtyardFloodPhase(ActorComponent controlledHero, CourtyardBase clonedState = null) : base(controlledHero, clonedState)
         {
+            _rotationSpeed = controlledHero.ActorNumericData.ActorFloatData[(int) ExternalFloats.AutoRotationSpeed];
         }
 
         public override void HandleInput(float deltaTime)
@@ -21,7 +22,7 @@ namespace fi.tamk.hellgame.states
 
         private void RotateGun(float deltaTime)
         {
-            GunPivot.Rotate(Vector3.up * rotationSpeed * deltaTime);
+            GunPivot.Rotate(Vector3.up * _rotationSpeed * deltaTime);
         }
     }
 }
