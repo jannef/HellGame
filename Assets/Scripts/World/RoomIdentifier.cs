@@ -95,7 +95,6 @@ namespace fi.tamk.hellgame.world
         private void RoomClearedSave()
         {
             RoomCompleted -= RoomClearedSave;
-            Debug.Log("Room save data: Scene: " + SceneId + ", Time: " + RoomCompletionTime);
             UserStaticData.RoomClearedSave(new RoomSaveData(SceneId, RoomCompletionTime));
         }
 
@@ -125,11 +124,12 @@ namespace fi.tamk.hellgame.world
         public static void OnRoomCompleted()
         {
             if (RoomCompleted != null) RoomCompleted.Invoke();
+            OnRankGained(RoomIdentifier.RoomCompletionTime);
         }
 
         public static void OnRankGained(float time)
         {
-            if (RankGained != null) RankGained.Invoke(Ranks.GetRankFromTime(time));
+            if (RankGained != null && Ranks != null) RankGained.Invoke(Ranks.GetRankFromTime(time));
         }
 
         public static void PauseGame()
