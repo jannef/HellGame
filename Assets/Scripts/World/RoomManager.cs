@@ -37,7 +37,7 @@ namespace fi.tamk.hellgame.world
         public static PlayerSaveableData PlayerPersistentData = null;
         public static bool DebugMode;
         public ButtonMap[] Inputs;
-        private int currentInputModeIndex = 0;
+        private static int currentInputModeIndex = 0;
 
         public LegalScenes CurrentScene { get; private set; }
 
@@ -86,7 +86,6 @@ namespace fi.tamk.hellgame.world
                     PlayerPersistentData.Health = player.gameObject.GetComponent<HealthComponent>().Health;
                 }
                 
-                
                 PlayerPersistentData.MyConfig = player.gameObject.GetComponent<InputController>().MyConfig;
             }
 
@@ -112,12 +111,12 @@ namespace fi.tamk.hellgame.world
 
         private void LateUpdate()
         {
+            Debug.Log(currentInputModeIndex);
             if (currentInputModeIndex != 1 && Input.GetKeyDown(KeyCode.Joystick1Button0))
             {
                 if (Inputs.Length >= 1)
                 {
-                    SetController(Inputs[1]);
-                    currentInputModeIndex = 1;
+                    SetController(Inputs[1], 1);
                 }
                 else
                     Debug.LogWarning("RoomManager does not have enough buttons schemes set up for debug button scheme change requested (F2)");
@@ -127,8 +126,7 @@ namespace fi.tamk.hellgame.world
             {
                 if (Inputs.Length >= 1)
                 {
-                    SetController(Inputs[0]);
-                    currentInputModeIndex = 0;
+                    SetController(Inputs[0], 0);
                 }
                 else
                     Debug.LogWarning("RoomManager does not have enough buttons schemes set up for debug button scheme change requested (F2)");
@@ -184,7 +182,10 @@ namespace fi.tamk.hellgame.world
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 if (Inputs.Length >= 1)
-                    SetController(Inputs[0]);
+                {
+                    SetController(Inputs[0], 0);
+                }
+                    
                 else
                     Debug.LogWarning("RoomManager does not have enough buttons schemes set up for debug button scheme change requested (F1)");
             }
@@ -192,17 +193,21 @@ namespace fi.tamk.hellgame.world
             if (Input.GetKeyDown(KeyCode.F2))
             {
                 if (Inputs.Length >= 1)
-                    SetController(Inputs[1]);
+                {
+                    SetController(Inputs[1], 1);
+                }
+                    
                 else
                     Debug.LogWarning("RoomManager does not have enough buttons schemes set up for debug button scheme change requested (F2)");
             }
         }
 
-        private void SetController(ButtonMap scheme)
+        private void SetController(ButtonMap scheme, int index)
         {
             var player = FindObjectOfType<PlayerLimitBreak>();
             if (player != null)
             {
+                currentInputModeIndex = 1;
                 var input = player.gameObject.GetComponent<InputController>();
                 if (input != null) input.MyConfig = scheme;
             }

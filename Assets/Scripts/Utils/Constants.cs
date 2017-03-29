@@ -1,4 +1,5 @@
-﻿using System;
+﻿using fi.tamk.hellgame.ui;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,5 +58,10 @@ namespace fi.tamk.hellgame.utils
         public const string SlimeJumpAnimationStateStringName = "SlimeBoss_Jump";
         public const string SlimeStartJumpAnimationTrigger = "StartJump";
         public const string SlimeLandAnimationTrigger = "Land";
+
+        public static MenuActionType[] ActionsToAlwaysSetOnBasicButtons = new MenuActionType[5]
+        {
+            MenuActionType.Up, MenuActionType.Down, MenuActionType.Left, MenuActionType.Right, MenuActionType.Submit
+        };
     }
 }
