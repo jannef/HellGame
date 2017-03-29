@@ -98,7 +98,7 @@ namespace fi.tamk.hellgame.states
                     RaycastHit hit;
                     if (!Physics.Raycast(ray, out hit, (TargetTransform.position - ControlledActor.transform.position).magnitude, _raycastLayerMask))
                     {
-                        ControlledActor.FireGunByIndex(0);
+                        ControlledActor.FireGuns();
                     }
                 }
 
