@@ -16,18 +16,18 @@ namespace fi.tamk.hellgame.character
     {
         [SerializeField] protected Transform SpawnPointsParent;
         [SerializeField] protected Vector3 AirDropOffset;
-        private Vector3[] _availableSpawnPoints;
+        private Transform[] _availableSpawnPoints;
 
         protected void Awake()
         {
             var transformArray = SpawnPointsParent.GetComponentsInChildren<Transform>();
             if (transformArray.Length <= 1)
             {
-                _availableSpawnPoints = new [] { Vector3.zero };
+                _availableSpawnPoints = new [] { transform };
             }
             else
             {
-                _availableSpawnPoints = new Vector3[transformArray.Length - 1];
+                _availableSpawnPoints = new Transform[transformArray.Length - 1];
 
                 // This is used to remove the parent from available spawnPoints.
                 var availableSpawnPointIndex = 0;
@@ -35,7 +35,7 @@ namespace fi.tamk.hellgame.character
                 {
                     if (t.GetInstanceID() != SpawnPointsParent.GetInstanceID())
                     {
-                        _availableSpawnPoints[availableSpawnPointIndex] = t.position;
+                        _availableSpawnPoints[availableSpawnPointIndex] = t;
                         availableSpawnPointIndex++;
                     }
                 }
@@ -80,7 +80,7 @@ namespace fi.tamk.hellgame.character
 
             for (var i = 0; i < numberToSpawn; i++)
             {
-                var targetSpawnPoint = _availableSpawnPoints.Length == 0 ? Vector3.zero : _availableSpawnPoints[spreadType == SpawnPointSpread.CompletelyRandom ? Random.Range(0, _availableSpawnPoints.Length - 1) : spawnPointIndex];
+                var targetSpawnPoint = _availableSpawnPoints.Length == 0 ? Vector3.zero : _availableSpawnPoints[spreadType == SpawnPointSpread.CompletelyRandom ? Random.Range(0, _availableSpawnPoints.Length - 1) : spawnPointIndex].position;
                 spawnPointIndex = (spawnPointIndex + 1) % _availableSpawnPoints.Length;
 
                 var ray = new Ray(AirDropOffset + targetSpawnPoint + Random.insideUnitSphere * spawnAreaSize, Vector3.down);
