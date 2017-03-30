@@ -62,19 +62,8 @@ namespace fi.tamk.hellgame.ui
             _button.onClick.Invoke();
         }
 
-        private void OnMouseEnter()
-        {
-            Debug.Log("OnMouseEnter");
-        }
-
-        private void OnMouseOver()
-        {
-            Debug.Log("OnMouseOVer");
-        }
-
         public virtual void Activate()
         {
-            Debug.Log("Activate");
         }
 
         // Use this for initialization

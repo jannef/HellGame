@@ -90,14 +90,24 @@ namespace fi.tamk.hellgame.world
 
                 }
 
-                if (RoomManager.PlayerPersistentData != null && _spawnPlayer)
+                if (_spawnPlayer)
                 {
                     var ic = go.GetComponent<InputController>();
-                    if (hc != null && hc.MaxHp != RoomManager.PlayerPersistentData.Health)
+                    
+                    if (RoomManager.PlayerPersistentData != null)
                     {
-                        hc.Health = (hc.MaxHp - RoomManager.PlayerPersistentData.Health);
+                        if (hc != null && hc.MaxHp != RoomManager.PlayerPersistentData.Health)
+                        {
+                            hc.Health = (hc.MaxHp - RoomManager.PlayerPersistentData.Health);
+                        }
+                        if (ic != null && RoomManager.PlayerPersistentData.MyConfig != null)
+                        {
+                            Debug.Log("Controller set");
+                            ic.MyConfig = RoomManager.PlayerPersistentData.MyConfig;
+                        }
                     }
-                    if (ic != null && RoomManager.PlayerPersistentData.MyConfig != null) ic.MyConfig = RoomManager.PlayerPersistentData.MyConfig;
+
+                    
                 }
 
                 if (PoolingInstructions != null)
