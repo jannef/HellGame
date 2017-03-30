@@ -11,21 +11,26 @@ namespace fi.tamk.hellgame.states
         protected enum ExternalLabel : int
         {
             Gun = 0,
-            Pivot = 1
+            Pivot = 1,
+            Pentagram = 2,
         }
 
         protected enum ExternalFloats : int
         {
             FollowRotationSpeed         = 0,
-            AutoRotationSpeed           = 1            
+            AutoRotationSpeed           = 1,
+            IntermissionDuration        = 2
         }
 
         protected Transform GunPivot = null;
         protected Transform GunTarget = null;
         protected BossExternalObjects Externals = null;
         protected float RotationSpeed ;
+        protected FairTrailHazardRail[] Rails = null;
 
         protected HealthComponent Health;
+
+        protected float TransitionPercentage;
 
         public override InputStates StateId
         {
@@ -43,6 +48,7 @@ namespace fi.tamk.hellgame.states
                 GunPivot = Externals.ExistingGameObjects[(int)ExternalLabel.Pivot].transform;
                 Health = controlledHero.gameObject.GetComponent<HealthComponent>();
                 RotationSpeed = controlledHero.ActorNumericData.ActorFloatData[(int)ExternalFloats.FollowRotationSpeed];
+                Rails = Externals.ExistingGameObjects[(int)ExternalLabel.Pentagram].GetComponentsInChildren<FairTrailHazardRail>();
             }
             else
             {
@@ -51,6 +57,8 @@ namespace fi.tamk.hellgame.states
                 Externals = clonedState.Externals;
                 Health = clonedState.Health;
                 RotationSpeed = clonedState.RotationSpeed;
+                Rails = clonedState.Rails;
+                TransitionPercentage = clonedState.TransitionPercentage;
             }
         }
 
@@ -88,6 +96,14 @@ namespace fi.tamk.hellgame.states
         public override void OnExitState()
         {
             Health.HealthChangeEvent -= OnHealthChange;
+        }
+
+        protected virtual void HailSatan()
+        {
+            foreach (var rail in Rails)
+            {
+                rail.PlayTheFlame();
+            }
         }
     }
 }

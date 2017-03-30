@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using fi.tamk.hellgame.utils;
 using UnityEngine;
+using fi.tamk.hellgame.effects;
+using System;
 
 namespace fi.tamk.hellgame.world
 {
@@ -22,9 +24,21 @@ namespace fi.tamk.hellgame.world
             Gizmos.DrawLine(_start.position, _end.position);
         }
 
-        public void PlayTheFlame(bool startToEnd = true)
+        public void PlayTheFlame()
         {
-            StartCoroutine(FireTrailRun(GetHazardObject()));
+            var trans = ServiceLocator.Instance.GetNearestPlayer(_start.position);
+            var loc = trans != null ? trans.position : Vector3.zero;
+
+            var playFromStart = (loc - _start.position).sqrMagnitude > (loc - _end.position).sqrMagnitude;
+
+            var hazard = GetHazardObject();
+            hazard.Caller = this;
+            hazard.Controller = StartCoroutine(FireTrailRun(hazard, playFromStart));
+        }
+
+        internal void StopTrailCoroutine(Coroutine controller)
+        {
+            StopCoroutine(controller);
         }
 
         public FireHazard GetHazardObject()
@@ -32,10 +46,9 @@ namespace fi.tamk.hellgame.world
             return Pool.Instance.GetObject(HazardPrefab).GetComponent<FireHazard>();
         }
 
-        private IEnumerator FireTrailRun(FireHazard hazardObject)
+        private IEnumerator FireTrailRun(FireHazard hazardObject, bool startToEnd)
         {
-            var trajectory = (_end.position - _start.position);
-            var duration = trajectory.magnitude / FlameSpeed;
+            var duration = (_end.position - _start.position).magnitude / FlameSpeed;
             var timer = 0f;
             var trans = hazardObject.transform;
             var indic = hazardObject.IndicatorGameObject.transform;
@@ -45,7 +58,15 @@ namespace fi.tamk.hellgame.world
             {
                 var ratio = timer / duration;
                 timer += WorldStateMachine.Instance.DeltaTime;
-                trans.position = Vector3.Lerp(_start.position, _end.position, ratio);
+
+                if (startToEnd)
+                {
+                    trans.position = Vector3.Lerp(_start.position, _end.position, ratio);
+                }
+                else
+                {
+                    trans.position = Vector3.Lerp(_end.position, _start.position, ratio);
+                }
 
                 if (indicatorPlaying)
                 {
@@ -65,5 +86,11 @@ namespace fi.tamk.hellgame.world
             var go = hazardObject.gameObject;
             Pool.Instance.ReturnObject(ref go);
         }
-    }
+
+
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+        }
+    }    
 }

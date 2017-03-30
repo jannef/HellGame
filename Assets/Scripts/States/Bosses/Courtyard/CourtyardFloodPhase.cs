@@ -24,5 +24,15 @@ namespace fi.tamk.hellgame.states
         {
             GunPivot.Rotate(Vector3.up * _rotationSpeed * deltaTime);
         }
+
+        protected override void OnHealthChange(float percentage, int currentHp, int maxHp)
+        {
+            if (percentage < TransitionPercentage)
+            {
+                TransitionPercentage -= 0.2f;
+                var intermission = new CourtyardIntermission(ControlledActor, new CourtyardFloodPhase(ControlledActor, this), this);
+                ControlledActor.GoToState(intermission);
+            }
+        }
     }
 }

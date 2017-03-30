@@ -111,7 +111,6 @@ namespace fi.tamk.hellgame.world
 
         private void LateUpdate()
         {
-            Debug.Log(currentInputModeIndex);
             if (currentInputModeIndex != 1 && Input.GetKeyDown(KeyCode.Joystick1Button0))
             {
                 if (Inputs.Length >= 1)

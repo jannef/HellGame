@@ -84,7 +84,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.CourtYardBulletFlood:
                     outPutState = new CourtyardFloodPhase(hc);
                     break;
-
+                case InputStates.Obstacle:
+                    outPutState = new ObstacleState(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +

@@ -56,6 +56,11 @@ namespace fi.tamk.hellgame.character
             Pool.Instance.AddHealthComponent(gameObject, this);
         }
 
+        protected void OnEnable()
+        {
+            if (HasDied) ReInitialize();
+        }
+
         public void Heal(int howMuch)
         {
             Health = Math.Min(Health + howMuch, MaxHp);
@@ -74,7 +79,7 @@ namespace fi.tamk.hellgame.character
             // Do not optimize the order of this comparison, it will make the actor immune to
             // damage as well as not being able to die to it!
             if (!DamageDelegate(howMuch, ref Health, ref flinch) && AllowDeath)
-            {
+            {                
                 Die();
                 return;
             }
@@ -102,11 +107,8 @@ namespace fi.tamk.hellgame.character
                 b.DetachBulletEmitter(b.transform.localScale);
             }
 
-            if (ReturnToPoolAfterDeath)
-            {
-                var go = gameObject;
-                Pool.Instance.ReturnObject(ref go, true);
-            }
+            var go = gameObject;
+            Pool.Instance.ReturnObject(ref go, ReturnToPoolAfterDeath ? false : true);
         }
 
         public virtual void FlinchFromHit()
@@ -174,6 +176,13 @@ namespace fi.tamk.hellgame.character
             }
 
             Pool.Instance.DestroyStackOfActors(toDestroy);
+        }
+
+        public void ReInitialize()
+        {
+            Health = MaxHp;
+            HasDied = false;
+            _hasBeenHitThisFrame = false;
         }
     }
 }
