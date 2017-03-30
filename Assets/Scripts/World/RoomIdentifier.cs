@@ -102,7 +102,6 @@ namespace fi.tamk.hellgame.world
                         }
                         if (ic != null && RoomManager.PlayerPersistentData.MyConfig != null)
                         {
-                            Debug.Log("Controller set");
                             ic.MyConfig = RoomManager.PlayerPersistentData.MyConfig;
                         }
                     }

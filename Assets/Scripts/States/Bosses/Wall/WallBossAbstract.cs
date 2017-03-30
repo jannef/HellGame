@@ -64,7 +64,6 @@ namespace fi.tamk.hellgame.states
 
         private WallBossTransitionPhaseStats GetTransitionStats(int phase)
         {
-            Debug.Log(phase);
 
             var bossExternalObjects = ControlledActor.GetComponent<BossExternalObjects>();
 
