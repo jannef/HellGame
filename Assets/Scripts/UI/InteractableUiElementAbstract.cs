@@ -10,5 +10,6 @@ namespace fi.tamk.hellgame.ui
 
         public abstract void MovePointerToThis(MenuCommander commander);
         public abstract void MovePointerFromThis();
+        public abstract void ClickThis(MenuCommander commander);
     }
 }

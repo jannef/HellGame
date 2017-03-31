@@ -9,7 +9,14 @@ namespace fi.tamk.hellgame.states
 
         public CourtyardBasicFirePhase(ActorComponent controlledHero, float endHealthPercentage = .75f, CourtyardBase clonedState = null) : base(controlledHero, clonedState)
         {
-            _endHp = endHealthPercentage;
+            if (clonedState == null)
+            {
+                _endHp = endHealthPercentage;
+            }
+            else
+            {
+                _endHp = TransitionPercentage;
+            }
         }
 
         public override void HandleInput(float deltaTime)
@@ -23,7 +30,12 @@ namespace fi.tamk.hellgame.states
 
         protected override void OnHealthChange(float percentage, int currentHp, int maxHp)
         {
-            if (percentage < _endHp) ControlledActor.GoToState(new CourtyardFloodPhase(ControlledActor, this));
+            if (percentage < _endHp)
+            {
+                TransitionPercentage = _endHp - 0.1f;
+                var intermission = new CourtyardIntermission(ControlledActor, new CourtyardFloodPhase(ControlledActor, this), this);
+                ControlledActor.GoToState(intermission);
+            }
         }
     }
 }

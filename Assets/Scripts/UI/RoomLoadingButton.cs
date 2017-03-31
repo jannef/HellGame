@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace fi.tamk.hellgame.ui
@@ -9,12 +10,24 @@ namespace fi.tamk.hellgame.ui
 
     public class RoomLoadingButton : MonoBehaviour
     {
+        [SerializeField] private bool _targetCurrentScene;
         [SerializeField] private LegalScenes targetScene;
 
         private void Start()
         {
             var button = GetComponent<Button>();
-            button.onClick.AddListener(Activate);
+            if (_targetCurrentScene)
+            {
+                button.onClick.AddListener(TargetCurrentScene);
+            } else
+            {
+                button.onClick.AddListener(Activate);
+            }
+        }
+
+        private void TargetCurrentScene()
+        {
+            RoomManager.LoadRoom((LegalScenes) SceneManager.GetActiveScene().buildIndex);
         }
 
         private void Activate()
