@@ -41,3 +41,7 @@ Assets/UnitySteer/
 *.db
 *.db.meta
 HellGameFModProject/.cache/
+
+Assets/StreamingAssets/Master Bank\.bank\.meta
+
+Assets/StreamingAssets/Master Bank\.strings\.bank\.meta
