@@ -18,6 +18,11 @@ ExportedObj/
 *.booproj
 *.svd
 
+# FMod files
+Assets/FMODStudioCache.asset
+Assets/StreamingAssets/*.bank
+fmod.log
+fmod_editor.log
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -34,3 +39,4 @@ __pycache__/
 Assets/UnitySteer/
 *.db
 *.db.meta
+HellGameFModProject/.cache/
