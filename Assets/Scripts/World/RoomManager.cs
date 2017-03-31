@@ -207,6 +207,7 @@ namespace fi.tamk.hellgame.world
             if (player != null)
             {
                 currentInputModeIndex = 1;
+                if (PlayerPersistentData != null) PlayerPersistentData.MyConfig = scheme;
                 var input = player.gameObject.GetComponent<InputController>();
                 if (input != null) input.MyConfig = scheme;
             }

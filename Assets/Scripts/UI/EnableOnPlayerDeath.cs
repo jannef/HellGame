@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace fi.tamk.hellgame.ui
@@ -10,6 +11,7 @@ namespace fi.tamk.hellgame.ui
     public class EnableOnPlayerDeath : MonoBehaviour
     {
         private CanvasGroup _canvasGroup;
+        public UnityEvent _onDeathEvent;
 
         // Use this for initialization
         void Awake()
@@ -30,6 +32,7 @@ namespace fi.tamk.hellgame.ui
 
         public void Activate()
         {
+            if (_onDeathEvent != null) _onDeathEvent.Invoke();
             gameObject.SetActive(true);
             _canvasGroup.alpha = 1;
             _canvasGroup.interactable = true;

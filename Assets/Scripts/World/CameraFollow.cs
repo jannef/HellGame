@@ -29,6 +29,7 @@ namespace fi.tamk.hellgame.world
                 Vector3 vec = Vector3.zero;
                 foreach (var i in _cameraInterestsRaw)
                 {
+                    if (i.InterestTransform != null)
                     vec += i.InterestTransform.position * i.InterestWeight;
                 }
 

@@ -23,7 +23,6 @@ namespace fi.tamk.hellgame.ui
 
         public override void MovePointerToThis(MenuCommander commander)
         {
-            Debug.Log(gameObject.name);
             foreach (MenuActionType type in Constants.ActionsToAlwaysSetOnBasicButtons)
             {
                 var transition = _transitionList.Where(x => x._actionType == type).FirstOrDefault();
@@ -42,26 +41,29 @@ namespace fi.tamk.hellgame.ui
             {
                 commander.currentlySelectedButton.MovePointerFromThis();
             }
-            
-            commander.AddCommand(MenuActionType.Submit, Submit);
-            _button.GetComponentInChildren<Text>().text = "chosen";
+            AddSubmitCommand(commander);
+            _button.GetComponent<Image>().color = Color.red;
             commander.currentlySelectedButton = this;
+        }
+
+        protected virtual void AddSubmitCommand(MenuCommander commander)
+        {
+            commander.AddCommand(MenuActionType.Submit, ClickThis);
         }
 
         public override void MovePointerFromThis()
         {
-            _button.GetComponentInChildren<Text>().text = "not chosen";
+            _button.GetComponent<Image>().color = Color.white;
         }
 
-        private void Submit(MenuCommander commander)
+        public override void ClickThis(MenuCommander commander)
         {
             Activate();
             _button.onClick.Invoke();
         }
 
-        protected virtual void Activate()
+        public virtual void Activate()
         {
-            Debug.Log(gameObject.name);
         }
 
         // Use this for initialization
