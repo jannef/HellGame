@@ -27,6 +27,7 @@ namespace fi.tamk.hellgame.character
         /// </summary>
         public bool AllowDeath = true;
         public bool ReturnToPoolAfterDeath = true;
+        public bool DoNotRemoveOnDeath = false;
 
         [HideInInspector] public float InvulnerabilityTimeLeft = 0f;
 
@@ -108,7 +109,7 @@ namespace fi.tamk.hellgame.character
             }
 
             var go = gameObject;
-            Pool.Instance.ReturnObject(ref go, ReturnToPoolAfterDeath ? false : true);
+           if (!DoNotRemoveOnDeath) Pool.Instance.ReturnObject(ref go, !ReturnToPoolAfterDeath);
         }
 
         public virtual void FlinchFromHit()
