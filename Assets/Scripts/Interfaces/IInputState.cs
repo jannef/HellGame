@@ -32,7 +32,8 @@ namespace fi.tamk.hellgame.interfaces
         WallBoss = 28,
         WallBossTransition = 29,
         CourtyardBasicFire = 30,
-        CourtYardBulletFlood = 31
+        CourtYardBulletFlood = 31,
+        TutorialRoom        = 32
     }
 
     public enum TransitionType

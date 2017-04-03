@@ -87,6 +87,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.Obstacle:
                     outPutState = new ObstacleState(hc);
                     break;
+                case InputStates.TutorialRoom:
+                    outPutState = new TutorialRoom(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +

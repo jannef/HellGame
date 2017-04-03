@@ -117,6 +117,12 @@ namespace fi.tamk.hellgame.input
             return GetMouseButtonCode(ref result, ButtonToString(whichButton)) ? Input.GetMouseButtonUp(result) : Input.GetKeyUp(ButtonToString(whichButton));
         }
 
+        public string GetStringReferenceToInput(Buttons.ButtonScheme whichButton)
+        {
+            if (_myConfig.InputType != Buttons.InputType.PcMasterrace) return GetFormattedJoySticKeyCode(ButtonToString(whichButton));
+            return ButtonToString(whichButton);
+        }
+
         public virtual float PollLeftTrigger()
         {
             return Mathf.Abs(_myConfig.InputType == Buttons.InputType.PcMasterrace ? (Input.GetKey(_myConfig.LeftTrigger) ? 1f : 0f) : PollTrigger(_leftTriggerAxis));
@@ -186,7 +192,7 @@ namespace fi.tamk.hellgame.input
             return (Input.GetAxis(whichTrigger));
         }
 
-        private string ButtonToString(Buttons.ButtonScheme button)
+        public string ButtonToString(Buttons.ButtonScheme button)
         {
             switch (button)
             {

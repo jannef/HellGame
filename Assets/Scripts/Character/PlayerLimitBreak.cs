@@ -7,14 +7,14 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
-{    
+{
     public class PlayerLimitBreak : MonoBehaviour
     {
         /// <summary>
         /// First parameter flag for limit break up.
         /// Second parameter flag for limit break charging.
         /// </summary>
-        public event UnityAction<bool, bool> LimitBreakStateChange; 
+        public event UnityAction<bool, bool> LimitBreakStateChange;
 
         /// <summary>
         /// First parameter is how many motes of power is collected.
@@ -25,7 +25,7 @@ namespace fi.tamk.hellgame.character
         /// <summary>
         /// Gives out duration in range of [0, 1], 0 being start of the limit break, 1 being over.
         /// </summary>
-        public event UnityAction<float> LimitBreakDurationChange; 
+        public event UnityAction<float> LimitBreakDurationChange;
 
         /// <summary>
         /// Flag for limit break being active or activatable.
@@ -40,12 +40,16 @@ namespace fi.tamk.hellgame.character
         /// <summary>
         /// Invoked at the end of the limit break.
         /// </summary>
-        public UnityEvent LimitbreakEndEvent;        
+        public UnityEvent LimitbreakEndEvent;
+
+        public UnityEvent DudActivation;
 
         /// <summary>
         /// Original stats of the player.
         /// </summary>
         [SerializeField] private PlayerLimitBreakStats _originalStats;
+
+        [SerializeField] private float DudEffectCoolDownLenght;
 
         /// <summary>
         /// Original stats of the player.
@@ -62,6 +66,8 @@ namespace fi.tamk.hellgame.character
         /// How many motes of power is currently collected.
         /// </summary>
         private float _collectedPoints;
+
+        private bool _dudEffectAvailable = true;
 
         /// <summary>
         /// What is the last seen number of hitpoints from this actors HealthComponent.
@@ -139,7 +145,11 @@ namespace fi.tamk.hellgame.character
         /// </summary>
         public void ActivateLimitBreak()
         {
-            if (!LimitAvailableOrActive) return;
+            if (!LimitAvailableOrActive)
+            {
+                if (_dudEffectAvailable) DudLimitBreakEffect();
+                return;
+            }
 
             _limitActive = true;            
             LimitBreakActivation.Invoke();
@@ -148,6 +158,18 @@ namespace fi.tamk.hellgame.character
             StartCoroutine(LimitBreakTimer());
             _modifiableStats.Cost += _modifiableStats.GetLatestBreakPointIncrease;
             if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(_limitActive, LimitAvailableOrActive); // Indicator will change state. 
+        }
+
+        private void DudLimitBreakEffect()
+        {
+            if (DudActivation != null) DudActivation.Invoke();
+            _dudEffectAvailable = false;
+            StartCoroutine(StaticCoroutines.DoAfterDelay(DudEffectCoolDownLenght, StopDudEffectCooldown));
+        }
+
+        private void StopDudEffectCooldown()
+        {
+            _dudEffectAvailable = true;
         }
 
         /// <summary>

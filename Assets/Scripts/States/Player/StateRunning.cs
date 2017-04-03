@@ -52,7 +52,7 @@ namespace fi.tamk.hellgame.states
             CharacterAnimator.SetFloat("speed", speed.magnitude);
 
             // Limit break activation input
-            if (MyInputController.PollButtonDown(Buttons.ButtonScheme.LimitBreak) && MyLimitBreak != null && MyLimitBreak.LimitAvailableOrActive)
+            if (MyInputController.PollButtonDown(Buttons.ButtonScheme.LimitBreak) && MyLimitBreak != null)
             {
                 MyLimitBreak.ActivateLimitBreak();
                 return;
