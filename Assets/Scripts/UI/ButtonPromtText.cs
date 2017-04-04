@@ -19,23 +19,29 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private Text _finalText;
         [SerializeField] private ButtonPromtData _promtData;
         [SerializeField] private Buttons.ButtonScheme _buttonToShow;
+        [SerializeField] private InputController _inputControllerToReference;
         private CanvasGroup _canvasGroup;
 
         private void Awake()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
             _canvasGroup.alpha = 0;
+            if (_inputControllerToReference != null) Activate();
         }
 
         public void Activate()
         {
-            var player = ServiceLocator.Instance.GetNearestPlayer(Vector3.zero);
-            if (player == null) return;
-            var controller = player.GetComponent<InputController>();
-            if (controller == null) return;
+            if (_inputControllerToReference == null)
+            {
+                var player = ServiceLocator.Instance.GetNearestPlayer(Vector3.zero);
+                if (player == null) return;
+                _inputControllerToReference = player.GetComponent<InputController>();
+                if (_inputControllerToReference == null) return;
+            }
+            
             _canvasGroup.alpha = 1;
             KeyCode inputKeyCode = KeyCode.None;
-            inputKeyCode = controller.ButtonToKeyCode(_buttonToShow);
+            inputKeyCode = _inputControllerToReference.ButtonToKeyCode(_buttonToShow);
             
             var promtData = _promtData.GetButtonPromtData(inputKeyCode);
             var stringList = _textToShow.Split('*');
