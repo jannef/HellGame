@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.effects;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.world;
@@ -49,6 +50,9 @@ namespace fi.tamk.hellgame.states
                 Health = controlledHero.gameObject.GetComponent<HealthComponent>();
                 RotationSpeed = controlledHero.ActorNumericData.ActorFloatData[(int)ExternalFloats.FollowRotationSpeed];
                 Rails = Externals.ExistingGameObjects[(int)ExternalLabel.Pentagram].GetComponentsInChildren<FairTrailHazardRail>();
+
+                ControlledActor.ActorNumericData.ReferenceCache[0] = ControlledActor.gameObject.GetComponentInChildren<AngryShakeEffect>();
+                ControlledActor.ActorNumericData.ReferenceCache[1] = Externals.ExistingGameObjects[3].GetComponent<ParticleSystem>();
             }
             else
             {

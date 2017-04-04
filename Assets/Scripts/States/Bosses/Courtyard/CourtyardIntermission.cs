@@ -10,9 +10,11 @@ namespace fi.tamk.hellgame.states
     {
         private const int HowManyPentagrams = 3;
         private float _duration;
-        private CourtyardBase _nextState;
         private float _pentagramTimer = 0f;
         private float _pentagramDuration;
+
+        private readonly CourtyardBase _nextState;
+        private readonly ParticleSystem _shield;
 
         public CourtyardIntermission(ActorComponent controlledHero, CourtyardBase followingState, CourtyardBase clonedState = null) : base(controlledHero, clonedState)
         {
@@ -23,6 +25,8 @@ namespace fi.tamk.hellgame.states
 
             var shaker = ControlledActor.ActorNumericData.ReferenceCache[0] as AngryShakeEffect;
             if (shaker != null) shaker.Activate(_duration);
+
+            _shield = ControlledActor.ActorNumericData.ReferenceCache[1] as ParticleSystem;
         }
 
         public override void HandleInput(float deltaTime)
@@ -46,6 +50,26 @@ namespace fi.tamk.hellgame.states
         public override bool TakeDamage(int howMuch, ref int health, ref bool flinch)
         {
             return health > 0;
+        }
+
+        public override void OnEnterState()
+        {
+            if (_shield != null) _shield.Play();
+        }
+
+        public override void OnResumeState()
+        {
+            OnEnterState();
+        }
+
+        public override void OnExitState()
+        {
+            if (_shield != null) _shield.Stop();
+        }
+
+        public override void OnSuspendState()
+        {
+            OnExitState();
         }
     }
 }
