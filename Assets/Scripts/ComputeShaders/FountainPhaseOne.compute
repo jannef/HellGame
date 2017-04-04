@@ -1,0 +1,32 @@
+﻿#pragma kernel CSMain
+
+struct DataStruct
+{
+	float3 position;
+	float3 velocity;
+	float lifetime;
+};
+
+RWStructuredBuffer<DataStruct> dataBuffer;
+float accelerate;
+float totalLifetime;
+float3 playerPosition;
+float size;
+
+[numthreads(64,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+	float life = 1.5 - (dataBuffer[id.x].lifetime / totalLifetime);
+	float sine = sin(dataBuffer[id.x].lifetime / 3.33);
+	dataBuffer[id.x].lifetime = size;
+
+	if (sine > 0.75)
+	{
+		float norm = (sine - 0.25) * 6.28319;
+		dataBuffer[id.x].lifetime += sin(norm * 6.28319);
+	}
+
+	float3 traj = normalize( playerPosition - dataBuffer[id.x].position);
+	dataBuffer[id.x].velocity.xyz *= 0.2;
+	dataBuffer[id.x].velocity.xz += 0.8 * traj.xz * accelerate * life;	
+}

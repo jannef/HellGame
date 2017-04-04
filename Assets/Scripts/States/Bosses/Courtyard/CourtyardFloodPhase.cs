@@ -18,6 +18,7 @@ namespace fi.tamk.hellgame.states
 
             RotateGun(deltaTime);
             ControlledActor.FireGunByIndex(2);
+            ControlledActor.FireGunByIndex(3);
         }
 
         private void RotateGun(float deltaTime)

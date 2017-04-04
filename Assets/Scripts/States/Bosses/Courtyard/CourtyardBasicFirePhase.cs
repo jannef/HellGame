@@ -26,6 +26,7 @@ namespace fi.tamk.hellgame.states
             MoveGun();
             ControlledActor.FireGunByIndex(0);
             ControlledActor.FireGunByIndex(1);
+            ControlledActor.FireGunByIndex(3);
         }
 
         protected override void OnHealthChange(float percentage, int currentHp, int maxHp)

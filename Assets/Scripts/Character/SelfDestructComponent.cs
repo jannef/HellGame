@@ -18,7 +18,7 @@ namespace fi.tamk.hellgame.character
             HealthComponent hc = Pool.Instance.GetHealthComponent(hit.gameObject);
             if (hc != null) hc.TakeDamage(hitDamage);
 
-            GetComponent<HealthComponent>().TakeDamage(100);
+            GetComponent<HealthComponent>().TakeDamage(int.MaxValue);
         }
     }
 }
