@@ -46,7 +46,7 @@ namespace fi.tamk.hellgame.ui
                 _promtImage.sprite = promtData._promtTexture;
                 _promtImage.enabled = true;
 
-                for (int i = 0; i < promtData._spaceAmount; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     addedString = addedString + " ";
                 } 
