@@ -24,6 +24,7 @@ namespace fi.tamk.hellgame.states
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
+            ControlledActor.FireGunByIndex(3);
             _pentagramTimer += deltaTime;
 
             if (_pentagramTimer > _pentagramDuration)
