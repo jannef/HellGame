@@ -88,9 +88,8 @@ namespace fi.tamk.hellgame.input
         /// <returns>if the button is held down</returns>
         public virtual bool PollButton(Buttons.ButtonScheme whichButton)
         {
-            var result = -1;
-            if (_myConfig.InputType != Buttons.InputType.PcMasterrace) return Input.GetKey(GetFormattedJoySticKeyCode(ButtonToString(whichButton)));
-            return GetMouseButtonCode(ref result, ButtonToString(whichButton)) ? Input.GetMouseButton(result) : Input.GetKey(ButtonToString(whichButton));
+            if (_myConfig.InputType != Buttons.InputType.PcMasterrace) return Input.GetKey(ButtonToKeyCode(whichButton));
+            return Input.GetKey(ButtonToKeyCode(whichButton));
         }
 
         /// <summary>
@@ -100,9 +99,8 @@ namespace fi.tamk.hellgame.input
         /// <returns>if the button just pressed down</returns>
         public virtual bool PollButtonDown(Buttons.ButtonScheme whichButton)
         {
-            var result = -1;
-            if (_myConfig.InputType != Buttons.InputType.PcMasterrace) return Input.GetKeyDown(GetFormattedJoySticKeyCode(ButtonToString(whichButton)));
-            return GetMouseButtonCode(ref result, ButtonToString(whichButton)) ? Input.GetMouseButtonDown(result) : Input.GetKeyDown(ButtonToString(whichButton));
+            if (_myConfig.InputType != Buttons.InputType.PcMasterrace) return Input.GetKeyDown(ButtonToKeyCode(whichButton));
+            return Input.GetKeyDown(ButtonToKeyCode(whichButton));
         }
 
         /// <summary>
@@ -112,15 +110,8 @@ namespace fi.tamk.hellgame.input
         /// <returns>if the button is just released</returns>
         public virtual bool PollButtonUp(Buttons.ButtonScheme whichButton)
         {
-            var result = -1;
-            if (_myConfig.InputType != Buttons.InputType.PcMasterrace) return Input.GetKeyUp(GetFormattedJoySticKeyCode(ButtonToString(whichButton)));
-            return GetMouseButtonCode(ref result, ButtonToString(whichButton)) ? Input.GetMouseButtonUp(result) : Input.GetKeyUp(ButtonToString(whichButton));
-        }
-
-        public string GetStringReferenceToInput(Buttons.ButtonScheme whichButton)
-        {
-            if (_myConfig.InputType != Buttons.InputType.PcMasterrace) return GetFormattedJoySticKeyCode(ButtonToString(whichButton));
-            return ButtonToString(whichButton);
+            if (_myConfig.InputType != Buttons.InputType.PcMasterrace) return Input.GetKeyUp(ButtonToKeyCode(whichButton));
+            return Input.GetKeyUp(ButtonToKeyCode(whichButton));
         }
 
         public virtual float PollLeftTrigger()
@@ -192,7 +183,7 @@ namespace fi.tamk.hellgame.input
             return (Input.GetAxis(whichTrigger));
         }
 
-        public string ButtonToString(Buttons.ButtonScheme button)
+        public KeyCode ButtonToKeyCode(Buttons.ButtonScheme button)
         {
             switch (button)
             {

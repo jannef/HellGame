@@ -11,8 +11,11 @@ namespace fi.tamk.hellgame.ui
 
     public class ButtonPromtText : MonoBehaviour
     {
-        private Image _promtImage;
-        private Text _text;
+        [SerializeField] private Image _promtImage;
+        [SerializeField] private Text _firstText;
+        [SerializeField] private Text _middleText;
+        [SerializeField] private string _textToShow;
+        [SerializeField] private Text _finalText;
         [SerializeField] private ButtonPromtData _promtData;
         [SerializeField] private Buttons.ButtonScheme _buttonToShow;
         [SerializeField] private InputController testController;
@@ -20,8 +23,6 @@ namespace fi.tamk.hellgame.ui
         // Use this for initialization
         void Awake()
         {
-            _promtImage = GetComponentInChildren<Image>();
-            _text = GetComponent<Text>();
         }
 
         private void Start()
@@ -32,26 +33,16 @@ namespace fi.tamk.hellgame.ui
         private void Activate(InputController controller)
         {
             KeyCode inputKeyCode = KeyCode.None;
-            Debug.Log(controller.GetStringReferenceToInput(_buttonToShow).Replace(" ", ""));
-
-            try
-            {
-                var KeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), controller.GetStringReferenceToInput(_buttonToShow).Replace(" ",""));
-            }
-            catch (Exception ex)
-            {
-                Debug.Log("KeyCode not found");
-            }
-
+            inputKeyCode = controller.ButtonToKeyCode(_buttonToShow);
             
             var promtData = _promtData.GetButtonPromtData(inputKeyCode);
-            var stringList = _text.text.Split('*');
+            var stringList = _textToShow.Split('*');
             string addedString = "";
-
-            var newString = new string[stringList.Length + 1];
 
             if (promtData != null)
             {
+                _promtImage.sprite = promtData._promtTexture;
+                _promtImage.enabled = true;
 
                 for (int i = 0; i < promtData._spaceAmount; i++)
                 {
@@ -59,29 +50,13 @@ namespace fi.tamk.hellgame.ui
                 } 
             } else
             {
-                if (inputKeyCode == KeyCode.None)
-                {
-                    addedString = controller.ButtonToString(_buttonToShow);
-                } else {
-                    addedString = inputKeyCode.ToString();
-                }
+                _promtImage.enabled = false;
+                addedString = inputKeyCode.ToString();
             }
 
-            for (int i = 0; i < newString.Length; i++)
-            {
-                if (i == 1)
-                {
-                    newString[i] = addedString;
-                } else
-                {
-                    newString[i] = stringList[Mathf.Clamp(i, 0, stringList.Length - 1)];
-                }
-                
-            }
-
-            newString[newString.Length - 2] = addedString;
-
-            _text.text = string.Join(" ", newString);
+            _firstText.text = stringList[0];
+            _finalText.text = stringList[1];
+            _middleText.text = addedString;
         }
 
         private void Disable()

@@ -9,7 +9,7 @@ namespace fi.tamk.hellgame.dataholders
     [Serializable]
     public class ButtonPromtTextureReference
     {
-        public Texture _promtTexture;
+        public Sprite _promtTexture;
         public int _spaceAmount = 2;
         public KeyCode _keyCode;
     }

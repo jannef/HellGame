@@ -7,12 +7,12 @@ namespace fi.tamk.hellgame.input
     /// </summary>
     public class ButtonMap : ScriptableObject
     {
-        public string FireOneButton;
-        public string FireTwoButton;
-        public string DashButton;
+        public KeyCode FireOneButton;
+        public KeyCode FireTwoButton;
+        public KeyCode DashButton;
         public string LeftTrigger;
-        public string LimitBreakButton;
-        public string PauseButton;
+        public KeyCode LimitBreakButton;
+        public KeyCode PauseButton;
 
         public Buttons.InputType InputType;
     }
