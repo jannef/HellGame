@@ -13,5 +13,6 @@ namespace fi.tamk.hellgame.dataholders
         public float[] ActorFloatData;
         public AnimationCurve[] CurveData;
         public GameObject[] GoData;
+        public object[] ReferenceCache = new object[4];
     }
 }

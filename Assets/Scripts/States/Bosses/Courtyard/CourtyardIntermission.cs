@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.effects;
 using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.states
@@ -19,6 +20,9 @@ namespace fi.tamk.hellgame.states
             _nextState = followingState;
             _pentagramDuration = _duration / (HowManyPentagrams + 1);
             _pentagramTimer = _duration;
+
+            var shaker = ControlledActor.ActorNumericData.ReferenceCache[0] as AngryShakeEffect;
+            if (shaker != null) shaker.Activate(_duration);
         }
 
         public override void HandleInput(float deltaTime)
@@ -36,21 +40,6 @@ namespace fi.tamk.hellgame.states
             if (StateTime > _duration)
             {
                 ControlledActor.GoToState(_nextState);
-            }
-        }
-
-        private IEnumerator FlashPentagramObject(int howManyTimes)
-        {
-            var timer = 0f;
-            var oneFlashDuration = _duration / howManyTimes;
-
-            while (true)
-            {
-                timer += WorldStateMachine.Instance.DeltaTime;
-                if (timer > oneFlashDuration)
-                {
-                    HailSatan();
-                }
             }
         }
 

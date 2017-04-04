@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.effects;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.states
@@ -9,14 +10,8 @@ namespace fi.tamk.hellgame.states
 
         public CourtyardBasicFirePhase(ActorComponent controlledHero, float endHealthPercentage = .75f, CourtyardBase clonedState = null) : base(controlledHero, clonedState)
         {
-            if (clonedState == null)
-            {
-                _endHp = endHealthPercentage;
-            }
-            else
-            {
-                _endHp = TransitionPercentage;
-            }
+            _endHp = clonedState == null ? endHealthPercentage : TransitionPercentage;
+            ControlledActor.ActorNumericData.ReferenceCache[0] = ControlledActor.gameObject.GetComponentInChildren<AngryShakeEffect>();
         }
 
         public override void HandleInput(float deltaTime)
