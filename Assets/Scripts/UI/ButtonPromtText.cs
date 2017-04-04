@@ -1,5 +1,6 @@
 ﻿using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.input;
+using fi.tamk.hellgame.utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,20 +19,21 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private Text _finalText;
         [SerializeField] private ButtonPromtData _promtData;
         [SerializeField] private Buttons.ButtonScheme _buttonToShow;
-        [SerializeField] private InputController testController;
+        private CanvasGroup _canvasGroup;
 
-        // Use this for initialization
-        void Awake()
+        private void Awake()
         {
+            _canvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup.alpha = 0;
         }
 
-        private void Start()
+        public void Activate()
         {
-            Activate(testController);
-        }
-
-        private void Activate(InputController controller)
-        {
+            var player = ServiceLocator.Instance.GetNearestPlayer(Vector3.zero);
+            if (player == null) return;
+            var controller = player.GetComponent<InputController>();
+            if (controller == null) return;
+            _canvasGroup.alpha = 1;
             KeyCode inputKeyCode = KeyCode.None;
             inputKeyCode = controller.ButtonToKeyCode(_buttonToShow);
             
@@ -59,9 +61,9 @@ namespace fi.tamk.hellgame.ui
             _middleText.text = addedString;
         }
 
-        private void Disable()
+        public void Disable()
         {
-
+            _canvasGroup.alpha = 0;
         }
     }
 }
