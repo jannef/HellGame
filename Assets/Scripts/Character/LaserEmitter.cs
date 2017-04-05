@@ -15,6 +15,8 @@ public class LaserEmitter : BulletEmitter {
     [SerializeField] private float fullShotWidth;
     [SerializeField] private float shotEndLenght;
     [SerializeField] private AnimationCurve warningToShotEasing;
+    [SerializeField] private ParticleSystem _endPointParticle;
+    [SerializeField] private ParticleSystem _rootParticles;
 
     [SerializeField, Range(0f, 10f)] protected float WarningLenght;
     [SerializeField, Range(0.06f, 10f)] protected float LaserLenght;
@@ -135,11 +137,14 @@ public class LaserEmitter : BulletEmitter {
         ShotLaserRenderer.startWidth = width;
         ShotLaserRenderer.endWidth = width;
         _laserCollider.enabled = true;
+        if (_endPointParticle != null) _endPointParticle.Play();
+        if (_rootParticles != null) _rootParticles.Play();
 
         while (time < LaserLenght && !StopFiringLaser)
         {
             laserPositions = FindLaserPositions(laserPositions);
-
+            if (_endPointParticle != null) _endPointParticle.transform.position = laserPositions[1];
+            //_endPointParticle.transform.forward = -GunVector;
             SetDamagingCollider(width, laserPositions[0], laserPositions[1]);
 
             if (FiringEvent != null) FiringEvent.Invoke();
@@ -155,7 +160,8 @@ public class LaserEmitter : BulletEmitter {
         }
 
         _laserCollider.enabled = false;
-
+        if (_endPointParticle != null) _endPointParticle.Stop();
+        if (_rootParticles != null) _rootParticles.Stop();
         time = shotEndLenght;
 
         while (time > 0)

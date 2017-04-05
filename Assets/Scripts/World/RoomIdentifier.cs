@@ -55,6 +55,7 @@ namespace fi.tamk.hellgame.world
             HealthComponent hc = null;
             SceneManager.sceneLoaded += InitializeAtSceneStart;
             RoomCompleted += RoomClearedSave;
+            SceneId = SceneManager.GetActiveScene().buildIndex;
 
             var roomManager = FindObjectOfType<RoomManager>();
             if (roomManager == null)
