@@ -41,7 +41,7 @@ namespace fi.tamk.hellgame.states
             var varPointList = externalObjects.ExistingGameObjects[3].GetComponent<PatrolWayPoint>();
 
             var hc = ControlledActor.GetComponent<HealthComponent>();
-            BaseValues = new WallBossAbstractValues(varPointList , hc.MaxHp);
+            BaseValues = new WallBossAbstractValues(varPointList , hc.Health);
         }
 
         public override InputStates StateId
@@ -81,8 +81,6 @@ namespace fi.tamk.hellgame.states
                     ControlledActor.GoToState(new WallBossPhaseTransition(ControlledActor, BaseValues, GetTransitionStats(BaseValues.phaseNumber)));
                 }
             }
-
-            
 
             return base.TakeDamage(howMuch, ref health, ref flinch);
         }
