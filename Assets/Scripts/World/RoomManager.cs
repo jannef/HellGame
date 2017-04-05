@@ -18,13 +18,14 @@ namespace fi.tamk.hellgame.world
         ErrorOrNone         = -1,
         GameStaging         = 0,
         SlimeBoss           = 1,
-        MobRoom0            = 2,
-        MobRoom1            = 3,
-        MobRoom4            = 4,
+        Cellar_1            = 2,
+        Cellar_2            = 3,
+        Kitchen_1            = 4,
         MainMenu            = 5,
         LevelSelectHub      = 6,
-        MobRoom3            = 7,
-        WallBoss            = 8
+        Kitchen_2            = 7,
+        WallBoss            = 8,
+        Kitchen_3           = 9,
     }
 
     public static class SceneLoadLock

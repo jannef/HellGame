@@ -20,6 +20,7 @@ namespace fi.tamk.hellgame.character
 
         protected void Awake()
         {
+            
             var transformArray = SpawnPointsParent.GetComponentsInChildren<Transform>();
             if (transformArray.Length <= 1)
             {
