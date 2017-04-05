@@ -5,8 +5,7 @@ namespace fi.tamk.hellgame.effects
 {
     public class ParticleDeathEffect : GenericEffect
     {
-        [SerializeField]
-        private GameObject ParticleSystemPrefab;
+        [SerializeField] private GameObject ParticleSystemPrefab;
 
         public virtual void Activate()
         {
