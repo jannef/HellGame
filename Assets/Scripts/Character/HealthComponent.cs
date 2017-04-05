@@ -38,7 +38,6 @@ namespace fi.tamk.hellgame.character
         {
             get
             {
-                if (ActorComponent == null) return NoActorComponentDamageFunction;
                 return ActorComponent.TakeDamage;
             }
         }
@@ -92,13 +91,6 @@ namespace fi.tamk.hellgame.character
             // Report health change to subscribers of this event
             // such as UI and boss logic etc...
             if (HealthChangeEvent != null) HealthChangeEvent.Invoke((float)Health/(float)MaxHp, Health, MaxHp);
-        }
-
-        protected bool NoActorComponentDamageFunction(int howMuch, ref int health, ref bool flinch)
-        {
-            if (howMuch > 0) flinch = true;
-            health -= howMuch;
-            return health > 0;
         }
 
         public void TakeDisplacingDamage(int howMuch) {
