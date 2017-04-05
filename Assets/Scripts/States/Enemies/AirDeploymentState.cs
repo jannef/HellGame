@@ -16,6 +16,8 @@ namespace fi.tamk.hellgame.states
         private Vector3 _startingPosition;
         private bool _isDeploying = true;
 
+        private Renderer _renderer;
+
         public AirDeploymentState(ActorComponent controlledHero, IInputState startingState, Vector3 startingPosition, 
             float fallingDuration, AnimationCurve fallingCurve, Vector3 landingCoordinates)
             : base(controlledHero)
@@ -25,6 +27,9 @@ namespace fi.tamk.hellgame.states
             _animationCurve = fallingCurve;
             _startingPosition = startingPosition;
             _landingPosition = landingCoordinates;
+
+            _renderer = ControlledActor.gameObject.GetComponentInChildren<Renderer>() ?? new UnityException("Unity in AirDeploymentState without renderer: +"
+                + ControlledActor.gameObject).Throw<Renderer>();
         }
 
         public override bool TakeDamage(int howMuch, ref int health, ref bool flinch)
@@ -54,11 +59,18 @@ namespace fi.tamk.hellgame.states
             
         }
 
+        public override void OnEnterState()
+        {
+            base.OnEnterState();
+            if (_renderer != null) _renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        }
+
         public override void OnExitState()
         {
             base.OnExitState();
             if (ExitStateSignal != null) ExitStateSignal.Invoke();
             if (_isDeploying) ControlledActor.transform.position = _landingPosition;
+            if (_renderer != null) _renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         }
 
         public override void HandleInput(float deltaTime)
