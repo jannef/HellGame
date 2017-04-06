@@ -106,8 +106,6 @@ namespace fi.tamk.hellgame.world
                             ic.MyConfig = RoomManager.PlayerPersistentData.MyConfig;
                         }
                     }
-
-                    
                 }
 
                 if (PoolingInstructions != null)
