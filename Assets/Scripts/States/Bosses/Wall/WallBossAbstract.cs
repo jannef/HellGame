@@ -22,7 +22,7 @@ namespace fi.tamk.hellgame.states
             public WallBossAbstractValues(PatrolWayPoint wayPointList, float MaxHealth)
             {
                 this.phaseNumber = 0;
-                this.currentPositionIndex = 0;
+                this.currentPositionIndex = 1;
                 this.wayPointList = wayPointList;
                 this.MaxHealth = MaxHealth;
             }
