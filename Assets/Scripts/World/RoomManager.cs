@@ -1,12 +1,8 @@
-﻿//#define DEBUG_TEST
-using System.Collections;
-using System.Collections.Generic;
-using fi.tamk.hellgame.character;
+﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.input;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using fi.tamk.hellgame.dataholders;
-using System;
 
 namespace fi.tamk.hellgame.world
 {
@@ -63,15 +59,12 @@ namespace fi.tamk.hellgame.world
                 DebugMode = true;
                 Debug.Log("Debug mode is turned on!");
                 LoadRoom((LegalScenes) roomIdentifier[0].SceneId);
+                Destroy(roomIdentifier[0].gameObject);
             }
             else
             {
                 LoadRoom(LegalScenes.MainMenu);
             }
-
-#if DEBUG_TEST
-            StartCoroutine(LoadTest());
-#endif
         }
 
         public static void LoadRoom(LegalScenes whichRoom, bool transitionEffects = true, bool resetPlayerStats = true)
@@ -213,19 +206,5 @@ namespace fi.tamk.hellgame.world
                 if (input != null) input.MyConfig = scheme;
             }
         }
-#if DEBUG_TEST
-        [SerializeField] private int _reloadCount = 0;
-
-        private IEnumerator LoadTest()
-        {
-            while(true)
-            {
-                yield return new WaitForSecondsRealtime(0.33f);
-                LoadRoom((LegalScenes) Random.Range(1, 3));
-                if (Input.GetKey(KeyCode.Delete)) break;
-                _reloadCount++;
-            }
-        }
-#endif
     }
 }

@@ -13,7 +13,7 @@ namespace fi.tamk.hellgame.world
 
         public float DeltaTime
         {
-            get { return CurrentState == null ? Time.deltaTime : CurrentState.TimeScale * Time.deltaTime; }
+            get { return CurrentState == null ? Time.unscaledDeltaTime : CurrentState.TimeScale * Time.unscaledDeltaTime; }
         }
 
         protected IWorldState CurrentState
@@ -63,12 +63,12 @@ namespace fi.tamk.hellgame.world
             EnterState(new GenericTimeState(lenght, timescale, this));
         }
 
-        private void PauseTime()
+        public void PauseTime()
         {
             EnterState(new GenericTimeState(Mathf.Infinity, 0, this));
         }
 
-        private void ResumeTime()
+        public void ResumeTime()
         {
             EndState();
         }

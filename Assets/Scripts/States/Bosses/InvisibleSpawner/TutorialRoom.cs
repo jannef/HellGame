@@ -70,7 +70,6 @@ namespace fi.tamk.hellgame.states
 
         private void EndEncounter()
         {
-            RoomIdentifier.RoomCompletionTime = StateTime;
             RoomIdentifier.OnRoomCompleted();
         }
 

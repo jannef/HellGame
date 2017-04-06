@@ -1,9 +1,11 @@
 ﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.input;
+using fi.tamk.hellgame.ui;
 using fi.tamk.hellgame.utils;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -20,29 +22,35 @@ namespace fi.tamk.hellgame.world
     public sealed class RoomIdentifier : MonoBehaviour
     {
         [HideInInspector] public int SceneId;
-        public static float RoomCompletionTime;
-        [SerializeField] private bool _spawnPlayer = true;
+        public static float RoomCompletionTime;        
         private Transform _playerSpawnPoint;
+
+        [SerializeField] private bool _spawnPlayer = true;
         [SerializeField] private GameObject _playerPrefab;
         [SerializeField] private RoomClearingRanks roomClearingRankField;
-        public static RoomClearingRanks Ranks;
+        [SerializeField] private PoolInstruction[] PoolingInstructions; 
 
+        public static RoomClearingRanks Ranks;
         public static event Action PlayerDeath;
         public static event Action RoomCompleted;
         public static event Action<ClearingRank> RankGained;
-
         public static event Action GamePaused;
-        public static event Action GameResumed;
-        private static bool isGamePaused = false;
+        public static event Action GameResumed;        
         public static bool IsPartOfWingRun = false;
 
         private static List<Action> _onPausedActions = new List<Action>();
         private static List<Action> _onGameResumeActions = new List<Action>();
+        private static bool isGamePaused = false;
 
-        [SerializeField] private PoolInstruction[] PoolingInstructions;
+        private TextMeshProUGUI ClockField;
+        private static GameClock _clock;
 
         private void Awake()
         {
+            ClockField = (FindObjectOfType<GUIReferences>() ?? new UnityException("GUIReferences not found in a scene!").Throw<GUIReferences>()).ClockText;
+            _clock = gameObject.GetOrAddComponent<GameClock>();
+            _clock.Init(ClockField);
+
             Ranks = roomClearingRankField;
             _playerSpawnPoint = GetComponentInChildren<Transform>();
             GameObject go = null;
@@ -67,7 +75,6 @@ namespace fi.tamk.hellgame.world
             }
             else
             {
-                gameObject.SetActive(false);
                 var playerPrefab = FindObjectOfType<PlayerLimitBreak>();
                 
                 if (playerPrefab != null)
@@ -144,6 +151,7 @@ namespace fi.tamk.hellgame.world
 
         private void OnPlayerDeath()
         {
+            WorldStateMachine.Instance.PauseTime();
             if (PlayerDeath != null) PlayerDeath.Invoke();
         }
 

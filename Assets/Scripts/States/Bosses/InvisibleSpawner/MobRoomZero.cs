@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.world;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace fi.tamk.hellgame.states
 {
@@ -58,9 +54,7 @@ namespace fi.tamk.hellgame.states
 
         private void EndEncounter()
         {
-            RoomIdentifier.RoomCompletionTime = StateTime;
             RoomIdentifier.OnRoomCompleted();
-
         }
 
         private void NextWave()
