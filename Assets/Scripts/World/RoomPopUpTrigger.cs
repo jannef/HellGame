@@ -6,16 +6,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomPopUpTrigger : MonoBehaviour {
-    private Collider _collider;
     [SerializeField] protected RoomPopUpData popUpData;
     public event RoomPopUpAction PlayerEnterEvent;
     public event Action PlayerExitTriggerEvent;
     private bool isPlayerIn = false;
-
-    // Use this for initialization
-    void Start () {
-        _collider = GetComponent<Collider>();
-	}
 	
 	void OnTriggerEnter(Collider other)
     {
