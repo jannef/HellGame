@@ -47,7 +47,7 @@ namespace fi.tamk.hellgame.dataholders
                 particles[i].velocity = _inBuffer[i].velocity;
 
                 // Lifetime buffer holds radius to set after the shader returns...
-                particles[i].size = _inBuffer[i].lifetimeLeft;
+                particles[i].startSize = _inBuffer[i].lifetimeLeft;
             }
         }
 

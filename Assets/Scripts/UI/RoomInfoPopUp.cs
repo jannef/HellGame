@@ -14,7 +14,6 @@ namespace fi.tamk.hellgame.ui
         private Vector2 endPosition;
         [SerializeField] private Vector2 offSet;
         private Vector2 startingPosition;
-        private CanvasGroup _canvasGroup;
         private Image _roomImage;
         private Text _roomName;
         [SerializeField] private Text _roomTopClearTime;
@@ -30,7 +29,6 @@ namespace fi.tamk.hellgame.ui
             startingPosition = _rectTransform.anchoredPosition;
             endPosition = startingPosition + offSet;
             _rectTransform.anchoredPosition = endPosition;
-            _canvasGroup = GetComponent<CanvasGroup>();
             _roomImage = GetComponentInChildren<Image>();
             _roomName = GetComponentInChildren<Text>();
 

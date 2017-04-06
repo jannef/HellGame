@@ -26,7 +26,6 @@ namespace fi.tamk.hellgame.states
 
         private WallBossMovement _SlowMove;
         private WallBossMovement _QuickMove;
-        private WallBossMovement _FirstLaserMove;
         private WallBossBulletHellPhaseStats _firstBulletHellPhase;
         private WallBossLaserAttackStats _firstLaserAttack;
         private WallBossBulletHellPhaseStats _secondBulletHellPhase;
@@ -54,7 +53,6 @@ namespace fi.tamk.hellgame.states
             _rightEye = externalObjects.ExistingGameObjects[2].GetComponent<PassiveTurret>();
             _SlowMove = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[0]) as WallBossMovement;
             _QuickMove = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[1]) as WallBossMovement;
-            _FirstLaserMove = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[2]) as WallBossMovement;
             _firstBulletHellPhase = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[3]) as WallBossBulletHellPhaseStats;
             _firstLaserAttack = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[4]) as WallBossLaserAttackStats;
             _secondBulletHellPhase = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[5]) as WallBossBulletHellPhaseStats;
@@ -187,8 +185,6 @@ namespace fi.tamk.hellgame.states
             BaseValues.currentPositionIndex = positionIndex;
             ControlledActor.GoToState(new WallBossMove(ControlledActor, BaseValues, BaseValues.wayPointList.WayPointList[BaseValues.currentPositionIndex].position,
                _SlowMove));
-
-            var playerTransform = ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position);
         }
 
         public override InputStates StateId

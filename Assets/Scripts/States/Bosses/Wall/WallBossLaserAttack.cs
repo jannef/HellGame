@@ -12,7 +12,6 @@ namespace fi.tamk.hellgame.states
     {
         private PassiveTurret _leftEye;
         private PassiveTurret _rightEye;
-        private float _movementTimer = 0;
         private WallBossLaserAttackStats _stats;
         private int attackNumber = 0;
         private bool attacking = false;
