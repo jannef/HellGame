@@ -17,6 +17,7 @@ namespace fi.tamk.hellgame.states
         private float _jumpingSpeed = 50f;
         private float _desiredJumpLenght = 1f;
         private float _desiredJumpLenghtEfficiency;
+        private AnimationCurve _windUpSquishCurve;
 
         private Vector3 _startingPosition;
         private Vector3 _endPosition;
@@ -37,6 +38,7 @@ namespace fi.tamk.hellgame.states
         public SlimeJumpingState(ActorComponent controlledHero, Transform target, SlimeJumpData jumpData) : base(controlledHero)
         {
             _startSize = ControlledActor.transform.localScale;
+            _windUpSquishCurve = jumpData.SquishCurve;
             _startingPosition = ControlledActor.transform.position;
             _scaleChangeStartY = ControlledActor.transform.position.y;
             _minSize = new Vector3(ControlledActor.transform.localScale.x * 2f, ControlledActor.transform.localScale.y * .5f, ControlledActor.transform.localScale.z * 2f);
@@ -59,6 +61,11 @@ namespace fi.tamk.hellgame.states
             }
         }
 
+        private void LandingSquish()
+        {
+
+        }
+
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
@@ -79,8 +86,8 @@ namespace fi.tamk.hellgame.states
                 var windUpRatio = StateTime / _windUpTime;
                 ControlledActor.transform.localScale = Vector3.Lerp(_startSize, _minSize, ControlledActor.ActorNumericData.CurveData[2].Evaluate(windUpRatio));
                  ControlledActor.transform.position = new Vector3(ControlledActor.transform.position.x,
-                    Mathf.Lerp(_scaleChangeStartY, _scaleChangeStartY - (((_startSize.y - _minSize.y)) / 2), 
-                    ControlledActor.ActorNumericData.CurveData[2].Evaluate(windUpRatio)),
+                    Mathf.Lerp(_scaleChangeStartY, _scaleChangeStartY - (((_startSize.y - _minSize.y)) / 2),
+                    _windUpSquishCurve.Evaluate(windUpRatio)),
                     ControlledActor.transform.position.z);
 
                 if (TargetTransform == null)

@@ -13,5 +13,6 @@ namespace fi.tamk.hellgame.dataholders
         public float JumpHeight = 10f;
         public float TargetJumpLenght = 33f;
         public float TargetjumpLenghtStrenght = 0.66f;
+        public AnimationCurve SquishCurve;
     }
 }
