@@ -41,7 +41,7 @@ namespace fi.tamk.hellgame.character
         private Vector3 GetLandingCoordinates()
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1000f, LayerMask.GetMask(Constants.GroundRaycastLayerName)) )
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1000f, DropToLayer) )
             {
                 return hit.point;
             }

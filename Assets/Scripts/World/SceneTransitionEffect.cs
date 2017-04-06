@@ -20,8 +20,6 @@ namespace fi.tamk.hellgame.world
         void Start()
         {
             _blackCanvas = GetComponent<CanvasGroup>();
-            
-            if (RoomManager.DebugMode) return;
             _blackCanvas.alpha = 1;
             StartCoroutine(FadeOutine());
         }

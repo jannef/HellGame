@@ -10,12 +10,18 @@ namespace fi.tamk.hellgame.world
     public class BossDamageThresholdEffectMaster : MonoBehaviour
     {
         public event Action<float> DamageEvent;
+        public event Action WakeUpEvent;
         [SerializeField] private HealthComponent _bossSystemToFollow;
 
         private void Start()
         {
             if (_bossSystemToFollow != null) _bossSystemToFollow.HealthChangeEvent += TakeDamage;
             _bossSystemToFollow.DeathEffect.AddListener(DeathEffect);
+        }
+
+        public void WakeUp()
+        {
+            if (WakeUpEvent != null) WakeUpEvent.Invoke();
         }
 
         private void DeathEffect()
