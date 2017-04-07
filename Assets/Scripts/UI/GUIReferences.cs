@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.UI;
 
 namespace fi.tamk.hellgame.ui
 {
@@ -9,5 +10,6 @@ namespace fi.tamk.hellgame.ui
         public TextMeshProUGUI ClockText;
         public GameObject RoomNameBar;
         public TextMeshProUGUI RoomNameText;
+        public CanvasScaler Scaler;
     }
 }
