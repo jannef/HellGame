@@ -61,12 +61,11 @@ public class GameClock : MonoBehaviour
     {
         var timer = 0f;
         var end = beatRadius * 2f;
-        var ratio = 0f;
 
         while (timer < end)
         {
             timer += WorldStateMachine.Instance.DeltaTime;
-            ratio = timer / end;
+            var ratio = timer / end;
             _display.fontSize = _originalSize + BeatCurve.Evaluate(ratio) * Beatsize;
             yield return null;
         }

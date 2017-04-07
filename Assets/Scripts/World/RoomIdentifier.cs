@@ -28,7 +28,8 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private bool _spawnPlayer = true;
         [SerializeField] private GameObject _playerPrefab;
         [SerializeField] private RoomClearingRanks roomClearingRankField;
-        [SerializeField] private PoolInstruction[] PoolingInstructions; 
+        [SerializeField] private PoolInstruction[] PoolingInstructions;
+        [SerializeField] private string RoomName;
 
         public static RoomClearingRanks Ranks;
         public static event Action PlayerDeath;
@@ -40,31 +41,14 @@ namespace fi.tamk.hellgame.world
 
         private static List<Action> _onPausedActions = new List<Action>();
         private static List<Action> _onGameResumeActions = new List<Action>();
-        private static bool isGamePaused = false;
+        private static bool _isGamePaused = false;
 
-        private TextMeshProUGUI ClockField;
+        private RoomNameDisplay _roomNameDisplay;
+        private TextMeshProUGUI _clockField;
         private static GameClock _clock;
 
         private void Awake()
         {
-            ClockField = (FindObjectOfType<GUIReferences>() ?? new UnityException("GUIReferences not found in a scene!").Throw<GUIReferences>()).ClockText;
-            _clock = gameObject.GetOrAddComponent<GameClock>();
-            _clock.Init(ClockField);
-
-            Ranks = roomClearingRankField;
-            _playerSpawnPoint = GetComponentInChildren<Transform>();
-            GameObject go = null;
-            GamePaused = null;
-            isGamePaused = false;
-            GameResumed = null;
-            RankGained = null;
-            PlayerDeath = null;
-            RoomCompleted = null;
-            HealthComponent hc = null;
-            SceneManager.sceneLoaded += InitializeAtSceneStart;
-            RoomCompleted += RoomClearedSave;
-            SceneId = SceneManager.GetActiveScene().buildIndex;
-
             var roomManager = FindObjectOfType<RoomManager>();
             if (roomManager == null)
             {
@@ -72,57 +56,80 @@ namespace fi.tamk.hellgame.world
                 DontDestroyOnLoad(gameObject);
                 SceneId = SceneManager.GetActiveScene().buildIndex;
                 SceneManager.LoadScene(0);
+                return;
             }
-            else
+             // The function has returned if this is a debug run
+            Init();
+            SpawnPlayer();
+
+            if (PoolingInstructions != null)
             {
-                var playerPrefab = FindObjectOfType<PlayerLimitBreak>();
-                
-                if (playerPrefab != null)
+                foreach (var pi in PoolingInstructions)
                 {
-                    go = playerPrefab.gameObject;
-                    playerPrefab.transform.position = _playerSpawnPoint.position;                    
+                    Pool.Instance.AddToPool(pi.Prefab, pi.HowMany);
                 }
-                else if (_spawnPlayer)
+            }
+            
+            _roomNameDisplay.Init(RoomName);
+            _roomNameDisplay.DisplayRoomName();
+        }
+
+        private void SpawnPlayer()
+        {
+            GameObject go = null;
+            var playerPrefab = FindObjectOfType<PlayerLimitBreak>();
+            if (playerPrefab != null)
+            {
+                go = playerPrefab.gameObject;
+                playerPrefab.transform.position = _playerSpawnPoint.position;
+            }
+            else if (_spawnPlayer)
+            {
+                go = Instantiate(_playerPrefab, _playerSpawnPoint.position, Quaternion.identity);
+            }
+
+            if (go != null)
+            {
+                var hc = go.GetComponent<HealthComponent>();
+                // Listener for player death
+                if (hc != null)
                 {
-                    go = Instantiate(_playerPrefab, _playerSpawnPoint.position, Quaternion.identity);
-                    playerPrefab = go.GetComponent<PlayerLimitBreak>();
+                    hc.DeathEffect.AddListener(OnPlayerDeath);
                 }
 
-                if (go != null)
-                {
-                    hc = go.GetComponent<HealthComponent>();
-                    // Listener for player death
-                    if (hc != null) {
-                        hc.DeathEffect.AddListener(OnPlayerDeath); 
-                    }
+                if (!_spawnPlayer) return;
+                var ic = go.GetComponent<InputController>();
 
-                }
-
-                if (_spawnPlayer)
+                if (RoomManager.PlayerPersistentData == null) return;
+                if (hc != null && hc.MaxHp != RoomManager.PlayerPersistentData.Health)
                 {
-                    var ic = go.GetComponent<InputController>();
-                    
-                    if (RoomManager.PlayerPersistentData != null)
-                    {
-                        if (hc != null && hc.MaxHp != RoomManager.PlayerPersistentData.Health)
-                        {
-                            hc.Health = (hc.MaxHp - RoomManager.PlayerPersistentData.Health);
-                        }
-                        if (ic != null && RoomManager.PlayerPersistentData.MyConfig != null)
-                        {
-                            ic.MyConfig = RoomManager.PlayerPersistentData.MyConfig;
-                        }
-                    }
+                    hc.Health = (hc.MaxHp - RoomManager.PlayerPersistentData.Health);
                 }
-
-                if (PoolingInstructions != null)
+                if (ic != null && RoomManager.PlayerPersistentData.MyConfig != null)
                 {
-                    foreach (var pi in PoolingInstructions)
-                    {
-                        Pool.Instance.AddToPool(pi.Prefab, pi.HowMany);
-                    }
+                    ic.MyConfig = RoomManager.PlayerPersistentData.MyConfig;
                 }
-            }            
+            }
+        }
+
+        private void Init()
+        {
+            Ranks = roomClearingRankField;
+            GamePaused = null;
+            GameResumed = null;
+            RankGained = null;
+            PlayerDeath = null;
+            RoomCompleted = null;
+            SceneManager.sceneLoaded += InitializeAtSceneStart;
+            RoomCompleted += RoomClearedSave;
+            SceneId = SceneManager.GetActiveScene().buildIndex;
+
+            _isGamePaused = false;
+            _playerSpawnPoint = GetComponentInChildren<Transform>();
+            _clockField = (FindObjectOfType<GUIReferences>() ?? new UnityException("GUIReferences not found in a scene!").Throw<GUIReferences>()).ClockText;
+            _roomNameDisplay = GetComponent<RoomNameDisplay>();
+            _clock = gameObject.GetOrAddComponent<GameClock>();
+            _clock.Init(_clockField);
         }
 
         private void RoomClearedSave()
@@ -135,12 +142,12 @@ namespace fi.tamk.hellgame.world
         {
             SceneManager.sceneLoaded -= InitializeAtSceneStart;
 
-            foreach (Action action in _onPausedActions)
+            foreach (var action in _onPausedActions)
             {
                 GamePaused += action;
             }
 
-            foreach (Action action in _onGameResumeActions)
+            foreach (var action in _onGameResumeActions)
             {
                 GameResumed += action;
             }
@@ -168,7 +175,7 @@ namespace fi.tamk.hellgame.world
 
         public static void PauseGame()
         {
-            if (isGamePaused)
+            if (_isGamePaused)
             {
                 if (GameResumed != null) GameResumed.Invoke();
             } else
@@ -176,7 +183,7 @@ namespace fi.tamk.hellgame.world
                 if (GamePaused != null) GamePaused.Invoke();
             }
 
-            isGamePaused = !isGamePaused;
+            _isGamePaused = !_isGamePaused;
         }
 
         public static void AddOnPauseListenerAtAwake(Action action)
