@@ -43,7 +43,7 @@ namespace fi.tamk.hellgame.world
         private static List<Action> _onGameResumeActions = new List<Action>();
         private static bool _isGamePaused = false;
 
-        private RoomNameDisplay _roomNameDisplay;
+        private BottomHUD _bottomHud;
         private TextMeshProUGUI _clockField;
         private static GameClock _clock;
 
@@ -70,8 +70,7 @@ namespace fi.tamk.hellgame.world
                 }
             }
             
-            _roomNameDisplay.Init(RoomName);
-            _roomNameDisplay.DisplayRoomName();
+            _bottomHud.DisplayMessage(RoomName);
         }
 
         private void SpawnPlayer()
@@ -127,7 +126,7 @@ namespace fi.tamk.hellgame.world
             _isGamePaused = false;
             _playerSpawnPoint = GetComponentInChildren<Transform>();
             _clockField = (FindObjectOfType<GUIReferences>() ?? new UnityException("GUIReferences not found in a scene!").Throw<GUIReferences>()).ClockText;
-            _roomNameDisplay = GetComponent<RoomNameDisplay>();
+            _bottomHud = GetComponent<BottomHUD>();
             _clock = gameObject.GetOrAddComponent<GameClock>();
             _clock.Init(_clockField);
         }
