@@ -34,7 +34,6 @@ namespace fi.tamk.hellgame.ui
         private IEnumerator MoveText(float duration)
         {
             _roomNameBar.SetActive(true);
-            Debug.Log(_roomNameText.flexibleWidth);
             var width = (_canvasScaler.referenceResolution.y);
 
             var timer = 0f;
