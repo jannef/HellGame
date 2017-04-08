@@ -14,6 +14,7 @@ namespace fi.tamk.hellgame.projectiles
 
         [SerializeField] protected AdvancedBulletBehavior[] AdvancedBehavior;
         [SerializeField] protected float[] RuntimeConfigFloats;
+        [SerializeField] protected GameObject BulletSystemPrefab;
 
         public int Damage = 1;
         public float Speed = 10f;
@@ -66,6 +67,10 @@ namespace fi.tamk.hellgame.projectiles
 
         protected void Awake()
         {
+            if (BulletSystemPrefab != null)
+            {
+                Instantiate(BulletSystemPrefab, transform).GetComponent<ParticleCollisionDelegator>().OnProjectileCol += OnParticleCollision;
+            }
             BulletSystem = GetComponentInChildren<ParticleSystem>();
             Bullets = new ParticleSystem.Particle[BulletSystem.main.maxParticles];
 
