@@ -42,7 +42,6 @@ namespace fi.tamk.hellgame.states
         public virtual void HandleInput(float deltaTime)
         {
             StateTime += deltaTime;
-            CheckForFalling();
         }
 
         public virtual void OnEnterState()
@@ -59,17 +58,6 @@ namespace fi.tamk.hellgame.states
 
         public virtual void OnSuspendState()
         {
-        }
-
-        protected virtual void CheckForFalling()
-        {
-            /*
-            var ray = new Ray(ControlledActor.transform.position + Vector3.up, Vector3.down);
-            if (!Physics.Raycast(ray, Mathf.Infinity, LayerMask.GetMask(Constants.GroundRaycastLayerName)))
-            {
-                ControlledActor.GoToState(new StateFalling(ControlledActor));
-            }
-            */
         }
 
         protected StateAbstract(ActorComponent controlledHero)

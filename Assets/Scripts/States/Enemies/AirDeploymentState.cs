@@ -54,11 +54,6 @@ namespace fi.tamk.hellgame.states
             }
         }
 
-        protected override void CheckForFalling()
-        {
-            
-        }
-
         public override void OnEnterState()
         {
             base.OnEnterState();

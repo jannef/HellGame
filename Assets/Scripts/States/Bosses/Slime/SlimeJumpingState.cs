@@ -136,10 +136,6 @@ namespace fi.tamk.hellgame.states
             if (ratio >= 1) EndJump();
         }
 
-        protected override void CheckForFalling()
-        {
-        }
-
         protected void EndJump()
         {
             ControlledActor.transform.position = _endPosition;

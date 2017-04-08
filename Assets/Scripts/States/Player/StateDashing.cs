@@ -42,10 +42,6 @@ namespace fi.tamk.hellgame.states
             }
         }
 
-        protected override void CheckForFalling()
-        {
-        }
-
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);

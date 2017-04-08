@@ -102,10 +102,6 @@ namespace fi.tamk.hellgame.states
             }
         }
 
-        protected override void CheckForFalling()
-        {
-        }
-
         public override InputStates StateId
         {
             get
