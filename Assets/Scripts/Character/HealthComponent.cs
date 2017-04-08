@@ -93,7 +93,11 @@ namespace fi.tamk.hellgame.character
             if (HealthChangeEvent != null) HealthChangeEvent.Invoke((float)Health/(float)MaxHp, Health, MaxHp);
         }
 
-        public void TakeDisplacingDamage(int howMuch) {
+        public void TakeDisplacingDamage(int howMuch, Vector3 displacement = default(Vector3))
+        {
+            displacement += transform.position;
+            displacement.y = CalculateWalkHeight();
+            transform.position = displacement;
             TakeDamage(howMuch);            
         }
 
@@ -184,6 +188,15 @@ namespace fi.tamk.hellgame.character
             Health = MaxHp;
             HasDied = false;
             _hasBeenHitThisFrame = false;
+        }
+
+        private float CalculateWalkHeight()
+        {
+            var floor = FindObjectOfType<FloorTextureScaler>().transform.position.y;
+            var cc = GetComponent<CharacterController>();
+            var height = cc.height / 2 - cc.center.y;
+
+            return floor + height;
         }
     }
 }

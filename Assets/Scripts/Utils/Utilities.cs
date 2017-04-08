@@ -35,5 +35,21 @@ namespace fi.tamk.hellgame.utils
 
             return _returnTranforms;
         }
+
+        public static void DisplacingDamageSplash(Transform source, float radius, int howMuch)
+        {
+            DisplacingDamageSplash(source, radius, howMuch, LayerMask.GetMask(Constants.PlayerLayerName, Constants.PlayerDashingLayerName));
+        }
+
+        public static void DisplacingDamageSplash(Transform source, float radius, int howMuch, LayerMask mask)
+        {
+            var cols = Physics.OverlapSphere(source.position, radius, mask);
+
+            if (cols.Length <= 0) return;
+            var trajectory = ServiceLocator.Instance.MainCameraScript.GetRoomCenter() - source.position;
+            trajectory.y = 0f;
+
+            cols.ForEach(x => Pool.Instance.GetHealthComponent(x.gameObject).TakeDisplacingDamage(howMuch, trajectory.normalized * radius * 1.5f));
+        }
     }
 }

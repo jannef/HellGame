@@ -169,14 +169,11 @@ namespace fi.tamk.hellgame.ui
                 var result = MouseMovementUpdate(mousePosition, true);
                 if (result != null)
                 {
-                    Debug.Log("click");
                     result.ClickThis(this);
                 }
 
                 return;
             }
-
-            
 
             if (_mouseStatus._isActive)
             {

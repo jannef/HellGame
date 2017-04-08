@@ -121,5 +121,20 @@ namespace fi.tamk.hellgame.world
             effectTransform.forward = -Camera.main.transform.forward;
             effectTransform.SetParent(Camera.main.transform);   
         }
+
+        public Vector3 GetRoomCenter()
+        {
+            var vec = Vector3.zero;
+            var number = 0;
+
+            foreach (var corner in _corners)
+            {
+                vec += corner.position;
+                number++;
+            }
+
+            if (number > 0) vec = vec / number;
+            return vec;
+        }
     }
 }

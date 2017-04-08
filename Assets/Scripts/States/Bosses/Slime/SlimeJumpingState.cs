@@ -61,11 +61,6 @@ namespace fi.tamk.hellgame.states
             }
         }
 
-        private void LandingSquish()
-        {
-
-        }
-
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
@@ -150,14 +145,7 @@ namespace fi.tamk.hellgame.states
             ControlledActor.transform.position = _endPosition;
             ControlledActor.transform.localScale = _startSize;
 
-            var cols = Physics.OverlapSphere(ControlledActor.transform.position, _radius, LayerMask.GetMask(Constants.PlayerLayerName, Constants.PlayerDashingLayerName));
-
-            if (cols.Length > 0)
-            {
-                cols.ForEach(x => Pool.Instance.GetHealthComponent(x.gameObject).TakeDisplacingDamage(1)); 
-            }
-
-            AtJumpEnd();
+            Utilities.DisplacingDamageSplash(ControlledActor.transform, _radius, 1); 
 
             ControlledActor.ToPreviousState();
         }
