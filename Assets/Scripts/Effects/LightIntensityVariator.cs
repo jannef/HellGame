@@ -9,7 +9,6 @@ namespace fi.tamk.hellgame.effects
         [SerializeField] private AnimationCurve _curve;
         [SerializeField] private float _cycleDuration;
         [SerializeField] private float _cycleMagnitude;
-        [SerializeField] private bool RandomCycleStart = true;
         private Light _light;
 
         private float _timer = 0f;
