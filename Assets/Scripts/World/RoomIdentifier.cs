@@ -170,8 +170,14 @@ namespace fi.tamk.hellgame.world
 
         public static void OnRoomCompleted()
         {
+            RoomCompletionTime = _clock.Time;
             if (RoomCompleted != null) RoomCompleted.Invoke();
             OnRankGained(RoomIdentifier.RoomCompletionTime);
+        }
+
+        public void RoomCompletedTrigger()
+        {
+            OnRoomCompleted();
         }
 
         public static void OnRankGained(float time)

@@ -155,6 +155,7 @@ namespace fi.tamk.hellgame.character
         public void LevelCompletingDeath()
         {
             ServiceLocator.Instance.RoomBeaten = true;
+            RoomIdentifier.OnRoomCompleted();
 
             var doNotDestroy = ServiceLocator.Instance.GetAllPlayerGameObjects();
             var all = Pool.Instance.GetAllHealthComponents();

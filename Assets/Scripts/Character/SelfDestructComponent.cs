@@ -13,12 +13,10 @@ namespace fi.tamk.hellgame.character
         protected void OnTriggerEnter(Collider hit)
         {
             if (SelfDestructLayer != (SelfDestructLayer | (1 << hit.gameObject.layer))) return;
-            OnHitEvent.Invoke();
+            if (OnHitEvent != null) OnHitEvent.Invoke();
 
             HealthComponent hc = Pool.Instance.GetHealthComponent(hit.gameObject);
             if (hc != null) hc.TakeDamage(hitDamage);
-
-            GetComponent<HealthComponent>().TakeDamage(int.MaxValue);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace fi.tamk.hellgame.states
         private int _activeMinions = 0;
         private int _phase = 0;
 
-
         public MobRoomZero(ActorComponent controlledHero) : base(controlledHero)
         {
             var externalObjects = ControlledActor.gameObject.GetComponent<BossExternalObjects>();
