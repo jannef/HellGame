@@ -1,4 +1,5 @@
-﻿using fi.tamk.hellgame.world;
+﻿using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.world;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,16 +14,22 @@ public class OpeningDoor : MonoBehaviour
     [SerializeField] private float closingLenght;
     [SerializeField] private AnimationCurve closingCurve;
     [SerializeField] bool startOpen = false;
+    [SerializeField] private float ClosingDelay = 0.5f;
 
     void Awake()
     {
         if (startOpen)
-        transform.RotateAround(hindeTransform.position, openingAxis, openingDegreeAmount);
+            transform.RotateAround(hindeTransform.position, openingAxis, openingDegreeAmount);
     }
 
     public void CloseDoor()
     {
         StartCoroutine(OpeningCoroutine(-openingDegreeAmount, closingCurve, closingLenght));
+    }
+
+    public void DelayedCloseDoor()
+    {
+        StartCoroutine(StaticCoroutines.DoAfterDelay(ClosingDelay, CloseDoor));
     }
 
     public void OpenDoor()
