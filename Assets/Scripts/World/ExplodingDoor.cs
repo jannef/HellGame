@@ -28,7 +28,7 @@ namespace fi.tamk.hellgame.world
         {
             _rigidBody.isKinematic = false;
             _rigidBody.AddExplosionForce(_explosionForce, _explosionPoint.position, _explosionRadius);
-            StartCoroutine(StaticCoroutines.DoAfterDelay(5f, StartDisappearing));
+            StartCoroutine(StaticCoroutines.DoAfterDelay(10f, StartDisappearing));
         }
 
         private void StartDisappearing()
@@ -38,7 +38,6 @@ namespace fi.tamk.hellgame.world
 
         private IEnumerator DoorDisappearingEffect()
         {
-            _rigidBody.isKinematic = true;
             var t = 0f;
             var startColor = _renderer.material.color;
             var invisibleColor = new Color(startColor.r, startColor.g, startColor.b, 0);
