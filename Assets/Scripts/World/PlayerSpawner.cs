@@ -41,6 +41,7 @@ namespace fi.tamk.hellgame.world
             }
 
             playerActor.enabled = true;
+            playerActor.transform.forward = endPosition - startingPosition;
             dashComponent.StopDash();
             playerActor.transform.position = endPosition;
         }
