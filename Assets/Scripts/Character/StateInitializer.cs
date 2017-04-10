@@ -90,6 +90,9 @@ namespace fi.tamk.hellgame.character
                 case InputStates.TutorialRoom:
                     outPutState = new TutorialRoom(hc);
                     break;
+                case InputStates.CourtyardStandby:
+                    outPutState = new CourtyardStandbyState(hc);
+                    break;
                 default:
                     outPutState = null;
                     throw new Exception("StateInitializer.StateFromStateId : " +
