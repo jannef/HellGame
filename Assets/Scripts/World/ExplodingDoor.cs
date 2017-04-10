@@ -44,7 +44,6 @@ namespace fi.tamk.hellgame.world
 
             while (t <= 1)
             {
-                Debug.Log(t);
                 t += WorldStateMachine.Instance.DeltaTime;
                 _renderer.material.color = Color.Lerp(startColor, invisibleColor, t);
                 yield return null;
