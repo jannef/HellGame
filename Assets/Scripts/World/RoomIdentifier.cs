@@ -99,6 +99,13 @@ namespace fi.tamk.hellgame.world
                 if (!_spawnPlayer) return;
                 var ic = go.GetComponent<InputController>();
 
+                var spawner = GetComponentInChildren<PlayerSpawner>();
+
+                if (spawner != null)
+                {
+                    bool spawningSuccesful = spawner.StartSpawning(go);
+                }
+
                 if (RoomManager.PlayerPersistentData == null) return;
                 if (hc != null && hc.MaxHp != RoomManager.PlayerPersistentData.Health)
                 {

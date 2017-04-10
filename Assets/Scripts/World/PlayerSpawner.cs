@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using fi.tamk.hellgame.character;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,36 +10,39 @@ namespace fi.tamk.hellgame.world
     {
         [SerializeField] private float _spawnLenght;
         [SerializeField] private AnimationCurve _movementCurve;
+        [SerializeField] private Transform _startPosition;
 
-        public void StartSpawning(GameObject player, Vector3 startingPosition)
+        public bool StartSpawning(GameObject player)
         {
-            player.SetActive(false);
-            StartCoroutine(SpawningRoutine(startingPosition, player));
+            var dashComponent = player.GetComponent<PlayerDash>();
+            var actorComponent = player.GetComponent<ActorComponent>();
+
+            if (actorComponent == null || dashComponent == null)
+            {
+                new UnityException("PlayerSpawner; PlayerDash or ActorComponent not found in target GameObject");
+                return false;
+            }
+
+            StartCoroutine(SpawningRoutine(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght));
+            return true;
         }
 
-        private IEnumerator SpawningRoutine(Vector3 endPosition, GameObject player)
+        private IEnumerator SpawningRoutine(Vector3 endPosition, Vector3 startingPosition, ActorComponent playerActor, PlayerDash dashComponent, float lenght)
         {
             var t = 0f;
-            Vector3 startingPosition = transform.position;
+            playerActor.enabled = false;
+            dashComponent.StartDash();
 
-            while (t >= 1)
+            while (t <= 1)
             {
-                transform.position = Vector3.Lerp(startingPosition, endPosition, _movementCurve.Evaluate(t));
-                t += Time.deltaTime;
+                playerActor.transform.position = Vector3.Lerp(startingPosition, endPosition, _movementCurve.Evaluate(t));
+                t += Time.deltaTime / lenght;
+                yield return null;
             }
 
-            player.transform.position = endPosition;
-            player.SetActive(true);
-            var particleEffects = GetComponentsInChildren<ParticleSystem>();
-            if (particleEffects != null)
-            {
-                foreach (ParticleSystem system in particleEffects)
-                {
-                    system.Stop();
-                }
-            }
-
-            yield return null;
+            playerActor.enabled = true;
+            dashComponent.StopDash();
+            playerActor.transform.position = endPosition;
         }
     }
 }
