@@ -8,26 +8,75 @@ using Random = UnityEngine.Random;
 
 namespace fi.tamk.hellgame.effects
 {
+    /// <summary>
+    /// Controls animations on sphere boss.
+    /// </summary>
     public class SphereShellController : MonoBehaviour
     {
+        /// <summary>
+        /// Distribution for random rotation speeds.
+        /// </summary>
         [SerializeField] private AnimationCurve _rotationSpeedDistribution;
+
+        /// <summary>
+        /// Maxium value that correspondes with 1.0f at the curve.
+        /// </summary>
         [SerializeField] private float _maxRotationSpeed = 97.3f;
 
+        /// <summary>
+        /// Float animation curve for the floating shell pieces.
+        /// </summary>
         [SerializeField] private AnimationCurve _floatCurve;
+
+        /// <summary>
+        /// Float height that correspondes with 1.0f on float curve.
+        /// </summary>
         [SerializeField] private float _maxFloatHeight = 0.13f;
+
+        /// <summary>
+        /// Duration that corresponds with the span [0f, 1f] with the float curve.
+        /// </summary>
         [SerializeField] private float _floatDuration = 4.1f;
 
+        /// <summary>
+        /// Explosive force applied to parts of shell when one is blown off.
+        /// </summary>
         [SerializeField] private float _explosiveForce = 500.34f;
 
+        /// <summary>
+        /// Reference to pulse script. Found in
+        /// </summary>
         [SerializeField] private SpehereShellPulse _pulse;
+
+        /// <summary>
+        /// Reference to rotation script.
+        /// </summary>
         [SerializeField] private IdleRotation _rotation;
 
+        /// <summary>
+        /// Health component reference to the boss actor of the Sphere Boss.
+        /// </summary>
         private HealthComponent _healthToMonitor;
+
+        /// <summary>
+        /// List of references to shell parts on Spere Boss, populated from Awake()
+        /// </summary>
         private readonly List<FloatingSpherePart> _parts = new List<FloatingSpherePart>();
 
+        /// <summary>
+        /// Calculated increment % ]0f,1f[ between blowing of pieces, depending on number of pieces found
+        /// in Awake()
+        /// </summary>
         private float _healthIncrement = 0f;
+
+        /// <summary>
+        /// Next health % ]0f, 1f[ breakpoint
+        /// </summary>
         private float _nextIndicatorPoint;
 
+        /// <summary>
+        /// Initializes references to individual components that make up the shell of the boss.
+        /// </summary>
         private void Awake()
         {
             _parts.AddRange(GetComponentsInChildren<FloatingSpherePart>()); // this before InitializeHealthMonitoring()!
@@ -39,6 +88,9 @@ namespace fi.tamk.hellgame.effects
             InitializeHealthMonitoring(); // _parts must be populated before this is called!      
         }
 
+        /// <summary>
+        /// Starts animations on the boss.
+        /// </summary>
         public void StartAnimations()
         {
             _pulse.enabled = true;
