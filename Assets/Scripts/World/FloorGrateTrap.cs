@@ -64,7 +64,7 @@ namespace fi.tamk.hellgame.world
 
         private void StopFlames()
         {
-            _damagingCollider.enabled = true;
+            _damagingCollider.enabled = false;
             _mainFlameParticles.Stop();
             StartCoroutine(StaticCoroutines.DoAfterDelay(_coolDownLenght, StartTelegraph));
         }
