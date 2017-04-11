@@ -18,6 +18,10 @@ namespace fi.tamk.hellgame.effects
         [SerializeField] private float _floatDuration = 4.1f;
 
         [SerializeField] private float _explosiveForce = 500.34f;
+
+        [SerializeField] private SpehereShellPulse _pulse;
+        [SerializeField] private IdleRotation _rotation;
+
         private HealthComponent _healthToMonitor;
         private readonly List<FloatingSpherePart> _parts = new List<FloatingSpherePart>();
 
@@ -32,7 +36,13 @@ namespace fi.tamk.hellgame.effects
                 part.Init(GetRandomizedRotationSpeed());
             }
 
-            InitializeHealthMonitoring(); // _parts must be populated before this is called!
+            InitializeHealthMonitoring(); // _parts must be populated before this is called!      
+        }
+
+        public void StartAnimations()
+        {
+            _pulse.enabled = true;
+            _rotation.enabled = true;
             StartCoroutine(FloatCycle());
             StartCoroutine(ChangeRotationSpeeds());
         }
