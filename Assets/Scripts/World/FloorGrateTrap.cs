@@ -12,7 +12,7 @@ namespace fi.tamk.hellgame.world
     {
         [SerializeField] private ParticleSystem _telegraphParticles;
         [SerializeField] private ParticleSystem _mainFlameParticles;
-        [SerializeField] private DamagingCollider _damagingCollider;
+        [SerializeField] private Collider _damagingCollider;
         [SerializeField] private float _telegraphLength;
         [SerializeField] private float _flameActiveLenght;
         [SerializeField] private float _coolDownLenght;
@@ -21,6 +21,11 @@ namespace fi.tamk.hellgame.world
         public UnityEvent StartFlame;
 
         private bool running = false;
+
+        private void Awake()
+        {
+            _damagingCollider.enabled = false;
+        }
 
         public void Activate()
         {
