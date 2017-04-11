@@ -23,15 +23,11 @@ namespace fi.tamk.hellgame.world
         private bool _isInStartingPosition = true;
         private Action _stopLaserAction;
 
-        void Start()
-        {
-            Activate();
-        }
-
         public void Stop()
         {
             if (_stopLaserAction != null) _stopLaserAction.Invoke();
             if (deathEvent != null) deathEvent.Invoke();
+            StopAllCoroutines();
             
         }
 
