@@ -22,6 +22,10 @@ namespace fi.tamk.hellgame.world
         Kitchen_2            = 7,
         WallBoss            = 8,
         Kitchen_3           = 9,
+        Library_1           = 10,
+        Library_2           = 11,
+        Library_3           = 12,
+        Library_Boss        = 13,
     }
 
     public static class SceneLoadLock
