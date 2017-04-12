@@ -42,8 +42,8 @@ def main(argv):
     print ('Opened input file, starting build...')
     numberOfLanguages = int(sheet1[0][0]);
     # Build output string
-    outputFile.write('using UnityEngine;\nusing System.Collections;\nusing System;\n\npublic static class LocaleStrings\n{\n')
-    outputFile.write('\tpublic static string[] CurrentLocale;\n\n')
+    outputFile.write('using UnityEngine;\nusing System.Collections;\nusing System;\n\npublic static partial class LocaleStrings\n{\n')
+    outputFile.write('\tprivate static string[] CurrentLocale;\n\n')
 	
     for j in range (1, numberOfLanguages+1):
         outputFile.write('\tpublic static readonly string[] '+sheet1[0][j]+' = {\n' )
