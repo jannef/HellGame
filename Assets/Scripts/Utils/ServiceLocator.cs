@@ -54,6 +54,11 @@ namespace fi.tamk.hellgame.utils
             return _players.Count < 1 ? null : _players.OrderBy(t => (t.Transform.position - requerPosition).sqrMagnitude).Last().Transform;
         }
 
+        public Transform GetNearestPlayer()
+        {
+            return GetNearestPlayer(Vector3.zero);
+        }
+
         public GameObject[] GetAllPlayerGameObjects()
         {
             if (Quitting) return new GameObject[0];

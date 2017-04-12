@@ -53,13 +53,16 @@ namespace fi.tamk.hellgame.ui
 
         private void UpdateDisplay()
         {
-            _display.SetText(
-                string.Format(
-                    "{0:0}:{1:00}:{2:00}",
-                    _time.Minutes,
-                    _time.Seconds,
-                    _time.Milliseconds / 10)
-            );
+            _display.SetText(FormatTime(_time));
+        }
+
+        public static string FormatTime(TimeSpan timespan)
+        {
+            return string.Format(
+                "{0:0}:{1:00}:{2:00}",
+                timespan.Minutes,
+                timespan.Seconds,
+                timespan.Milliseconds / 10);
         }
 
         private IEnumerator BeatCycle(float beatRadius)
