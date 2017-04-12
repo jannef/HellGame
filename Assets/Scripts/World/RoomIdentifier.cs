@@ -44,6 +44,7 @@ namespace fi.tamk.hellgame.world
 
         private BottomHUD _bottomHud;
         private TextMeshProUGUI _clockField;
+        private static GUIReferences _guiReferences;
         private static GameClock _clock;
 
         private void Awake()
@@ -102,7 +103,7 @@ namespace fi.tamk.hellgame.world
 
                 if (spawner != null)
                 {
-                    bool spawningSuccesful = spawner.StartSpawning(go);
+                    spawner.StartSpawning(go);
                 }
 
                 if (RoomManager.PlayerPersistentData == null) return;
@@ -131,7 +132,8 @@ namespace fi.tamk.hellgame.world
 
             _isGamePaused = false;
             _playerSpawnPoint = GetComponentInChildren<Transform>();
-            _clockField = (FindObjectOfType<GUIReferences>() ?? new UnityException("GUIReferences not found in a scene!").Throw<GUIReferences>()).ClockText;
+            _guiReferences = FindObjectOfType<GUIReferences>() ?? new UnityException("GUIReferences not found in a scene!").Throw<GUIReferences>();
+            _clockField = _guiReferences.ClockText;
             _bottomHud = GetComponent<BottomHUD>();
             _clock = gameObject.GetOrAddComponent<GameClock>();
             _clock.Init(_clockField);
@@ -173,17 +175,14 @@ namespace fi.tamk.hellgame.world
         {
             RoomCompletionTime = _clock.StopClock(); //stops the clock and returns current time.
             if (RoomCompleted != null) RoomCompleted.Invoke();
-            OnRankGained(RoomIdentifier.RoomCompletionTime);
+            var score = ScoreWindow.GetScoreWindowGo(_guiReferences.transform);
+            var player = ServiceLocator.Instance.GetNearestPlayer().gameObject.GetComponent<HealthComponent>();
+            score.SetData(_clock, player.MaxHp - player.Health);
         }
 
         public void RoomCompletedTrigger()
         {
             OnRoomCompleted();
-        }
-
-        public static void OnRankGained(float time)
-        {
-            if (RankGained != null && Ranks != null) RankGained.Invoke(Ranks.GetRankFromTime(time));
         }
 
         public static void PauseGame()
