@@ -56,7 +56,7 @@ namespace fi.tamk.hellgame.world
                 yield return null;
             }
 
-            //_blackCanvas.alpha = 1;
+            _blackCanvas.alpha = fadeInCurve.Evaluate(1);
 
             SceneManager.LoadScene(sceneToLoad);
         }

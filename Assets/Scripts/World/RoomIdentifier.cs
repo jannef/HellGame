@@ -167,7 +167,7 @@ namespace fi.tamk.hellgame.world
 
         private void OnPlayerDeath()
         {
-            WorldStateMachine.Instance.PauseTime();
+            WorldStateMachine.Instance.InterPolatingSlowDown(Mathf.Infinity, 0, 1.5f);
             if (PlayerDeath != null) PlayerDeath.Invoke();
         }
 
