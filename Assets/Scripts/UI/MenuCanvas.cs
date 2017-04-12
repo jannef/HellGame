@@ -17,6 +17,12 @@ namespace fi.tamk.hellgame.ui
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
+        public void OpenThisMenu()
+        {
+            var Menucommander = GetComponentInParent<MenuCommander>();
+            Menucommander.Activate(this);
+        }
+
         public override void MovePointerFromThis()
         {
             _canvasGroup.alpha = 0;
@@ -37,7 +43,6 @@ namespace fi.tamk.hellgame.ui
 
         public override void MovePointerToThis(MenuCommander commander)
         {
-            _canvasGroup.alpha = 1;
             _canvasGroup.blocksRaycasts = true;
             gameObject.SetActive(true);
             _startButton.MovePointerToThis(commander);

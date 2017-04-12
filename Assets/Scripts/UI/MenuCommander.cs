@@ -56,7 +56,6 @@ namespace fi.tamk.hellgame.ui
         {
             _mouseStatus = new MenuMouseStatus(Input.mousePosition, false);
             _graphicRaycaster = GetComponent<GraphicRaycaster>();
-            Activate(TestStartButton);
         }
 
         private void DoCommand(MenuActionType type)

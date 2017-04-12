@@ -4,6 +4,7 @@ using fi.tamk.hellgame.interfaces;
 using UnityEngine;
 using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.world.states;
+using tamk.fi.hellgame.world.states;
 
 namespace fi.tamk.hellgame.world
 {
@@ -61,6 +62,11 @@ namespace fi.tamk.hellgame.world
         public void SlowDownPeriod(float lenght, float timescale)
         {
             EnterState(new GenericTimeState(lenght, timescale, this));
+        }
+
+        public void InterPolatingSlowDown(float lenght, float timescale, float interpolationLenght)
+        {
+            EnterState(new InterpolatingTimeState(lenght, timescale, this, interpolationLenght));
         }
 
         public void PauseTime()
