@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.ui
 {
@@ -11,6 +12,8 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private InteractableUiElementAbstract _canvasToReturnTo;
         [SerializeField] public InteractableUiElementAbstract _startButton;
         private CanvasGroup _canvasGroup;
+        public UnityEvent PointerMovedToThis;
+        public UnityEvent PointerRemovedFromThis;
 
         private void Awake()
         {
@@ -28,6 +31,7 @@ namespace fi.tamk.hellgame.ui
             _canvasGroup.alpha = 0;
             _canvasGroup.blocksRaycasts = false;
             gameObject.SetActive(false);
+            if (PointerRemovedFromThis != null) PointerRemovedFromThis.Invoke();
         }
 
         public override void ClickThis(MenuCommander commander)
@@ -46,6 +50,8 @@ namespace fi.tamk.hellgame.ui
             _canvasGroup.blocksRaycasts = true;
             gameObject.SetActive(true);
             _startButton.MovePointerToThis(commander);
+
+            if (PointerMovedToThis != null) PointerMovedToThis.Invoke();
 
             if (_canvasToReturnTo != null)
             {
