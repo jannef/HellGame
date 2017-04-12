@@ -25,8 +25,7 @@ namespace fi.tamk.hellgame.ui
         {
             foreach (MenuActionType type in Constants.ActionsToAlwaysSetOnBasicButtons)
             {
-                var transition = _transitionList.Where(x => x._actionType == type).FirstOrDefault();
-                
+                var transition = _transitionList.FirstOrDefault(x => x._actionType == type);
 
                 if (transition != null)
                 {

@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace fi.tamk.hellgame.world
@@ -160,6 +159,8 @@ namespace fi.tamk.hellgame.world
 
             _onGameResumeActions.Clear();
             _onPausedActions.Clear();
+
+            _clock.StartClock();
         }
 
         private void OnPlayerDeath()
@@ -170,7 +171,7 @@ namespace fi.tamk.hellgame.world
 
         public static void OnRoomCompleted()
         {
-            RoomCompletionTime = _clock.Time;
+            RoomCompletionTime = _clock.StopClock(); //stops the clock and returns current time.
             if (RoomCompleted != null) RoomCompleted.Invoke();
             OnRankGained(RoomIdentifier.RoomCompletionTime);
         }
