@@ -7,6 +7,7 @@ using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.utils;
 using UnityEngine;
 using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.states
 {
@@ -26,6 +27,7 @@ namespace fi.tamk.hellgame.states
         private int _spawnedWaveAmount = 0;
         private int _totalHuntJumps = 0;
         private float _originalShortJumpDelay;
+        private GenericSceneEvent _jumpEvent;
 
         private SlimeJumpData _longJumpData;
         private SlimeJumpData _shortJumpData;
@@ -37,6 +39,7 @@ namespace fi.tamk.hellgame.states
             hc.HealthChangeEvent += OnBossHealthChange;
             var externalObjects = ControlledActor.gameObject.GetComponent<BossExternalObjects>();
 
+            _jumpEvent = ControlledActor.GetComponent<GenericSceneEvent>();
             _graphicTransform = externalObjects.ExistingGameObjects[1].transform;
             _mySpawner = externalObjects.ExistingGameObjects[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
             _spawnerInstance = GameObject.Instantiate(externalObjects.ScriptableObjects[0]) as SpawnerInstruction;
@@ -75,6 +78,9 @@ namespace fi.tamk.hellgame.states
         public override void OnResumeState()
         {
             base.OnResumeState();
+            if (_jumpEvent != null) _jumpEvent.ActivateEvent();
+
+
             switch (_currentPhase)
             {
                 case JumpPhase.Hunting:
