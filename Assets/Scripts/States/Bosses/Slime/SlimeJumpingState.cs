@@ -10,6 +10,7 @@ namespace fi.tamk.hellgame.states
     public class SlimeJumpingState : StateAbstract
     {
         protected Transform TargetTransform;
+        private Transform Self;
 
         private float _radius;
         private float _windUpTime = 2;
@@ -35,14 +36,15 @@ namespace fi.tamk.hellgame.states
         private float _jumpAnimationLenght;
         private bool _hasStartedJumpAnimation = false;
 
-        public SlimeJumpingState(ActorComponent controlledHero, Transform target, SlimeJumpData jumpData) : base(controlledHero)
+        public SlimeJumpingState(ActorComponent controlledHero, Transform target, SlimeJumpData jumpData, Transform self) : base(controlledHero)
         {
-            _startSize = ControlledActor.transform.localScale;
+            Self = self;
+            _startSize = Self.localScale;
             _windUpSquishCurve = jumpData.SquishCurve;
             _startingPosition = ControlledActor.transform.position;
             _scaleChangeStartY = ControlledActor.transform.position.y;
-            _minSize = new Vector3(ControlledActor.transform.localScale.x * 2f, ControlledActor.transform.localScale.y * .5f, ControlledActor.transform.localScale.z * 2f);
-            _jumpStretchScale = new Vector3(ControlledActor.transform.localScale.x * .75f, ControlledActor.transform.localScale.y * 1.25f, ControlledActor.transform.localScale.z * .75f);
+            _minSize = new Vector3(Self.localScale.x * 2f, Self.localScale.y * .5f, Self.localScale.z * 2f);
+            _jumpStretchScale = new Vector3(Self.localScale.x * .75f, Self.localScale.y * 1.25f, Self.localScale.z * .75f);
             TargetTransform = target;
             _radius = ControlledActor.ActorNumericData.ActorFloatData[3];
             _windUpTime = jumpData.JumpDelay;
@@ -79,7 +81,7 @@ namespace fi.tamk.hellgame.states
 
 
                 var windUpRatio = StateTime / _windUpTime;
-                ControlledActor.transform.localScale = Vector3.Lerp(_startSize, _minSize, ControlledActor.ActorNumericData.CurveData[2].Evaluate(windUpRatio));
+                Self.localScale = Vector3.Lerp(_startSize, _minSize, ControlledActor.ActorNumericData.CurveData[2].Evaluate(windUpRatio));
                  ControlledActor.transform.position = new Vector3(ControlledActor.transform.position.x,
                     Mathf.Lerp(_scaleChangeStartY, _scaleChangeStartY - (((_startSize.y - _minSize.y)) / 2),
                     _windUpSquishCurve.Evaluate(windUpRatio)),
@@ -98,7 +100,7 @@ namespace fi.tamk.hellgame.states
                 if (windUpRatio >= 1f)
                 {
                     ControlledActor.transform.position = _startingPosition;
-                    ControlledActor.transform.localScale = _startSize;
+                    Self.localScale = _startSize;
                     // TODO add support to non-flat surfaces
                     targetVec.x = Mathf.Clamp(targetVec.x, ServiceLocator.WorldLimits[0] + _radius, ServiceLocator.WorldLimits[1] - _radius);
                     targetVec.z = Mathf.Clamp(targetVec.z, ServiceLocator.WorldLimits[2] + _radius, ServiceLocator.WorldLimits[3] - _radius);
@@ -124,7 +126,7 @@ namespace fi.tamk.hellgame.states
             // TODO: Easing
             var ratio = ControlledActor.ActorNumericData.CurveData[1].Evaluate(((_jumpTimer * _jumpingSpeed) / _lenght));
 
-            ControlledActor.transform.localScale = Vector3.Lerp(_startSize, _jumpStretchScale,
+            Self.localScale = Vector3.Lerp(_startSize, _jumpStretchScale,
                 ControlledActor.ActorNumericData.CurveData[0].Evaluate(1f - Mathf.Abs(1f - ratio * 2)));
 
             var vec = Vector3.Lerp(_startingPosition, _endPosition, ratio);
@@ -139,7 +141,7 @@ namespace fi.tamk.hellgame.states
         protected void EndJump()
         {
             ControlledActor.transform.position = _endPosition;
-            ControlledActor.transform.localScale = _startSize;
+            Self.localScale = _startSize;
 
             Utilities.DisplacingDamageSplash(ControlledActor.transform, _radius, 1); 
 

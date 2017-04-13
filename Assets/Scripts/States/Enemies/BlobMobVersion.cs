@@ -42,10 +42,10 @@ namespace fi.tamk.hellgame.states
             if (_amountHopped >= 3)
             {
                 _amountHopped = 0;
-                ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _longJump));
+                ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _longJump, ControlledActor.transform));
             } else
             {
-                ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _shortJump));
+                ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _shortJump, ControlledActor.transform));
             }
 
         }
