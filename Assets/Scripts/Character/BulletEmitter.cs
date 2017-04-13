@@ -39,13 +39,13 @@ namespace fi.tamk.hellgame.character
             get { return (BulletOrigin.position - transform.position).normalized; }
         }
 
-        protected void FireBullet(Vector3 trajectory, bool shotgunMode = true)
+        protected void FireBullet(Vector3 trajectory, Vector3 originRotation, bool shotgunMode = true)
         {
             if (Dispersion > 0)
             {
                 trajectory = Quaternion.Euler(0, Random.Range(-Dispersion / 2, Dispersion / 2), 0) * trajectory;
             }
-            BulletSystem.EmitBullet(BulletOrigin.position, trajectory);
+            BulletSystem.EmitBullet(BulletOrigin.position, trajectory, originRotation);
         }
 
         protected void FireBullets(Vector3 tra)
@@ -55,8 +55,9 @@ namespace fi.tamk.hellgame.character
 
             for (var i = 0; i < NumberOfBullets; i++)
             {
-                FireBullet(GunVector, false);
-                BulletOrigin.transform.RotateAround(transform.position, transform.up, Spread / NumberOfBullets);
+                var offset = Spread / NumberOfBullets;
+                FireBullet(GunVector, BulletOrigin.transform.localRotation.eulerAngles - new Vector3( 0, offset, 0), false);
+                BulletOrigin.transform.RotateAround(transform.position, transform.up, offset);
             }
 
             BulletOrigin.transform.position = startPos;

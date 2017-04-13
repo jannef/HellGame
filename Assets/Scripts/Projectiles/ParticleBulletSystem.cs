@@ -14,6 +14,7 @@ namespace fi.tamk.hellgame.projectiles
 
         [SerializeField] protected AdvancedBulletBehavior[] AdvancedBehavior;
         [SerializeField] protected float[] RuntimeConfigFloats;
+        [SerializeField] protected bool IsBillboard = true;
 
         public int Damage = 1;
         public float Speed = 10f;
@@ -80,15 +81,23 @@ namespace fi.tamk.hellgame.projectiles
             }
         }
 
-        public void EmitBullet(Vector3 from, Vector3 velocity)
+        public void EmitBullet(Vector3 from, Vector3 velocity, Vector3 rotation)
         {
             var emissionParams = new ParticleSystem.EmitParams
             {
                 position = from,
                 velocity = velocity.normalized*Speed
             };
-            var angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
-            emissionParams.rotation = angle;
+
+            if (IsBillboard)
+            {
+                var angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
+                emissionParams.rotation = angle;
+            }
+            else
+            {
+                emissionParams.rotation3D = rotation;
+            }
 
             BulletSystem.Emit(emissionParams, 1);
         }
