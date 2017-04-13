@@ -16,7 +16,6 @@ namespace fi.tamk.hellgame.ui
         private Vector2 startingPosition;
         private Image _roomImage;
         private Text _roomName;
-        [SerializeField] private Text _roomTopClearTime;
         private RectTransform _rectTransform;
         [SerializeField] private float movementLenght;
         [SerializeField] private AnimationCurve movementCurve;
@@ -49,18 +48,6 @@ namespace fi.tamk.hellgame.ui
                 _roomImage.sprite = popUpData.popUpPicture;
             }
 
-            var stats = UserStaticData.GetRoomData(popUpData.roomIndex);
-            System.TimeSpan completionTime;
-
-            if (stats != null)
-            {
-                completionTime = System.TimeSpan.FromSeconds(stats.RecordTime);
-                
-            } else
-            {
-               completionTime = System.TimeSpan.FromSeconds(0);
-            }
-            _roomTopClearTime.text = string.Format("{0}:{1}:{2}", completionTime.Minutes, completionTime.Seconds, completionTime.Milliseconds);
             _roomName.text = popUpData.roomName;
 
             StopAllCoroutines();

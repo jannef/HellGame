@@ -15,6 +15,8 @@ namespace fi.tamk.hellgame.world
         private float _explosionRadius;
         [SerializeField]
         private Transform _explosionPoint;
+        [SerializeField]
+        private float _fadeDuration = 10f;
         private Renderer _renderer;
 
         // Use this for initialization
@@ -28,7 +30,7 @@ namespace fi.tamk.hellgame.world
         {
             _rigidBody.isKinematic = false;
             _rigidBody.AddExplosionForce(_explosionForce, _explosionPoint.position, _explosionRadius);
-            StartCoroutine(StaticCoroutines.DoAfterDelay(10f, StartDisappearing));
+            StartCoroutine(StaticCoroutines.DoAfterDelay(_fadeDuration, StartDisappearing));
         }
 
         private void StartDisappearing()
@@ -50,6 +52,7 @@ namespace fi.tamk.hellgame.world
             }
 
             _renderer.material.color = invisibleColor;
+            Destroy(gameObject);
             yield return null;
         }
     }

@@ -17,6 +17,7 @@ namespace fi.tamk.hellgame.states
             Hunting, Summon, HuntAndSummon, QuickLeap
         }
 
+        private Transform _graphicTransform;
         private JumpPhase _currentPhase;
         private AirSpawnerWithSetSpawnPoints _mySpawner;
         private SpawnerInstruction _spawnerInstance;
@@ -36,6 +37,7 @@ namespace fi.tamk.hellgame.states
             hc.HealthChangeEvent += OnBossHealthChange;
             var externalObjects = ControlledActor.gameObject.GetComponent<BossExternalObjects>();
 
+            _graphicTransform = externalObjects.ExistingGameObjects[1].transform;
             _mySpawner = externalObjects.ExistingGameObjects[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
             _spawnerInstance = GameObject.Instantiate(externalObjects.ScriptableObjects[0]) as SpawnerInstruction;
             _longJumpData = GameObject.Instantiate(externalObjects.ScriptableObjects[1]) as SlimeJumpData;
@@ -132,16 +134,16 @@ namespace fi.tamk.hellgame.states
             switch (_currentPhase)
             {
                 case JumpPhase.Hunting:
-                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _longJumpData));
+                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _longJumpData, _graphicTransform));
                     break;
                 case JumpPhase.Summon:
-                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ControlledActor.transform, _shortJumpData));
+                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ControlledActor.transform, _shortJumpData, _graphicTransform));
                     break;
                 case JumpPhase.HuntAndSummon:
-                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _longJumpData));
+                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _longJumpData, _graphicTransform));
                     break;
                 case JumpPhase.QuickLeap:
-                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _quickLongJump));
+                    ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ServiceLocator.Instance.GetNearestPlayer(ControlledActor.transform.position), _quickLongJump, _graphicTransform));
                     break;
             }
             
