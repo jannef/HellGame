@@ -61,13 +61,12 @@ namespace fi.tamk.hellgame.utils
 
         public GameObject[] GetAllPlayerGameObjects()
         {
-            if (Quitting) return new GameObject[0];
-            return _players.Select(x => x.Transform.gameObject as GameObject).ToArray();
+            return Quitting ? new GameObject[0] : _players.Select(x => x.Transform.gameObject).ToArray();
         }
 
         public PickupGathererComponent GetPickupGatherer(Transform playerOfWhich)
         {
-            return _players.DefaultIfEmpty(new PlayerData(null, null)).First(x => x.Transform = playerOfWhich).PickupComponent;
+            return _players.DefaultIfEmpty(new PlayerData(null, null)).FirstOrDefault(x => x.Transform = playerOfWhich).PickupComponent;
         }
     }
 }
