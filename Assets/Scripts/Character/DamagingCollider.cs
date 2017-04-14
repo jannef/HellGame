@@ -13,7 +13,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField] private LayerMask DamageLayer;
         [SerializeField] private int damage;
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             if (DamageLayer != (DamageLayer | (1 << other.gameObject.layer))) return;
 
