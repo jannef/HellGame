@@ -85,7 +85,7 @@ namespace fi.tamk.hellgame.effects
                 part.Init(GetRandomizedRotationSpeed());
             }
 
-            InitializeHealthMonitoring(); // _parts must be populated before this is called!      
+            InitializeHealthMonitoring(); // _parts must be populated before this is called!
         }
 
         /// <summary>

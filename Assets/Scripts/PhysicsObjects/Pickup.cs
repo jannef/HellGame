@@ -98,7 +98,9 @@ namespace fi.tamk.hellgame.physicsobjects
                 yield return null;                    
             }
 
-            ServiceLocator.Instance.GetPickupGatherer(toWhere).PickItem(PickupType);
+            var gatherer = ServiceLocator.Instance.GetPickupGatherer(toWhere);
+            if (gatherer != null) gatherer.PickItem(PickupType);
+
             var go = gameObject;
             Pool.Instance.ReturnObject(ref go);
             yield return null;
