@@ -15,7 +15,6 @@ namespace fi.tamk.hellgame.effects
 
         private float _timer = 0f;
 
-        private static bool CalledOne = false;
         private Color _startColor;
 
 #if UNITY_EDITOR
@@ -26,7 +25,6 @@ namespace fi.tamk.hellgame.effects
 #endif
         private void Update()
         {
-            CalledOne = true;
             _timer += WorldStateMachine.Instance.DeltaTime;
 
             if (_timer > _emissionInterval) _timer -= _emissionInterval;
