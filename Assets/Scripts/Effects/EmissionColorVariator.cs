@@ -16,7 +16,14 @@ namespace fi.tamk.hellgame.effects
         private float _timer = 0f;
 
         private static bool CalledOne = false;
+        private Color _startColor;
 
+#if UNITY_EDITOR
+        private void Awake()
+        {
+            _startColor = _material.GetColor("_EmissionColor");
+        }
+#endif
         private void Update()
         {
             CalledOne = true;
@@ -27,5 +34,12 @@ namespace fi.tamk.hellgame.effects
 
             _material.SetColor("_EmissionColor", Color.Lerp(_lowEmission, _highEmission, _emissionCurve.Evaluate(ratio)));
         }
+
+#if UNITY_EDITOR
+        private void OnDestroy()
+        {
+            _material.SetColor("_EmissionColor", _startColor);
+        }
+#endif
     }
 }
