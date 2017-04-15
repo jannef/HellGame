@@ -7,19 +7,15 @@ namespace fi.tamk.hellgame.effects
 {
     public class EmissionColorVariator : MonoBehaviour
     {
+        [SerializeField] private Material _material;
         [SerializeField] private Color _highEmission;
         [SerializeField] private Color _lowEmission;
         [SerializeField] private AnimationCurve _emissionCurve;
         [SerializeField] private float _emissionInterval;
 
-        private Renderer _renderer;
         private float _timer = 0f;
 
         private static bool CalledOne = false;
-        private void Awake()
-        {
-            _renderer = GetComponentInChildren<Renderer>();
-        }
 
         private void Update()
         {
@@ -29,7 +25,7 @@ namespace fi.tamk.hellgame.effects
             if (_timer > _emissionInterval) _timer -= _emissionInterval;
             var ratio = _timer / _emissionInterval;
 
-            _renderer.material.SetColor("_EmissionColor", Color.Lerp(_lowEmission, _highEmission, _emissionCurve.Evaluate(ratio)));
+            _material.SetColor("_EmissionColor", Color.Lerp(_lowEmission, _highEmission, _emissionCurve.Evaluate(ratio)));
         }
     }
 }
