@@ -15,6 +15,11 @@ public static class Extensions {
         return component;
     }
 
+    public static float AreaFromRadius(this float rad)
+    {
+        return rad * rad * Mathf.PI;
+    }
+
     public static TComponent[] GetComponentFromChildrenOnly<TComponent>(this GameObject gameObject)
             where TComponent : Component
     {

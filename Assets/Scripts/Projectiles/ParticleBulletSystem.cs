@@ -107,9 +107,7 @@ namespace fi.tamk.hellgame.projectiles
             // Fuck Unity
             var methdod = typeof(ParticleSystem.CollisionModule).GetMethod("SetCollidesWith",
                     BindingFlags.NonPublic | BindingFlags.Static);
-            var instance = typeof(ParticleSystem.CollisionModule).GetField("m_ParticleSystem", BindingFlags.NonPublic | BindingFlags.Instance);
-            var value = instance.GetValue(BulletSystem.collision);
-            methdod.Invoke(value, new object[] {value, (int)maskToSet});
+            methdod.Invoke(null, new object[] {BulletSystem, (int)maskToSet});
         }
 
         public void OnDestroy()
