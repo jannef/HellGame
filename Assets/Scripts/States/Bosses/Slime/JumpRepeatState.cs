@@ -15,7 +15,7 @@ namespace fi.tamk.hellgame.states
     {
         private enum JumpPhase
         {
-            Hunting, Summon, HuntAndSummon, QuickLeap
+            Hunting, Summon, HuntAndSummon, QuickLeap, Transition
         }
 
         private Transform _graphicTransform;
@@ -28,10 +28,13 @@ namespace fi.tamk.hellgame.states
         private int _totalHuntJumps = 0;
         private float _originalShortJumpDelay;
         private GenericSceneEvent _jumpEvent;
+        private bool changeStateChangedFlag = false;
+        private BossStateCompletedEvent _bossStateCompletedEvent;
 
         private SlimeJumpData _longJumpData;
         private SlimeJumpData _shortJumpData;
         private SlimeJumpData _quickLongJump;
+        private SlimeJumpData _stateChangedData;
 
         public JumpRepeatState(ActorComponent controlledHero) : base(controlledHero)
         {
@@ -42,10 +45,12 @@ namespace fi.tamk.hellgame.states
             _jumpEvent = ControlledActor.GetComponent<GenericSceneEvent>();
             _graphicTransform = externalObjects.ExistingGameObjects[1].transform;
             _mySpawner = externalObjects.ExistingGameObjects[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
+            _bossStateCompletedEvent = externalObjects.ExistingGameObjects[2].GetComponent<BossStateCompletedEvent>();
             _spawnerInstance = GameObject.Instantiate(externalObjects.ScriptableObjects[0]) as SpawnerInstruction;
             _longJumpData = GameObject.Instantiate(externalObjects.ScriptableObjects[1]) as SlimeJumpData;
             _shortJumpData = GameObject.Instantiate(externalObjects.ScriptableObjects[2]) as SlimeJumpData;
             _quickLongJump = GameObject.Instantiate(externalObjects.ScriptableObjects[3]) as SlimeJumpData;
+            _stateChangedData = GameObject.Instantiate(externalObjects.ScriptableObjects[4]) as SlimeJumpData;
             _originalShortJumpDelay = _shortJumpData.JumpDelay;
             _currentPhase = JumpPhase.Hunting;
         }
@@ -55,12 +60,15 @@ namespace fi.tamk.hellgame.states
             if (_phase <= 0 && percentage < 0.8f)
             {
                 _spawnerInstance.numberOfSpawns++;
+                changeStateChangedFlag = true;
                 _phase++;
             } else if (_phase <= 1 && percentage < 0.5f) {
+                changeStateChangedFlag = true;
                 _phase++;
 
             } else if (_phase <= 2 && percentage < 0.30f)
             {
+                changeStateChangedFlag = true;
                 _phase++;
                 _currentPhase = JumpPhase.HuntAndSummon;
             }
@@ -121,6 +129,21 @@ namespace fi.tamk.hellgame.states
                 case JumpPhase.QuickLeap:
                     _currentPhase = _phase < 3 ? JumpPhase.Hunting : JumpPhase.HuntAndSummon;
                     break;
+                case JumpPhase.Transition:
+                    if (_bossStateCompletedEvent != null)
+                    {
+                        _bossStateCompletedEvent.TransitionPhaseCompleted();
+                    }
+
+                    if (_phase <= 2)
+                    {
+                        _currentPhase = JumpPhase.Hunting;
+                    } else
+                    {
+                        _currentPhase = JumpPhase.HuntAndSummon;
+                    }
+                    
+                    break;
             }
 
             if (_phase > 0)
@@ -136,6 +159,18 @@ namespace fi.tamk.hellgame.states
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
+
+            if (changeStateChangedFlag)
+            {
+                changeStateChangedFlag = false;
+                if (_bossStateCompletedEvent != null)
+                {
+                    if (_bossStateCompletedEvent.PhaseCompletedEvent != null) _bossStateCompletedEvent.PhaseCompletedEvent.Invoke();
+                }
+                _currentPhase = JumpPhase.Transition;
+                ControlledActor.GoToState(new SlimeJumpingState(ControlledActor, ControlledActor.transform, _stateChangedData, _graphicTransform));
+                return;
+            }
 
             switch (_currentPhase)
             {
