@@ -10,11 +10,6 @@ namespace fi.tamk.hellgame.world
     {
         public UnityEvent Event;
 
-        private void Start()
-        {
-            ActivateEvent();
-        }
-
         public void ActivateEvent()
         {
             if (Event != null) Event.Invoke();
