@@ -39,6 +39,7 @@ namespace fi.tamk.hellgame.world
         public static bool DebugMode;
         public ButtonMap[] Inputs;
         private static int currentInputModeIndex = 0;
+        public static int LastSceneIndex = 0;
 
         public LegalScenes CurrentScene { get; private set; }
 
@@ -74,6 +75,8 @@ namespace fi.tamk.hellgame.world
         public static void LoadRoom(LegalScenes whichRoom, bool transitionEffects = true, bool resetPlayerStats = true)
         {
             SceneLoadLock.SceneChangeInProgress = true;
+
+            if (SceneManager.GetActiveScene() != null) LastSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
             var player = FindObjectOfType<PlayerLimitBreak>();
             if (player != null)

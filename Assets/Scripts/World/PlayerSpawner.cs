@@ -1,4 +1,6 @@
 ﻿using fi.tamk.hellgame.character;
+using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +13,14 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private float _spawnLenght;
         [SerializeField] private AnimationCurve _movementCurve;
         [SerializeField] private Transform _startPosition;
+        [SerializeField] private Transform _otherEntrancePointsParent;
+        private int playerOriginalLayer;
 
         public bool StartSpawning(GameObject player)
         {
+            PlayerSpawnEntrance[] otherSpawnEntrances = _otherEntrancePointsParent.GetComponentsInChildren<PlayerSpawnEntrance>();
+            playerOriginalLayer = player.layer;
+
             var dashComponent = player.GetComponent<PlayerDash>();
             var actorComponent = player.GetComponent<ActorComponent>();
 
@@ -21,6 +28,44 @@ namespace fi.tamk.hellgame.world
             {
                 new UnityException("PlayerSpawner; PlayerDash or ActorComponent not found in target GameObject");
                 return false;
+            }
+
+            StartCoroutine(SpawningRoutine(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght));
+            return true;
+        }
+
+        public bool StartSpawning(GameObject player, int previousRoom)
+        {
+
+            var dashComponent = player.GetComponent<PlayerDash>();
+            var actorComponent = player.GetComponent<ActorComponent>();
+            player.SetLayer(Constants.EnemyLayer, false);
+            playerOriginalLayer = player.layer;
+
+            if (actorComponent == null || dashComponent == null)
+            {
+                new UnityException("PlayerSpawner; PlayerDash or ActorComponent not found in target GameObject");
+                return false;
+            }
+
+            PlayerSpawnEntrance[] otherSpawnEntrances = null;
+
+            if (_otherEntrancePointsParent != null)
+            {
+                otherSpawnEntrances = _otherEntrancePointsParent.GetComponentsInChildren<PlayerSpawnEntrance>();
+            }
+
+            if (otherSpawnEntrances != null)
+            {
+                for (int i = 0; i < otherSpawnEntrances.Length; i++)
+                {
+                    if ((int)otherSpawnEntrances[i].previousScene == previousRoom)
+                    {
+                        StartCoroutine(SpawningRoutine(otherSpawnEntrances[i].transform.position, otherSpawnEntrances[i].StartPoint.position, 
+                            actorComponent, dashComponent, _spawnLenght));
+                        return true;
+                    }
+                }
             }
 
             StartCoroutine(SpawningRoutine(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght));
@@ -42,6 +87,7 @@ namespace fi.tamk.hellgame.world
 
             playerActor.enabled = true;
             playerActor.transform.forward = endPosition - startingPosition;
+            playerActor.gameObject.SetLayer(playerOriginalLayer, false);
             dashComponent.StopDash();
             playerActor.transform.position = endPosition;
         }

@@ -103,7 +103,7 @@ namespace fi.tamk.hellgame.world
 
                 if (spawner != null)
                 {
-                    spawner.StartSpawning(go);
+                    spawner.StartSpawning(go, RoomManager.LastSceneIndex);
                 }
 
                 if (RoomManager.PlayerPersistentData == null) return;
