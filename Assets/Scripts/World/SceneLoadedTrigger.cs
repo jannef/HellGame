@@ -13,7 +13,12 @@ namespace fi.tamk.hellgame.world
 
         private void Awake()
         {
-            SceneManager.sceneLoaded += Initialize;
+            //SceneManager.sceneLoaded += Initialize;
+        }
+
+        private void Start()
+        {
+            if (SceneLoadedEvent != null) SceneLoadedEvent.Invoke();
         }
 
         private void Initialize(Scene scene, LoadSceneMode mode)
