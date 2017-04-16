@@ -30,7 +30,7 @@ namespace fi.tamk.hellgame.world
                 return false;
             }
 
-            StartCoroutine(SpawningRoutine(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght));
+            StartCoroutine(SpawningRoutine(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght, player));
             return true;
         }
 
@@ -39,8 +39,9 @@ namespace fi.tamk.hellgame.world
 
             var dashComponent = player.GetComponent<PlayerDash>();
             var actorComponent = player.GetComponent<ActorComponent>();
-            player.SetLayer(Constants.EnemyLayer, false);
             playerOriginalLayer = player.layer;
+            player.SetLayer(Constants.EnemyLayer, false);
+
 
             if (actorComponent == null || dashComponent == null)
             {
@@ -62,17 +63,17 @@ namespace fi.tamk.hellgame.world
                     if ((int)otherSpawnEntrances[i].previousScene == previousRoom)
                     {
                         StartCoroutine(SpawningRoutine(otherSpawnEntrances[i].transform.position, otherSpawnEntrances[i].StartPoint.position, 
-                            actorComponent, dashComponent, _spawnLenght));
+                            actorComponent, dashComponent, _spawnLenght, player));
                         return true;
                     }
                 }
             }
 
-            StartCoroutine(SpawningRoutine(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght));
+            StartCoroutine(SpawningRoutine(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght, player));
             return true;
         }
 
-        private IEnumerator SpawningRoutine(Vector3 endPosition, Vector3 startingPosition, ActorComponent playerActor, PlayerDash dashComponent, float lenght)
+        private IEnumerator SpawningRoutine(Vector3 endPosition, Vector3 startingPosition, ActorComponent playerActor, PlayerDash dashComponent, float lenght, GameObject player)
         {
             var t = 0f;
             playerActor.enabled = false;
@@ -87,8 +88,8 @@ namespace fi.tamk.hellgame.world
 
             playerActor.enabled = true;
             playerActor.transform.forward = endPosition - startingPosition;
-            playerActor.gameObject.SetLayer(playerOriginalLayer, false);
             dashComponent.StopDash();
+            player.SetLayer(playerOriginalLayer, false);
             playerActor.transform.position = endPosition;
         }
     }
