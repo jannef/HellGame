@@ -22,7 +22,6 @@ namespace fi.tamk.hellgame.effectors
         {
             _idleRotation = GetComponent<IdleRotation>();
             _originalRotation = transform.localRotation.eulerAngles;
-            Debug.Log(_originalRotation);
             if (_rampUpAtStart == true)
             {
                 StartRampUp();

@@ -15,5 +15,23 @@ namespace fi.tamk.hellgame.input
         public KeyCode PauseButton;
 
         public Buttons.InputType InputType;
+
+        public KeyCode GetKeyCodeAttachedToButton(Buttons.ButtonScheme _command)
+        {
+            switch (_command)
+            {
+                case Buttons.ButtonScheme.Dash:
+                    return DashButton;
+                    break;
+                case Buttons.ButtonScheme.LimitBreak:
+                    return LimitBreakButton;
+                    break;
+                case Buttons.ButtonScheme.Pause:
+                    return PauseButton;
+                    break;
+            }
+
+            return KeyCode.None;
+        }
     }
 }

@@ -202,6 +202,19 @@ namespace fi.tamk.hellgame.world
             }
         }
 
+        public ButtonMap GetControllerBasedOnInputType(Buttons.InputType inputType)
+        {
+            foreach (ButtonMap map in Inputs)
+            {
+                if (map.InputType == inputType)
+                {
+                    return map;
+                }
+            }
+
+            return null;
+        }
+
         private void SetController(ButtonMap scheme, int index)
         {
             var player = FindObjectOfType<PlayerLimitBreak>();
