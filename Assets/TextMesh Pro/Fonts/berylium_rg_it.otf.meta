@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 9945842488499634d93a0551971e4b85
+timeCreated: 1492399174
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Berylium
+  fontNames:
+  - Berylium
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 57d9c843442370247b854803f91d7d03, type: 3}
+  - {fileID: 12800000, guid: 1c8057c58a224b94aae844db46b7a37b, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
