@@ -100,13 +100,27 @@ namespace fi.tamk.hellgame.ui
 
         private bool CheckForMovementInput()
         {
+            Vector3 inputAxis = _input.PollAxisLeft();
+
+            if (Math.Abs(inputAxis.x) > .8)
+            {
+                if (inputAxis.x < 0)
+                {
+                    DoCommand(MenuActionType.Left);
+                    return true;
+                }
+                else
+                {
+                    DoCommand(MenuActionType.Right);
+                    return true;
+                }
+            }
+
             if (_movementlock > 0)
             {
                 _movementlock -= Time.unscaledDeltaTime;
                 return false;
             }
-
-            Vector3 inputAxis = _input.PollAxisLeft();
 
             if (Math.Abs(inputAxis.z) > .8)
             {
