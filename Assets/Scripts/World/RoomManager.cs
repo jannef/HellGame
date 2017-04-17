@@ -121,7 +121,7 @@ namespace fi.tamk.hellgame.world
             {
                 if (DefaultInputs.Length >= 1)
                 {
-                    SetController(DefaultInputs[1], 1);
+                    SetController(UserStaticData.GetGameSettings().GamepadSettings, 1);
                 }
                 else
                     Debug.LogWarning("RoomManager does not have enough buttons schemes set up for debug button scheme change requested (F2)");
@@ -131,7 +131,7 @@ namespace fi.tamk.hellgame.world
             {
                 if (DefaultInputs.Length >= 1)
                 {
-                    SetController(DefaultInputs[0], 0);
+                    SetController(UserStaticData.GetGameSettings().MouseAndKeyboardSettings, 0);
                 }
                 else
                     Debug.LogWarning("RoomManager does not have enough buttons schemes set up for debug button scheme change requested (F2)");
