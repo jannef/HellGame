@@ -13,6 +13,7 @@ public static partial class LocaleStrings
 		"Completion Time",
 		"Hits Taken",
 		"Final Clear Time",
+		"Next rank\n{0}",
 		""
 	};
 
@@ -23,6 +24,7 @@ public static partial class LocaleStrings
 		"Suoritusaika",
 		"Osumia otettu",
 		"Yhteenlaskettu aika",
+		"Seuraava taso\n{0}",
 		""
 	};
 
@@ -37,5 +39,7 @@ public static partial class LocaleStrings
 	public static string UI_SCORE_HITSTAKEN { get { return CurrentLocale[4]; } }
 
 	public static string UI_SCORE_TOTALTIME { get { return CurrentLocale[5]; } }
+
+	public static string UI_SCORE_TEASER { get { return CurrentLocale[6]; } }
 
 }

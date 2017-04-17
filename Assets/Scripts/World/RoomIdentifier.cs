@@ -26,7 +26,7 @@ namespace fi.tamk.hellgame.world
 
         [SerializeField] private bool _spawnPlayer = true;
         [SerializeField] private GameObject _playerPrefab;
-        [SerializeField] private RoomClearingRanks roomClearingRankField;
+        [SerializeField] public RoomClearingRanks roomClearingRankField;
         [SerializeField] private PoolInstruction[] PoolingInstructions;
         [SerializeField] private string RoomName;
 
@@ -69,7 +69,13 @@ namespace fi.tamk.hellgame.world
                     Pool.Instance.AddToPool(pi.Prefab, pi.HowMany);
                 }
             }
-            
+
+            if (roomClearingRankField == null)
+            {
+                Debug.LogWarning(string.Format("Room {0} does not have clearing ranks set, falling back to placeholders!", RoomName));
+                roomClearingRankField = Instantiate(Resources.Load("PlaceholderRanks") as RoomClearingRanks);
+            }
+
             if (_bottomHud != null) _bottomHud.DisplayMessage(RoomName);
         }
 
@@ -171,18 +177,20 @@ namespace fi.tamk.hellgame.world
             if (PlayerDeath != null) PlayerDeath.Invoke();
         }
 
-        public static void OnRoomCompleted()
+        public static void OnRoomCompleted(RoomClearingRanks ranks = null)
         {
             RoomCompletionTime = _clock.StopClock(); //stops the clock and returns current time.
             if (RoomCompleted != null) RoomCompleted.Invoke();
             var score = ScoreWindow.GetScoreWindowGo(_guiReferences.transform);
             var player = ServiceLocator.Instance.GetNearestPlayer().gameObject.GetComponent<HealthComponent>();
-            score.SetData(_clock, player.MaxHp - player.Health);
+
+            Debug.Log(ranks);
+            score.SetData(_clock, player.MaxHp - player.Health, ranks == null ? FindObjectOfType<RoomIdentifier>().roomClearingRankField : ranks);
         }
 
         public void RoomCompletedTrigger()
         {
-            OnRoomCompleted();
+            OnRoomCompleted(roomClearingRankField);
         }
 
         public static void PauseGame()
