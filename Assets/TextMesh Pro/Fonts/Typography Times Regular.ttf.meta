@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1155cebc064da394481ba4d178d5cc66
+timeCreated: 1492428040
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Typography Times
+  fontNames:
+  - Typography Times
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
