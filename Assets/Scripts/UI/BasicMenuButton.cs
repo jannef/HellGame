@@ -47,7 +47,7 @@ namespace fi.tamk.hellgame.ui
 
         protected virtual void AddSubmitCommand(MenuCommander commander)
         {
-            commander.AddCommand(MenuActionType.Submit, ClickThis);
+            commander.AddCommand(MenuActionType.Submit, Submit);
         }
 
         public override void MovePointerFromThis()
@@ -55,7 +55,14 @@ namespace fi.tamk.hellgame.ui
             _button.GetComponent<Image>().color = Color.white;
         }
 
-        public override void ClickThis(MenuCommander commander)
+        public override Action ClickThis(MenuCommander commander)
+        {
+            Activate();
+            _button.onClick.Invoke();
+            return null;
+        }
+
+        public void Submit(MenuCommander commander)
         {
             Activate();
             _button.onClick.Invoke();

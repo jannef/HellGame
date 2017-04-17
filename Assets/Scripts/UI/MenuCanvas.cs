@@ -34,11 +34,6 @@ namespace fi.tamk.hellgame.ui
             if (PointerRemovedFromThis != null) PointerRemovedFromThis.Invoke();
         }
 
-        public override void ClickThis(MenuCommander commander)
-        {
-            
-        }
-
         public virtual void ReturnToPreviousCanvas(MenuCommander commander)
         {
             MovePointerFromThis();
@@ -57,6 +52,11 @@ namespace fi.tamk.hellgame.ui
             {
                 commander.AddCommand(MenuActionType.Cancel, ReturnToPreviousCanvas);
             }
+        }
+
+        public override Action ClickThis(MenuCommander commander)
+        {
+            throw new NotImplementedException();
         }
     }
 }

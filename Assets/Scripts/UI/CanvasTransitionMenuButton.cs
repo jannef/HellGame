@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.ui;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,11 +17,12 @@ namespace fi.tamk.hellgame.ui
             _parentCanvas = GetComponentInParent<MenuCanvas>();
         }
 
-        public override void ClickThis(MenuCommander commander)
+        public override Action ClickThis(MenuCommander commander)
         {
             _parentCanvas._startButton = this;
             _parentCanvas.MovePointerFromThis();
             _destinationCanvas.MovePointerToThis(commander);
+            return null;
 
         }
     }

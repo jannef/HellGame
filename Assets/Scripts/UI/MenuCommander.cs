@@ -45,6 +45,7 @@ namespace fi.tamk.hellgame.ui
         private float _movementlock;
         private bool _isAcceptingInput = true;
         private GraphicRaycaster _graphicRaycaster;
+        private Action MouseButtonUpAction;
 
         public void Activate(InteractableUiElementAbstract startButton)
         {
@@ -177,12 +178,21 @@ namespace fi.tamk.hellgame.ui
         {
             var mousePosition = Input.mousePosition;
 
+            if (Input.GetKeyUp(KeyCode.Mouse0))
+            {
+                if (MouseButtonUpAction != null)
+                {
+                    MouseButtonUpAction.Invoke();
+                    MouseButtonUpAction = null;
+                }
+            }
+
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 var result = MouseMovementUpdate(mousePosition, true);
                 if (result != null)
                 {
-                    result.ClickThis(this);
+                    MouseButtonUpAction = result.ClickThis(this);
                 }
 
                 return;

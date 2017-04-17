@@ -33,11 +33,12 @@ namespace fi.tamk.hellgame.ui
             UpdateButtonGraphic(_buttonMapToChange.GetKeyCodeAttachedToButton(_buttonToRebind));
         }
 
-        public override void ClickThis(MenuCommander commander)
+        public override Action ClickThis(MenuCommander commander)
         {
             _buttonGraphic.Disappear();
             _pressAnyButtonText.enabled = true;
             StartCoroutine(WaitForInputCoroutine(commander.DisableInputReading()));
+            return null;
         }
 
         private void UpdateButtonGraphic(KeyCode input)
