@@ -18,8 +18,7 @@ namespace fi.tamk.hellgame.dataholders
 
     public class RoomClearingRanks : ScriptableObject
     {
-        public float[] Ranks;
-
+        [SerializeField] protected float[] Ranks;
 
         public ClearingRank GetRankFromTime(float time)
         {
@@ -34,6 +33,13 @@ namespace fi.tamk.hellgame.dataholders
             }
 
             return ClearingRank.None;
+        }
+
+        public float GetNextRankTeaser(out ClearingRank nextRank, ClearingRank whichRank)
+        {
+            var numeric = (int) whichRank + 1;
+            nextRank = numeric <= 4 ? (ClearingRank) numeric : ClearingRank.None;
+            return Ranks[nextRank == ClearingRank.None ? 4 : (int)nextRank];;
         }
     }
 }

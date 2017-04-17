@@ -1,8 +1,11 @@
 ﻿using fi.tamk.hellgame.world;
 using System;
 using System.Collections;
+using System.Linq;
+using fi.tamk.hellgame.dataholders;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace fi.tamk.hellgame.ui
 {
@@ -14,9 +17,9 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private TextMeshProUGUI LivesField;
         [SerializeField] private TextMeshProUGUI TotalLabel;
         [SerializeField] private TextMeshProUGUI TotalField;
-
-        private TextMeshProUGUI[] _allFields;
-
+        [SerializeField] private TextMeshProUGUI TeaserField;
+        [SerializeField] private Image MedalImage;
+        [SerializeField] private Sprite[] Medals;
 
         public void UpdateLabelTexts()
         {
@@ -27,15 +30,25 @@ namespace fi.tamk.hellgame.ui
 
         private void Awake()
         {
-            _allFields = new[] { TimeLabel, TimeField, LivesLabel, LivesField, TotalLabel, TotalField };
+            if (Medals.Length != 5)
+            {
+                throw new UnityException(
+                    "ScoreWindows component in the score prefab is misconfigured! Medals array must have 5 elements!");
+            }
+
+            if (Medals.Any(sprite => sprite == null))
+            {
+                throw new UnityException("ScoreWindow component has null value in Medals array!");
+            }
+
             UpdateLabelTexts();
         }
 
-        public void SetData(GameClock clock, int hits, float penaltyPerHit = 10f)
+        public void SetData(GameClock clock, int hits, RoomClearingRanks ranks, float penaltyPerHit = 10f)
         {
             TotalField.text = GameClock.FormatTime(TimeSpan.FromSeconds(clock.Time + hits * penaltyPerHit));
             UpdateLabelTexts();
-            StartCoroutine(Animated(2f, clock, hits, penaltyPerHit));
+            StartCoroutine(Animated(2f, clock, hits, penaltyPerHit, ranks));
         }
 
         public static ScoreWindow GetScoreWindowGo(Transform parent = null)
@@ -52,9 +65,8 @@ namespace fi.tamk.hellgame.ui
             }
         }
 
-        private IEnumerator Animated(float duration, GameClock clock, int hits, float penalty)
+        private IEnumerator Animated(float duration, GameClock clock, int hits, float penalty, RoomClearingRanks ranks)
         {
-            BatchSetActive(false, _allFields);
             BatchSetActive(true, TimeLabel, LivesLabel, TotalLabel, TimeField);
 
             // Fill the used time.
@@ -83,7 +95,23 @@ namespace fi.tamk.hellgame.ui
             }
 
             // Display total time
-            BatchSetActive(true, TotalField);          
+            BatchSetActive(true, TotalField);
+
+            var totalTime = clock.Time + hits * penalty;
+            var rnk = ranks.GetRankFromTime(totalTime);
+
+            if (rnk != ClearingRank.None)
+            {
+                MedalImage.gameObject.SetActive(true);
+                MedalImage.sprite = Medals[(int)rnk];
+
+                if (rnk != ClearingRank.S)
+                {
+                    ClearingRank next;
+                    TeaserField.text = string.Format(LocaleStrings.UI_SCORE_TEASER, GameClock.FormatTime(TimeSpan.FromSeconds(ranks.GetNextRankTeaser(out next, rnk))));
+                    BatchSetActive(true, TeaserField);
+                }
+            }
         }
     }
 }
