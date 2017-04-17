@@ -1,4 +1,5 @@
-﻿using fi.tamk.hellgame.input;
+﻿using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.input;
 using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.world;
 using System;
@@ -20,7 +21,15 @@ namespace fi.tamk.hellgame.ui
 
         void Start()
         {
-            _buttonMapToChange = ServiceLocator.Instance.RoomManagerReference.GetControllerBasedOnInputType(_inputType);
+            if (_inputType == Buttons.InputType.PcMasterrace)
+            {
+                _buttonMapToChange = UserStaticData.Settings.MouseAndKeyboardSettings;
+            } else
+            {
+                _buttonMapToChange = UserStaticData.Settings.GamepadSettings;
+            }
+
+            
             UpdateButtonGraphic(_buttonMapToChange.GetKeyCodeAttachedToButton(_buttonToRebind));
         }
 
@@ -54,6 +63,7 @@ namespace fi.tamk.hellgame.ui
                     break;
             }
 
+            UserStaticData.SaveGameSettings();
             UpdateButtonGraphic(newInput);
         }
 

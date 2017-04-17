@@ -12,9 +12,12 @@ namespace fi.tamk.hellgame.dataholders
     public static class UserStaticData
     {
         private const string SaveFile = "save.game";
+        private const string GameSettingsFile = "settings.game";
         private static string SavePath { get { return string.Format("{0}/{1}", Application.persistentDataPath, SaveFile); } }
+        private static string SettingsSavePath { get { return string.Format("{0}/{1}", Application.persistentDataPath, GameSettingsFile); } }
 
         public static List<RoomSaveData> RoomData = null;
+        public static GameSettings Settings;
 
         static UserStaticData()
         {
@@ -29,6 +32,35 @@ namespace fi.tamk.hellgame.dataholders
             }
 
             return RoomData.Count < 1 ? null : RoomData.DefaultIfEmpty(null).OrderBy(x => x.RecordTime).FirstOrDefault(x => x.RoomIndex == roomIndex);
+        }
+
+        public static GameSettings GetGameSettings()
+        {
+            if (Settings == null)
+            {
+                LoadData();
+            }
+
+            return Settings;
+        }
+
+        public static void SaveGameSettings()
+        {
+            var fs = new MemoryStream();
+            try
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(fs, Settings);
+                File.WriteAllBytes(SettingsSavePath, fs.GetBuffer());
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning(e);
+            }
+            finally
+            {
+                fs.Close();
+            }
         }
 
         public static void RoomClearedSave(RoomSaveData data)
@@ -58,7 +90,10 @@ namespace fi.tamk.hellgame.dataholders
 
         public static void LoadData()
         {
+            Debug.Log("LoadData");
             if (!File.Exists(SavePath)) RoomData = new List<RoomSaveData>();
+
+            if (!File.Exists(SettingsSavePath)) Settings = new GameSettings();
 
             try
             {
@@ -73,6 +108,21 @@ namespace fi.tamk.hellgame.dataholders
             {
                 Debug.LogWarning(e);
                 RoomData = new List<RoomSaveData>();
+            }
+
+            try
+            {
+                byte[] bytes = File.ReadAllBytes(SettingsSavePath);
+                using (var fs = new MemoryStream(bytes))
+                {
+                    var formatter = new BinaryFormatter();
+                    Settings = formatter.Deserialize(fs) as GameSettings;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning(e);
+                Settings = new GameSettings();
             }
         }
     }
