@@ -64,7 +64,7 @@ namespace fi.tamk.hellgame.states
                 _dashBuffered = false;
                 ControlledActor.GoToState(new StateDashing(ControlledActor, movementDirection.normalized));
             }
-            else if (MyInputController.PollButton(Buttons.ButtonScheme.Fire_1) || MyInputController.MyConfig.InputType == Buttons.InputType.ConsolePleb && controllerLookInput.sqrMagnitude > 0.001f)
+            else if (MyInputController.PollButton(Buttons.ButtonScheme.Fire_1))
             {
                 ControlledActor.FireGunByIndex(0);
             }
