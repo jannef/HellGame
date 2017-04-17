@@ -76,7 +76,7 @@ namespace fi.tamk.hellgame.world
                 roomClearingRankField = Instantiate(Resources.Load("PlaceholderRanks") as RoomClearingRanks);
             }
 
-            _bottomHud.DisplayMessage(RoomName);
+            if (_bottomHud != null) _bottomHud.DisplayMessage(RoomName);
         }
 
         private void SpawnPlayer()
@@ -168,7 +168,7 @@ namespace fi.tamk.hellgame.world
             _onGameResumeActions.Clear();
             _onPausedActions.Clear();
 
-            _clock.StartClock();
+            if (_clock != null) _clock.StartClock();
         }
 
         private void OnPlayerDeath()
