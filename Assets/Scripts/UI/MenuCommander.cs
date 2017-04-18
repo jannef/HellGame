@@ -49,6 +49,7 @@ namespace fi.tamk.hellgame.ui
 
         public void Activate(InteractableUiElementAbstract startButton)
         {
+            Cursor.visible = true;
             startButton.MovePointerToThis(this);
             this.enabled = true;
         }

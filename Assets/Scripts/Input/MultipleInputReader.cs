@@ -21,6 +21,7 @@ namespace fi.tamk.hellgame.input
             if (gamepadVector.sqrMagnitude > 0.01)
             {
                 hasMovedKeypadRight = true;
+                Cursor.visible = false;
                 _lastMousePosition = Input.mousePosition;
                 return gamepadVector;
             } else
@@ -30,6 +31,7 @@ namespace fi.tamk.hellgame.input
                     var thisMousePosition = Input.mousePosition;
                     if ((_lastMousePosition - thisMousePosition).sqrMagnitude > MouseAttentionGrabThreshold)
                     {
+                        Cursor.visible = true;
                         hasMovedKeypadRight = false;
                     }
 

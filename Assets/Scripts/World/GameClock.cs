@@ -14,6 +14,7 @@ namespace fi.tamk.hellgame.ui
 
         private TextMeshProUGUI _display;
         private bool _stopped = true;
+        private bool _hasBeatenThisSecond = false;
 
         public float Time
         {
@@ -36,12 +37,18 @@ namespace fi.tamk.hellgame.ui
 
             _time += TimeSpan.FromSeconds(WorldStateMachine.Instance.DeltaTime);
             UpdateDisplay();
+
+            if (_time.Milliseconds > (1000 - BeatRadius * 1000) && !_hasBeatenThisSecond)
+            {
+                _hasBeatenThisSecond = true;
+                StartCoroutine(Beat(BeatRadius));
+            }
         }
 
         public void StartClock()
         {
             _stopped = false;
-            StartCoroutine(BeatCycle(BeatRadius));
+            //StartCoroutine(BeatCycle(BeatRadius));
         }
 
         public float StopClock()
@@ -68,15 +75,22 @@ namespace fi.tamk.hellgame.ui
         private IEnumerator BeatCycle(float beatRadius)
         {
             var timer = 0f;
+            bool hasBeaten = true;
             while (true)
             {
                 timer += WorldStateMachine.Instance.DeltaTime;
 
-                if (timer > 1f - beatRadius)
+                if (timer > 1f - beatRadius && !hasBeaten)
                 {
+                    hasBeaten = true;
                     StartCoroutine(Beat(BeatRadius));
-                    timer = 0f;
                 }
+
+                if (timer >= 1f)
+                {
+                    hasBeaten = false;
+                    timer = 0f;
+                } 
 
                 yield return null;
             }
@@ -95,6 +109,7 @@ namespace fi.tamk.hellgame.ui
                 yield return null;
             }
 
+            _hasBeatenThisSecond = false;
             _display.fontSize = _originalSize;
         }
     }
