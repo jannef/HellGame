@@ -30,17 +30,22 @@ namespace fi.tamk.hellgame.ui
 
         public void AdjustRight(MenuCommander commander)
         {
+            var newValue = _slider.value;
+
             if (_previousFrameState != PreviousFrameSlidingState.Right)
             {
-                _slider.value += _baseSlidingSpeed * Time.unscaledDeltaTime;
+                newValue = Mathf.Clamp(newValue + _baseSlidingSpeed * Time.unscaledDeltaTime, 0f, 1f);
                 slideTimer = 0;
                 _previousFrameState = PreviousFrameSlidingState.Right;
             } else
             {
                 slideTimer += Time.unscaledDeltaTime;
-                _slider.value += Mathf.Lerp(_baseSlidingSpeed, _topSlidingSpeed, _slidingEasing.Evaluate(slideTimer / _slidingAcceleration)) 
-                    * Time.unscaledDeltaTime;
+                newValue = Mathf.Clamp(newValue + Mathf.Lerp(_baseSlidingSpeed, _topSlidingSpeed, _slidingEasing.Evaluate(slideTimer / _slidingAcceleration))
+                    * Time.unscaledDeltaTime, 0f, 1f);
             }
+
+            _slider.value = newValue;
+
             StopAllCoroutines();
             StartCoroutine(WaitToNextFrame());
         }
@@ -54,18 +59,23 @@ namespace fi.tamk.hellgame.ui
 
         public void AdjustLeft(MenuCommander commander)
         {
+            var newValue = _slider.value;
+
             if (_previousFrameState != PreviousFrameSlidingState.Left)
             {
-                _slider.value -= _baseSlidingSpeed * Time.unscaledDeltaTime;
+                newValue = Mathf.Clamp(newValue - _baseSlidingSpeed * Time.unscaledDeltaTime, -1f, 1f);
                 slideTimer = 0;
                 _previousFrameState = PreviousFrameSlidingState.Left;
             }
             else
             {
                 slideTimer += Time.unscaledDeltaTime;
-                _slider.value -= Mathf.Lerp(_baseSlidingSpeed, _topSlidingSpeed, _slidingEasing.Evaluate(slideTimer / _slidingAcceleration))
-                    * Time.unscaledDeltaTime;
+                newValue = Mathf.Clamp(newValue - Mathf.Lerp(_baseSlidingSpeed, _topSlidingSpeed, _slidingEasing.Evaluate(slideTimer / _slidingAcceleration))
+                    * Time.unscaledDeltaTime, -1f, 1f);
             }
+
+            _slider.value = newValue;
+
             StopAllCoroutines();
             StartCoroutine(WaitToNextFrame());
         }
