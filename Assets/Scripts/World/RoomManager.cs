@@ -81,7 +81,7 @@ namespace fi.tamk.hellgame.world
         {
             SceneLoadLock.SceneChangeInProgress = true;
 
-            if (SceneManager.GetActiveScene() != null) LastSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            LastSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
             var player = FindObjectOfType<PlayerLimitBreak>();
             if (player != null)

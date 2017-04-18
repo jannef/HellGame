@@ -24,13 +24,10 @@ namespace fi.tamk.hellgame.input
             {
                 case Buttons.ButtonScheme.Dash:
                     return DashButton;
-                    break;
                 case Buttons.ButtonScheme.LimitBreak:
                     return LimitBreakButton;
-                    break;
                 case Buttons.ButtonScheme.Pause:
                     return PauseButton;
-                    break;
             }
 
             return KeyCode.None;

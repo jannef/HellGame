@@ -18,7 +18,7 @@ namespace fi.tamk.hellgame.world
 
         public bool StartSpawning(GameObject player)
         {
-            PlayerSpawnEntrance[] otherSpawnEntrances = _otherEntrancePointsParent.GetComponentsInChildren<PlayerSpawnEntrance>();
+            //PlayerSpawnEntrance[] otherSpawnEntrances = _otherEntrancePointsParent.GetComponentsInChildren<PlayerSpawnEntrance>();
             playerOriginalLayer = player.layer;
 
             var dashComponent = player.GetComponent<PlayerDash>();
@@ -26,8 +26,7 @@ namespace fi.tamk.hellgame.world
 
             if (actorComponent == null || dashComponent == null)
             {
-                new UnityException("PlayerSpawner; PlayerDash or ActorComponent not found in target GameObject");
-                return false;
+                throw new UnityException("PlayerSpawner; PlayerDash or ActorComponent not found in target GameObject");
             }
 
             StartCoroutine(SpawningRoutine(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght, player));

@@ -20,7 +20,7 @@ namespace fi.tamk.hellgame.states
         private AirSpawnerWithSetSpawnPoints _mySpawner;
 
         private int _activeMinions = 0;
-        private int _phase = 0;
+        //private int _phase = 0;
         private float _spawnTimer = 0;
         private float _spawnInterval = 1f;
         private int _spawnCap = 6;
