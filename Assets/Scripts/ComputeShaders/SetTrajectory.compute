@@ -1,0 +1,20 @@
+﻿#pragma kernel CSMain
+
+struct DataStruct
+{
+	float3 position;
+	float3 velocity;
+};
+
+RWStructuredBuffer<DataStruct> dataBuffer;
+float3 targetPosition;
+
+[numthreads(64,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+	float mag = length(dataBuffer[id.x].velocity);
+	float3 vel = targetPosition - dataBuffer[id.x].position;
+	vel.y = 0;
+	vel = normalize(vel) * mag;
+	dataBuffer[id.x].velocity = vel;
+}

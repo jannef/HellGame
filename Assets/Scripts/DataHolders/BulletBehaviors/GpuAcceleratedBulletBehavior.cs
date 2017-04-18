@@ -7,7 +7,7 @@ namespace fi.tamk.hellgame.dataholders
         [SerializeField] protected ComputeShader BehaviorComputeShader;
         protected ComputeBuffer CsBuffer;
 
-        public abstract override void BatchedAction(ref ParticleSystem.Particle[] particleBuffer, int numberOfParticles);
+        public abstract override void BatchedAction(ref ParticleSystem.Particle[] particleBuffer, int numberOfParticles, params object[] parameters);
 
         public override void Action(ref ParticleSystem.Particle particle)
         {

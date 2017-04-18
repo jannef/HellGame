@@ -14,30 +14,38 @@ namespace fi.tamk.hellgame.states
         protected enum FloatDataLabels
         {
             PhaseOneLaserCooldown      = 0,
-            PhaseOneLaserBurstDuration = 1
+            PhaseOneLaserBurstDuration = 1,
+            CogBursts                  = 2,
+            CogBurstDuration           = 3
         }
 
+        protected BossExternalObjects Externals;
         protected NavMeshAgent NavigationAgent;
         protected HealthComponent Health;
         protected LaserEmitter LaserBeam;
         protected ActorData NumericData;
+        protected BulletEmitter CogGun;
 
         protected ChambersBase(ActorComponent controlledHero, ChambersBase clonedState = null)
             : base(controlledHero)
         {
             if (clonedState == null)
             {
+                Externals = ControlledActor.GetComponent<BossExternalObjects>();
                 NavigationAgent = ControlledActor.GetComponent<NavMeshAgent>();
                 Health = ControlledActor.GetComponent<HealthComponent>();
                 LaserBeam = ControlledActor.GetComponentInChildren<LaserEmitter>();
                 NumericData = ControlledActor.ActorNumericData;
+                CogGun = Externals.ExistingGameObjects[0].GetComponent<BulletEmitter>();
             }
             else
             {
+                Externals = clonedState.Externals;
                 NavigationAgent = clonedState.NavigationAgent;
                 Health = clonedState.Health;
                 LaserBeam = clonedState.LaserBeam;
                 NumericData = clonedState.NumericData;
+                CogGun = clonedState.CogGun;
             }
         }
 

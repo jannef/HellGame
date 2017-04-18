@@ -57,7 +57,7 @@ namespace fi.tamk.hellgame.dataholders
             _inBuffer = new BufferDataType[maxBatchSize];
         }
 
-        public override void BatchedAction(ref ParticleSystem.Particle[] particleBuffer, int numberOfParticles)
+        public override void BatchedAction(ref ParticleSystem.Particle[] particleBuffer, int numberOfParticles, params object[] parameters)
         {
             InternalBatchedAction<BufferDataType>(ref _inBuffer, ref particleBuffer, numberOfParticles);
         }

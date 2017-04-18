@@ -17,14 +17,14 @@ namespace fi.tamk.hellgame.character
         [SerializeField] protected LayerMask FireAtWhichLayer;
 
         [SerializeField] protected float Cooldown;
-        [SerializeField, Range(-360f, 360f)] protected float StartAngle;
+        [SerializeField, Range(-360f, 360f)] public float StartAngle;
         [SerializeField, Range(0f, 360f)] protected float Spread;
         [SerializeField, Range(1, 1000)] protected int NumberOfBullets;
         [SerializeField, Range(0f, 360f)] protected float Dispersion;
         [SerializeField, Range(1, 10)] protected int BurstAmount = 1;
         [SerializeField, Range(0.04f, 4f)] protected float TimeBetweenBursts = 0.22f;
 
-        protected ParticleBulletSystem BulletSystem;
+        [HideInInspector] public ParticleBulletSystem BulletSystem;
         protected float Timer;
 
         protected float DefaultCooldown;

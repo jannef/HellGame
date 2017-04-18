@@ -28,11 +28,16 @@ namespace fi.tamk.hellgame.states
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
-            NavigationAgent.SetDestination(_playerTransform.position);
+            if (_playerTransform != null) NavigationAgent.SetDestination(_playerTransform.position);
             if (StateTime > _laserCycle)
             {
                 StateTime = 0f;
                 DefaultLaserBurst();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                CogGun.BulletSystem.OneshotBehaviour(0, false, _playerTransform);
             }
         }
 

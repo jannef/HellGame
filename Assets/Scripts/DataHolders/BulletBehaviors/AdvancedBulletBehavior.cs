@@ -4,6 +4,7 @@ namespace fi.tamk.hellgame.dataholders
 {
     public abstract class AdvancedBulletBehavior : ScriptableObject
     {
+        public bool ApplyEveryFrame = true;
         protected float DeltaTime = 0f;
 
         /// <summary>
@@ -16,7 +17,7 @@ namespace fi.tamk.hellgame.dataholders
             // For reference consult: https://msdn.microsoft.com/en-us/library/ms973852.aspx about what you should avoid doing...
         }
 
-        public virtual void BatchedAction(ref ParticleSystem.Particle[] particleBuffer, int numberOfParticles) { }
+        public virtual void BatchedAction(ref ParticleSystem.Particle[] particleBuffer, int numberOfParticles, params object[] parameters) { }
 
         public virtual void InitializeBatch(int maxBatchSize) { }
 

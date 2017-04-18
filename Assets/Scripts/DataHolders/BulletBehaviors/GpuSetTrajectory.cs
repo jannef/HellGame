@@ -1,14 +1,15 @@
-﻿using UnityEngine;
-using fi.tamk.hellgame.world;
+﻿using System;
+using UnityEngine;
 
 namespace fi.tamk.hellgame.dataholders
 {
-    public sealed class GpuBulletAcceleration : GpuAcceleratedBulletBehavior
+    public class GpuSetTrajectory : GpuAcceleratedBulletBehavior
     {
-        [SerializeField] private float _accelerationAmounth = 0f;
+        protected Vector3 TargetWorldPosition;
 
         private struct BufferDataType
         {
+            public Vector3 position;
             public Vector3 velocity;
         }
 
@@ -17,10 +18,10 @@ namespace fi.tamk.hellgame.dataholders
         protected override void DataToShader<T>(ref T[] inBuffer, ref ParticleSystem.Particle[] particles,
             int numberOfParticles)
         {
-            BehaviorComputeShader.SetFloat("accelerate", _accelerationAmounth);
-            BehaviorComputeShader.SetFloat("delta", WorldStateMachine.Instance.DeltaTime);
+            BehaviorComputeShader.SetVector("targetPosition", TargetWorldPosition);
             for (var i = 0; i < numberOfParticles; ++i)
             {
+                _inBuffer[i].position = particles[i].position;
                 _inBuffer[i].velocity = particles[i].velocity;
             }
         }
@@ -36,12 +37,21 @@ namespace fi.tamk.hellgame.dataholders
 
         public override void InitializeBatch(int maxBatchSize)
         {
-            CsBuffer = new ComputeBuffer(maxBatchSize, 12); // one vector3 makes 12 bytes
+            CsBuffer = new ComputeBuffer(maxBatchSize, 24); // two vector3 makes 24 bytes
             _inBuffer = new BufferDataType[maxBatchSize];
         }
 
         public override void BatchedAction(ref ParticleSystem.Particle[] particleBuffer, int numberOfParticles, params object[] parameters)
         {
+            try
+            {
+                TargetWorldPosition = (parameters[0] as Transform).position;
+            }
+            catch (Exception)
+            {
+                throw new UnityException("GpuSetTrajectory requires parameters[0] to be castable into Transform!");
+            }
+            
             InternalBatchedAction<BufferDataType>(ref _inBuffer, ref particleBuffer, numberOfParticles);
         }
     }

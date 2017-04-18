@@ -13,7 +13,6 @@ namespace fi.tamk.hellgame.projectiles
         public delegate void HandleOneParticle(ref ParticleSystem.Particle particle);
 
         [SerializeField] protected AdvancedBulletBehavior[] AdvancedBehavior;
-        [SerializeField] protected float[] RuntimeConfigFloats;
         [SerializeField] protected bool IsBillboard = true;
 
         public int Damage = 1;
@@ -43,17 +42,38 @@ namespace fi.tamk.hellgame.projectiles
             var numberOfBullets = BulletSystem.GetParticles(Bullets);
             foreach (var behavior in AdvancedBehavior)
             {
-                var gpuBehavior = behavior as GpuAcceleratedBulletBehavior;
-                if (gpuBehavior == null)
-                {
-                    behavior.CacheFrameData(WorldStateMachine.Instance.DeltaTime);
-                    ParticleManipulationLoop(ref Bullets, numberOfBullets, behavior.Action);
-                }
-                else
-                {
-                    gpuBehavior.BatchedAction(ref Bullets, numberOfBullets);
-                }
+                // Skip behaviours that are only ment to be fired "manually" instead of
+                // on firing on each frame. Such as stopping all bullets momentarily...
+                if (!behavior.ApplyEveryFrame) continue;
+                ApplyBehavior(behavior, numberOfBullets);
             }
+            BulletSystem.SetParticles(Bullets, numberOfBullets);
+        }
+
+        protected void ApplyBehavior(AdvancedBulletBehavior behavior, int numberOfBullets, params object[] parameters)
+        {
+            var gpuBehavior = behavior as GpuAcceleratedBulletBehavior;
+            if (gpuBehavior == null)
+            {
+                behavior.CacheFrameData(WorldStateMachine.Instance.DeltaTime);
+                ParticleManipulationLoop(ref Bullets, numberOfBullets, behavior.Action);
+            }
+            else
+            {
+                gpuBehavior.BatchedAction(ref Bullets, numberOfBullets, parameters);
+            }
+        }
+
+        public void OneshotBehaviour(int index, bool suppressWarnings, params object[] parameters)
+        {
+            if (AdvancedBehavior.Length <= index || index < 0)
+            {
+                throw new UnityException(string.Format("OneshotBehaviour out of range ( [0,{0}] ) with given index: {1}",AdvancedBehavior.Length - 1, index));
+            }
+            if (!suppressWarnings && AdvancedBehavior[index].ApplyEveryFrame) Debug.LogWarning("OneshotBehaviour called for continuously called behaviour!");
+
+            var numberOfBullets = BulletSystem.GetParticles(Bullets);
+            ApplyBehavior(AdvancedBehavior[index], numberOfBullets, parameters);
             BulletSystem.SetParticles(Bullets, numberOfBullets);
         }
 
