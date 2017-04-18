@@ -13,9 +13,11 @@ namespace fi.tamk.hellgame.input
 
         public override Vector3 PollAxisLeft()
         {
+
             foreach (InputController input in _inputControllers)
             {
-                var axisLeft = input.PollAxisLeft();
+                var axisLeft = input.PollAxisLeftRaw();
+
                 if (axisLeft.sqrMagnitude > _axisDeadZone)
                 {
                     return axisLeft;

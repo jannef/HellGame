@@ -71,6 +71,11 @@ namespace fi.tamk.hellgame.input
             return PollStickByStrings(_horizontalAxisLeft, _vercticalAxisLeft);
         }
 
+        public virtual Vector3 PollAxisLeftRaw()
+        {
+            return PollStickByStringsRaw(_horizontalAxisLeft, _vercticalAxisLeft);
+        }
+
         /// <summary>
         /// Polls aiming "stick" for combined axis.
         /// </summary>
@@ -175,6 +180,18 @@ namespace fi.tamk.hellgame.input
         private Vector3 PollStickByStrings(string whichHorizontal, string whichVertical)
         {
             var vec = new Vector3(Input.GetAxis(whichHorizontal), 0, Input.GetAxis(whichVertical));
+            return vec.sqrMagnitude < 0.09f ? Vector3.zero : vec; // sqrMagnitude is a magnitude cheaper than magnitude :)
+        }
+
+        /// <summary>
+        /// Polls Unitys Input manager for raw axis. This is done to play around weird Unity behaviour
+        /// </summary>
+        /// <param name="whichHorizontal"></param>
+        /// <param name="whichVertical"></param>
+        /// <returns></returns>
+        private Vector3 PollStickByStringsRaw(string whichHorizontal, string whichVertical)
+        {
+            var vec = new Vector3(Input.GetAxisRaw(whichHorizontal), 0, Input.GetAxisRaw(whichVertical));
             return vec.sqrMagnitude < 0.09f ? Vector3.zero : vec; // sqrMagnitude is a magnitude cheaper than magnitude :)
         }
 
