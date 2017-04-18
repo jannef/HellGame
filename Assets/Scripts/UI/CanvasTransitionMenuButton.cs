@@ -19,11 +19,16 @@ namespace fi.tamk.hellgame.ui
 
         public override Action ClickThis(MenuCommander commander)
         {
+            Submit(commander);
+            return null;
+
+        }
+
+        public override void Submit(MenuCommander commander)
+        {
             _parentCanvas._startButton = this;
             _parentCanvas.MovePointerFromThis();
             _destinationCanvas.MovePointerToThis(commander);
-            return null;
-
         }
     }
 }

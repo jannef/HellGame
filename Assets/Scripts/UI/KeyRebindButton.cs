@@ -23,6 +23,7 @@ namespace fi.tamk.hellgame.ui
         {
             if (_inputType == Buttons.InputType.PcMasterrace)
             {
+                
                 _buttonMapToChange = UserStaticData.Settings.MouseAndKeyboardSettings;
             } else
             {
