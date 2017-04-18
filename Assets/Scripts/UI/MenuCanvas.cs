@@ -42,9 +42,16 @@ namespace fi.tamk.hellgame.ui
 
         public override void MovePointerToThis(MenuCommander commander)
         {
-            _canvasGroup.blocksRaycasts = true;
+            
             gameObject.SetActive(true);
             _startButton.MovePointerToThis(commander);
+            if (_canvasGroup == null)
+            {
+                _canvasGroup = GetComponent<CanvasGroup>();
+                Debug.Log("CanvasGroup in MenuCanvas is null for some reason");
+            }
+
+            _canvasGroup.blocksRaycasts = true;
 
             if (PointerMovedToThis != null) PointerMovedToThis.Invoke();
 
