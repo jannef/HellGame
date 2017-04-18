@@ -62,7 +62,7 @@ namespace fi.tamk.hellgame.ui
             return null;
         }
 
-        public void Submit(MenuCommander commander)
+        public virtual void Submit(MenuCommander commander)
         {
             Activate();
             _button.onClick.Invoke();

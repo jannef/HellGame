@@ -35,10 +35,15 @@ namespace fi.tamk.hellgame.ui
 
         public override Action ClickThis(MenuCommander commander)
         {
+            Submit(commander);
+            return null;
+        }
+
+        public override void Submit(MenuCommander commander)
+        {
             _buttonGraphic.Disappear();
             _pressAnyButtonText.enabled = true;
             StartCoroutine(WaitForInputCoroutine(commander.DisableInputReading()));
-            return null;
         }
 
         private void UpdateButtonGraphic(KeyCode input)

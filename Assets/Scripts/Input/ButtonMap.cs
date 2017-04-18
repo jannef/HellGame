@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace fi.tamk.hellgame.input
 {
+    [Serializable]
     /// <summary>
     /// Settings container for input controller for easy reconfiguration and configuration storing etc crap.
     /// </summary>
