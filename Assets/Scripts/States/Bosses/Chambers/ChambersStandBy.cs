@@ -15,7 +15,7 @@ namespace fi.tamk.hellgame.states
 
         protected override void OnHealthChange(float percentage, int currentHp, int maxHp)
         {
-            
+            ControlledActor.GoToState(new ChambersPhaseOne(ControlledActor, this));
         }
 
         public override InputStates StateId

@@ -90,9 +90,7 @@ namespace fi.tamk.hellgame.dataholders
 
         public static void LoadData()
         {
-            Debug.Log("LoadData");
             if (!File.Exists(SavePath)) RoomData = new List<RoomSaveData>();
-
             if (!File.Exists(SettingsSavePath)) Settings = new GameSettings();
 
             try

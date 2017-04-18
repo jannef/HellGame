@@ -144,7 +144,6 @@ public class LaserEmitter : BulletEmitter {
         {
             laserPositions = FindLaserPositions(laserPositions);
             if (_endPointParticle != null) _endPointParticle.transform.position = laserPositions[1];
-            //_endPointParticle.transform.forward = -GunVector;
             SetDamagingCollider(width, laserPositions[0], laserPositions[1]);
 
             if (FiringEvent != null) FiringEvent.Invoke();
@@ -154,7 +153,6 @@ public class LaserEmitter : BulletEmitter {
             if (endWithTime) {
                 time += WorldStateMachine.Instance.DeltaTime;
             }
-
                 
             yield return null;
         }

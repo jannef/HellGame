@@ -13,7 +13,7 @@ namespace fi.tamk.hellgame.character
     {
         public ActorData ActorNumericData;
         public GameObject HeroObject { get { return gameObject; } }
-        public Buttons.ButtonScheme InputBuffer = Buttons.ButtonScheme.None;
+        [HideInInspector]public Buttons.ButtonScheme InputBuffer = Buttons.ButtonScheme.None;
 
         public event TriggerEventDelegate OnTriggerEnterActions;
         public event TriggerEventDelegate OnTriggerStayActions;
