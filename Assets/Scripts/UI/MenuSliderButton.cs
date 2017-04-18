@@ -49,7 +49,6 @@ namespace fi.tamk.hellgame.ui
         {
             yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
-            Debug.Log("Sliding reset");
             _previousFrameState = PreviousFrameSlidingState.None;
         }
 
