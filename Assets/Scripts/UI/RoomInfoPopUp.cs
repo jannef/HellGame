@@ -2,6 +2,7 @@
 using fi.tamk.hellgame.world;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +15,9 @@ namespace fi.tamk.hellgame.ui
         private Vector2 endPosition;
         [SerializeField] private Vector2 offSet;
         private Vector2 startingPosition;
-        private Image _roomImage;
-        private Text _roomName;
+        [SerializeField] private TextMeshProUGUI _roomName;
+        [SerializeField] private TextMeshProUGUI _topTimeText;
+        [SerializeField] private Image _rankImage;
         private RectTransform _rectTransform;
         [SerializeField] private float movementLenght;
         [SerializeField] private AnimationCurve movementCurve;
@@ -28,8 +30,6 @@ namespace fi.tamk.hellgame.ui
             startingPosition = _rectTransform.anchoredPosition;
             endPosition = startingPosition + offSet;
             _rectTransform.anchoredPosition = endPosition;
-            _roomImage = GetComponentInChildren<Image>();
-            _roomName = GetComponentInChildren<Text>();
 
             var transitionTriggers = FindObjectsOfType<RoomPopUpTrigger>();
 
@@ -43,12 +43,17 @@ namespace fi.tamk.hellgame.ui
         public void StartPopUp(RoomPopUpData popUpData)
         {
 
-            if (popUpData.popUpPicture != null)
-            {
-                _roomImage.sprite = popUpData.popUpPicture;
-            }
+            _roomName.text = LocaleStrings.LocalizedStringFromEnum(popUpData.roomName);
 
-            _roomName.text = popUpData.roomName;
+            var RoomSaveData = UserStaticData.GetRoomData((int)popUpData.roomIndex);
+
+            if (RoomSaveData != null)
+            {
+                _topTimeText.text = GameClock.FormatTime(System.TimeSpan.FromSeconds(RoomSaveData.RecordTime));
+            } else
+            {
+                _topTimeText.text = "--:--:--";
+            }
 
             StopAllCoroutines();
             StartCoroutine(MoveCanvas(_rectTransform, movementLenght, endPosition, startingPosition, movementCurve));
