@@ -41,8 +41,10 @@ namespace fi.tamk.hellgame.ui
                 commander.currentlySelectedButton.MovePointerFromThis();
             }
             AddSubmitCommand(commander);
-            _button.GetComponent<Image>().color = Color.red;
+
             commander.currentlySelectedButton = this;
+            var rectTranform = GetComponent<RectTransform>();
+            if (rectTranform != null) commander.SetPointer(GetComponent<RectTransform>());
         }
 
         protected virtual void AddSubmitCommand(MenuCommander commander)
@@ -52,7 +54,6 @@ namespace fi.tamk.hellgame.ui
 
         public override void MovePointerFromThis()
         {
-            _button.GetComponent<Image>().color = Color.white;
         }
 
         public override Action ClickThis(MenuCommander commander)
