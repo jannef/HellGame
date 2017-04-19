@@ -12,29 +12,23 @@ namespace fi.tamk.hellgame.world
     {
         public UnityEvent RoomFoundInSaveData;
         [SerializeField] private LegalScenes targetRoom;
-
+        [SerializeField] private LegalScenes theRoomBeforeInProgression;
+        [SerializeField] private bool OpenEvenIfRoomNotFound = false;
 
         // Use this for initialization
-        void Awake()
+        void Start()
         {
-            SceneManager.sceneLoaded += Initialize;
-        }
-
-        private void Initialize(Scene scene, LoadSceneMode mode)
-        {
-            SceneManager.sceneLoaded -= Initialize;
             var roomData = UserStaticData.GetRoomData((int)targetRoom);
+
+            if (roomData == null)
+            {
+                roomData = UserStaticData.GetRoomData((int)theRoomBeforeInProgression);
+            }
 
             if (roomData != null)
             {
-                if (RoomFoundInSaveData != null) RoomFoundInSaveData.Invoke();
+                if (RoomFoundInSaveData != null || OpenEvenIfRoomNotFound) RoomFoundInSaveData.Invoke();
             }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }

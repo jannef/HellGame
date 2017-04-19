@@ -27,6 +27,11 @@ public class OpeningDoor : MonoBehaviour
         StartCoroutine(OpeningCoroutine(-openingDegreeAmount, closingCurve, closingLenght));
     }
 
+    public void InstantlyOpenDoor()
+    {
+        transform.RotateAround(hindeTransform.position, openingAxis, openingDegreeAmount);
+    }
+
     public void DelayedCloseDoor()
     {
         StartCoroutine(StaticCoroutines.DoAfterDelay(ClosingDelay, CloseDoor));

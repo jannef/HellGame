@@ -31,11 +31,13 @@ namespace fi.tamk.hellgame.ui
 
             if (buttonMap == null) return;
 
-            var buttonData = _buttonPromtData.GetButtonPromtData(Utilities.ReturnKeyCodeFromButtonMap(_buttonToShow, buttonMap));
+            var keycode = Utilities.ReturnKeyCodeFromButtonMap(_buttonToShow, buttonMap);
+
+            var buttonData = _buttonPromtData.GetButtonPromtData(keycode);
 
             if (buttonData == null)
             {
-                _promtText.text = "Waiting for enum system";
+                _promtText.text = keycode.ToString();
                 _buttonSprite.enabled = false;
             } else
             {
