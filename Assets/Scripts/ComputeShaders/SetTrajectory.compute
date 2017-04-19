@@ -8,11 +8,19 @@ struct DataStruct
 
 RWStructuredBuffer<DataStruct> dataBuffer;
 float3 targetPosition;
+float magnitude;
 
 [numthreads(64,1,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
-	float mag = length(dataBuffer[id.x].velocity);
+	float mag;
+	if (magnitude > 0)
+	{
+		mag = magnitude;
+	} else {
+		mag = length(dataBuffer[id.x].velocity); 
+	}
+	
 	float3 vel = targetPosition - dataBuffer[id.x].position;
 	vel.y = 0;
 	vel = normalize(vel) * mag;
