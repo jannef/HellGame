@@ -11,5 +11,6 @@ namespace fi.tamk.hellgame.dataholders
         public LegalScenes roomIndex;
         public Sprite popUpPicture;
         public LocaleStrings.StringsEnum roomName;
+        public RoomClearingRanks roomRankData;
     }
 }

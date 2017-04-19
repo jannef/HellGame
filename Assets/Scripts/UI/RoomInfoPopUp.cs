@@ -18,6 +18,7 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private TextMeshProUGUI _roomName;
         [SerializeField] private TextMeshProUGUI _topTimeText;
         [SerializeField] private Image _rankImage;
+        [SerializeField] private RankSprites _rankSprites;
         private RectTransform _rectTransform;
         [SerializeField] private float movementLenght;
         [SerializeField] private AnimationCurve movementCurve;
@@ -50,9 +51,12 @@ namespace fi.tamk.hellgame.ui
             if (RoomSaveData != null)
             {
                 _topTimeText.text = GameClock.FormatTime(System.TimeSpan.FromSeconds(RoomSaveData.RecordTime));
+                ClearingRank rank = popUpData.roomRankData.GetRankFromTime(RoomSaveData.RecordTime);
+                _rankImage.sprite = _rankSprites.ReturnSpriteByRank(rank);
             } else
             {
                 _topTimeText.text = "--:--:--";
+                _rankImage.sprite = _rankSprites.ReturnSpriteByRank(ClearingRank.None);
             }
 
             StopAllCoroutines();
