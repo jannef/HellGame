@@ -42,6 +42,7 @@ namespace fi.tamk.hellgame.ui
         public InteractableUiElementAbstract currentlySelectedButton;
         [SerializeField] private InteractableUiElementAbstract TestStartButton;
         [SerializeField] private LayerMask _uiMask;
+        [SerializeField] private RectTransform _pointerTransform;
         private float _movementlock;
         private bool _isAcceptingInput = true;
         private GraphicRaycaster _graphicRaycaster;
@@ -53,11 +54,19 @@ namespace fi.tamk.hellgame.ui
             startButton.MovePointerToThis(this);
             this.enabled = true;
             MouseTextureToggler.ChangeToMenuMouseCursor();
+            _pointerTransform.gameObject.SetActive(true);
         }
 
         private void OnDisable()
         {
             MouseTextureToggler.ChangeToGamePlayCursor();
+            _pointerTransform.gameObject.SetActive(false);
+        }
+
+        public void SetPointer(RectTransform transformToPointTo)
+        {
+            _pointerTransform.anchoredPosition = transformToPointTo.anchoredPosition - 
+                new Vector2(transformToPointTo.rect.width/2 + _pointerTransform.rect.width/2, 0);
         }
 
         private void Start()
