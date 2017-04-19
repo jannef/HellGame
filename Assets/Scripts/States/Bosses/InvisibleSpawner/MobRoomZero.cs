@@ -4,6 +4,7 @@ using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.world;
 using UnityEngine;
+using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.states
 {
@@ -17,6 +18,7 @@ namespace fi.tamk.hellgame.states
 
         private int _activeMinions = 0;
         private int _phase = 0;
+        private float StartDelay = 0f;
 
         public MobRoomZero(ActorComponent controlledHero) : base(controlledHero)
         {
@@ -36,9 +38,16 @@ namespace fi.tamk.hellgame.states
                 waveTemp.Add(wave);
             }
 
-            _spawnWaves = waveTemp.ToArray();
+            if (ControlledActor.ActorNumericData != null)
+            {
+                if (ControlledActor.ActorNumericData != null && ControlledActor.ActorNumericData.ActorFloatData.Length > 0)
+                {
+                    StartDelay = ControlledActor.ActorNumericData.ActorFloatData[0];
+                }
+            }
 
-            NextWave();
+            _spawnWaves = waveTemp.ToArray();
+            ControlledActor.StartCoroutine(StaticCoroutines.DoAfterDelay(StartDelay, NextWave));
         }
 
         private void MinionHasDied()

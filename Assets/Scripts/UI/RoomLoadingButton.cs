@@ -27,7 +27,7 @@ namespace fi.tamk.hellgame.ui
 
         private void TargetCurrentScene()
         {
-            RoomManager.LoadRoom((LegalScenes) SceneManager.GetActiveScene().buildIndex);
+            RoomManager.LoadRoom((LegalScenes) SceneManager.GetActiveScene().buildIndex, true);
         }
 
         private void Activate()

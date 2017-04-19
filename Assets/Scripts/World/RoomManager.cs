@@ -40,6 +40,7 @@ namespace fi.tamk.hellgame.world
         public ButtonMap[] DefaultInputs;
         private static int currentInputModeIndex = 0;
         public static int LastSceneIndex = 0;
+        public static bool RetryFlag = false;
 
         public LegalScenes CurrentScene { get; private set; }
 
@@ -77,11 +78,12 @@ namespace fi.tamk.hellgame.world
             }
         }
 
-        public static void LoadRoom(LegalScenes whichRoom, bool transitionEffects = true, bool resetPlayerStats = true)
+        public static void LoadRoom(LegalScenes whichRoom, bool retryFlag = false, bool transitionEffects = true, bool resetPlayerStats = true)
         {
             SceneLoadLock.SceneChangeInProgress = true;
 
             LastSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            RetryFlag = retryFlag;
 
             var player = FindObjectOfType<PlayerLimitBreak>();
             if (player != null)
@@ -105,7 +107,6 @@ namespace fi.tamk.hellgame.world
                 SceneManager.LoadScene((int)whichRoom);
             }
 
-            
             SceneManager.sceneLoaded += ReleaseLock;
         }
 

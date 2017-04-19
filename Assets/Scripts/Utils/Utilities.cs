@@ -1,4 +1,5 @@
-﻿using System;
+﻿using fi.tamk.hellgame.input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,6 +51,27 @@ namespace fi.tamk.hellgame.utils
             trajectory.y = 0f;
 
             cols.ForEach(x => Pool.Instance.GetHealthComponent(x.gameObject).TakeDisplacingDamage(howMuch, trajectory.normalized * radius * 1.5f));
+        }
+
+        public static KeyCode ReturnKeyCodeFromButtonMap(Buttons.ButtonScheme _buttonScheme, ButtonMap map)
+        {
+            switch (_buttonScheme)
+            {
+                case Buttons.ButtonScheme.Dash:
+                    return map.DashButton;
+                    break;
+                case Buttons.ButtonScheme.Fire_1:
+                    return map.FireOneButton;
+                    break;
+                case Buttons.ButtonScheme.LimitBreak:
+                    return map.LimitBreakButton;
+                    break;
+                case Buttons.ButtonScheme.Pause:
+                    return map.PauseButton;
+                    break;
+            }
+
+            return KeyCode.None;
         }
     }
 }
