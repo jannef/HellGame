@@ -52,6 +52,12 @@ namespace fi.tamk.hellgame.ui
             Cursor.visible = true;
             startButton.MovePointerToThis(this);
             this.enabled = true;
+            MouseTextureToggler.ChangeToMenuMouseCursor();
+        }
+
+        private void OnDisable()
+        {
+            MouseTextureToggler.ChangeToGamePlayCursor();
         }
 
         private void Start()
