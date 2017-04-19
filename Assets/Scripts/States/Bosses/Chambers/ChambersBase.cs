@@ -26,6 +26,10 @@ namespace fi.tamk.hellgame.states
         protected ActorData NumericData;
         protected BulletEmitter CogGun;
 
+        // Navigation agent data.
+        protected Vector3 StartPosition;
+        protected float StartSpeed;
+
         protected ChambersBase(ActorComponent controlledHero, ChambersBase clonedState = null)
             : base(controlledHero)
         {
@@ -37,6 +41,8 @@ namespace fi.tamk.hellgame.states
                 LaserBeam = ControlledActor.GetComponentInChildren<LaserEmitter>();
                 NumericData = ControlledActor.ActorNumericData;
                 CogGun = Externals.ExistingGameObjects[0].GetComponent<BulletEmitter>();
+                StartPosition = ControlledActor.transform.position;
+                StartSpeed = NavigationAgent.speed;
             }
             else
             {
@@ -46,6 +52,8 @@ namespace fi.tamk.hellgame.states
                 LaserBeam = clonedState.LaserBeam;
                 NumericData = clonedState.NumericData;
                 CogGun = clonedState.CogGun;
+                StartPosition = clonedState.StartPosition;
+                StartSpeed = clonedState.StartSpeed;
             }
         }
 
@@ -87,6 +95,21 @@ namespace fi.tamk.hellgame.states
             }
 
             stop.Invoke();
+        }
+
+        /// <summary>
+        /// Sets trajectory for cogs towards given transform.
+        /// </summary>
+        /// <param name="target">Target transform.</param>
+        /// <param name="velocity">Less than 0 means keep current magnitude.</param>
+        protected void CogsToTarget(Transform target, float velocity = -1)
+        {
+            CogGun.BulletSystem.OneshotBehaviour(0, false, target, velocity);
+        }
+
+        protected void StopCogs()
+        {
+            CogGun.BulletSystem.OneshotBehaviour(1, false);
         }
     }
 }

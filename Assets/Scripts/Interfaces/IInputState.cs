@@ -37,6 +37,7 @@ namespace fi.tamk.hellgame.interfaces
         CourtyardStandby = 33,
         ChambersStandby = 34,
         ChambersPhaseOne = 35,
+        ChambersIntermission = 36,
 
     }
 

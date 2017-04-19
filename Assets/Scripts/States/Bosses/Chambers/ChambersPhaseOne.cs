@@ -35,9 +35,14 @@ namespace fi.tamk.hellgame.states
                 DefaultLaserBurst();
             }
 
-            if (Input.GetKeyDown(KeyCode.Delete))
+            //if (Input.GetKeyDown(KeyCode.Delete)) StopCogs();
+            //if (Input.GetKeyDown(KeyCode.End)) CogsToTarget(_playerTransform, 10f);
+            //if (Input.GetKeyDown(KeyCode.PageDown)) CogGun.Fire();
+            if (Input.GetKeyDown(KeyCode.PageDown))
             {
-                CogGun.BulletSystem.OneshotBehaviour(0, false, _playerTransform);
+                ControlledActor.GoToState(
+                    new ChambersIntermission(
+                        ControlledActor,new ChambersPhaseOne(ControlledActor, this), 10f, this));
             }
         }
 

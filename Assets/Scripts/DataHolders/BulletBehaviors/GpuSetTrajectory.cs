@@ -6,6 +6,7 @@ namespace fi.tamk.hellgame.dataholders
     public class GpuSetTrajectory : GpuAcceleratedBulletBehavior
     {
         protected Vector3 TargetWorldPosition;
+        protected float DesiredMagnitude = -1;
 
         private struct BufferDataType
         {
@@ -19,6 +20,7 @@ namespace fi.tamk.hellgame.dataholders
             int numberOfParticles)
         {
             BehaviorComputeShader.SetVector("targetPosition", TargetWorldPosition);
+            BehaviorComputeShader.SetFloat("magnitude", DesiredMagnitude);
             for (var i = 0; i < numberOfParticles; ++i)
             {
                 _inBuffer[i].position = particles[i].position;
@@ -43,13 +45,19 @@ namespace fi.tamk.hellgame.dataholders
 
         public override void BatchedAction(ref ParticleSystem.Particle[] particleBuffer, int numberOfParticles, params object[] parameters)
         {
+            /*
+             * Parameters
+             * 0: Transform     - Desired target location
+             * 1: float         - Desired velocity magnitude
+             */
             try
             {
                 TargetWorldPosition = (parameters[0] as Transform).position;
+                DesiredMagnitude = parameters.Length >= 2 ? (float)parameters[1] : -1f;
             }
             catch (Exception)
             {
-                throw new UnityException("GpuSetTrajectory requires parameters[0] to be castable into Transform!");
+                throw new UnityException("Check GpuSetTrajectory.cs comments to see correct parameters for this bulletbBehaviour!");
             }
             
             InternalBatchedAction<BufferDataType>(ref _inBuffer, ref particleBuffer, numberOfParticles);

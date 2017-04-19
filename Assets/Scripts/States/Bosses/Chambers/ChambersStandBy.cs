@@ -40,7 +40,6 @@ namespace fi.tamk.hellgame.states
             for (var i = 0; i < bursts; i++)
             {
                 CogGun.Fire();
-                CogGun.StartAngle += 10.33f;
                 var timer = 0f;
                 while (timer < dur)
                 {

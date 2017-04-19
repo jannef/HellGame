@@ -184,7 +184,6 @@ namespace fi.tamk.hellgame.world
             var score = ScoreWindow.GetScoreWindowGo(_guiReferences.transform);
             var player = ServiceLocator.Instance.GetNearestPlayer().gameObject.GetComponent<HealthComponent>();
 
-            Debug.Log(ranks);
             score.SetData(_clock, player.MaxHp - player.Health, ranks == null ? FindObjectOfType<RoomIdentifier>().roomClearingRankField : ranks);
         }
 
