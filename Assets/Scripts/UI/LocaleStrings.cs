@@ -13,6 +13,7 @@ public static partial class LocaleStrings
 		"Hits Taken",
 		"Final Clear Time",
 		"Next rank\n{0}",
+		"Kitchen Of Doom",
 		""
 	};
 
@@ -23,6 +24,7 @@ public static partial class LocaleStrings
 		"Osumia otettu",
 		"Yhteenlaskettu aika",
 		"Seuraava taso\n{0}",
+		"Kuolon Keittiö",
 		""
 	};
 
@@ -38,6 +40,8 @@ public static partial class LocaleStrings
 
 	public static string UI_SCORE_TEASER { get { return CurrentLocale[5]; } }
 
+	public static string UI_ROOM_KITCHEN_1 { get { return CurrentLocale[6]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -46,5 +50,6 @@ public static partial class LocaleStrings
 		UI_SCORE_HITSTAKEN=3,
 		UI_SCORE_TOTALTIME=4,
 		UI_SCORE_TEASER=5,
+		UI_ROOM_KITCHEN_1=6,
 	}
 }
