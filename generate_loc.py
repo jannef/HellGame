@@ -53,9 +53,14 @@ def main(argv):
 
     for i in range (1, len(sheet1)-1):
         if (sheet1[i][0] != ""):
-            outputFile.write('\tpublic static string ' + sheet1[i][0]+' { get { return CurrentLocale['+str(i-1)+']; } }\n\n')
+            outputFile.write('\tpublic static string ' + sheet1[i][0]+' { get { return CurrentLocale['+str(i-1)+']; } }\n\n')    
 
-    outputFile.write('}')
+    outputFile.write('\tpublic enum StringsEnum : int\n\t{')
+    for i in range (1, len(sheet1)-1):
+        if (sheet1[i][0] != ""):
+            outputFile.write('\n\t\t' + sheet1[i][0] + '=' + str(i-1) + ',')
+    outputFile.write('\n\t}\n')
+    outputFile.write('}\n')
 
     outputFile.close()
 

@@ -11,6 +11,16 @@ public static partial class LocaleStrings
     private const string PlayerLocaleKey = "PlayerLocale";
 
     /// <summary>
+    /// Returns localized string matching given key.
+    /// </summary>
+    /// <param name="key">Key.</param>
+    /// <returns>Matching localized string.</returns>
+    public static string LocalizedStringFromEnum(StringsEnum key)
+    {
+        return CurrentLocale[(int)key];
+    }
+
+    /// <summary>
     /// Reads field infos and thus finds available locales.
     /// </summary>
     static LocaleStrings()
