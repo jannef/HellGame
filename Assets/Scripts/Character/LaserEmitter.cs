@@ -23,7 +23,6 @@ public class LaserEmitter : BulletEmitter {
     [SerializeField, Range(0.01f, 1f)] protected float LaserColliderWidthMultiplier;
 
     private CapsuleCollider _laserCollider;
-    private float _parentSizeModifier;
     private bool coroutineRunning = false;
 
     private bool StopFiringLaser
@@ -86,7 +85,6 @@ public class LaserEmitter : BulletEmitter {
     protected override void Awake()
     {
         Timer = 0f;
-        _parentSizeModifier = transform.parent.localScale.x;
         _laserCollider = GetComponentInChildren<CapsuleCollider>();
     }
 
