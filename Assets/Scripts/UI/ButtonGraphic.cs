@@ -1,6 +1,7 @@
 ﻿using fi.tamk.hellgame.dataholders;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ namespace fi.tamk.hellgame.ui
     public class ButtonGraphic : MonoBehaviour
     {
         [SerializeField] private ButtonPromtData _promtData;
-        [SerializeField] private Text _text;
+        [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private Image _buttonImage;
 
         public void UpdateGraphics(KeyCode keyCode)
