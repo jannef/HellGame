@@ -9,8 +9,9 @@ namespace fi.tamk.hellgame.ui
 {
     public class BottomHUD : MonoBehaviour
     {
+        private const float FadeoutDuration = 1f;
+
         [SerializeField] private float Duration = 5f;
-        [SerializeField] private AnimationCurve TextAnimation;
         [SerializeField] private GameObject BottomHudPrefab;
 
         private CanvasScaler _canvasScaler;
@@ -30,27 +31,44 @@ namespace fi.tamk.hellgame.ui
         {
             if (!_initialized) Init();
             var go = Instantiate(BottomHudPrefab, _canvasTransform);
-            StartCoroutine(MoveText(go, message, duration <= 0f ? Duration : duration, curve ?? TextAnimation));
+            StartCoroutine(MoveText(go, message, duration <= 0 ? Duration : duration));
         }
 
-        private IEnumerator MoveText(GameObject hud, string message, float duration, AnimationCurve curve)
+        private IEnumerator MoveText(GameObject hud, string message, float duration)
         {
             var width = _canvasScaler.referenceResolution.y;
             var text = hud.GetComponentInChildren<TextMeshProUGUI>();
+            var image = hud.GetComponentInChildren<Image>();
+
+            Debug.Log(message);
             text.text = message;
 
             var timer = 0f;
             while (timer < duration)
             {
                 timer += WorldStateMachine.Instance.DeltaTime;
-                var ratio = Mathf.Lerp(-width, width, curve.Evaluate(timer / duration));
-                text.rectTransform.anchoredPosition = new Vector2(ratio, 0);
+                yield return null;
+            }
+
+            timer = 0f;
+            while (timer < FadeoutDuration)
+            {
+                timer += WorldStateMachine.Instance.DeltaTime;
+
+                var ratio = timer / FadeoutDuration;
+                var col = image.color;
+                col.a = Mathf.Lerp(1, 0, ratio);
+                image.color = col;
+
+                col = text.color;
+                col.a = Mathf.Lerp(1, 0, ratio);
+                text.color = col;
+
                 yield return null;
             }
 
             hud.SetActive(false);
-            Destroy(hud);
-            yield return null;
+            Destroy(hud);            
         }
     }
 }

@@ -66,10 +66,8 @@ namespace fi.tamk.hellgame.utils
                 case Buttons.ButtonScheme.Pause:
                     return map.PauseButton;
                 default:
-                    throw new UnityException("KeyCode out of range!");
+                    return KeyCode.None;
             }
-
-            return KeyCode.None;
         }
     }
 }

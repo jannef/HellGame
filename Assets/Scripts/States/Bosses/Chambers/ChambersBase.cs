@@ -16,7 +16,8 @@ namespace fi.tamk.hellgame.states
             PhaseOneLaserCooldown      = 0,
             PhaseOneLaserBurstDuration = 1,
             CogBursts                  = 2,
-            CogBurstDuration           = 3
+            CogBurstDuration           = 3,
+            PhaseOneEnd                = 4
         }
 
         protected BossExternalObjects Externals;

@@ -3,6 +3,7 @@ using fi.tamk.hellgame.input;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.ui;
 
 namespace fi.tamk.hellgame.world
 {
@@ -69,6 +70,7 @@ namespace fi.tamk.hellgame.world
             {
                 DebugMode = true;
                 Debug.Log("Debug mode is turned on!");
+                MouseTextureToggler.ChangeToGamePlayCursor();
                 LoadRoom((LegalScenes) roomIdentifier[0].SceneId);
                 Destroy(roomIdentifier[0].gameObject);
             }

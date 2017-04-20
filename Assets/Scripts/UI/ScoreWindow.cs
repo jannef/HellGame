@@ -21,8 +21,6 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private Image MedalImage;
         [SerializeField] private Sprite[] Medals;
 
-        private Renderer[] _renderers;
-
         public void UpdateLabelTexts()
         {
             TimeLabel.text = LocaleStrings.UI_SCORE_COMPTIME;
@@ -42,8 +40,6 @@ namespace fi.tamk.hellgame.ui
             {
                 throw new UnityException("ScoreWindow component has null value in Medals array!");
             }
-
-            _renderers = GetComponentsInChildren<Renderer>();
 
             RoomIdentifier.GamePaused += SetDeactive;
             RoomIdentifier.GameResumed += SetActive;
