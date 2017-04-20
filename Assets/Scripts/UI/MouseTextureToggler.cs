@@ -18,7 +18,7 @@ namespace fi.tamk.hellgame.ui
 
             if (menuMouse != null)
             {
-                Cursor.SetCursor(menuMouse, menuMouseHotSpot, CursorMode.Auto);
+                Cursor.SetCursor(menuMouse, menuMouseHotSpot, CursorMode.ForceSoftware);
             }
         }
 
@@ -28,7 +28,7 @@ namespace fi.tamk.hellgame.ui
 
             if (menuMouse != null)
             {
-                Cursor.SetCursor(menuMouse, gameplayMouseHotSpot, CursorMode.Auto);
+                Cursor.SetCursor(menuMouse, gameplayMouseHotSpot, CursorMode.ForceSoftware);
             }
         }
 
