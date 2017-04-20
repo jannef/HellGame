@@ -59,19 +59,15 @@ namespace fi.tamk.hellgame.utils
             {
                 case Buttons.ButtonScheme.Dash:
                     return map.DashButton;
-                    break;
                 case Buttons.ButtonScheme.Fire_1:
                     return map.FireOneButton;
-                    break;
                 case Buttons.ButtonScheme.LimitBreak:
                     return map.LimitBreakButton;
-                    break;
                 case Buttons.ButtonScheme.Pause:
                     return map.PauseButton;
-                    break;
+                default:
+                    return KeyCode.None;
             }
-
-            return KeyCode.None;
         }
     }
 }

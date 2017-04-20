@@ -1,10 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
 using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.utils;
-using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.states
 {
@@ -50,6 +48,11 @@ namespace fi.tamk.hellgame.states
         {
             base.OnEnterState();
             DefaultLaserBurst();
+        }
+
+        protected override void OnHealthChange(float percentage, int currentHp, int maxHp)
+        {
+            if (percentage == 0) ;
         }
     }
 }

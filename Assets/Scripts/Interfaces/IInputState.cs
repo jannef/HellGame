@@ -38,7 +38,6 @@ namespace fi.tamk.hellgame.interfaces
         ChambersStandby = 34,
         ChambersPhaseOne = 35,
         ChambersIntermission = 36,
-
     }
 
     public enum TransitionType
