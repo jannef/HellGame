@@ -25,9 +25,6 @@ namespace fi.tamk.hellgame.dataholders
         {
             LoadData();
             if (Settings == null) return;
-
-            SetMusicMixerVolume(Settings.MusicVolume);
-            SetSFXMixerVolume(Settings.SFXVolume);
         }
 
         public static RoomSaveData GetRoomData(int roomIndex)
@@ -44,6 +41,7 @@ namespace fi.tamk.hellgame.dataholders
         {
             if (Settings == null)
             {
+                UnityEngine.Debug.Log("Settings is null");
                 LoadData();
             }
 
@@ -52,6 +50,7 @@ namespace fi.tamk.hellgame.dataholders
 
         public static void SaveGameSettings()
         {
+
             try
             {
                 Settings.BeforeSerialization();
@@ -99,7 +98,7 @@ namespace fi.tamk.hellgame.dataholders
 
         public static void SetSFXMixerVolume(float value)
         {
-            Settings.MusicVolume = value;
+            Settings.SFXVolume = value;
 
             RuntimeManager.GetVCA("vca:/sfx").setVolume(value);
             SaveGameSettings();

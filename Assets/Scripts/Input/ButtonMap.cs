@@ -70,15 +70,13 @@ namespace fi.tamk.hellgame.input
 
         public static ButtonMap FromSerializedForm(SerializedForm serialized)
         {
-            var rv = new ButtonMap()
-            {
-                FireOneButton = serialized.FireOneButton,
-                FireTwoButton = serialized.FireTwoButton,
-                DashButton = serialized.DashButton,
-                LeftTrigger = serialized.LeftTrigger,
-                LimitBreakButton = serialized.LimitBreakButton,
-                PauseButton = serialized.PauseButton
-            };
+            var rv = ScriptableObject.CreateInstance<ButtonMap>();
+            rv.FireOneButton = serialized.FireOneButton;
+            rv.FireTwoButton = serialized.FireTwoButton;
+            rv.DashButton = serialized.DashButton;
+            rv.LeftTrigger = serialized.LeftTrigger;
+            rv.LimitBreakButton = serialized.LimitBreakButton;
+            rv.PauseButton = serialized.PauseButton;
             return rv;
         }
     }
