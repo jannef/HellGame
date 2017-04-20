@@ -30,7 +30,6 @@ namespace fi.tamk.hellgame.ui
         {
             _canvasGroup.alpha = 0;
             _canvasGroup.blocksRaycasts = false;
-            gameObject.SetActive(false);
             if (PointerRemovedFromThis != null) PointerRemovedFromThis.Invoke();
         }
 

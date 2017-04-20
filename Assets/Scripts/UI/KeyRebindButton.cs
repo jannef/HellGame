@@ -5,6 +5,7 @@ using fi.tamk.hellgame.world;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private Buttons.ButtonScheme _buttonToRebind;
         [SerializeField] private Buttons.InputType _inputType;
         [SerializeField] private ButtonGraphic _buttonGraphic;
-        [SerializeField] private Text _pressAnyButtonText;
+        [SerializeField] private TextMeshProUGUI _pressAnyButtonText;
         private ButtonMap _buttonMapToChange;
 
         void Start()
