@@ -5,6 +5,8 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
+using FMODUnity;
+using FMOD;
 
 namespace fi.tamk.hellgame.dataholders
 {
@@ -22,6 +24,12 @@ namespace fi.tamk.hellgame.dataholders
         static UserStaticData()
         {
             LoadData();
+            UnityEngine.Debug.Log(SettingsSavePath);
+
+            if (Settings == null) return;
+
+            SetMusicMixerVolume(Settings.MusicVolume);
+            SetSFXMixerVolume(Settings.SFXVolume);
         }
 
         public static RoomSaveData GetRoomData(int roomIndex)
@@ -46,16 +54,16 @@ namespace fi.tamk.hellgame.dataholders
 
         public static void SaveGameSettings()
         {
+
             var fs = new MemoryStream();
             try
             {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(fs, Settings);
-                File.WriteAllBytes(SettingsSavePath, fs.GetBuffer());
+                var blob = JsonUtility.ToJson(Settings);
+                File.WriteAllText(SettingsSavePath, blob);
             }
             catch (Exception e)
             {
-                Debug.LogWarning(e);
+                UnityEngine.Debug.LogWarning(e);
             }
             finally
             {
@@ -80,12 +88,28 @@ namespace fi.tamk.hellgame.dataholders
             }
             catch (Exception e)
             {
-                Debug.LogWarning(e);
+                UnityEngine.Debug.LogWarning(e);
             }
             finally
             {
                 fs.Close();
             }
+        }
+
+        public static void SetMusicMixerVolume(float value)
+        {
+            Settings.MusicVolume = value;
+
+            RuntimeManager.GetVCA("vca:/music").setVolume(value);
+            SaveGameSettings();
+        }
+
+        public static void SetSFXMixerVolume(float value)
+        {
+            Settings.MusicVolume = value;
+
+            RuntimeManager.GetVCA("vca:/sfx").setVolume(value);
+            SaveGameSettings();
         }
 
         public static void LoadData()
@@ -104,22 +128,18 @@ namespace fi.tamk.hellgame.dataholders
             }
             catch (Exception e)
             {
-                Debug.LogWarning(e);
+                UnityEngine.Debug.LogWarning(e);
                 RoomData = new List<RoomSaveData>();
             }
 
             try
             {
-                byte[] bytes = File.ReadAllBytes(SettingsSavePath);
-                using (var fs = new MemoryStream(bytes))
-                {
-                    var formatter = new BinaryFormatter();
-                    Settings = formatter.Deserialize(fs) as GameSettings;
-                }
+                string bytes = File.ReadAllText(SettingsSavePath);
+                Settings =  JsonUtility.FromJson<GameSettings>(bytes);
             }
             catch (Exception e)
             {
-                Debug.LogWarning(e);
+                UnityEngine.Debug.LogWarning(e);
                 Settings = new GameSettings();
             }
         }

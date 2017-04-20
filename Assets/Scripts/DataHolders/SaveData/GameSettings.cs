@@ -9,9 +9,12 @@ namespace fi.tamk.hellgame.dataholders
     [Serializable]
     public class GameSettings
     {
-        public ButtonMap GamepadSettings;
+        [SerializeField] public ButtonMap GamepadSettings;
+        [SerializeField]
         public ButtonMap MouseAndKeyboardSettings;
+        [SerializeField]
         public float SFXVolume = .5f;
+        [SerializeField]
         public float MusicVolume = .5f;
     }
 }

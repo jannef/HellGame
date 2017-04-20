@@ -23,7 +23,6 @@ namespace fi.tamk.hellgame.ui
             _attachedSlider = GetComponent<Slider>();
             float value = 1;
             var settings = UserStaticData.GetGameSettings();
-            if (settings == null) return;
 
             switch (_settingValueToChange)
             {
@@ -41,16 +40,14 @@ namespace fi.tamk.hellgame.ui
 
         public void OnValueChanged(float newValue)
         {
-            var settings = UserStaticData.GetGameSettings();
-            if (settings == null) return;
 
             switch (_settingValueToChange)
             {
                 case SettingValueToChange.SFXVolume:
-                    settings.SFXVolume = newValue;
+                    UserStaticData.SetSFXMixerVolume(newValue);
                     break;
                 case SettingValueToChange.MusicVolume:
-                    settings.MusicVolume = newValue;
+                    UserStaticData.SetMusicMixerVolume(newValue);
                     break;
             }
         }

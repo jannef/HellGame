@@ -9,14 +9,19 @@ namespace fi.tamk.hellgame.input
     /// </summary>
     public class ButtonMap : ScriptableObject
     {
-        public KeyCode FireOneButton;
+        [SerializeField] public KeyCode FireOneButton;
+        [SerializeField]
         public KeyCode FireTwoButton;
+        [SerializeField]
         public KeyCode DashButton;
+        [SerializeField]
         public string LeftTrigger;
+        [SerializeField]
         public KeyCode LimitBreakButton;
+        [SerializeField]
         public KeyCode PauseButton;
 
-        public Buttons.InputType InputType;
+        [SerializeField] public Buttons.InputType InputType;
 
         public KeyCode GetKeyCodeAttachedToButton(Buttons.ButtonScheme _command)
         {
