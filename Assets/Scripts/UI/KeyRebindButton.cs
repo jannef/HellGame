@@ -23,14 +23,12 @@ namespace fi.tamk.hellgame.ui
         void Start()
         {
             if (_inputType == Buttons.InputType.PcMasterrace)
-            {
-                
+            {                
                 _buttonMapToChange = UserStaticData.Settings.MouseAndKeyboardSettings;
             } else
             {
                 _buttonMapToChange = UserStaticData.Settings.GamepadSettings;
             }
-
             
             UpdateButtonGraphic(_buttonMapToChange.GetKeyCodeAttachedToButton(_buttonToRebind));
         }
@@ -57,7 +55,6 @@ namespace fi.tamk.hellgame.ui
 
         private void ChangeInput(KeyCode newInput)
         {
-
             switch (_buttonToRebind)
             {
                 case Buttons.ButtonScheme.Dash:

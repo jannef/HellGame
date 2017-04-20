@@ -24,8 +24,6 @@ namespace fi.tamk.hellgame.dataholders
         static UserStaticData()
         {
             LoadData();
-            UnityEngine.Debug.Log(SettingsSavePath);
-
             if (Settings == null) return;
 
             SetMusicMixerVolume(Settings.MusicVolume);
@@ -54,20 +52,15 @@ namespace fi.tamk.hellgame.dataholders
 
         public static void SaveGameSettings()
         {
-
-            var fs = new MemoryStream();
             try
             {
-                var blob = JsonUtility.ToJson(Settings);
+                Settings.BeforeSerialization();
+                var blob = JsonUtility.ToJson(Settings, true);
                 File.WriteAllText(SettingsSavePath, blob);
             }
             catch (Exception e)
             {
                 UnityEngine.Debug.LogWarning(e);
-            }
-            finally
-            {
-                fs.Close();
             }
         }
 
@@ -136,6 +129,7 @@ namespace fi.tamk.hellgame.dataholders
             {
                 string bytes = File.ReadAllText(SettingsSavePath);
                 Settings =  JsonUtility.FromJson<GameSettings>(bytes);
+                Settings.AfterDeSerialization();
             }
             catch (Exception e)
             {
