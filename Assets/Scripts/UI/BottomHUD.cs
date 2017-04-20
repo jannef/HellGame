@@ -40,7 +40,6 @@ namespace fi.tamk.hellgame.ui
             var text = hud.GetComponentInChildren<TextMeshProUGUI>();
             var image = hud.GetComponentInChildren<Image>();
 
-            Debug.Log(message);
             text.text = message;
 
             var timer = 0f;

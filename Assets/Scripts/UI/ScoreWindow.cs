@@ -11,6 +11,10 @@ namespace fi.tamk.hellgame.ui
 {
     public class ScoreWindow : MonoBehaviour
     {
+        [SerializeField] private float _textFadeDuration = 0.66f;
+        [SerializeField] private float _tickDuration = 0.2f;
+        [SerializeField] private float _boxFadeDuration = 0.31f;
+        [SerializeField] private AnimationCurve _fadeCurve;
         [SerializeField] private TextMeshProUGUI TimeLabel;
         [SerializeField] private TextMeshProUGUI TimeField;
         [SerializeField] private TextMeshProUGUI LivesLabel;
@@ -19,9 +23,10 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private TextMeshProUGUI TotalField;
         [SerializeField] private TextMeshProUGUI TeaserField;
         [SerializeField] private Image MedalImage;
+        [SerializeField] private Image Background;
         [SerializeField] private Sprite[] Medals;
 
-        private Renderer[] _renderers;
+        private TextMeshProUGUI[] _allTexts;
 
         public void UpdateLabelTexts()
         {
@@ -32,6 +37,8 @@ namespace fi.tamk.hellgame.ui
 
         private void Awake()
         {
+            _allTexts = new[] { TimeField, TimeLabel, LivesLabel, LivesField, TotalLabel, TotalField, TeaserField };
+
             if (Medals.Length != 5)
             {
                 throw new UnityException(
@@ -57,6 +64,42 @@ namespace fi.tamk.hellgame.ui
         private void SetDeactive()
         {
             gameObject.transform.localScale = Vector3.zero;
+        }
+
+        public void FadeIn(float duration, params MaskableGraphic[] element)
+        {
+            StartCoroutine(Fade(false, duration, element));
+        }
+
+        public void FadeOut(float duration, params MaskableGraphic[] element)
+        {
+            StartCoroutine(Fade(true, duration, element));
+        }
+
+        private IEnumerator Fade(bool toTransparent, float duration, params MaskableGraphic[] element)
+        {
+            if (duration <= 0.1f) duration = 0.1f;
+
+            var timer = 0f;
+            while (timer < duration)
+            {
+                timer += WorldStateMachine.Instance.DeltaTime;
+                var ratio = timer / duration;
+
+                foreach (var e in element)
+                {
+                    e.color = SwapAlpha(e.color, _fadeCurve.Evaluate(ratio), 0f, 1f, toTransparent);
+                }
+
+                yield return null;
+            }
+        }
+
+        private Color SwapAlpha(Color color, float ratio, float value1, float value2, bool toTransparent = false)
+        {
+            var alfa = !toTransparent ? Mathf.Lerp(value1, value2, ratio) : Mathf.Lerp(value2, value1, ratio);
+            color.a = alfa;
+            return color;
         }
 
         public void OnDestroy()
@@ -88,10 +131,12 @@ namespace fi.tamk.hellgame.ui
 
         private IEnumerator Animated(float duration, GameClock clock, int hits, float penalty, RoomClearingRanks ranks)
         {
-            BatchSetActive(true, TimeLabel, LivesLabel, TotalLabel, TimeField);
+            BatchSetActive(true, TimeLabel, TimeField);
+            FadeIn(_boxFadeDuration, Background);
+            FadeIn(_textFadeDuration, TimeLabel, TimeField); 
 
-            // Fill the used time.
-            var timer = 0f;
+             // Fill the used time.
+             var timer = 0f;
             while (timer < duration)
             {
                 timer += WorldStateMachine.Instance.DeltaTime;
@@ -103,20 +148,26 @@ namespace fi.tamk.hellgame.ui
             }
 
             // Fill the hits taken.
-            BatchSetActive(true, LivesField);
-            timer = 0f;
-            while (timer < duration)
-            {
-                timer += WorldStateMachine.Instance.DeltaTime;
-                var hit = (int)((timer / duration) * hits); 
-                
+            BatchSetActive(true, LivesField, LivesLabel);
+            FadeIn(_textFadeDuration, LivesField, LivesLabel);
 
-                LivesField.text = string.Format("{0}x {1}", hit, GameClock.FormatTime(TimeSpan.FromSeconds(hit * penalty)));
-                yield return null;
+            var hit = 0;
+            while (true)
+            {
+                timer = 0f;
+                LivesField.text = string.Format("{0}x {1}", hit, GameClock.FormatTime(TimeSpan.FromSeconds(hit * penalty)));           
+                while (timer < _tickDuration)
+                {
+                    timer += WorldStateMachine.Instance.DeltaTime;                    
+                    yield return null;
+                }
+                if (hit >= hits) break;
+                hit++;
             }
 
             // Display total time
-            BatchSetActive(true, TotalField);
+            BatchSetActive(true, TotalField, TotalLabel);
+            FadeIn(_textFadeDuration, TotalField, TotalLabel);
 
             var totalTime = clock.Time + hits * penalty;
             var rnk = ranks.GetRankFromTime(totalTime);
@@ -124,6 +175,7 @@ namespace fi.tamk.hellgame.ui
             if (rnk != ClearingRank.None)
             {
                 MedalImage.gameObject.SetActive(true);
+                FadeIn(_textFadeDuration, MedalImage);
                 MedalImage.sprite = Medals[(int)rnk];
 
                 if (rnk != ClearingRank.S)
@@ -131,6 +183,7 @@ namespace fi.tamk.hellgame.ui
                     ClearingRank next;
                     TeaserField.text = string.Format(LocaleStrings.UI_SCORE_TEASER, GameClock.FormatTime(TimeSpan.FromSeconds(ranks.GetNextRankTeaser(out next, rnk))));
                     BatchSetActive(true, TeaserField);
+                    FadeIn(_textFadeDuration, TeaserField);
                 }
             }
         }
