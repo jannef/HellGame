@@ -13,7 +13,7 @@ namespace fi.tamk.hellgame.dataholders
         {
             get
             {
-                return _gb ?? (_gb = ButtonMap.FromSerializedForm(_gamepadSettings));
+                return _gb ?? (_gb = ButtonMap.FromSerializedForm(_gamepadSettings, Buttons.InputType.ConsolePleb));
             }
 
             set
@@ -27,7 +27,7 @@ namespace fi.tamk.hellgame.dataholders
         {
             get
             {
-                return _kb ?? (_kb = ButtonMap.FromSerializedForm(_mouseAndKeyboardSettings));
+                return _kb ?? (_kb = ButtonMap.FromSerializedForm(_mouseAndKeyboardSettings, Buttons.InputType.PcMasterrace));
             }
 
             set
@@ -48,10 +48,24 @@ namespace fi.tamk.hellgame.dataholders
             _mouseAndKeyboardSettings = new ButtonMap.SerializedForm(_kb);
         }
 
+        public GameSettings()
+        {
+            _gamepadSettings.DashButton = KeyCode.JoystickButton4;
+            _gamepadSettings.LimitBreakButton = KeyCode.JoystickButton0;
+            _gamepadSettings.PauseButton = KeyCode.JoystickButton7;
+
+            _mouseAndKeyboardSettings.DashButton = KeyCode.Space;
+            _mouseAndKeyboardSettings.LimitBreakButton = KeyCode.E;
+            _mouseAndKeyboardSettings.PauseButton = KeyCode.Escape;
+            _mouseAndKeyboardSettings.FireOneButton = KeyCode.Mouse0;
+
+            AfterDeSerialization();
+        }
+
         public void AfterDeSerialization()
         {
-            _kb = ButtonMap.FromSerializedForm(_mouseAndKeyboardSettings);
-            _gb = ButtonMap.FromSerializedForm(_gamepadSettings);
+            _kb = ButtonMap.FromSerializedForm(_mouseAndKeyboardSettings, Buttons.InputType.PcMasterrace);
+            _gb = ButtonMap.FromSerializedForm(_gamepadSettings, Buttons.InputType.ConsolePleb);
         }
     }
 }

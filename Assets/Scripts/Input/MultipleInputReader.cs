@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using fi.tamk.hellgame.dataholders;
+using System.Collections;
 using System.Collections.Generic;
 using tamk.fi.hellgame.character;
 using UnityEngine;
@@ -14,11 +15,22 @@ namespace fi.tamk.hellgame.input
         private Vector3 _lastMousePosition;
         private bool hasMovedKeypadRight = false;
 
+        public void Start()
+        {
+            var Settings = UserStaticData.GetGameSettings();
+
+            if (Settings != null)
+            {
+                GamePadInput.MyConfig = Settings.GamepadSettings;
+                KeyBoardInput.MyConfig = Settings.MouseAndKeyboardSettings;
+            }
+        }
+
         public override Vector3 PollAxisRight()
         {
             var gamepadVector = GamePadInput.PollAxisRight();
 
-            if (gamepadVector.sqrMagnitude > 0.01)
+            if (gamepadVector.sqrMagnitude > 0.1)
             {
                 hasMovedKeypadRight = true;
                 Cursor.visible = false;

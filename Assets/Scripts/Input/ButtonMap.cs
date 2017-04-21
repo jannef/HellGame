@@ -68,7 +68,7 @@ namespace fi.tamk.hellgame.input
             return rv;
         }
 
-        public static ButtonMap FromSerializedForm(SerializedForm serialized)
+        public static ButtonMap FromSerializedForm(SerializedForm serialized, Buttons.InputType _inputType)
         {
             var rv = ScriptableObject.CreateInstance<ButtonMap>();
             rv.FireOneButton = serialized.FireOneButton;
@@ -77,6 +77,7 @@ namespace fi.tamk.hellgame.input
             rv.LeftTrigger = serialized.LeftTrigger;
             rv.LimitBreakButton = serialized.LimitBreakButton;
             rv.PauseButton = serialized.PauseButton;
+            rv.InputType = _inputType;
             return rv;
         }
     }
