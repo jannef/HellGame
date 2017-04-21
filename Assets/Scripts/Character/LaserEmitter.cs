@@ -21,6 +21,9 @@ public class LaserEmitter : BulletEmitter {
     [SerializeField, Range(0f, 10f)] protected float WarningLenght;
     [SerializeField, Range(0.06f, 10f)] protected float LaserLenght;
     [SerializeField, Range(0.01f, 1f)] protected float LaserColliderWidthMultiplier;
+    [FMODUnity.EventRef]
+    public String LaserSoundEffect = "";
+    private FMOD.Studio.EventInstance _laserSound;
 
     private CapsuleCollider _laserCollider;
     private bool coroutineRunning = false;
@@ -86,6 +89,9 @@ public class LaserEmitter : BulletEmitter {
     {
         Timer = 0f;
         _laserCollider = GetComponentInChildren<CapsuleCollider>();
+        if (!string.IsNullOrEmpty(LaserSoundEffect)) {
+            _laserSound = FMODUnity.RuntimeManager.CreateInstance(LaserSoundEffect);
+        }
     }
 
     private Vector3[] FindLaserPositions(Vector3[] positions)
@@ -106,6 +112,28 @@ public class LaserEmitter : BulletEmitter {
         return positions;
     }
 
+    private void StartLaserSound()
+    {
+        if (_laserSound == null) return;
+        _laserSound.setParameterValue("LaserState", 1f);
+        _laserSound.start();
+    }
+
+    private void StopLaserSound()
+    {
+        if (_laserSound != null)
+        {
+            Debug.Log("StopLaserSound");
+            _laserSound.setParameterValue("LaserState", 0f);
+        }
+        
+    }
+
+    private void OnDestroy()
+    {
+        if (_laserSound != null) _laserSound.release();
+    }
+
     private IEnumerator LaserRoutine(bool endWithTime = false)
     {
         coroutineRunning = true;
@@ -115,6 +143,7 @@ public class LaserEmitter : BulletEmitter {
         ShotLaserRenderer.enabled = true;
         ShotLaserRenderer.startWidth = warningShotWidth;
         ShotLaserRenderer.endWidth = fullShotWidth;
+        StartLaserSound();
 
         while (time < WarningLenght)
         {
@@ -159,6 +188,7 @@ public class LaserEmitter : BulletEmitter {
         if (_endPointParticle != null) _endPointParticle.Stop();
         if (_rootParticles != null) _rootParticles.Stop();
         time = shotEndLenght;
+        StopLaserSound();
 
         while (time > 0)
         {
