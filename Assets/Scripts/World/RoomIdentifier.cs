@@ -29,14 +29,14 @@ namespace fi.tamk.hellgame.world
         [SerializeField] public RoomClearingRanks roomClearingRankField;
         [SerializeField] private PoolInstruction[] PoolingInstructions;
         [SerializeField] private string RoomName;
+        [SerializeField] private bool _isMenuScene = false;
 
         public static RoomClearingRanks Ranks;
         public static event Action PlayerDeath;
         public static event Action RoomCompleted;
         public static event Action<ClearingRank> RankGained;
         public static event Action GamePaused;
-        public static event Action GameResumed;        
-        public static bool IsPartOfWingRun = false;
+        public static event Action GameResumed;
 
         private static List<Action> _onPausedActions = new List<Action>();
         private static List<Action> _onGameResumeActions = new List<Action>();
@@ -58,7 +58,8 @@ namespace fi.tamk.hellgame.world
                 SceneManager.LoadScene(0);
                 return;
             }
-             // The function has returned if this is a debug run
+            // The function has returned if this is a debug run
+            if (_isMenuScene) return;
             Init();
             SpawnPlayer();
 
