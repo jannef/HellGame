@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using fi.tamk.hellgame.effects;
+using UnityEngine;
 
 namespace fi.tamk.hellgame.character
 {

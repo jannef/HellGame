@@ -5,6 +5,7 @@ using System.Collections;
 using fi.tamk.hellgame.world;
 using UnityEngine;
 using UnityEngine.Events;
+using fi.tamk.hellgame.effects;
 
 namespace fi.tamk.hellgame.character
 {
@@ -91,6 +92,8 @@ namespace fi.tamk.hellgame.character
         /// </summary>
         private bool _limitActive;
 
+        [SerializeField] private PlayerCollectiableSoundEffect _collectionSoundEffect;
+
         /// <summary>
         /// Initializes references and registers for health change event.
         /// </summary>
@@ -134,9 +137,18 @@ namespace fi.tamk.hellgame.character
         {
             if ((LimitAvailableOrActive && !_limitActive) && howMany > 0) return;
 
+
             _collectedPoints = Mathf.Clamp(_collectedPoints + howMany, 0, _modifiableStats.Cost);
+
+
             if(PowerUpGained != null) PowerUpGained.Invoke(_collectedPoints, _modifiableStats.Cost);
             LimitAvailableOrActive = _collectedPoints >= _modifiableStats.Cost;
+
+            if (!LimitAvailableOrActive && !_limitActive)
+            {
+                if (_collectionSoundEffect != null) _collectionSoundEffect.GemCollected();
+            }
+
             if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(_limitActive, LimitAvailableOrActive);
         }
 

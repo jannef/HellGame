@@ -18,17 +18,5 @@ namespace fi.tamk.hellgame.effects
 
             FMODUnity.RuntimeManager.PlayOneShot(Event, transform.position);
         }
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }

@@ -14,6 +14,13 @@ namespace fi.tamk.hellgame.utils
             return LayerMask.NameToLayer(firerMask == LayerMask.NameToLayer("Player") ? "PlayerBullet" : "EnemyBullet");
         }
 
+        public static void PlayOneShotSound(String Event, Vector3 position)
+        {
+            if (String.IsNullOrEmpty(Event)) return;
+
+            FMODUnity.RuntimeManager.PlayOneShot(Event, position);
+        }
+
         public static Transform[] GetAllTranformsFromChildren(this GameObject go)
         {
             var transformArray = go.GetComponentsInChildren<Transform>();
