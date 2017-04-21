@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.09.00">
+    <object class="EventFolder" id="{d68b2e2c-2f0e-4c51-8377-a0c569437bd8}">
+        <property name="name">
+            <value>SlimeBoss</value>
+        </property>
+        <relationship name="folder">
+            <destination>{5f764104-3e08-44fb-9480-52019e203e24}</destination>
+        </relationship>
+    </object>
+</objects>

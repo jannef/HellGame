@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,5 +15,7 @@ namespace fi.tamk.hellgame.dataholders
         public float TargetJumpLenght = 33f;
         public float TargetjumpLenghtStrenght = 0.66f;
         public AnimationCurve SquishCurve;
+        [FMODUnity.EventRef]
+        public String JumpingSoundEventReference = "";
     }
 }

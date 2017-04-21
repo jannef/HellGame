@@ -35,9 +35,11 @@ namespace fi.tamk.hellgame.states
         private Animator _animationController;
         private float _jumpAnimationLenght;
         private bool _hasStartedJumpAnimation = false;
+        private String _jumpSoundEventReference;
 
         public SlimeJumpingState(ActorComponent controlledHero, Transform target, SlimeJumpData jumpData, Transform self) : base(controlledHero)
         {
+            _jumpSoundEventReference = jumpData.JumpingSoundEventReference;
             Self = self;
             _startSize = Self.localScale;
             _windUpSquishCurve = jumpData.SquishCurve;
@@ -116,6 +118,7 @@ namespace fi.tamk.hellgame.states
             _isJumping = true;
             _startingPosition = ControlledActor.transform.position;
             // TODO clamp to area size. Get size in ServiceLocator
+            Utilities.PlayOneShotSound(_jumpSoundEventReference, ControlledActor.transform.position);
 
             _lenght = (((_startingPosition - _endPosition).magnitude * (1-_desiredJumpLenghtEfficiency)) + (_desiredJumpLenght *_desiredJumpLenghtEfficiency));
         }

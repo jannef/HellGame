@@ -1,6 +1,7 @@
 ﻿using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.states;
 using fi.tamk.hellgame.utils;
+using System;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.character
@@ -12,6 +13,8 @@ namespace fi.tamk.hellgame.character
         [SerializeField] protected AnimationCurve FallingCurve;
         [SerializeField, Range(0.1f, 10f)] protected float FallingDuration;      
         [SerializeField] protected float IndicatorOffsetFromGround;
+        [FMODUnity.EventRef]
+        public String LandingSoundEventReference = "";
 
         protected override void Awake()
         {
@@ -36,6 +39,7 @@ namespace fi.tamk.hellgame.character
             go.transform.position = landing + Vector3.up * OffsetFromGround;
 
             ((AirDeploymentState)airDeployState).ExitStateSignal += () => Pool.Instance.ReturnObject(ref go);
+            ((AirDeploymentState)airDeployState).ExitStateSignal += () => Utilities.PlayOneShotSound(LandingSoundEventReference, transform.position);
         }
 
         private Vector3 GetLandingCoordinates()

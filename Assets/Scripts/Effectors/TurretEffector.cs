@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.utils;
+using System;
 using UnityEngine;
 
 namespace fi.tamk.hellgame.effector
@@ -7,11 +8,14 @@ namespace fi.tamk.hellgame.effector
     {
         [SerializeField] private GameObject _turretExplosionPrefab;
         [SerializeField] private bool _usePooling = false;
+        [FMODUnity.EventRef]
+        public String SoundEventReference = "";
 
         public override void Activate()
         {
             base.Activate();
             ActivateParticleEffect();
+            Utilities.PlayOneShotSound(SoundEventReference, transform.position);
         }
 
         public void ActivateParticleEffect()
