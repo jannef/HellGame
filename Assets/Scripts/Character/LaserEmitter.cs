@@ -91,6 +91,8 @@ public class LaserEmitter : BulletEmitter {
         _laserCollider = GetComponentInChildren<CapsuleCollider>();
         if (!string.IsNullOrEmpty(LaserSoundEffect)) {
             _laserSound = FMODUnity.RuntimeManager.CreateInstance(LaserSoundEffect);
+            var attributes = FMODUnity.RuntimeUtils.To3DAttributes(transform);
+            _laserSound.set3DAttributes(attributes);
         }
     }
 
