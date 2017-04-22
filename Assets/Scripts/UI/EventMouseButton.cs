@@ -28,6 +28,10 @@ namespace fi.tamk.hellgame.ui
         {
         }
 
+        public override void MovePointerToHisWithoutSound(MenuCommander commander)
+        {
+        }
+
         public override void MovePointerToThis(MenuCommander commander)
         {
         }

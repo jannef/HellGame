@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.ui;
+using fi.tamk.hellgame.utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,9 +27,10 @@ namespace fi.tamk.hellgame.ui
 
         public override void Submit(MenuCommander commander)
         {
+            Utilities.PlayOneShotSound(SoundEventReferences.SubmitSoundEvent, transform.position);
             _parentCanvas._startButton = this;
             _parentCanvas.MovePointerFromThis();
-            _destinationCanvas.MovePointerToThis(commander);
+            _destinationCanvas.MovePointerToHisWithoutSound(commander);
         }
     }
 }

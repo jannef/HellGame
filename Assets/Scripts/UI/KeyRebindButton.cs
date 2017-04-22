@@ -41,6 +41,7 @@ namespace fi.tamk.hellgame.ui
 
         public override void Submit(MenuCommander commander)
         {
+            Utilities.PlayOneShotSound(SoundEventReferences.SubmitSoundEvent, transform.position);
             _buttonGraphic.Disappear();
             _pressAnyButtonText.enabled = true;
             StartCoroutine(WaitForInputCoroutine(commander.DisableInputReading()));
@@ -55,6 +56,8 @@ namespace fi.tamk.hellgame.ui
 
         private void ChangeInput(KeyCode newInput)
         {
+            Utilities.PlayOneShotSound(SoundEventReferences.CancelSoundEvent, transform.position);
+
             switch (_buttonToRebind)
             {
                 case Buttons.ButtonScheme.Dash:

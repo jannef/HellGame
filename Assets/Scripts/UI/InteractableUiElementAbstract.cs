@@ -10,6 +10,7 @@ namespace fi.tamk.hellgame.ui
     public abstract class InteractableUiElementAbstract : MonoBehaviour {
 
         public abstract void MovePointerToThis(MenuCommander commander);
+        public abstract void MovePointerToHisWithoutSound(MenuCommander commander);
         public abstract void MovePointerFromThis();
         public abstract Action ClickThis(MenuCommander commander);
     }

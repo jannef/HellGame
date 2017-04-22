@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Linq;
+using fi.tamk.hellgame.dataholders;
 
 namespace fi.tamk.hellgame.ui
 {
@@ -20,8 +21,15 @@ namespace fi.tamk.hellgame.ui
     {
         [SerializeField] private List<ButtonTransitionAction> _transitionList;
         private Button _button;
+        public UIButtonSoundEventReferences SoundEventReferences;
 
         public override void MovePointerToThis(MenuCommander commander)
+        {
+            Utilities.PlayOneShotSound(SoundEventReferences.PointerMovedToThisSoundEvent, transform.position);
+            AddCommandsToMenuCommander(commander);
+        }
+
+        protected void AddCommandsToMenuCommander(MenuCommander commander)
         {
             foreach (MenuActionType type in Constants.ActionsToAlwaysSetOnBasicButtons)
             {
@@ -30,7 +38,8 @@ namespace fi.tamk.hellgame.ui
                 if (transition != null)
                 {
                     commander.AddCommand(type, transition._buttonToChoose.MovePointerToThis);
-                } else
+                }
+                else
                 {
                     commander.RemoveCommand(type);
                 }
@@ -41,10 +50,16 @@ namespace fi.tamk.hellgame.ui
                 commander.currentlySelectedButton.MovePointerFromThis();
             }
             AddSubmitCommand(commander);
+            
 
             commander.currentlySelectedButton = this;
             var rectTranform = GetComponent<RectTransform>();
             if (rectTranform != null) commander.SetPointer(GetComponent<RectTransform>());
+        }
+
+        public override void MovePointerToHisWithoutSound(MenuCommander commander)
+        {
+            AddCommandsToMenuCommander(commander);
         }
 
         protected virtual void AddSubmitCommand(MenuCommander commander)
@@ -54,6 +69,7 @@ namespace fi.tamk.hellgame.ui
 
         public override void MovePointerFromThis()
         {
+
         }
 
         public override Action ClickThis(MenuCommander commander)
@@ -71,6 +87,7 @@ namespace fi.tamk.hellgame.ui
 
         public virtual void Activate()
         {
+            Utilities.PlayOneShotSound(SoundEventReferences.SubmitSoundEvent, transform.position);
         }
 
         // Use this for initialization
@@ -79,5 +96,7 @@ namespace fi.tamk.hellgame.ui
             _button = GetComponent<Button>();
             _button.onClick.AddListener(Activate);
         }
+
+        
     }
 }

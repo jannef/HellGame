@@ -1,4 +1,6 @@
-﻿using System;
+﻿using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +13,7 @@ namespace fi.tamk.hellgame.ui
     {
         [SerializeField] private InteractableUiElementAbstract _canvasToReturnTo;
         [SerializeField] public InteractableUiElementAbstract _startButton;
+        public UIButtonSoundEventReferences Sounds;
         private CanvasGroup _canvasGroup;
         public UnityEvent PointerMovedToThis;
         public UnityEvent PointerRemovedFromThis;
@@ -35,7 +38,9 @@ namespace fi.tamk.hellgame.ui
 
         public virtual void ReturnToPreviousCanvas(MenuCommander commander)
         {
+            commander.RemoveCommand(MenuActionType.Cancel);
             MovePointerFromThis();
+            if (_canvasToReturnTo != null && Sounds != null) Utilities.PlayOneShotSound(Sounds.CancelSoundEvent, transform.position);
             _canvasToReturnTo.MovePointerToThis(commander);
         }
 
@@ -43,7 +48,7 @@ namespace fi.tamk.hellgame.ui
         {
             
             gameObject.SetActive(true);
-            _startButton.MovePointerToThis(commander);
+            _startButton.MovePointerToHisWithoutSound(commander);
             if (_canvasGroup == null)
             {
                 _canvasGroup = GetComponent<CanvasGroup>();
@@ -62,7 +67,12 @@ namespace fi.tamk.hellgame.ui
 
         public override Action ClickThis(MenuCommander commander)
         {
-            throw new NotImplementedException();
+            return null;
+        }
+
+        public override void MovePointerToHisWithoutSound(MenuCommander commander)
+        {
+            MovePointerToThis(commander);
         }
     }
 }
