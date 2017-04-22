@@ -134,6 +134,11 @@ namespace fi.tamk.hellgame.character
             InvulnerabilityTimeLeft = invulnerabilityLenght;
         }
 
+        public void ActivateInfiniteInvulnerability()
+        {
+            InvulnerabilityTimeLeft = Mathf.Infinity;
+        }
+
         protected void Update()
         {
             InvulnerabilityTimeLeft -= WorldStateMachine.Instance.DeltaTime;
