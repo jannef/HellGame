@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using fi.tamk.hellgame.dataholders;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +27,12 @@ namespace fi.tamk.hellgame.ui
             base.MovePointerToThis(commander);
             commander.AddCommand(MenuActionType.Left, AdjustLeft);
             commander.AddCommand(MenuActionType.Right, AdjustRight);
+        }
+
+        public override void MovePointerFromThis()
+        {
+            base.MovePointerFromThis();
+            UserStaticData.SaveGameSettings();
         }
 
         public void AdjustRight(MenuCommander commander)

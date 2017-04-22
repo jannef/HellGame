@@ -93,7 +93,6 @@ namespace fi.tamk.hellgame.dataholders
             Settings.MusicVolume = value;
 
             RuntimeManager.GetVCA("vca:/music").setVolume(value);
-            SaveGameSettings();
         }
 
         public static void SetSFXMixerVolume(float value)
@@ -101,7 +100,6 @@ namespace fi.tamk.hellgame.dataholders
             Settings.SFXVolume = value;
 
             RuntimeManager.GetVCA("vca:/sfx").setVolume(value);
-            SaveGameSettings();
         }
 
         public static void LoadData()
