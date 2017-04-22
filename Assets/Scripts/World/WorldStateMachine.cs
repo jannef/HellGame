@@ -69,6 +69,11 @@ namespace fi.tamk.hellgame.world
             EnterState(new InterpolatingTimeState(lenght, timescale, this, interpolationLenght));
         }
 
+        public void CurvedSlowDown(float lenght, float timescale, float startTimeScale, AnimationCurve slowDownCurve)
+        {
+            EnterState(new CurvedTimeState(lenght, timescale, startTimeScale, this, slowDownCurve));
+        }
+
         public void PauseTime()
         {
             EnterState(new GenericTimeState(Mathf.Infinity, 0, this));
