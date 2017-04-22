@@ -37,9 +37,11 @@ namespace fi.tamk.hellgame.world
         public static event Action<ClearingRank> RankGained;
         public static event Action GamePaused;
         public static event Action GameResumed;
+        public static event Action EncounterBegin;
 
         private static List<Action> _onPausedActions = new List<Action>();
         private static List<Action> _onGameResumeActions = new List<Action>();
+        private static List<Action> _onEncounterBeginActions = new List<Action>();
         private static bool _isGamePaused = false;
 
         private BottomHUD _bottomHud;
@@ -133,6 +135,7 @@ namespace fi.tamk.hellgame.world
             RankGained = null;
             PlayerDeath = null;
             RoomCompleted = null;
+            EncounterBegin = null;
             SceneManager.sceneLoaded += InitializeAtSceneStart;
             RoomCompleted += RoomClearedSave;
             SceneId = SceneManager.GetActiveScene().buildIndex;
@@ -155,6 +158,7 @@ namespace fi.tamk.hellgame.world
         private void InitializeAtSceneStart(Scene scene, LoadSceneMode mode)
         {
             SceneManager.sceneLoaded -= InitializeAtSceneStart;
+            
 
             foreach (var action in _onPausedActions)
             {
@@ -166,10 +170,15 @@ namespace fi.tamk.hellgame.world
                 GameResumed += action;
             }
 
+            foreach (var action in _onEncounterBeginActions)
+            {
+                Debug.Log("Initialize EncounterBegin");
+                EncounterBegin += action;
+            }
+
             _onGameResumeActions.Clear();
             _onPausedActions.Clear();
-
-            if (_clock != null) _clock.StartClock();
+            _onEncounterBeginActions.Clear();
         }
 
         private void OnPlayerDeath()
@@ -193,6 +202,11 @@ namespace fi.tamk.hellgame.world
             OnRoomCompleted(roomClearingRankField);
         }
 
+        public static void BeginEncounter()
+        {
+            if (EncounterBegin != null) EncounterBegin.Invoke();
+        }
+
         public static void PauseGame()
         {
             if (_isGamePaused)
@@ -210,6 +224,12 @@ namespace fi.tamk.hellgame.world
         {
             if (_onPausedActions == null) _onPausedActions = new List<Action>();
             _onPausedActions.Add(action);
+        }
+
+        public static void AddEncounterBeginListenerAtAwake(Action action)
+        {
+            if (_onEncounterBeginActions == null) _onEncounterBeginActions = new List<Action>();
+            _onEncounterBeginActions.Add(action);
         }
 
         public static void AddOnResumeListenerAtAwake(Action action)

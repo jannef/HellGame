@@ -47,7 +47,12 @@ namespace fi.tamk.hellgame.states
             }
 
             _spawnWaves = waveTemp.ToArray();
-            ControlledActor.StartCoroutine(StaticCoroutines.DoAfterDelay(StartDelay, NextWave));
+            ControlledActor.StartCoroutine(StaticCoroutines.DoAfterDelay(0.2f, AddToEncounterEvent));
+        }
+
+        private void AddToEncounterEvent()
+        {
+            RoomIdentifier.EncounterBegin += NextWave;
         }
 
         private void MinionHasDied()
