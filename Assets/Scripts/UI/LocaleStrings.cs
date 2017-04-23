@@ -27,6 +27,8 @@ public static partial class LocaleStrings
 		"Eye Of The Tiger",
 		"The Study",
 		"Retry",
+		"Total Time",
+		"Completed",
 		""
 	};
 
@@ -51,6 +53,8 @@ public static partial class LocaleStrings
 		"Kissansilmä",
 		"Opintohalli",
 		"Uudestaan!!!",
+		"Yhteisaika",
+		"Päihitetty",
 		""
 	};
 
@@ -94,6 +98,10 @@ public static partial class LocaleStrings
 
 	public static string UI_MENU_RETRY { get { return CurrentLocale[19]; } }
 
+	public static string UI_HIGHSCORE_TOTALTIME { get { return CurrentLocale[20]; } }
+
+	public static string UI_HIGHSCORE_COMPLETIONPERCENT { get { return CurrentLocale[21]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -116,5 +124,7 @@ public static partial class LocaleStrings
 		UI_ROOM_CHAMBERS_BOSS=17,
 		UI_ROOM_LEVELSELECTHUB=18,
 		UI_MENU_RETRY=19,
+		UI_HIGHSCORE_TOTALTIME=20,
+		UI_HIGHSCORE_COMPLETIONPERCENT=21,
 	}
 }

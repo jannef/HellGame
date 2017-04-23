@@ -20,11 +20,26 @@ namespace fi.tamk.hellgame.dataholders
 
         public static List<RoomSaveData> RoomData = null;
         public static GameSettings Settings;
+        public static readonly Dictionary<LocaleStrings.StringsEnum, int> NameToIndex;
 
         static UserStaticData()
         {
+            NameToIndex = new Dictionary<LocaleStrings.StringsEnum, int>
+            {
+                {LocaleStrings.StringsEnum.UI_ROOM_CELLAR_BOSS, 1},
+                {LocaleStrings.StringsEnum.UI_ROOM_CELLAR_1, 2},
+                {LocaleStrings.StringsEnum.UI_ROOM_CELLAR_2, 3},
+                {LocaleStrings.StringsEnum.UI_ROOM_KITCHEN_1, 4},
+                {LocaleStrings.StringsEnum.UI_ROOM_KITCHEN_2, 7},
+                {LocaleStrings.StringsEnum.UI_ROOM_KITCHEN_3, 9},
+                {LocaleStrings.StringsEnum.UI_ROOM_KITCHEN_BOSS, 0},
+                {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_1, 10},
+                {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_2, 11},
+                {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_3, 12},
+                {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_BOSS, 13}
+            };
+
             LoadData();
-            if (Settings == null) return;
         }
 
         public static RoomSaveData GetRoomData(int roomIndex)
