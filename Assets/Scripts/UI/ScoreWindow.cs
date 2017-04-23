@@ -25,12 +25,14 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private TextMeshProUGUI TotalField;
         [SerializeField] private TextMeshProUGUI TeaserField;
         [SerializeField] private Image MedalImage;
+        [SerializeField] private RawImage MedalExplosionImage;
         [SerializeField] private Image Background;
         [SerializeField] private Sprite[] Medals;
         [EventRef]
         public String StartSoundEvent = "";
         [EventRef]
         public String MedalAppearsSoundEvent = "";
+        [SerializeField] private GameObject _medalExplosionRenderer;
 
         private TextMeshProUGUI[] _allTexts;
 
@@ -181,7 +183,9 @@ namespace fi.tamk.hellgame.ui
 
             if (rnk != ClearingRank.None)
             {
+                Instantiate(_medalExplosionRenderer, new Vector3(0, -1000, 0), Quaternion.identity);
                 Utilities.PlayOneShotSound(MedalAppearsSoundEvent, transform.position);
+                MedalExplosionImage.gameObject.SetActive(true);
                 MedalImage.gameObject.SetActive(true);
                 FadeIn(_textFadeDuration, MedalImage);
                 MedalImage.sprite = Medals[(int)rnk];
