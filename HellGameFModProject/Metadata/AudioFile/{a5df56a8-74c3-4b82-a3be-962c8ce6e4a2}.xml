@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.09.00">
+    <object class="AudioFile" id="{a5df56a8-74c3-4b82-a3be-962c8ce6e4a2}">
+        <property name="assetPath">
+            <value>Player_Shield_NoDrone.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>5.0530385487528342</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{bf28b2a1-3d97-4644-8fd1-ebc243ba4767}</destination>
+        </relationship>
+    </object>
+</objects>
