@@ -6,6 +6,7 @@ using UnityEngine;
 using System;
 using fi.tamk.hellgame.world;
 using fi.tamk.hellgame.effects;
+using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.character
 {
@@ -38,7 +39,7 @@ namespace fi.tamk.hellgame.character
         [SerializeField] private float _maxRadius;
         [SerializeField] private float _minRadius;
         [SerializeField] private AnimationCurve _radiusCurve;
-        [SerializeField] private OneShotSoundEffect _limitBreakAvailableSound;
+        public UnityEvent LimitBreakAvailable;
 
         private float _originalAuraEmissionRate = 0f;
         private bool _indicatorActive = false;
@@ -80,7 +81,7 @@ namespace fi.tamk.hellgame.character
             
             if (indicator && !aura)
             {
-                if (_limitBreakAvailableSound != null) _limitBreakAvailableSound.Play();
+                if (LimitBreakAvailable != null) LimitBreakAvailable.Invoke();
             }
 
             _emissionRateProperty.SetValue(_limitAura.emission, aura ? _originalAuraEmissionRate : 0f, null);
