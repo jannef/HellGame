@@ -32,7 +32,7 @@ namespace fi.tamk.hellgame.character
         [HideInInspector] public float InvulnerabilityTimeLeft = 0f;
 
         public event ReportHealthChangeDelegate HealthChangeEvent;
-        public int MaxHp;
+        [HideInInspector] public int MaxHp;
 
         protected TakeDamageDelegate DamageDelegate
         {
