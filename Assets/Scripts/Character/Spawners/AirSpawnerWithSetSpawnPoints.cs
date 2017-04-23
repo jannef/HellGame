@@ -80,7 +80,6 @@ namespace fi.tamk.hellgame.character
 
             for (var i = 0; i < numberToSpawn; i++)
             {
-                Debug.Log(_availableSpawnPoints.Length);
                 var targetSpawnPoint = _availableSpawnPoints.Length == 0 ? Vector3.zero : _availableSpawnPoints[spreadType == SpawnPointSpread.CompletelyRandom ? Random.Range(0, _availableSpawnPoints.Length - 1) : spawnPointIndex].position;
                 spawnPointIndex = (spawnPointIndex + 1) % _availableSpawnPoints.Length;
 
