@@ -5,6 +5,7 @@ using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.world;
 using UnityEngine;
 using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.effects;
 
 namespace fi.tamk.hellgame.states
 {
@@ -13,6 +14,7 @@ namespace fi.tamk.hellgame.states
         private SpawnWave[] _spawnWaves;
         private AirSpawnerWithSetSpawnPoints _mySpawner;
         private AirSpawnerWithSetSpawnPoints _myCenterSpawner;
+        private OneShotSoundEffect _spawnWaveStartSoundEffect;
         private PatrolWayPoint[] _patrolWayPoint;
         private TransitionTrigger _transitionTrigger;
 
@@ -28,6 +30,9 @@ namespace fi.tamk.hellgame.states
            
             _mySpawner = externalObjects.ExistingGameObjects[0].GetComponent<AirSpawnerWithSetSpawnPoints>();
             _myCenterSpawner = externalObjects.ExistingGameObjects[1].GetComponent<AirSpawnerWithSetSpawnPoints>();
+            _myCenterSpawner = externalObjects.ExistingGameObjects[1].GetComponent<AirSpawnerWithSetSpawnPoints>();
+
+            _spawnWaveStartSoundEffect = ControlledActor.transform.GetComponent<OneShotSoundEffect>();
 
             var waveTemp = new List<SpawnWave>();
 
@@ -76,6 +81,9 @@ namespace fi.tamk.hellgame.states
             {
                 EndEncounter();
                 return;
+            } else
+            {
+                if (_spawnWaveStartSoundEffect != null) _spawnWaveStartSoundEffect.Play();
             }
 
             foreach (SpawnerInstruction instruction in _spawnWaves[_phase].instructions)
