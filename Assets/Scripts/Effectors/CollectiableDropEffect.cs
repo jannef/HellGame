@@ -19,6 +19,12 @@ namespace fi.tamk.hellgame.effectors
             Effect.SetOnstart(LaunchCollectiables, new float[0]);
         }
 
+        public void Activate(int howMany)
+        {
+            amountDropped = howMany;
+            Activate();
+        }
+
         protected virtual void LaunchCollectiables(float[] args)
         {
             if (amountDropped == 0) return;
@@ -33,7 +39,6 @@ namespace fi.tamk.hellgame.effectors
                 var rigidBody = go.GetComponent<Rigidbody>();
                 rigidBody.AddExplosionForce(ScatterForce + ScatterForceVariance * Random.value, transform.position, Radius + 1f);
                 rigidBody.AddTorque(new Vector3(Random.value * TorqueForce, Random.value * TorqueForce, Random.value * TorqueForce));
-                
             }            
         }
     }

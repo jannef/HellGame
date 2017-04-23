@@ -8,12 +8,10 @@ namespace fi.tamk.hellgame.states
 {
     public class ChambersPhaseOne : ChambersBase
     {
-        private readonly Transform _playerTransform;
         private float _laserCycle;
 
         public ChambersPhaseOne(ActorComponent controlledHero, ChambersBase clonedState = null) : base(controlledHero, clonedState)
         {
-            _playerTransform = ServiceLocator.Instance.GetNearestPlayer();
             _laserCycle = NumericData.ActorFloatData[(int) FloatDataLabels.PhaseOneLaserCooldown] +
                           NumericData.ActorFloatData[(int) FloatDataLabels.PhaseOneLaserBurstDuration];
         }
@@ -26,21 +24,11 @@ namespace fi.tamk.hellgame.states
         public override void HandleInput(float deltaTime)
         {
             base.HandleInput(deltaTime);
-            if (_playerTransform != null) NavigationAgent.SetDestination(_playerTransform.position);
+            if (PlayerTransform != null) NavigationAgent.SetDestination(PlayerTransform.position);
             if (StateTime > _laserCycle)
             {
                 StateTime = 0f;
                 DefaultLaserBurst();
-            }
-
-            //if (Input.GetKeyDown(KeyCode.Delete)) StopCogs();
-            //if (Input.GetKeyDown(KeyCode.End)) CogsToTarget(_playerTransform, 10f);
-            //if (Input.GetKeyDown(KeyCode.PageDown)) CogGun.Fire();
-            if (Input.GetKeyDown(KeyCode.PageDown))
-            {
-                ControlledActor.GoToState(
-                    new ChambersIntermission(
-                        ControlledActor,new ChambersPhaseOne(ControlledActor, this), 10f, this));
             }
         }
 
@@ -52,7 +40,9 @@ namespace fi.tamk.hellgame.states
 
         protected override void OnHealthChange(float percentage, int currentHp, int maxHp)
         {
-            if (percentage == 0) ;
+            base.OnHealthChange(percentage, currentHp, maxHp);
+            Debug.Log(currentHp);
+            if (currentHp <= 1) ControlledActor.GoToState(new ChambersIntermission(ControlledActor, this));
         }
     }
 }

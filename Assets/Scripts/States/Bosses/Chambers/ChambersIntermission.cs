@@ -8,33 +8,24 @@ namespace fi.tamk.hellgame.states
 {
     public class ChambersIntermission : ChambersBase
     {
-        private float _duration;
-        private ChambersBase _nextState;
         private bool _triggered = false;
 
-        public ChambersIntermission(ActorComponent controlledHero, ChambersBase next, float duration, ChambersBase clonedState = null)
+        public ChambersIntermission(ActorComponent controlledHero, ChambersBase clonedState = null)
             : base(controlledHero, clonedState)
         {
-            _duration = duration;
-            _nextState = next;
+
         }
 
         public override void HandleInput(float deltaTime)
         {
             if (_triggered) return;
             base.HandleInput(deltaTime);
-
-            if (StateTime > _duration)
-            {
-                _triggered = true;
-                ControlledActor.GoToState(_nextState);
-            }
         }
 
         public override void OnEnterState()
         {
-            NavigationAgent.SetDestination(StartPosition);
-            NavigationAgent.speed = StartSpeed * 5f;
+            NavigationAgent.SetDestination(ControlledActor.transform.position);
+            NavigationAgent.speed = 0f;
         }
 
         public override void OnExitState()

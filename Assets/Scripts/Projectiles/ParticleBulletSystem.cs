@@ -77,6 +77,15 @@ namespace fi.tamk.hellgame.projectiles
             BulletSystem.SetParticles(Bullets, numberOfBullets);
         }
 
+        /// <summary>
+        /// This is callable from UnityEvents due it's signature, unlike full OneshotBehaviour.
+        /// </summary>
+        /// <param name="index"></param>
+        public void SimpleOneshot(int index)
+        {
+            OneshotBehaviour(index, true);
+        }
+
         protected virtual void ParticleManipulationLoop(ref ParticleSystem.Particle[] particles, int numberOfParticles, HandleOneParticle action)
         {
             for (var i = 0; i < numberOfParticles; ++i)

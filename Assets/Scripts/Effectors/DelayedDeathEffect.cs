@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.effectors
 {
@@ -22,6 +23,8 @@ namespace fi.tamk.hellgame.effectors
         public String smallExplosionSound = "";
         [FMODUnity.EventRef]
         public String finalExplosionSound = "";
+
+        [SerializeField] public UnityEvent OnFinalExplosion;
 
         public override void Activate()
         {
@@ -57,6 +60,7 @@ namespace fi.tamk.hellgame.effectors
             Utilities.PlayOneShotSound(finalExplosionSound, transform.position);
             var explosion = Instantiate(_finalExplosion);
             explosion.transform.position = transform.position;
+            if (OnFinalExplosion != null) OnFinalExplosion.Invoke();
 
             ReturnToPool();
             yield return null;

@@ -5,6 +5,7 @@ using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.interfaces;
 using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.world;
+using fi.tamk.hellgame.effectors;
 using UnityEngine.AI;
 
 namespace fi.tamk.hellgame.states
@@ -17,7 +18,8 @@ namespace fi.tamk.hellgame.states
             PhaseOneLaserBurstDuration = 1,
             CogBursts                  = 2,
             CogBurstDuration           = 3,
-            PhaseOneEnd                = 4
+            PhaseOneEnd                = 4,
+            HitsToDrop                 = 5
         }
 
         protected BossExternalObjects Externals;
@@ -26,6 +28,10 @@ namespace fi.tamk.hellgame.states
         protected LaserEmitter LaserBeam;
         protected ActorData NumericData;
         protected BulletEmitter CogGun;
+        protected CollectiableDropEffect Dropper;
+        protected readonly Transform PlayerTransform;
+
+        protected int HitCounter = 0;
 
         // Navigation agent data.
         protected Vector3 StartPosition;
@@ -34,6 +40,8 @@ namespace fi.tamk.hellgame.states
         protected ChambersBase(ActorComponent controlledHero, ChambersBase clonedState = null)
             : base(controlledHero)
         {
+            PlayerTransform = ServiceLocator.Instance.GetNearestPlayer();
+
             if (clonedState == null)
             {
                 Externals = ControlledActor.GetComponent<BossExternalObjects>();
@@ -44,6 +52,7 @@ namespace fi.tamk.hellgame.states
                 CogGun = Externals.ExistingGameObjects[0].GetComponent<BulletEmitter>();
                 StartPosition = ControlledActor.transform.position;
                 StartSpeed = NavigationAgent.speed;
+                Dropper = ControlledActor.GetComponent<CollectiableDropEffect>();
             }
             else
             {
@@ -55,6 +64,8 @@ namespace fi.tamk.hellgame.states
                 CogGun = clonedState.CogGun;
                 StartPosition = clonedState.StartPosition;
                 StartSpeed = clonedState.StartSpeed;
+                Dropper = clonedState.Dropper;
+                HitCounter = clonedState.HitCounter;
             }
         }
 
@@ -70,7 +81,12 @@ namespace fi.tamk.hellgame.states
 
         protected virtual void OnHealthChange(float percentage, int currentHp, int maxHp)
         {
-
+            if (++HitCounter >= (int) NumericData.ActorFloatData[(int) FloatDataLabels.HitsToDrop])
+            {
+                HitCounter = 0;
+                Dropper.Activate();
+                SpawnTrapOnPlayer();
+            }
         }
 
         public override void OnExitState()
@@ -111,6 +127,11 @@ namespace fi.tamk.hellgame.states
         protected void StopCogs()
         {
             CogGun.BulletSystem.OneshotBehaviour(1, false);
+        }
+
+        protected void SpawnTrapOnPlayer()
+        {
+            Object.Instantiate(Externals.PrefabsUsed[0], PlayerTransform.position, Quaternion.identity);
         }
     }
 }
