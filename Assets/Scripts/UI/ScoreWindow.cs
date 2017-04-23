@@ -6,6 +6,8 @@ using fi.tamk.hellgame.dataholders;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
+using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.ui
 {
@@ -25,6 +27,10 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private Image MedalImage;
         [SerializeField] private Image Background;
         [SerializeField] private Sprite[] Medals;
+        [EventRef]
+        public String StartSoundEvent = "";
+        [EventRef]
+        public String MedalAppearsSoundEvent = "";
 
         private TextMeshProUGUI[] _allTexts;
 
@@ -131,6 +137,7 @@ namespace fi.tamk.hellgame.ui
 
         private IEnumerator Animated(float duration, GameClock clock, int hits, float penalty, RoomClearingRanks ranks)
         {
+            Utilities.PlayOneShotSound(StartSoundEvent, transform.position);
             BatchSetActive(true, TimeLabel, TimeField);
             FadeIn(_boxFadeDuration, Background);
             FadeIn(_textFadeDuration, TimeLabel, TimeField); 
@@ -174,6 +181,7 @@ namespace fi.tamk.hellgame.ui
 
             if (rnk != ClearingRank.None)
             {
+                Utilities.PlayOneShotSound(MedalAppearsSoundEvent, transform.position);
                 MedalImage.gameObject.SetActive(true);
                 FadeIn(_textFadeDuration, MedalImage);
                 MedalImage.sprite = Medals[(int)rnk];
