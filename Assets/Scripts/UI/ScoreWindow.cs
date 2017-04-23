@@ -126,6 +126,7 @@ namespace fi.tamk.hellgame.ui
         public static ScoreWindow GetScoreWindowGo(Transform parent = null)
         {
             var go = (Instantiate(Resources.Load("Score"), parent) as GameObject);
+            go.transform.SetAsFirstSibling();
             return go != null ? go.GetComponent<ScoreWindow>() : null;
         }
 

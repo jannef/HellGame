@@ -16,6 +16,8 @@ namespace fi.tamk.hellgame.ui
         private bool _stopped = true;
         private bool _hasBeatenThisSecond = false;
 
+        public static string UnsetTime { get { return "--:--:--"; } }
+
         public float Time
         {
             get { return (float) _time.TotalSeconds; }

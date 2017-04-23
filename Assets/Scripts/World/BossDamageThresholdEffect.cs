@@ -8,41 +8,24 @@ namespace fi.tamk.hellgame.world
 {
     public class BossDamageThresholdEffect : MonoBehaviour
     {
-        private float HealthPercentage;
-        [SerializeField] private float TotalAmountOfEffects;
-        [SerializeField] private float OrderNumber;
-        [SerializeField] private float _wakeUpDelay;
         public UnityEvent ActivationEvent;
         public UnityEvent WakeUpEvent;
-        private bool hasActivated = false;
-        private BossDamageThresholdEffectMaster _master;
+        [HideInInspector] public float Priority = 1f;
+        [HideInInspector] public bool HasActivated = false;
 
-        private void Start()
+        public void Initialize()
         {
-            _master = GetComponentInParent<BossDamageThresholdEffectMaster>();
-            _master.DamageEvent += OnDamageTaken;
-            _master.WakeUpEvent += BossWokeUp;
-            HealthPercentage = 1f - ((1f / TotalAmountOfEffects) * OrderNumber);
+            Priority = Random.Range(0f, 1f);
         }
 
-        private void BossWokeUp()
+        public void Wake()
         {
-            _master.WakeUpEvent -= BossWokeUp;
-            StartCoroutine(StaticCoroutines.DoAfterDelay(_wakeUpDelay * (TotalAmountOfEffects - OrderNumber), WakeUpEvent.Invoke));
+            if (WakeUpEvent != null) WakeUpEvent.Invoke();
         }
 
-        private void OnDamageTaken(float percentage)
+        public void Pop()
         {
-            if (!hasActivated && percentage <= HealthPercentage)
-            {
-                hasActivated = true;
-                if (ActivationEvent != null)
-                {
-                    ActivationEvent.Invoke();
-                }
-
-                if (_master != null) _master.DamageEvent -= OnDamageTaken;
-            }
+            if (ActivationEvent != null) ActivationEvent.Invoke();
         }
     }
 }
