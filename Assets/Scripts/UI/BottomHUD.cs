@@ -77,6 +77,7 @@ namespace fi.tamk.hellgame.ui
 
         private IEnumerator MakeBottomHudDisappear(GameObject hud, float duration, AnimationCurve fadeOutAnimationCurve)
         {
+            if (hud == null) yield break;
             var text = hud.GetComponentInChildren<TextMeshProUGUI>();
             var image = hud.GetComponentInChildren<Image>();
 

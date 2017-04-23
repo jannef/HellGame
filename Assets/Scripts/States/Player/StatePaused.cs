@@ -15,6 +15,7 @@ namespace fi.tamk.hellgame.states.player
     {
         public StatePaused(ActorComponent controlledHero) : base(controlledHero)
         {
+            RoomIdentifier.GameResumed += Resume;
         }
 
         public override void HandleInput(float deltaTime)
@@ -22,8 +23,13 @@ namespace fi.tamk.hellgame.states.player
             if (MyInputController.PollButtonDown(Buttons.ButtonScheme.Pause))
             {
                 fi.tamk.hellgame.world.RoomIdentifier.PauseGame();
-                ControlledActor.ToPreviousState();
             }
+        }
+
+        private void Resume()
+        {
+            RoomIdentifier.GameResumed -= Resume;
+            ControlledActor.ToPreviousState();
         }
 
         public override InputStates StateId
