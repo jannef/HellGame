@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace fi.tamk.hellgame.world
 {
-
     public class SlimeBossPuddle : MonoBehaviour
     {
         public float lifeTime;
