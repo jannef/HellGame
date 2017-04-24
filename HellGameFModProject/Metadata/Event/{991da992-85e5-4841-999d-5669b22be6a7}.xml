@@ -57,8 +57,8 @@
         </relationship>
     </object>
     <object class="EventAutomatableProperties" id="{3f96d445-9e94-4afc-af83-efd2019fa7f4}">
-        <property name="maxVoices">
-            <value>1</value>
+        <property name="voiceStealing">
+            <value>3</value>
         </property>
         <property name="triggerCooldown">
             <value>20</value>
@@ -82,6 +82,9 @@
         </relationship>
     </object>
     <object class="EventMixerMaster" id="{0c8e0050-e174-424b-bfc8-2c3654d00612}">
+        <property name="volume">
+            <value>-2.5</value>
+        </property>
         <relationship name="effectChain">
             <destination>{075b8e00-b559-44ae-bbbf-652e9ca81f31}</destination>
         </relationship>
@@ -114,7 +117,7 @@
     </object>
     <object class="EventMixerGroup" id="{1eeafe4f-af73-4e80-b9a4-5145174c2386}">
         <property name="volume">
-            <value>-1</value>
+            <value>-11.5</value>
         </property>
         <property name="name">
             <value>Audio 2</value>
@@ -169,30 +172,57 @@
             <value>-80</value>
         </property>
         <property name="attackTime">
-            <value>0</value>
+            <value>20</value>
         </property>
         <property name="attackShape">
             <value>-0.291795075</value>
         </property>
+        <property name="holdTime">
+            <value>140</value>
+        </property>
         <property name="decayTime">
-            <value>1403.84619</value>
+            <value>156.15387</value>
         </property>
         <property name="sustainValue">
-            <value>-3</value>
+            <value>-80</value>
         </property>
         <property name="releaseTime">
-            <value>134.615387</value>
+            <value>199.487198</value>
         </property>
         <property name="releaseShape">
-            <value>-0.139025003</value>
+            <value>-0.122363098</value>
         </property>
     </object>
     <object class="MixerBusEffectChain" id="{3ec1b8e9-5ee6-4f79-9623-0fae9c10b889}">
         <relationship name="effects">
             <destination>{a0324bbc-6f73-4a68-a06a-31125fbd19ab}</destination>
+            <destination>{0b8cc84c-7b44-47af-ae4b-1ffc90cf0e52}</destination>
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{8645f296-781c-410e-a75f-afec570f8ec8}"/>
     <object class="MixerBusFader" id="{82aafef8-1ef5-4c82-a5fc-1f7e6a394227}"/>
     <object class="MixerBusFader" id="{a0324bbc-6f73-4a68-a06a-31125fbd19ab}"/>
+    <object class="MultibandEqEffect" id="{0b8cc84c-7b44-47af-ae4b-1ffc90cf0e52}">
+        <property name="filterTypeB">
+            <value>10</value>
+        </property>
+        <property name="filterTypeC">
+            <value>8</value>
+        </property>
+        <property name="frequencyA">
+            <value>2299.42065</value>
+        </property>
+        <property name="frequencyB">
+            <value>85.2911987</value>
+        </property>
+        <property name="frequencyC">
+            <value>172.521454</value>
+        </property>
+        <property name="qualityA">
+            <value>2.31034517</value>
+        </property>
+        <property name="gainC">
+            <value>12.9310331</value>
+        </property>
+    </object>
 </objects>
