@@ -125,7 +125,6 @@ public class LaserEmitter : BulletEmitter {
     {
         if (_laserSound != null)
         {
-            Debug.Log("StopLaserSound");
             _laserSound.setParameterValue("LaserState", 0f);
         }
         
