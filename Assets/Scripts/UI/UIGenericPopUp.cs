@@ -45,7 +45,6 @@ namespace fi.tamk.hellgame.ui
         private IEnumerator MoveCanvas(RectTransform rect, float lenght, Vector3 startPosition, Vector3 endPosition, AnimationCurve curve)
         {
             var t = 0f;
-            Debug.Log(startPosition + " , " + endPosition);
 
             while (t <= 1)
             {

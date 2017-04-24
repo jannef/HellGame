@@ -7,6 +7,7 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using FMODUnity;
 using FMOD;
+using fi.tamk.hellgame.utils;
 
 namespace fi.tamk.hellgame.dataholders
 {
@@ -107,14 +108,15 @@ namespace fi.tamk.hellgame.dataholders
         {
             Settings.MusicVolume = value;
 
-            RuntimeManager.GetVCA("vca:/music").setVolume(value);
+            RuntimeManager.GetVCA(Constants.MusicVCAReference).setVolume(value);
         }
 
         public static void SetSFXMixerVolume(float value)
         {
             Settings.SFXVolume = value;
 
-            RuntimeManager.GetVCA("vca:/sfx").setVolume(value);
+            RuntimeManager.GetVCA(Constants.SfxVCAReference).setVolume(value);
+            RuntimeManager.GetVCA(Constants.UiVCAReference).setVolume(value);
         }
 
         public static void LoadData()
