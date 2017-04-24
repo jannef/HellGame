@@ -7,6 +7,7 @@ namespace fi.tamk.hellgame.effectors
     public class TutorialDropEffect : CollectiableDropEffect
     {
         [SerializeField] private GameObject _tutorialPrefab;
+        [SerializeField] private GameObject _brokenChest;
 
         protected override void LaunchCollectiables(float[] args)
         {
@@ -22,6 +23,8 @@ namespace fi.tamk.hellgame.effectors
                 rigidBody.AddExplosionForce(ScatterForce + ScatterForceVariance * Random.value, transform.position, Radius + 1f);
                 rigidBody.AddTorque(new Vector3(Random.value * TorqueForce, Random.value * TorqueForce, Random.value * TorqueForce));
             }
+
+            Instantiate(_brokenChest, transform.position + Vector3.up * 3f, Quaternion.identity);
         }
     }
 }
