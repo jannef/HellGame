@@ -58,6 +58,9 @@ namespace fi.tamk.hellgame.utils
         public const string SlimeJumpAnimationStateStringName = "SlimeBoss_Jump";
         public const string SlimeStartJumpAnimationTrigger = "StartJump";
         public const string SlimeLandAnimationTrigger = "Land";
+        public const string MusicVCAReference = "vca:/music";
+        public const string SfxVCAReference = "vca:/sfx";
+        public const string UiVCAReference = "vca:/ui";
 
         public static MenuActionType[] ActionsToAlwaysSetOnBasicButtons = new MenuActionType[5]
         {

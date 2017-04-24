@@ -55,11 +55,13 @@ namespace fi.tamk.hellgame.ui
             this.enabled = true;
             MouseTextureToggler.ChangeToMenuMouseCursor();
             _pointerTransform.gameObject.SetActive(true);
+            FMODStaticFunctions.ApplyMenuSoundState();
         }
 
         private void OnDisable()
         {
             MouseTextureToggler.ChangeToGamePlayCursor();
+            FMODStaticFunctions.ApplyGamePlaySoundState();
             _pointerTransform.gameObject.SetActive(false);
         }
 
