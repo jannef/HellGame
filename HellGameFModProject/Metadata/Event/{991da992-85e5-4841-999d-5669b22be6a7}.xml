@@ -102,13 +102,19 @@
         <property name="length">
             <value>0.10020833333333333</value>
         </property>
+        <property name="volume">
+            <value>2.5</value>
+        </property>
+        <relationship name="modulators">
+            <destination>{3346bc32-ecb6-427b-94b1-0322a84caf0b}</destination>
+        </relationship>
         <relationship name="audioFile">
             <destination>{9d721566-8a16-4682-bd58-959053a685f2}</destination>
         </relationship>
     </object>
     <object class="EventMixerGroup" id="{1eeafe4f-af73-4e80-b9a4-5145174c2386}">
         <property name="volume">
-            <value>-4</value>
+            <value>-1</value>
         </property>
         <property name="name">
             <value>Audio 2</value>
@@ -147,6 +153,14 @@
     </object>
     <object class="MixerBusPanner" id="{48086824-af38-418c-b508-a37f012be456}"/>
     <object class="MixerBusFader" id="{83154121-71ec-478c-85a1-ce98485fbc0c}"/>
+    <object class="RandomizerModulator" id="{3346bc32-ecb6-427b-94b1-0322a84caf0b}">
+        <property name="nameOfPropertyBeingModulated">
+            <value>pitch</value>
+        </property>
+        <property name="amount">
+            <value>6.5</value>
+        </property>
+    </object>
     <object class="ADSRModulator" id="{e5c1c347-f3ca-4821-8f63-b2dccd4b8543}">
         <property name="nameOfPropertyBeingModulated">
             <value>volume</value>
@@ -167,10 +181,10 @@
             <value>-3</value>
         </property>
         <property name="releaseTime">
-            <value>0</value>
+            <value>134.615387</value>
         </property>
         <property name="releaseShape">
-            <value>0.547808826</value>
+            <value>-0.139025003</value>
         </property>
     </object>
     <object class="MixerBusEffectChain" id="{3ec1b8e9-5ee6-4f79-9623-0fae9c10b889}">
