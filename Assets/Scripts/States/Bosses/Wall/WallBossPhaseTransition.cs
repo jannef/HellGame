@@ -88,6 +88,11 @@ namespace fi.tamk.hellgame.states
             
         }
 
+        public override bool TakeDamage(int howMuch, ref int health, ref bool flinch)
+        {
+            return true;
+        }
+
         private void MoveToNextState()
         {
             ControlledActor.GoToState(new WallBoss(ControlledActor, BaseValues));
