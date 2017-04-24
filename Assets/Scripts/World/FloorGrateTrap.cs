@@ -1,5 +1,7 @@
 ﻿using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.utils;
+using FMODUnity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +19,10 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private float _flameActiveLenght;
         [SerializeField] private float _coolDownLenght;
         [SerializeField] private float _startCoolDown;
+        [EventRef]
+        public String TelegraphcSoundEvent = "";
+        [EventRef]
+        public String StartSoundEvent = "";
 
         public UnityEvent StartFlame;
 
@@ -42,6 +48,7 @@ namespace fi.tamk.hellgame.world
             }
 
             _telegraphParticles.Play();
+            Utilities.PlayOneShotSound(TelegraphcSoundEvent, transform.position);
 
             StartCoroutine(StaticCoroutines.DoAfterDelay(_telegraphLength, StartFlames));
         }
@@ -58,6 +65,7 @@ namespace fi.tamk.hellgame.world
             _telegraphParticles.Stop();
             _mainFlameParticles.Play();
             _damagingCollider.enabled = true;
+            Utilities.PlayOneShotSound(StartSoundEvent, transform.position);
 
             StartCoroutine(StaticCoroutines.DoAfterDelay(_flameActiveLenght, StopFlames));
         }

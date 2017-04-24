@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EncounterBeginner : MonoBehaviour {
     [SerializeField] private float MaxDelayAtStart = 5f;
-    private float AllowInputInterruptionDelayLength = 0.25f;
+    private float AllowInputInterruptionDelayLength = 0.33f;
     float timer = 0f;
     private bool _hasBeenActivated = false;
     private bool _hasDetectedInput = false;
