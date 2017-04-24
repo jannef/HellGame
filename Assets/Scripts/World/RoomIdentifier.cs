@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 namespace fi.tamk.hellgame.world
 {
@@ -27,8 +28,7 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private bool _spawnPlayer = true;
         [SerializeField] private GameObject _playerPrefab;
         [SerializeField] public RoomClearingRanks roomClearingRankField;
-        [SerializeField] private PoolInstruction[] PoolingInstructions;
-        [SerializeField] private string RoomName;
+        [SerializeField] private PoolInstruction[] PoolingInstructions;        
         [SerializeField] private bool _isMenuScene = false;
 
         public static RoomClearingRanks Ranks;
@@ -44,6 +44,7 @@ namespace fi.tamk.hellgame.world
         private static List<Action> _onEncounterBeginActions = new List<Action>();
         private static bool _isGamePaused = false;
 
+        private string _roomName = "????";
         private BottomHUD _bottomHud;
         private TextMeshProUGUI _clockField;
         private static GUIReferences _guiReferences;
@@ -62,6 +63,7 @@ namespace fi.tamk.hellgame.world
             }
             // The function has returned if this is a debug run
             if (_isMenuScene) return;
+            _roomName = UserStaticData.IndexToName(SceneManager.GetActiveScene().buildIndex);
             Init();
             SpawnPlayer();
 
@@ -75,11 +77,11 @@ namespace fi.tamk.hellgame.world
 
             if (roomClearingRankField == null)
             {
-                Debug.LogWarning(string.Format("Room {0} does not have clearing ranks set, falling back to placeholders!", RoomName));
+                Debug.LogWarning(string.Format("Room {0} does not have clearing ranks set, falling back to placeholders!", _roomName));
                 roomClearingRankField = Instantiate(Resources.Load("PlaceholderRanks") as RoomClearingRanks);
             }
 
-            if (_bottomHud != null && !RoomManager.RetryFlag) _bottomHud.DisplayMessage(RoomName);
+            if (_bottomHud != null && !RoomManager.RetryFlag) _bottomHud.DisplayMessage(_roomName);
         }
 
         private void SpawnPlayer()

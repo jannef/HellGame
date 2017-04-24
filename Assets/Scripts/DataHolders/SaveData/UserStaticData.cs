@@ -22,6 +22,12 @@ namespace fi.tamk.hellgame.dataholders
         public static GameSettings Settings;
         public static readonly Dictionary<LocaleStrings.StringsEnum, int> NameToIndex;
 
+        public static string IndexToName(int index)
+        {
+            return LocaleStrings.LocalizedStringFromEnum(
+                NameToIndex.Where(x => x.Value == index).Select(x => x.Key).First());
+        }
+
         static UserStaticData()
         {
             NameToIndex = new Dictionary<LocaleStrings.StringsEnum, int>
@@ -36,7 +42,8 @@ namespace fi.tamk.hellgame.dataholders
                 {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_1, 10},
                 {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_2, 11},
                 {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_3, 12},
-                {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_BOSS, 13}
+                {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_BOSS, 13},
+                {LocaleStrings.StringsEnum.UI_ROOM_CHAMBERS_BOSS, 14}
             };
 
             LoadData();
