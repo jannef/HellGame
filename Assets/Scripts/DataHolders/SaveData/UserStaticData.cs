@@ -32,7 +32,7 @@ namespace fi.tamk.hellgame.dataholders
                 {LocaleStrings.StringsEnum.UI_ROOM_KITCHEN_1, 4},
                 {LocaleStrings.StringsEnum.UI_ROOM_KITCHEN_2, 7},
                 {LocaleStrings.StringsEnum.UI_ROOM_KITCHEN_3, 9},
-                {LocaleStrings.StringsEnum.UI_ROOM_KITCHEN_BOSS, 0},
+                {LocaleStrings.StringsEnum.UI_ROOM_KITCHEN_BOSS, 8},
                 {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_1, 10},
                 {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_2, 11},
                 {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_3, 12},
