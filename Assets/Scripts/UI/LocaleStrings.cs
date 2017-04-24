@@ -29,6 +29,23 @@ public static partial class LocaleStrings
 		"Retry",
 		"Total Time",
 		"Completed",
+		"Continue",
+		"Paused",
+		"Fireball",
+		"Teleport",
+		"Sounds",
+		"Options",
+		"Gamepad",
+		"Keyboard",
+		"Effects",
+		"Music",
+		"Quit",
+		"Level select",
+		"Game Over",
+		"Credits",
+		"Ultimate power!",
+		"Return",
+		"Press any key!",
 		""
 	};
 
@@ -55,6 +72,23 @@ public static partial class LocaleStrings
 		"Uudestaan!!!",
 		"Yhteisaika",
 		"Päihitetty",
+		"Jatka",
+		"Pysäytetty",
+		"Tulipallo",
+		"Hyppy",
+		"Äänet",
+		"Asetukset",
+		"Padi",
+		"Näppäimistö",
+		"Efektit",
+		"Musiikki",
+		"Poistu",
+		"Tasonvalinta",
+		"Ohi on!",
+		"Höbönasut",
+		"VOIMAAAAAA!",
+		"Palaa",
+		"Paina nappulaa :P",
 		""
 	};
 
@@ -102,6 +136,40 @@ public static partial class LocaleStrings
 
 	public static string UI_HIGHSCORE_COMPLETIONPERCENT { get { return CurrentLocale[21]; } }
 
+	public static string UI_MENU_CONTINUE { get { return CurrentLocale[22]; } }
+
+	public static string UI_MENU_PAUSE { get { return CurrentLocale[23]; } }
+
+	public static string UI_MENU_FIRE { get { return CurrentLocale[24]; } }
+
+	public static string UI_MENU_DASH { get { return CurrentLocale[25]; } }
+
+	public static string UI_MENU_SOUND { get { return CurrentLocale[26]; } }
+
+	public static string UI_MENU_OPTIONS { get { return CurrentLocale[27]; } }
+
+	public static string UI_MENU_GAMEPAD { get { return CurrentLocale[28]; } }
+
+	public static string UI_MENU_KEYBOARD { get { return CurrentLocale[29]; } }
+
+	public static string UI_MENU_SFX { get { return CurrentLocale[30]; } }
+
+	public static string UI_MENU_MUSIC { get { return CurrentLocale[31]; } }
+
+	public static string UI_MENU_QUIT { get { return CurrentLocale[32]; } }
+
+	public static string UI_MENU_LEVELSELECT { get { return CurrentLocale[33]; } }
+
+	public static string UI_MENU_GAMEOVER { get { return CurrentLocale[34]; } }
+
+	public static string UI_MENU_CREDITS { get { return CurrentLocale[35]; } }
+
+	public static string UI_MENU_LIMIT { get { return CurrentLocale[36]; } }
+
+	public static string UI_MENU_RETURN { get { return CurrentLocale[37]; } }
+
+	public static string UI_MENU_ANYKEY { get { return CurrentLocale[38]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -126,5 +194,22 @@ public static partial class LocaleStrings
 		UI_MENU_RETRY=19,
 		UI_HIGHSCORE_TOTALTIME=20,
 		UI_HIGHSCORE_COMPLETIONPERCENT=21,
+		UI_MENU_CONTINUE=22,
+		UI_MENU_PAUSE=23,
+		UI_MENU_FIRE=24,
+		UI_MENU_DASH=25,
+		UI_MENU_SOUND=26,
+		UI_MENU_OPTIONS=27,
+		UI_MENU_GAMEPAD=28,
+		UI_MENU_KEYBOARD=29,
+		UI_MENU_SFX=30,
+		UI_MENU_MUSIC=31,
+		UI_MENU_QUIT=32,
+		UI_MENU_LEVELSELECT=33,
+		UI_MENU_GAMEOVER=34,
+		UI_MENU_CREDITS=35,
+		UI_MENU_LIMIT=36,
+		UI_MENU_RETURN=37,
+		UI_MENU_ANYKEY=38,
 	}
 }
