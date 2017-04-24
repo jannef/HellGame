@@ -41,7 +41,6 @@ namespace fi.tamk.hellgame.states
         protected override void OnHealthChange(float percentage, int currentHp, int maxHp)
         {
             base.OnHealthChange(percentage, currentHp, maxHp);
-            Debug.Log(currentHp);
             if (currentHp <= 1) ControlledActor.GoToState(new ChambersIntermission(ControlledActor, this));
         }
     }

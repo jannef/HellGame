@@ -7,6 +7,7 @@ using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.world;
 using fi.tamk.hellgame.effectors;
 using UnityEngine.AI;
+using fi.tamk.hellgame.effects;
 
 namespace fi.tamk.hellgame.states
 {
@@ -132,6 +133,9 @@ namespace fi.tamk.hellgame.states
         protected void SpawnTrapOnPlayer()
         {
             Object.Instantiate(Externals.PrefabsUsed[0], PlayerTransform.position, Quaternion.identity);
+            var go = Object.Instantiate(Externals.PrefabsUsed[1], ControlledActor.transform.position,
+                Quaternion.identity).GetComponent<ChambersFireTrail>();
+            go.StartRun(PlayerTransform.position);
         }
     }
 }
