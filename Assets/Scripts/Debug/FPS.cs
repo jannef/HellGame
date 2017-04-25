@@ -17,10 +17,16 @@ namespace fi.tamk.hellgame.ui
         private void Start()
         {
             _text = GetComponent<Text>();
+            if (!RoomManager.DebugMode) _text.enabled = false;
         }
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                _text.enabled = !_text.enabled;
+            }
+
             _deltaArr[index] = Time.unscaledDeltaTime;
             index = (index + 1) % Samples;
             if (index % 5 == 0) _text.text = string.Format("{0:000}", CalculateFps());
