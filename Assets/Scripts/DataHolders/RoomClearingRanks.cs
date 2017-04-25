@@ -32,7 +32,7 @@ namespace fi.tamk.hellgame.dataholders
                 }
             }
 
-            return ClearingRank.None;
+            return ClearingRank.D;
         }
 
         public float GetNextRankTeaser(out ClearingRank nextRank, ClearingRank whichRank)
