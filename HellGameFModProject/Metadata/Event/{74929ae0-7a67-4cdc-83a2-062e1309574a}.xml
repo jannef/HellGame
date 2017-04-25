@@ -183,14 +183,14 @@
         <property name="length">
             <value>27.428571428571427</value>
         </property>
+        <relationship name="destination">
+            <destination>{111a7fba-dd72-4fca-b28f-20da43b5c96f}</destination>
+        </relationship>
         <relationship name="timeline">
             <destination>{a61daa26-ff65-438a-b876-3e77f661bf85}</destination>
         </relationship>
         <relationship name="markerTrack">
             <destination>{9e95e5d5-5006-4bd8-9bae-ae070179b07f}</destination>
-        </relationship>
-        <relationship name="destination">
-            <destination>{111a7fba-dd72-4fca-b28f-20da43b5c96f}</destination>
         </relationship>
         <relationship name="triggerConditions">
             <destination>{e8bb8e3b-04c4-46aa-8160-3fcbce23cb98}</destination>

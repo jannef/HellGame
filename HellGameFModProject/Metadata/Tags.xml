@@ -4,5 +4,52 @@
         <property name="name">
             <value>Master</value>
         </property>
+        <relationship name="items">
+            <destination>{8af7924b-0958-481d-bc5c-121358480496}</destination>
+            <destination>{7c82b0aa-6efd-455f-ac6d-4a6a34847e84}</destination>
+            <destination>{0af7db0f-62f7-43cf-a92c-24631d643f40}</destination>
+            <destination>{31d0165a-3085-4235-9ec3-4787bbe2a030}</destination>
+            <destination>{1e3a7e4d-4031-40d0-8985-6211e49f24f7}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{8af7924b-0958-481d-bc5c-121358480496}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{7c82b0aa-6efd-455f-ac6d-4a6a34847e84}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{0af7db0f-62f7-43cf-a92c-24631d643f40}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{31d0165a-3085-4235-9ec3-4787bbe2a030}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{1e3a7e4d-4031-40d0-8985-6211e49f24f7}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
     </object>
 </objects>
