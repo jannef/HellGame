@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,13 +10,26 @@ namespace fi.tamk.hellgame.ui
     public class MedalExplosionParticleCamera : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
-        [SerializeField] private ParticleSystem _particleSystem;
+        [SerializeField] private GameObject[] _medalParticleSystems;
+        [SerializeField] private Transform _explosionPoint;
         float lifeTime = 2f;
 
-        // Use this for initialization
-        void Start()
+        public void PlayExplosion(ClearingRank _rank)
         {
-            lifeTime = _particleSystem.main.duration;
+            GameObject system = null;
+
+            try
+            {
+                system = _medalParticleSystems[(int)_rank];
+            } catch (Exception e)
+            {
+                Debug.Log(e);
+                return;
+            }
+
+            var go = Instantiate(system.gameObject, _explosionPoint.position, Quaternion.identity);
+            go.transform.forward = _explosionPoint.forward;
+            lifeTime = go.GetComponent<ParticleSystem>().main.duration;
             StartCoroutine(StaticCoroutines.DoAfterDelay(lifeTime, Stop));
         }
 

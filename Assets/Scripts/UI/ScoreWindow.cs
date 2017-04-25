@@ -184,7 +184,13 @@ namespace fi.tamk.hellgame.ui
 
             if (rnk != ClearingRank.None)
             {
-                Instantiate(_medalExplosionRenderer, new Vector3(0, -1000, 0), Quaternion.identity);
+                GameObject medalRenderer = Instantiate(_medalExplosionRenderer, new Vector3(0, -1000, 0), Quaternion.identity);
+                var rendererScript = medalRenderer.GetComponent<MedalExplosionParticleCamera>();
+                if (rendererScript != null)
+                {
+                    rendererScript.PlayExplosion(rnk);
+                }
+
                 Utilities.PlayOneShotSound(MedalAppearsSoundEvent, transform.position);
                 MedalExplosionImage.gameObject.SetActive(true);
                 MedalImage.gameObject.SetActive(true);
