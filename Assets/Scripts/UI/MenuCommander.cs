@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using fi.tamk.hellgame.world;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -60,6 +61,9 @@ namespace fi.tamk.hellgame.ui
 
         private void OnDisable()
         {
+            // Escape if app is quitting to prevent FMOD exception.
+            if (RoomManager.IsQuitting) return;
+
             MouseTextureToggler.ChangeToGamePlayCursor();
             FMODStaticFunctions.ApplyGamePlaySoundState();
             _pointerTransform.gameObject.SetActive(false);
