@@ -120,7 +120,6 @@ public class LaserEmitter : BulletEmitter {
     private void StartLaserSound()
     {
         if (_laserSound == null) return;
-        _laserSound.setParameterValue("LaserState", 1f);
         _laserSound.start();
     }
 
@@ -128,14 +127,18 @@ public class LaserEmitter : BulletEmitter {
     {
         if (_laserSound != null)
         {
-            _laserSound.setParameterValue("LaserState", 0f);
+            _laserSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
         
     }
 
     private void OnDestroy()
     {
-        if (_laserSound != null) _laserSound.release();
+        if (_laserSound != null)
+        {
+            _laserSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            _laserSound.release();
+        }
     }
 
     private IEnumerator LaserRoutine(bool endWithTime = false)
