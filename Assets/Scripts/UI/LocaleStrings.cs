@@ -47,6 +47,9 @@ public static partial class LocaleStrings
 		"Return",
 		"Press any key!",
 		"Column Storage",
+		"Metal Wizard",
+		"Developer",
+		"Contributor",
 		""
 	};
 
@@ -91,6 +94,9 @@ public static partial class LocaleStrings
 		"Palaa",
 		"Paina nappulaa :P",
 		"Pilarivarasto",
+		"Metal Wizar",
+		"Kehittäjä",
+		"Apustaja",
 		""
 	};
 
@@ -174,6 +180,12 @@ public static partial class LocaleStrings
 
 	public static string UI_ROOM_CELLAR_3 { get { return CurrentLocale[39]; } }
 
+	public static string UI_GAME_GAMETITLE { get { return CurrentLocale[40]; } }
+
+	public static string UI_CREDIT_DEV { get { return CurrentLocale[41]; } }
+
+	public static string UI_CREDIT_CONT { get { return CurrentLocale[42]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -216,5 +228,8 @@ public static partial class LocaleStrings
 		UI_MENU_RETURN=37,
 		UI_MENU_ANYKEY=38,
 		UI_ROOM_CELLAR_3=39,
+		UI_GAME_GAMETITLE=40,
+		UI_CREDIT_DEV=41,
+		UI_CREDIT_CONT=42,
 	}
 }
