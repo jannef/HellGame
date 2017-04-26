@@ -12,7 +12,7 @@ public static partial class LocaleStrings
 		"Completion Time",
 		"Hits Taken",
 		"Final Clear Time",
-		"Next rank\n{0}",
+		"Next Rank\n{0}",
 		"Automatoned Diner",
 		"Olde Columns",
 		"Vanilla Room",
