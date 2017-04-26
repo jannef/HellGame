@@ -156,6 +156,7 @@ namespace fi.tamk.hellgame.ui
                 TimeField.text = GameClock.FormatTime(TimeSpan.FromSeconds(secs));
                 yield return null;
             }
+            TimeField.text = GameClock.FormatTime(TimeSpan.FromSeconds(clock.Time));
 
             // Fill the hits taken.
             BatchSetActive(true, LivesField, LivesLabel);
