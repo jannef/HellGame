@@ -1,0 +1,523 @@
+fileFormatVersion: 2
+guid: 74e97feefd4aa694fbd02f9adc4a32d3
+timeCreated: 1493166595
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BackLeftIK
+    100002: BackRightIK
+    100004: BeholderBody
+    100006: //RootNode
+    100008: BeholdMyRig
+    100010: Center
+    100012: Chin
+    100014: Eye
+    100016: Eye1
+    100018: Eye2
+    100020: Eye3
+    100022: Eye4
+    100024: Eye5
+    100026: Eye6
+    100028: EyeBall
+    100030: Eyelid
+    100032: EyelidJoint
+    100034: FrontLeftIK1
+    100036: FrontRightIK
+    100038: IK_System
+    100040: Jaw
+    100042: JawIK
+    100044: JawJoint
+    100046: joint10
+    100048: joint10 1
+    100050: joint11
+    100052: joint11 1
+    100054: joint12
+    100056: joint12 1
+    100058: joint13
+    100060: joint13 1
+    100062: joint14
+    100064: joint14 1
+    100066: joint15
+    100068: joint15 1
+    100070: joint16
+    100072: joint16 1
+    100074: joint17
+    100076: joint17 1
+    100078: joint18
+    100080: joint18 1
+    100082: joint19
+    100084: joint19 1
+    100086: joint20
+    100088: joint20 1
+    100090: joint21
+    100092: joint21 1
+    100094: joint7
+    100096: joint7 1
+    100098: joint8
+    100100: joint8 1
+    100102: joint9
+    100104: joint9 1
+    100106: L_Tentacle_Back
+    100108: L_Tentacle_Front
+    100110: R_Tentacle_Back
+    100112: R_Tentacle_Front
+    100114: BeholderBody1
+    400000: BackLeftIK
+    400002: BackRightIK
+    400004: BeholderBody
+    400006: //RootNode
+    400008: BeholdMyRig
+    400010: Center
+    400012: Chin
+    400014: Eye
+    400016: Eye1
+    400018: Eye2
+    400020: Eye3
+    400022: Eye4
+    400024: Eye5
+    400026: Eye6
+    400028: EyeBall
+    400030: Eyelid
+    400032: EyelidJoint
+    400034: FrontLeftIK1
+    400036: FrontRightIK
+    400038: IK_System
+    400040: Jaw
+    400042: JawIK
+    400044: JawJoint
+    400046: joint10
+    400048: joint10 1
+    400050: joint11
+    400052: joint11 1
+    400054: joint12
+    400056: joint12 1
+    400058: joint13
+    400060: joint13 1
+    400062: joint14
+    400064: joint14 1
+    400066: joint15
+    400068: joint15 1
+    400070: joint16
+    400072: joint16 1
+    400074: joint17
+    400076: joint17 1
+    400078: joint18
+    400080: joint18 1
+    400082: joint19
+    400084: joint19 1
+    400086: joint20
+    400088: joint20 1
+    400090: joint21
+    400092: joint21 1
+    400094: joint7
+    400096: joint7 1
+    400098: joint8
+    400100: joint8 1
+    400102: joint9
+    400104: joint9 1
+    400106: L_Tentacle_Back
+    400108: L_Tentacle_Front
+    400110: R_Tentacle_Back
+    400112: R_Tentacle_Front
+    400114: BeholderBody1
+    2300000: Eye
+    2300002: Eye1
+    2300004: Eye2
+    2300006: Eye3
+    2300008: Eye4
+    2300010: Eye5
+    2300012: Eye6
+    3300000: Eye
+    3300002: Eye1
+    3300004: Eye2
+    3300006: Eye3
+    3300008: Eye4
+    3300010: Eye5
+    3300012: Eye6
+    4300000: Eye
+    4300002: Eye1
+    4300004: Eye2
+    4300006: Eye3
+    4300008: Eye4
+    4300010: Eye5
+    4300012: Eye6
+    4300014: BeholderBody
+    4300016: BeholderBody1
+    7400000: LAZOR
+    7400002: Idle
+    9500000: //RootNode
+    13700000: BeholderBody
+    13700002: BeholderBody1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BeholderBody1
+        weight: 1
+      - path: BeholdMyRig
+        weight: 1
+      - path: BeholdMyRig/Center
+        weight: 1
+      - path: BeholdMyRig/Center/EyelidJoint
+        weight: 1
+      - path: BeholdMyRig/Center/EyelidJoint/EyeBall
+        weight: 1
+      - path: BeholdMyRig/Center/EyelidJoint/Eyelid
+        weight: 1
+      - path: BeholdMyRig/Center/JawJoint
+        weight: 1
+      - path: BeholdMyRig/Center/JawJoint/Jaw
+        weight: 1
+      - path: BeholdMyRig/Center/JawJoint/Jaw/Chin
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16/joint17
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16/joint17/joint18
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16/joint17/joint18/joint19
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16/joint17/joint18/joint19/joint20
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16/joint17/joint18/joint19/joint20/joint21
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8/joint9
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8/joint9/joint10
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8/joint9/joint10/joint11
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8/joint9/joint10/joint11/joint12
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8/joint9/joint10/joint11/joint12/joint13
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1/joint17
+          1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1/joint17
+          1/joint18 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1/joint17
+          1/joint18 1/joint19 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1/joint17
+          1/joint18 1/joint19 1/joint20 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1/joint17
+          1/joint18 1/joint19 1/joint20 1/joint21 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1/joint9 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1/joint9 1/joint10
+          1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1/joint9 1/joint10
+          1/joint11 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1/joint9 1/joint10
+          1/joint11 1/joint12 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1/joint9 1/joint10
+          1/joint11 1/joint12 1/joint13 1
+        weight: 1
+      - path: Eye
+        weight: 1
+      - path: Eye1
+        weight: 1
+      - path: Eye2
+        weight: 1
+      - path: Eye3
+        weight: 1
+      - path: Eye4
+        weight: 1
+      - path: Eye5
+        weight: 1
+      - path: Eye6
+        weight: 1
+      - path: IK_System
+        weight: 1
+      - path: IK_System/BackLeftIK
+        weight: 1
+      - path: IK_System/BackRightIK
+        weight: 1
+      - path: IK_System/FrontLeftIK1
+        weight: 1
+      - path: IK_System/FrontRightIK
+        weight: 1
+      - path: IK_System/JawIK
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: LAZOR
+      takeName: Take 001
+      firstFrame: 130
+      lastFrame: 190
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BeholderBody1
+        weight: 1
+      - path: BeholdMyRig
+        weight: 1
+      - path: BeholdMyRig/Center
+        weight: 1
+      - path: BeholdMyRig/Center/EyelidJoint
+        weight: 1
+      - path: BeholdMyRig/Center/EyelidJoint/EyeBall
+        weight: 1
+      - path: BeholdMyRig/Center/EyelidJoint/Eyelid
+        weight: 1
+      - path: BeholdMyRig/Center/JawJoint
+        weight: 1
+      - path: BeholdMyRig/Center/JawJoint/Jaw
+        weight: 1
+      - path: BeholdMyRig/Center/JawJoint/Jaw/Chin
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16/joint17
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16/joint17/joint18
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16/joint17/joint18/joint19
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16/joint17/joint18/joint19/joint20
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Back/joint14/joint15/joint16/joint17/joint18/joint19/joint20/joint21
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8/joint9
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8/joint9/joint10
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8/joint9/joint10/joint11
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8/joint9/joint10/joint11/joint12
+        weight: 1
+      - path: BeholdMyRig/Center/L_Tentacle_Front/joint7/joint8/joint9/joint10/joint11/joint12/joint13
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1/joint17
+          1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1/joint17
+          1/joint18 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1/joint17
+          1/joint18 1/joint19 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1/joint17
+          1/joint18 1/joint19 1/joint20 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Back/joint14 1/joint15 1/joint16 1/joint17
+          1/joint18 1/joint19 1/joint20 1/joint21 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1/joint9 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1/joint9 1/joint10
+          1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1/joint9 1/joint10
+          1/joint11 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1/joint9 1/joint10
+          1/joint11 1/joint12 1
+        weight: 1
+      - path: BeholdMyRig/Center/R_Tentacle_Front/joint7 1/joint8 1/joint9 1/joint10
+          1/joint11 1/joint12 1/joint13 1
+        weight: 1
+      - path: Eye
+        weight: 1
+      - path: Eye1
+        weight: 1
+      - path: Eye2
+        weight: 1
+      - path: Eye3
+        weight: 1
+      - path: Eye4
+        weight: 1
+      - path: Eye5
+        weight: 1
+      - path: Eye6
+        weight: 1
+      - path: IK_System
+        weight: 1
+      - path: IK_System/BackLeftIK
+        weight: 1
+      - path: IK_System/BackRightIK
+        weight: 1
+      - path: IK_System/FrontLeftIK1
+        weight: 1
+      - path: IK_System/FrontRightIK
+        weight: 1
+      - path: IK_System/JawIK
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 200
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
