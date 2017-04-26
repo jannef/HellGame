@@ -14,7 +14,9 @@ public class OpeningDoor : MonoBehaviour
     [SerializeField] private float closingLenght;
     [SerializeField] private AnimationCurve closingCurve;
     [SerializeField] bool startOpen = false;
-    [SerializeField] private float ClosingDelay = 0.5f;
+    [SerializeField] private float quickOpeningLenght;
+    [SerializeField] private AnimationCurve quickOpeningCurve;
+    [SerializeField] private float ClosingDelay = 1.5f;
 
     void Awake()
     {
@@ -40,6 +42,12 @@ public class OpeningDoor : MonoBehaviour
     public void OpenDoor()
     {
         StartCoroutine(OpeningCoroutine(openingDegreeAmount, openingCurve, openingLenght));
+    }
+
+    public void SlamOpen()
+    {
+        StartCoroutine(OpeningCoroutine(openingDegreeAmount, quickOpeningCurve, quickOpeningLenght));
+        DelayedCloseDoor();
     }
 
     IEnumerator OpeningCoroutine(float openingDegreeAmount, AnimationCurve easing, float length)

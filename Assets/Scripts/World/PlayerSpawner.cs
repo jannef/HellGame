@@ -10,11 +10,33 @@ namespace fi.tamk.hellgame.world
 
     public class PlayerSpawner : MonoBehaviour
     {
+        private struct PlayerSpawningSequenceData
+        {
+            public Vector3 _spawnStartPosition;
+            public Vector3 _playerEndPosition;
+            public ActorComponent _playerActor;
+            public PlayerDash _playerDashComponent;
+            public float _spawnLenght;
+            public GameObject _player;
+
+            public PlayerSpawningSequenceData(Vector3 startingPosition, Vector3 endPosition, ActorComponent actor, PlayerDash dash, float lenght, GameObject player)
+            {
+                _spawnStartPosition = startingPosition;
+                _playerEndPosition = endPosition;
+                _playerActor = actor;
+                _playerDashComponent = dash;
+                _spawnLenght = lenght;
+                _player = player;
+            }
+        }
+
         [SerializeField] private float _spawnLenght;
         [SerializeField] private AnimationCurve _movementCurve;
         [SerializeField] private Transform _startPosition;
         [SerializeField] private Transform _otherEntrancePointsParent;
+        [SerializeField] private bool _waitForEncounterBegin = true;
         private int playerOriginalLayer;
+        private PlayerSpawningSequenceData _sequenceData;
 
         public bool StartSpawning(GameObject player)
         {
@@ -31,6 +53,12 @@ namespace fi.tamk.hellgame.world
 
             StartCoroutine(SpawningRoutine(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght, player));
             return true;
+        }
+
+        public void ActivateSpawning()
+        {
+            StartCoroutine(SpawningRoutine(_sequenceData._spawnStartPosition, _sequenceData._playerEndPosition, 
+                _sequenceData._playerActor, _sequenceData._playerDashComponent, _sequenceData._spawnLenght, _sequenceData._player));
         }
 
         public bool StartSpawning(GameObject player, int previousRoom)
@@ -68,7 +96,17 @@ namespace fi.tamk.hellgame.world
                 }
             }
 
-            StartCoroutine(SpawningRoutine(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght, player));
+            player.transform.position = _startPosition.position;
+            
+            _sequenceData = new PlayerSpawningSequenceData(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght, player);
+            if (_waitForEncounterBegin)
+            {
+                RoomIdentifier.EncounterBegin += ActivateSpawning;
+            } else
+            {
+                ActivateSpawning();
+            }
+                
             return true;
         }
 
