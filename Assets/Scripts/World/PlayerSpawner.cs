@@ -101,6 +101,7 @@ namespace fi.tamk.hellgame.world
             _sequenceData = new PlayerSpawningSequenceData(transform.position, _startPosition.position, actorComponent, dashComponent, _spawnLenght, player);
             if (_waitForEncounterBegin)
             {
+                actorComponent.enabled = false;
                 RoomIdentifier.EncounterBegin += ActivateSpawning;
             } else
             {
