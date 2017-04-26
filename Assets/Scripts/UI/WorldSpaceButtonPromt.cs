@@ -11,7 +11,7 @@ namespace fi.tamk.hellgame.ui
 
     public class WorldSpaceButtonPromt : MonoBehaviour
     {
-        [SerializeField] private Buttons.InputType _inputType;
+        private Buttons.InputType _inputType = Buttons.InputType.PcMasterrace;
         [SerializeField] private Buttons.ButtonScheme _buttonToShow;
         [SerializeField] private TextMeshPro _promtText;
         [SerializeField] private SpriteRenderer _buttonSprite;
@@ -19,6 +19,13 @@ namespace fi.tamk.hellgame.ui
 
         private void Start()
         {
+            var JoySticks = Input.GetJoystickNames();
+
+            if (JoySticks.Length > 0)
+            {
+                _inputType = Buttons.InputType.ConsolePleb;
+            }
+
             ButtonMap buttonMap = null;
 
             if (_inputType == Buttons.InputType.ConsolePleb)
