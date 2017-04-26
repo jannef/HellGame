@@ -10,6 +10,9 @@ using UnityEngine.Events;
 
 public class LaserEmitter : BulletEmitter {
 
+    public UnityEvent AtFireStart;
+    public UnityEvent AtFireEnd;
+
     [SerializeField] protected LineRenderer ShotLaserRenderer;
     [SerializeField] private float warningShotWidth;
     [SerializeField] private float fullShotWidth;
@@ -145,6 +148,7 @@ public class LaserEmitter : BulletEmitter {
         ShotLaserRenderer.startWidth = warningShotWidth;
         ShotLaserRenderer.endWidth = fullShotWidth;
         StartLaserSound();
+        if (AtFireStart != null) AtFireStart.Invoke();
 
         while (time < WarningLenght)
         {
@@ -190,6 +194,7 @@ public class LaserEmitter : BulletEmitter {
         if (_rootParticles != null) _rootParticles.Stop();
         time = shotEndLenght;
         StopLaserSound();
+        if (AtFireEnd != null) AtFireEnd.Invoke();
 
         while (time > 0)
         {
