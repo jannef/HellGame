@@ -28,6 +28,7 @@ namespace fi.tamk.hellgame.states
         protected BossExternalObjects Externals = null;
         protected float RotationSpeed ;
         protected FairTrailHazardRail[] Rails = null;
+        protected OneShotSoundEffect PentagramSound = null;
 
         protected HealthComponent Health;
 
@@ -50,6 +51,7 @@ namespace fi.tamk.hellgame.states
                 Health = controlledHero.gameObject.GetComponent<HealthComponent>();
                 RotationSpeed = controlledHero.ActorNumericData.ActorFloatData[(int)ExternalFloats.FollowRotationSpeed];
                 Rails = Externals.ExistingGameObjects[(int)ExternalLabel.Pentagram].GetComponentsInChildren<FairTrailHazardRail>();
+                PentagramSound = Externals.ExistingGameObjects[(int)ExternalLabel.Pentagram].GetComponent<OneShotSoundEffect>();
 
                 ControlledActor.ActorNumericData.ReferenceCache[0] = ControlledActor.gameObject.GetComponentInChildren<AngryShakeEffect>();
                 ControlledActor.ActorNumericData.ReferenceCache[1] = Externals.ExistingGameObjects[3].GetComponent<ParticleSystem>();
@@ -63,6 +65,7 @@ namespace fi.tamk.hellgame.states
                 RotationSpeed = clonedState.RotationSpeed;
                 Rails = clonedState.Rails;
                 TransitionPercentage = clonedState.TransitionPercentage;
+                PentagramSound = clonedState.PentagramSound;
             }
         }
 
@@ -104,6 +107,7 @@ namespace fi.tamk.hellgame.states
 
         protected virtual void HailSatan()
         {
+            PentagramSound.Play();
             foreach (var rail in Rails)
             {
                 rail.PlayTheFlame();

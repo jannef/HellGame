@@ -4,6 +4,7 @@ using System.Linq;
 using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.world;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 namespace fi.tamk.hellgame.effects
@@ -13,6 +14,8 @@ namespace fi.tamk.hellgame.effects
     /// </summary>
     public class SphereShellController : MonoBehaviour
     {
+        public UnityEvent OnShellExplosion;
+
         /// <summary>
         /// Distribution for random rotation speeds.
         /// </summary>
@@ -206,6 +209,8 @@ namespace fi.tamk.hellgame.effects
         public void BlowOffRandomPiece()
         {
             if (_parts.Count < 1) return;
+            if (OnShellExplosion != null) OnShellExplosion.Invoke();
+
             var part = _parts[Random.Range(0, _parts.Count - 1)];
             _parts.Remove(part);
 
