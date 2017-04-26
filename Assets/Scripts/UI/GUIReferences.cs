@@ -9,5 +9,6 @@ namespace fi.tamk.hellgame.ui
     {
         public TextMeshProUGUI ClockText;
         public CanvasScaler Scaler;
+        public Transform HudParent;
     }
 }

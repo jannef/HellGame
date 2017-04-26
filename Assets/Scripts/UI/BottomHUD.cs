@@ -29,7 +29,7 @@ namespace fi.tamk.hellgame.ui
             if (BottomHudPrefab == null) throw new UnityException("Prefab for BottomHUD not set in " + gameObject);
             _canvasScaler = references.Scaler;
             _initialized = true;
-            _canvasTransform = references.transform;
+            _canvasTransform = references.HudParent;
         }
 
         public void DisplayMessage(string message, float duration = 0f, AnimationCurve curve = null)
