@@ -20,8 +20,12 @@ namespace fi.tamk.hellgame.effects
         }
         private static MusicPlayer _music;
 
-        private void SwapToTrack(int trackZeroBaseIndex)
+        public void SwapToTrack(int trackZeroBaseIndex)
         {
+            // Default value of -1 neatly ignores this, when called
+            // automatically on room start event!
+            if (trackZeroBaseIndex < 0) return;
+
             Music.LoopTrack = true;
             Music.PlayTrackByIndex(trackZeroBaseIndex);
         }

@@ -14,8 +14,5 @@ public class EventBasedEncounterBeginner : MonoBehaviour {
             RoomIdentifier.BeginEncounter();
             _hasBeenActivated = true;
         }
-        
     }
-
-
 }

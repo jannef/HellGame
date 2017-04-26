@@ -9,6 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.world
 {
@@ -30,6 +31,8 @@ namespace fi.tamk.hellgame.world
         [SerializeField] public RoomClearingRanks roomClearingRankField;
         [SerializeField] private PoolInstruction[] PoolingInstructions;        
         [SerializeField] private bool _isMenuScene = false;
+
+        public UnityEvent OnPlayerVictory;
 
         public static RoomClearingRanks Ranks;
         public static event Action PlayerDeath;
@@ -196,7 +199,9 @@ namespace fi.tamk.hellgame.world
             var score = ScoreWindow.GetScoreWindowGo(_guiReferences.transform);
             var player = ServiceLocator.Instance.GetNearestPlayer().gameObject.GetComponent<HealthComponent>();
 
-            score.SetData(_clock, player.MaxHp - player.Health, ranks == null ? FindObjectOfType<RoomIdentifier>().roomClearingRankField : ranks);
+            var ri = FindObjectOfType<RoomIdentifier>();
+            score.SetData(_clock, player.MaxHp - player.Health, ranks == null ? ri.roomClearingRankField : ranks);
+            if (ri.OnPlayerVictory != null) ri.OnPlayerVictory.Invoke();
         }
 
         public void RoomCompletedTrigger()

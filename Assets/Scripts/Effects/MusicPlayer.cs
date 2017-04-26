@@ -10,7 +10,7 @@ namespace fi.tamk.hellgame
     public class MusicPlayer : MonoBehaviour
     {
         public int NumberOfTracks { get { return _musicTracks.Length; } }
-        public bool LoopTrack = false;
+        public bool LoopTrack = true;
 
         [EventRef] public string[] _music;
         private EventInstance[] _musicTracks;
