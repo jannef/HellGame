@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.dataholders;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using tamk.fi.hellgame.character;
@@ -13,7 +14,25 @@ namespace fi.tamk.hellgame.input
         [SerializeField] public InputController KeyBoardInput;
         [SerializeField] private float MouseAttentionGrabThreshold;
         private Vector3 _lastMousePosition;
-        private bool hasMovedKeypadRight = false;
+
+        private bool HasMovedKeyPadRight
+        {
+            get
+            {
+                return _hasMovedKeypadRight;
+            }
+            set
+            {
+                if (_hasMovedKeypadRight != value)
+                {
+                    _hasMovedKeypadRight = value;
+                    if (primaryInputChanged != null) primaryInputChanged.Invoke(_hasMovedKeypadRight);
+                }
+            }
+        }
+
+        private bool _hasMovedKeypadRight = false;
+        public static event Action<bool> primaryInputChanged;
 
         public void Start()
         {
@@ -32,19 +51,19 @@ namespace fi.tamk.hellgame.input
 
             if (gamepadVector.sqrMagnitude > 0.1)
             {
-                hasMovedKeypadRight = true;
+                HasMovedKeyPadRight = true;
                 Cursor.visible = false;
                 _lastMousePosition = Input.mousePosition;
                 return gamepadVector;
             } else
             {
-                if (hasMovedKeypadRight)
+                if (HasMovedKeyPadRight)
                 {
                     var thisMousePosition = Input.mousePosition;
                     if ((_lastMousePosition - thisMousePosition).sqrMagnitude > MouseAttentionGrabThreshold)
                     {
                         Cursor.visible = true;
-                        hasMovedKeypadRight = false;
+                        HasMovedKeyPadRight = false;
                     }
 
                     return Vector3.zero;
@@ -101,6 +120,11 @@ namespace fi.tamk.hellgame.input
             {
                 return KeyBoardInput.PollButton(button);
             }
+        }
+
+        private void OnDestroy()
+        {
+            primaryInputChanged = null;
         }
     }
 }

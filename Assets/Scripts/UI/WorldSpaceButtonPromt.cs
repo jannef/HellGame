@@ -19,11 +19,20 @@ namespace fi.tamk.hellgame.ui
 
         private void Start()
         {
-            var JoySticks = Input.GetJoystickNames();
+            SetPromt(false);
+            MultipleInputReader.primaryInputChanged += SetPromt;
+            
+        }
 
-            if (JoySticks.Length > 0)
+        private void SetPromt(bool isGamePad)
+        {
+
+            if (isGamePad)
             {
                 _inputType = Buttons.InputType.ConsolePleb;
+            } else
+            {
+                _inputType = Buttons.InputType.PcMasterrace;
             }
 
             ButtonMap buttonMap = null;
@@ -31,7 +40,8 @@ namespace fi.tamk.hellgame.ui
             if (_inputType == Buttons.InputType.ConsolePleb)
             {
                 buttonMap = UserStaticData.GetGameSettings().GamepadSettings;
-            } else
+            }
+            else
             {
                 buttonMap = UserStaticData.GetGameSettings().MouseAndKeyboardSettings;
             }
@@ -45,12 +55,21 @@ namespace fi.tamk.hellgame.ui
             if (buttonData == null)
             {
                 _promtText.text = keycode.ToString();
+                _promtText.alpha = 1;
                 _buttonSprite.enabled = false;
-            } else
+            }
+            else
             {
                 _buttonSprite.sprite = buttonData._promtTexture;
+                _buttonSprite.enabled = true;
                 _promtText.text = "";
+                _promtText.alpha = 0;
             }
+        }
+
+        private void OnDisable()
+        {
+            MultipleInputReader.primaryInputChanged -= SetPromt;
         }
     }
 }
