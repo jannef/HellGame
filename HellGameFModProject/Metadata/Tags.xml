@@ -24,6 +24,12 @@
             <destination>{aa67a042-99d5-4588-a8e1-42913ea10b09}</destination>
             <destination>{124bd8e7-7779-4c3e-a73d-04b469441acf}</destination>
             <destination>{bb8272fe-304e-4934-ae85-47cfbfe59434}</destination>
+            <destination>{96cdc015-4da1-4aad-a34d-e42ab9e98cb5}</destination>
+            <destination>{5c031bb9-a9ee-4418-baad-7ea9cdeab753}</destination>
+            <destination>{ab5c0e7d-fb6b-4911-904e-7dca4c96ea65}</destination>
+            <destination>{2f033cf8-a508-480c-a357-f19ea88cce2e}</destination>
+            <destination>{bc010ebb-907a-46c8-ada2-5c120a652a94}</destination>
+            <destination>{32e38fad-c679-4227-bb9a-4864178e7637}</destination>
         </relationship>
     </object>
     <object class="Tag" id="{8af7924b-0958-481d-bc5c-121358480496}">
@@ -171,6 +177,54 @@
         </relationship>
     </object>
     <object class="Tag" id="{bb8272fe-304e-4934-ae85-47cfbfe59434}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{96cdc015-4da1-4aad-a34d-e42ab9e98cb5}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{5c031bb9-a9ee-4418-baad-7ea9cdeab753}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{ab5c0e7d-fb6b-4911-904e-7dca4c96ea65}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{2f033cf8-a508-480c-a357-f19ea88cce2e}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{bc010ebb-907a-46c8-ada2-5c120a652a94}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{32e38fad-c679-4227-bb9a-4864178e7637}">
         <property name="name">
             <value>placeholder</value>
         </property>
