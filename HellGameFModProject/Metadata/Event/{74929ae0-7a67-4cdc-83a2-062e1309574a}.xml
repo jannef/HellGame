@@ -186,14 +186,14 @@
         <relationship name="destination">
             <destination>{111a7fba-dd72-4fca-b28f-20da43b5c96f}</destination>
         </relationship>
+        <relationship name="triggerConditions">
+            <destination>{e8bb8e3b-04c4-46aa-8160-3fcbce23cb98}</destination>
+        </relationship>
         <relationship name="timeline">
             <destination>{a61daa26-ff65-438a-b876-3e77f661bf85}</destination>
         </relationship>
         <relationship name="markerTrack">
             <destination>{9e95e5d5-5006-4bd8-9bae-ae070179b07f}</destination>
-        </relationship>
-        <relationship name="triggerConditions">
-            <destination>{e8bb8e3b-04c4-46aa-8160-3fcbce23cb98}</destination>
         </relationship>
     </object>
     <object class="AutomationCurve" id="{6c7c6d33-e608-4cc4-8640-8aeeaed2274f}">
@@ -232,7 +232,7 @@
             <value>0.0020429009193054137</value>
         </property>
         <property name="value">
-            <value>-76.005806</value>
+            <value>-1</value>
         </property>
         <property name="curveShape">
             <value>0.206399307</value>
@@ -243,7 +243,7 @@
             <value>0.99284984678243104</value>
         </property>
         <property name="value">
-            <value>-0.659999847</value>
+            <value>9</value>
         </property>
     </object>
     <object class="MixerBusFader" id="{e59eaa04-3897-4a86-a8a4-3b131a87d656}"/>
