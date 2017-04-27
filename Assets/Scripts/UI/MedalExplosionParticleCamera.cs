@@ -12,7 +12,7 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private Camera _camera;
         [SerializeField] private GameObject[] _medalParticleSystems;
         [SerializeField] private Transform _explosionPoint;
-        float lifeTime = 2f;
+        public float lifeTime = 2f;
 
         public void PlayExplosion(ClearingRank _rank)
         {
