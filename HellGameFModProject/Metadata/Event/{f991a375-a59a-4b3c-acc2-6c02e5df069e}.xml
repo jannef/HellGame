@@ -204,9 +204,6 @@
         <property name="length">
             <value>7.6144166666666671</value>
         </property>
-        <relationship name="destination">
-            <destination>{6cee6645-ec8f-4527-ae87-986fbe32b72f}</destination>
-        </relationship>
         <relationship name="triggerConditions">
             <destination>{064fb312-5f51-46c7-821d-49bf61b69e64}</destination>
         </relationship>
@@ -215,6 +212,9 @@
         </relationship>
         <relationship name="markerTrack">
             <destination>{c0532da4-09f0-4b18-bba4-d2455d20ac8b}</destination>
+        </relationship>
+        <relationship name="destination">
+            <destination>{6cee6645-ec8f-4527-ae87-986fbe32b72f}</destination>
         </relationship>
     </object>
     <object class="MixerBusEffectChain" id="{6781fd3f-dc7d-488f-80ff-055a9bc0821c}">

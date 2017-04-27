@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using UnityEngine;
 
 public class PlayerLimitBreakSoundEffect : MonoBehaviour {
@@ -16,20 +17,33 @@ public class PlayerLimitBreakSoundEffect : MonoBehaviour {
     private FMOD.Studio.EventInstance _limitBreakSound;
     private FMOD.Studio.EventInstance _limitBreakAvailable;
 
+    private bool _limitIndicatorPlaying = false;
+
+    private void Awake()
+    {
+        _limitBreakAvailable = FMODUnity.RuntimeManager.CreateInstance(LimitBreakAvailableSoundEvent);
+    }
+
+    private PLAYBACK_STATE GetState(EventInstance @event)
+    {
+        PLAYBACK_STATE state;
+        @event.getPlaybackState(out state);
+        return state;
+    }
+
     public void LimitBreakAvailable()
     {
-        if (_limitBreakAvailable != null) return;
+        if (_limitIndicatorPlaying) return;
+        _limitIndicatorPlaying = true;
+
         Utilities.PlayOneShotSound(LimitBreakAvailableCrack, transform.position);
-        _limitBreakAvailable = FMODUnity.RuntimeManager.CreateInstance(LimitBreakAvailableSoundEvent);
         _limitBreakAvailable.start();
     }
 
     public void LimitBreakNotAvailable()
     {
-        if (_limitBreakAvailable == null) return;
-        _limitBreakAvailable.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        _limitBreakAvailable.release();
-        _limitBreakAvailable = null;
+        if (!_limitIndicatorPlaying) return;
+        _limitBreakAvailable.stop(STOP_MODE.IMMEDIATE);
     }
 
     public void StartSound()

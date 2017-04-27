@@ -1,6 +1,4 @@
-﻿#define USE_CS
-
-using System.Reflection;
+﻿using System.Reflection;
 using System.Linq;
 using UnityEngine;
 using System;
@@ -118,7 +116,7 @@ namespace fi.tamk.hellgame.character
         }
 
         [SerializeField] private ComputeShader _cs; // Unity can't serialize fields inside custom precompiler conditional statement.
-// Compute shader block
+                                                    // Compute shader block
 #if USE_CS
         private struct BufferDataType
         {
@@ -158,11 +156,12 @@ namespace fi.tamk.hellgame.character
 
             _limitAura.SetParticles(_auraBuffer, numberOfParticles);
         }
-#endif
+
 
         private void OnDestroy()
         {
             _computeBuffer.Dispose();
         }
+#endif
     }
 }
