@@ -12,7 +12,7 @@ public static partial class LocaleStrings
 		"Completion Time",
 		"Hits Taken",
 		"Final Clear Time",
-		"Next rank\n{0}",
+		"{0}: {1}",
 		"Automatoned Diner",
 		"Olde Columns",
 		"Vanilla Room",
@@ -50,6 +50,11 @@ public static partial class LocaleStrings
 		"Metal Wizard",
 		"Developer",
 		"Contributor",
+		"Archmage",
+		"Battle Wizard",
+		"Wizard",
+		"Apprentice",
+		"Novice",
 		""
 	};
 
@@ -59,7 +64,7 @@ public static partial class LocaleStrings
 		"Suoritusaika",
 		"Osumia otettu",
 		"Yhteenlaskettu aika",
-		"Seuraava taso\n{0}",
+		"{0}: {1}",
 		"Koneiden kahvila",
 		"Vanha Tolppa",
 		"Perushuone",
@@ -97,6 +102,11 @@ public static partial class LocaleStrings
 		"Metal Wizar",
 		"Kehittäjä",
 		"Apustaja",
+		"Arkkimaagi",
+		"Sotavelho",
+		"Velho",
+		"Oppipoika",
+		"Noviisi",
 		""
 	};
 
@@ -186,6 +196,16 @@ public static partial class LocaleStrings
 
 	public static string UI_CREDIT_CONT { get { return CurrentLocale[42]; } }
 
+	public static string RANK_S { get { return CurrentLocale[43]; } }
+
+	public static string RANK_A { get { return CurrentLocale[44]; } }
+
+	public static string RANK_B { get { return CurrentLocale[45]; } }
+
+	public static string RANK_C { get { return CurrentLocale[46]; } }
+
+	public static string RANK_D { get { return CurrentLocale[47]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -231,5 +251,10 @@ public static partial class LocaleStrings
 		UI_GAME_GAMETITLE=40,
 		UI_CREDIT_DEV=41,
 		UI_CREDIT_CONT=42,
+		RANK_S=43,
+		RANK_A=44,
+		RANK_B=45,
+		RANK_C=46,
+		RANK_D=47,
 	}
 }

@@ -24,6 +24,7 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private TextMeshProUGUI TotalLabel;
         [SerializeField] private TextMeshProUGUI TotalField;
         [SerializeField] private TextMeshProUGUI TeaserField;
+        [SerializeField] private TextMeshProUGUI RankField;
         [SerializeField] private Image MedalImage;
         [SerializeField] private RawImage MedalExplosionImage;
         [SerializeField] private Image Background;
@@ -34,8 +35,6 @@ namespace fi.tamk.hellgame.ui
         public String MedalAppearsSoundEvent = "";
         [SerializeField] private GameObject _medalExplosionRenderer;
 
-        private TextMeshProUGUI[] _allTexts;
-
         public void UpdateLabelTexts()
         {
             TimeLabel.text = LocaleStrings.UI_SCORE_COMPTIME;
@@ -45,8 +44,6 @@ namespace fi.tamk.hellgame.ui
 
         private void Awake()
         {
-            _allTexts = new[] { TimeField, TimeLabel, LivesLabel, LivesField, TotalLabel, TotalField, TeaserField };
-
             if (Medals.Length != 5)
             {
                 throw new UnityException(
@@ -197,11 +194,15 @@ namespace fi.tamk.hellgame.ui
                 MedalImage.gameObject.SetActive(true);
                 FadeIn(_textFadeDuration, MedalImage);
                 MedalImage.sprite = Medals[(int)rnk];
+                RankField.text = RoomClearingRanks.GetRankName(rnk);
+                BatchSetActive(true, RankField);
+                FadeIn(_textFadeDuration, RankField);
 
                 if (rnk != ClearingRank.S)
                 {
                     ClearingRank next;
-                    TeaserField.text = string.Format(LocaleStrings.UI_SCORE_TEASER, GameClock.FormatTime(TimeSpan.FromSeconds(ranks.GetNextRankTeaser(out next, rnk))));
+                    var nextTime = ranks.GetNextRankTeaser(out next, rnk);
+                    TeaserField.text = string.Format(LocaleStrings.UI_SCORE_TEASER, RoomClearingRanks.GetRankName(next), GameClock.FormatTime(TimeSpan.FromSeconds(nextTime)));                    
                     BatchSetActive(true, TeaserField);
                     FadeIn(_textFadeDuration, TeaserField);
                 }
