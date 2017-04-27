@@ -1,4 +1,5 @@
 ﻿using fi.tamk.hellgame.input;
+using fi.tamk.hellgame.world;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,6 +59,30 @@ namespace fi.tamk.hellgame.utils
             trajectory.y = 0f;
 
             cols.ForEach(x => Pool.Instance.GetHealthComponent(x.gameObject).TakeDisplacingDamage(howMuch, trajectory.normalized * radius * 1.5f));
+        }
+
+        public static LegalScenes ReturnLevelSelectScreenBasedOnRoom(LegalScenes scene)
+        {
+            switch (scene)
+            {
+                case LegalScenes.Cellar_1:
+                case LegalScenes.Cellar_2:
+                case LegalScenes.Cellar_3:
+                case LegalScenes.SlimeBoss:
+                    return LegalScenes.LevelSelect_Wing_1;
+                case LegalScenes.Kitchen_1:
+                case LegalScenes.Kitchen_2:
+                case LegalScenes.Kitchen_3:
+                case LegalScenes.WallBoss:
+                    return LegalScenes.Kitchen_LevelSelect;
+                case LegalScenes.Library_1:
+                case LegalScenes.Library_2:
+                case LegalScenes.Library_3:
+                case LegalScenes.Library_Boss:
+                    return LegalScenes.Library_LevelSelect;
+                default:
+                    return LegalScenes.LevelSelectHub;
+            }
         }
 
         public static KeyCode ReturnKeyCodeFromButtonMap(Buttons.ButtonScheme _buttonScheme, ButtonMap map)

@@ -1,4 +1,5 @@
-﻿using fi.tamk.hellgame.world;
+﻿using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.world;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,7 +34,15 @@ namespace fi.tamk.hellgame.ui
         private void Activate()
         {
             if(targetScene != LegalScenes.ErrorOrNone)
+                if (targetScene == LegalScenes.LevelSelectHub)
+                {
+                    var scene = Utilities.ReturnLevelSelectScreenBasedOnRoom((LegalScenes)SceneManager.GetActiveScene().buildIndex);
+                    RoomManager.LoadRoom(scene);
+                } else
+                {
                     RoomManager.LoadRoom(targetScene);
+                }
+                    
                 else
                     throw new UnityException("TransitionTrigger with incorrectly set target was activated!");
         }
