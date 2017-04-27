@@ -29,7 +29,9 @@ namespace fi.tamk.hellgame.world
         Library_Boss        = 13,
         Cellar_3            = 14,
         Chambers_Boss       = 15,
-        LevelSelect_Wing_1  = 16
+        LevelSelect_Wing_1  = 16,
+        Kitchen_LevelSelect = 17,
+        Library_LevelSelect = 18,     
     }
 
     public static class SceneLoadLock
