@@ -18,6 +18,11 @@ namespace fi.tamk.hellgame.world
         // Use this for initialization
         void Start()
         {
+            if (OpenEvenIfRoomNotFound)
+            {
+                if (RoomFoundInSaveData != null) RoomFoundInSaveData.Invoke();
+            }
+
             var roomData = UserStaticData.GetRoomData((int)targetRoom);
 
             if (roomData == null)
@@ -27,7 +32,7 @@ namespace fi.tamk.hellgame.world
 
             if (roomData != null)
             {
-                if (RoomFoundInSaveData != null || OpenEvenIfRoomNotFound) RoomFoundInSaveData.Invoke();
+                if (RoomFoundInSaveData != null) RoomFoundInSaveData.Invoke();
             }
         }
     }

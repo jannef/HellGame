@@ -47,9 +47,9 @@ namespace fi.tamk.hellgame.dataholders
                 {LocaleStrings.StringsEnum.UI_ROOM_CHAMBERS_BOSS, 15},
                 {LocaleStrings.StringsEnum.UI_ROOM_LEVELSELECTHUB, 6},
                 {LocaleStrings.StringsEnum.UI_ROOM_CELLAR_3, 14 },
-                {LocaleStrings.StringsEnum.UI_HIGHSCORE_TOTALTIME, 16 },
-                {LocaleStrings.StringsEnum.UI_GAME_GAMETITLE, 17 },
-                {LocaleStrings.StringsEnum.UI_CREDIT_DEV, 18 }
+                {LocaleStrings.StringsEnum.UI_ROOM_CELLAR_LEVELSELECT, 16 },
+                {LocaleStrings.StringsEnum.UI_ROOM_KITCHEN_LEVELSELECT, 17 },
+                {LocaleStrings.StringsEnum.UI_ROOM_LIBRARY_LEVELSELECT, 18 }
             };
 
             LoadData();
@@ -125,7 +125,6 @@ namespace fi.tamk.hellgame.dataholders
         public static void SetMusicMixerVolume(float value)
         {
             Settings.MusicVolume = value;
-
             RuntimeManager.GetVCA(Constants.MusicVCAReference).setVolume(value);
         }
 
