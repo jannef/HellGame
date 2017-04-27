@@ -33,6 +33,7 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private bool _isMenuScene = false;
 
         public UnityEvent OnPlayerVictory;
+        public UnityEvent OnRoomStart;
 
         public static RoomClearingRanks Ranks;
         public static event Action PlayerDeath;
@@ -69,6 +70,8 @@ namespace fi.tamk.hellgame.world
             _roomName = UserStaticData.IndexToName(SceneManager.GetActiveScene().buildIndex);
             Init();
             SpawnPlayer();
+            if (OnRoomStart != null) OnRoomStart.Invoke();
+            Debug.Log("Test");
 
             if (PoolingInstructions != null)
             {
