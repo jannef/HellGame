@@ -21,6 +21,7 @@ namespace fi.tamk.hellgame.world
             if (OpenEvenIfRoomNotFound)
             {
                 if (RoomFoundInSaveData != null) RoomFoundInSaveData.Invoke();
+                return;
             }
 
             var roomData = UserStaticData.GetRoomData((int)targetRoom);
