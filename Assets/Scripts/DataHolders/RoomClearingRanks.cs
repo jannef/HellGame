@@ -41,5 +41,25 @@ namespace fi.tamk.hellgame.dataholders
             nextRank = numeric <= 4 ? (ClearingRank) numeric : ClearingRank.None;
             return Ranks[nextRank == ClearingRank.None ? 4 : (int)nextRank];;
         }
+
+        public static string GetRankName(ClearingRank rank)
+        {
+            switch (rank)
+            {                
+                case ClearingRank.D:
+                    return LocaleStrings.RANK_D;
+                case ClearingRank.C:
+                    return LocaleStrings.RANK_C;
+                case ClearingRank.B:
+                    return LocaleStrings.RANK_B;
+                case ClearingRank.A:
+                    return LocaleStrings.RANK_A;
+                case ClearingRank.S:
+                    return LocaleStrings.RANK_S;
+                default:
+                case ClearingRank.None:
+                    return null;
+            }
+        }
     }
 }
