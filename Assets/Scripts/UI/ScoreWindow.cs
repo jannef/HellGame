@@ -8,11 +8,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using FMODUnity;
 using fi.tamk.hellgame.utils;
+using Object = UnityEngine.Object;
 
 namespace fi.tamk.hellgame.ui
 {
     public class ScoreWindow : MonoBehaviour
     {
+        [SerializeField] private float _delay = 1f;
         [SerializeField] private float _textFadeDuration = 0.66f;
         [SerializeField] private float _tickDuration = 0.2f;
         [SerializeField] private float _boxFadeDuration = 0.31f;
@@ -117,7 +119,7 @@ namespace fi.tamk.hellgame.ui
         {
             TotalField.text = GameClock.FormatTime(TimeSpan.FromSeconds(clock.Time + hits * penaltyPerHit));
             UpdateLabelTexts();
-            StartCoroutine(Animated(2f, clock, hits, penaltyPerHit, ranks));
+            StartCoroutine(Animated(2f, clock, hits, penaltyPerHit, ranks, _delay));
         }
 
         public static ScoreWindow GetScoreWindowGo(Transform parent = null)
@@ -127,7 +129,7 @@ namespace fi.tamk.hellgame.ui
             return go != null ? go.GetComponent<ScoreWindow>() : null;
         }
 
-        public static void BatchSetActive(bool toWhichState, params TextMeshProUGUI[] gos)
+        public static void BatchSetActive(bool toWhichState, params Component[] gos)
         {
             foreach(var go in gos)
             {
@@ -135,15 +137,25 @@ namespace fi.tamk.hellgame.ui
             }
         }
 
-        private IEnumerator Animated(float duration, GameClock clock, int hits, float penalty, RoomClearingRanks ranks)
+        private IEnumerator Animated(float duration, GameClock clock, int hits, float penalty, RoomClearingRanks ranks, float delay)
         {
+            if (delay > 0f)
+            {
+                var delayTimer = 0f;
+                while (delayTimer < delay)
+                {
+                    delayTimer += WorldStateMachine.Instance.DeltaTime;
+                    yield return null;
+                }
+            }
+
             Utilities.PlayOneShotSound(StartSoundEvent, transform.position);
-            BatchSetActive(true, TimeLabel, TimeField);
+            BatchSetActive(true, TimeLabel, TimeField, Background);
             FadeIn(_boxFadeDuration, Background);
             FadeIn(_textFadeDuration, TimeLabel, TimeField); 
 
              // Fill the used time.
-             var timer = 0f;
+            var timer = 0f;
             while (timer < duration)
             {
                 timer += WorldStateMachine.Instance.DeltaTime;
