@@ -40,7 +40,7 @@ public static partial class LocaleStrings
 		"Effects",
 		"Music",
 		"Quit",
-		"Level select",
+		"Level Select",
 		"Game Over",
 		"Credits",
 		"Forge Fury",
