@@ -79,7 +79,7 @@ namespace fi.tamk.hellgame
             }
         }
 
-        public void PlayTrackByIndex(int index, bool abandonPlaylist = true, STOP_MODE stopMode = STOP_MODE.IMMEDIATE)
+        public void PlayTrackByIndex(int index, bool abandonPlaylist = true, STOP_MODE stopMode = STOP_MODE.ALLOWFADEOUT)
         {
             if (index < 0 || index >= NumberOfTracks)
             {
@@ -96,13 +96,13 @@ namespace fi.tamk.hellgame
             Paused = false;
         }
 
-        public void NextTrack(ref Playlist playlist, STOP_MODE stopMode = STOP_MODE.IMMEDIATE)
+        public void NextTrack(ref Playlist playlist, STOP_MODE stopMode = STOP_MODE.ALLOWFADEOUT)
         {
             PlayTrackByIndex(playlist.NextIndex(), false);
             Paused = false;
         }
 
-        public void RestartTrack(STOP_MODE stopMode = STOP_MODE.IMMEDIATE)
+        public void RestartTrack(STOP_MODE stopMode = STOP_MODE.ALLOWFADEOUT)
         {
             _musicTracks[_iterator].stop(stopMode);
             _musicTracks[_iterator].start();
