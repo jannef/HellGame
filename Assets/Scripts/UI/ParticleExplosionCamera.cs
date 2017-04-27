@@ -23,6 +23,7 @@ namespace fi.tamk.hellgame.ui
             go.transform.forward = ExplosionPoint.forward;
             
             StartCoroutine(WaitForTheSystemToDie(go.GetComponent<ParticleSystem>()));
+            Debug.Log(go);
         }
 
         protected void Stop()

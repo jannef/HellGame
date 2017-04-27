@@ -66,11 +66,11 @@ namespace fi.tamk.hellgame.world
                 return;
             }
             // The function has returned if this is a debug run
+            if (OnRoomStart != null) OnRoomStart.Invoke();
             if (_isMenuScene) return;
             _roomName = UserStaticData.IndexToName(SceneManager.GetActiveScene().buildIndex);
             Init();
             SpawnPlayer();
-            if (OnRoomStart != null) OnRoomStart.Invoke();
 
             if (PoolingInstructions != null)
             {
