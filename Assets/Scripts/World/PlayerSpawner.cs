@@ -115,6 +115,7 @@ namespace fi.tamk.hellgame.world
         {
             var t = 0f;
             playerActor.enabled = false;
+            playerActor.transform.forward = endPosition - startingPosition;
             dashComponent.StartDash();
 
             while (t <= 1)
