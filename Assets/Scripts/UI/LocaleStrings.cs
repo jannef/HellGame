@@ -58,6 +58,7 @@ public static partial class LocaleStrings
 		"Cellar Wing",
 		"Kitchen Wing",
 		"Library Wing",
+		"Start",
 		""
 	};
 
@@ -113,6 +114,7 @@ public static partial class LocaleStrings
 		"Kellarisiipi",
 		"Keittiösiipi",
 		"Kirjastosiipi",
+		"Aloita",
 		""
 	};
 
@@ -168,6 +170,7 @@ public static partial class LocaleStrings
 		"Bodegas",
 		"Cocina",
 		"Biblioteca",
+		"Comienzo",
 		""
 	};
 
@@ -273,6 +276,8 @@ public static partial class LocaleStrings
 
 	public static string UI_ROOM_LIBRARY_LEVELSELECT { get { return CurrentLocale[50]; } }
 
+	public static string UI_MENU_PLAYGAME { get { return CurrentLocale[51]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -326,5 +331,6 @@ public static partial class LocaleStrings
 		UI_ROOM_CELLAR_LEVELSELECT=48,
 		UI_ROOM_KITCHEN_LEVELSELECT=49,
 		UI_ROOM_LIBRARY_LEVELSELECT=50,
+		UI_MENU_PLAYGAME=51,
 	}
 }
