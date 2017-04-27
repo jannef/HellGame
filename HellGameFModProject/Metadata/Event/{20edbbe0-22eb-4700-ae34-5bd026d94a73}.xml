@@ -153,6 +153,12 @@
         <property name="attackTime">
             <value>0</value>
         </property>
+        <property name="releaseTime">
+            <value>4000</value>
+        </property>
+        <property name="releaseShape">
+            <value>0.429262578</value>
+        </property>
     </object>
     <object class="MixerBusEffectChain" id="{4e6cee4b-d266-473f-92fe-6caf4fb9685e}">
         <relationship name="effects">
