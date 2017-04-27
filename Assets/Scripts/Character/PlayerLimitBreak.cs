@@ -135,6 +135,7 @@ namespace fi.tamk.hellgame.character
         /// <param name="howMany">How many to add.</param>
         public void GainPoints(float howMany)
         {
+            if (_collectionSoundEffect != null) _collectionSoundEffect.GemCollected();
             if ((LimitAvailableOrActive && !_limitActive) && howMany > 0) return;
 
 
@@ -143,11 +144,6 @@ namespace fi.tamk.hellgame.character
 
             if(PowerUpGained != null) PowerUpGained.Invoke(_collectedPoints, _modifiableStats.Cost);
             LimitAvailableOrActive = _collectedPoints >= _modifiableStats.Cost;
-
-            if (!LimitAvailableOrActive && !_limitActive)
-            {
-                if (_collectionSoundEffect != null) _collectionSoundEffect.GemCollected();
-            }
 
             if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(_limitActive, LimitAvailableOrActive);
         }
