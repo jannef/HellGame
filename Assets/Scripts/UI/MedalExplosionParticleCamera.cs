@@ -7,12 +7,10 @@ using UnityEngine;
 namespace fi.tamk.hellgame.ui
 {
 
-    public class MedalExplosionParticleCamera : MonoBehaviour
+    public class MedalExplosionParticleCamera : ParticleExplosionCamera
     {
-        [SerializeField] private Camera _camera;
         [SerializeField] private GameObject[] _medalParticleSystems;
-        [SerializeField] private Transform _explosionPoint;
-        public float lifeTime = 2f;
+        protected float Lifetime;
 
         public void PlayExplosion(ClearingRank _rank)
         {
@@ -27,16 +25,10 @@ namespace fi.tamk.hellgame.ui
                 return;
             }
 
-            var go = Instantiate(system.gameObject, _explosionPoint.position, Quaternion.identity);
-            go.transform.forward = _explosionPoint.forward;
-            lifeTime = go.GetComponent<ParticleSystem>().main.duration;
-            StartCoroutine(StaticCoroutines.DoAfterDelay(lifeTime, Stop));
-        }
-
-        private void Stop()
-        {
-            _camera.enabled = false;
-            Destroy(this.gameObject);
+            var go = Instantiate(system.gameObject, ExplosionPoint.position, Quaternion.identity);
+            go.transform.forward = ExplosionPoint.forward;
+            Lifetime = go.GetComponent<ParticleSystem>().main.duration;
+            StartCoroutine(StaticCoroutines.DoAfterDelay(Lifetime, Stop));
         }
     }
 }
