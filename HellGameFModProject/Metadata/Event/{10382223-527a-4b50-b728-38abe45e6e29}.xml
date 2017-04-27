@@ -151,10 +151,13 @@
             <value>-80</value>
         </property>
         <property name="attackTime">
-            <value>0</value>
+            <value>200</value>
         </property>
         <property name="releaseTime">
-            <value>3000</value>
+            <value>5000</value>
+        </property>
+        <property name="releaseShape">
+            <value>0.456475139</value>
         </property>
     </object>
     <object class="MixerBusEffectChain" id="{f65393d6-b55d-4b9f-8abc-a470c3cc86f7}">

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="Event" id="{6aa7b5fe-5ad4-487a-8090-954c3eadb486}">
         <property name="name">
-            <value>TitleMusic</value>
+            <value>HubMusic</value>
         </property>
         <property name="note">
             <value>Placeholder created via Unity</value>
@@ -66,7 +66,7 @@
     <object class="MarkerTrack" id="{830d8b82-7374-466d-8b21-fd43d235eb40}"/>
     <object class="GroupTrack" id="{3363c0b6-5ee7-4ce2-a260-5cedbfd7f1c5}">
         <relationship name="modules">
-            <destination>{6da036ea-0306-4cc6-8ded-7012d5534f32}</destination>
+            <destination>{8f888c7e-ffba-4486-b48e-2efbcca6fcd5}</destination>
         </relationship>
         <relationship name="mixerGroup">
             <destination>{fdedec0e-8298-488e-adc0-153a29c07482}</destination>
@@ -74,7 +74,7 @@
     </object>
     <object class="Timeline" id="{0028b899-e268-4bc7-ab51-1f10503eb149}">
         <relationship name="modules">
-            <destination>{6da036ea-0306-4cc6-8ded-7012d5534f32}</destination>
+            <destination>{8f888c7e-ffba-4486-b48e-2efbcca6fcd5}</destination>
         </relationship>
     </object>
     <object class="EventMixerMaster" id="{11bddc13-96cf-4041-8365-32fc15666381}">
@@ -94,12 +94,12 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{8cad7cb1-01c6-4857-bc47-b14fea8a11bc}"/>
-    <object class="SingleSound" id="{6da036ea-0306-4cc6-8ded-7012d5534f32}">
+    <object class="SingleSound" id="{8f888c7e-ffba-4486-b48e-2efbcca6fcd5}">
         <property name="length">
-            <value>113.00571428571429</value>
+            <value>107.83199999999999</value>
         </property>
         <relationship name="audioFile">
-            <destination>{735ea2ff-4347-4a17-be26-b9400ba3cd6a}</destination>
+            <destination>{8356ae74-0266-4caa-904e-1c6d733672c1}</destination>
         </relationship>
     </object>
     <object class="EventMixerGroup" id="{fdedec0e-8298-488e-adc0-153a29c07482}">
