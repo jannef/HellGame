@@ -71,7 +71,6 @@ namespace fi.tamk.hellgame.world
             Init();
             SpawnPlayer();
             if (OnRoomStart != null) OnRoomStart.Invoke();
-            Debug.Log("Test");
 
             if (PoolingInstructions != null)
             {

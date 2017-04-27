@@ -25,9 +25,13 @@ namespace fi.tamk.hellgame.effects
             // Default value of -1 neatly ignores this, when called
             // automatically on room start event!
             if (trackZeroBaseIndex < 0) return;
-
-            Music.LoopTrack = true;
             Music.PlayTrackByIndex(trackZeroBaseIndex);
+        }
+
+        public void SwapToPlaylist(int playlistIndex)
+        {
+            if (playlistIndex < 0) return;
+            Music.PlayPlaylist(playlistIndex);
         }
     }
 }
