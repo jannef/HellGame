@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{a1f6d25c-7561-4124-b265-d7ec479cc1e3}">
         <property name="assetPath">
-            <value>Meteor2.wav</value>
+            <value>Player/Meteor2.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>48</value>
