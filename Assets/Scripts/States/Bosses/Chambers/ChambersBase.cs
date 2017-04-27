@@ -46,7 +46,7 @@ namespace fi.tamk.hellgame.states
             if (clonedState == null)
             {
                 Externals = ControlledActor.GetComponent<BossExternalObjects>();
-                NavigationAgent = ControlledActor.GetComponent<NavMeshAgent>();
+                NavigationAgent = ControlledActor.GetComponentInParent<NavMeshAgent>();
                 Health = ControlledActor.GetComponent<HealthComponent>();
                 LaserBeam = ControlledActor.GetComponentInChildren<LaserEmitter>();
                 NumericData = ControlledActor.ActorNumericData;
