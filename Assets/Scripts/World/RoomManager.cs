@@ -237,5 +237,11 @@ namespace fi.tamk.hellgame.world
                 if (input != null) input.MyConfig = scheme;
             }
         }
+
+        public static bool IsQuitting { get; private set; }
+        private void OnApplicationQuit()
+        {
+            IsQuitting = true;
+        }
     }
 }
