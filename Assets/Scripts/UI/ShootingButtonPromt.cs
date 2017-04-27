@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using fi.tamk.hellgame.input;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,19 +16,29 @@ namespace fi.tamk.hellgame.ui
         // Use this for initialization
         void Start()
         {
+            ChangeText(false);
+            MultipleInputReader.primaryInputChanged += ChangeText;
+        }
+
+        public void ChangeText(bool isGamePad)
+        {
             _promtText = GetComponent<TextMeshPro>();
 
             if (_promtText == null) return;
 
-            var JoySticks = Input.GetJoystickNames();
-
-            if (JoySticks.Length > 0)
+            if (isGamePad)
             {
                 _promtText.text = _gamepadText;
-            } else
+            }
+            else
             {
                 _promtText.text = _pcText;
             }
+        }
+
+        private void OnDisable()
+        {
+            MultipleInputReader.primaryInputChanged -= ChangeText;
         }
     }
 }

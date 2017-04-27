@@ -11,14 +11,12 @@ namespace fi.tamk.hellgame.ui
     {
         public override void Submit(MenuCommander commander)
         {
-            Debug.Log("UnPaused");
             RoomIdentifier.PauseGame();
             base.Submit(commander);
         }
 
         public override Action ClickThis(MenuCommander commander)
         {
-            Debug.Log("UnPaused");
             RoomIdentifier.PauseGame();
             return base.ClickThis(commander);
         }
