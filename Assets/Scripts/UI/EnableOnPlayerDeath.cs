@@ -1,6 +1,7 @@
 ﻿using fi.tamk.hellgame.world;
 using System.Collections;
 using System.Collections.Generic;
+using fi.tamk.hellgame.utils;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,7 @@ namespace fi.tamk.hellgame.ui
 
     public class EnableOnPlayerDeath : MonoBehaviour
     {
+        public float Delay = 1f;
         private CanvasGroup _canvasGroup;
         public UnityEvent _onDeathEvent;
 
@@ -32,11 +34,9 @@ namespace fi.tamk.hellgame.ui
 
         public void Activate()
         {
-            if (_onDeathEvent != null) _onDeathEvent.Invoke();
             gameObject.SetActive(true);
-            _canvasGroup.alpha = 1;
-            _canvasGroup.interactable = true;
-            _canvasGroup.blocksRaycasts = true;
+            _canvasGroup.alpha = 0;
+            StartCoroutine(DelayedActivate());
         }
 
         public void Disable()
@@ -45,6 +45,15 @@ namespace fi.tamk.hellgame.ui
             _canvasGroup.alpha = 0;
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
+        }
+
+        protected IEnumerator DelayedActivate()
+        {
+            yield return new WaitForSecondsRealtime(Delay);
+            if (_onDeathEvent != null) _onDeathEvent.Invoke();
+            _canvasGroup.alpha = 1;
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
         }
     }
 }
