@@ -71,6 +71,21 @@ namespace fi.tamk.hellgame.dataholders
             return RoomData.Count < 1 ? null : RoomData.DefaultIfEmpty(null).OrderBy(x => x.RecordTime).FirstOrDefault(x => x.RoomIndex == roomIndex);
         }
 
+        public static bool GetIfRoomAlreadyOpenedOnce(int DestinationIndex)
+        {
+            for (int i = 0; i < Settings.DoorsThatHaveAlreadyOpened.Count; ++i)
+            {
+                if (GetGameSettings().DoorsThatHaveAlreadyOpened[i] == DestinationIndex)
+                {
+                    return true;
+                }
+            }
+
+            Settings.DoorsThatHaveAlreadyOpened.Add(DestinationIndex);
+            SaveGameSettings();
+            return false;
+        }
+
         public static GameSettings GetGameSettings()
         {
             if (Settings == null)

@@ -11,6 +11,7 @@ namespace fi.tamk.hellgame.world
     public class RoomFoundInSaveDataTrigger : MonoBehaviour
     {
         public UnityEvent RoomFoundInSaveData;
+        public UnityEvent RoomFirstTimeOpen;
         [SerializeField] private LegalScenes targetRoom;
         [SerializeField] private LegalScenes theRoomBeforeInProgression;
         [SerializeField] private bool OpenEvenIfRoomNotFound = false;
@@ -29,9 +30,18 @@ namespace fi.tamk.hellgame.world
             if (roomData == null)
             {
                 roomData = UserStaticData.GetRoomData((int)theRoomBeforeInProgression);
-            }
-
-            if (roomData != null)
+                if (roomData != null)
+                {
+                    if (!UserStaticData.GetIfRoomAlreadyOpenedOnce((int) targetRoom))
+                    {
+                        if (RoomFirstTimeOpen != null) RoomFirstTimeOpen.Invoke();
+                        return;
+                    } else
+                    {
+                        if (RoomFoundInSaveData != null) RoomFoundInSaveData.Invoke();
+                    }
+                }
+            } else
             {
                 if (RoomFoundInSaveData != null) RoomFoundInSaveData.Invoke();
             }
