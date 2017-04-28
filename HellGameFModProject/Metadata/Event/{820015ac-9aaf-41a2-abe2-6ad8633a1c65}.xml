@@ -8,7 +8,7 @@
             <value>Placeholder created via Unity</value>
         </property>
         <property name="outputFormat">
-            <value>0</value>
+            <value>1</value>
         </property>
         <relationship name="folder">
             <destination>{f63b9304-d845-428a-9c18-78986409d0a5}</destination>
@@ -65,11 +65,18 @@
     <object class="EventAutomatableProperties" id="{2966f8a6-e1ad-4ed6-a2a4-9facb4370b02}"/>
     <object class="MarkerTrack" id="{0faf3d1c-4733-46e5-82c6-07774171af5b}"/>
     <object class="GroupTrack" id="{a4761089-95a9-4728-b2fe-205e67bcbcdd}">
+        <relationship name="modules">
+            <destination>{5467fcdd-d6c4-4b9f-83bf-1319bfd5eeb7}</destination>
+        </relationship>
         <relationship name="mixerGroup">
             <destination>{f0e8796a-4490-4c54-a1dd-145d20f310e3}</destination>
         </relationship>
     </object>
-    <object class="Timeline" id="{1c5ff3c6-7030-4aff-aa4f-f9bbeab814a8}"/>
+    <object class="Timeline" id="{1c5ff3c6-7030-4aff-aa4f-f9bbeab814a8}">
+        <relationship name="modules">
+            <destination>{5467fcdd-d6c4-4b9f-83bf-1319bfd5eeb7}</destination>
+        </relationship>
+    </object>
     <object class="EventMixerMaster" id="{9fd2d451-7779-4553-bd96-545c405e4387}">
         <relationship name="effectChain">
             <destination>{5cf34365-f642-4c2d-91e9-83d63b842d7e}</destination>
@@ -87,6 +94,14 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{842cf669-177d-41b7-bb3e-08e849acd7bd}"/>
+    <object class="SingleSound" id="{5467fcdd-d6c4-4b9f-83bf-1319bfd5eeb7}">
+        <property name="length">
+            <value>0.89033333333333342</value>
+        </property>
+        <relationship name="audioFile">
+            <destination>{ddb6e1b1-0a87-4176-a133-5d53c0000b53}</destination>
+        </relationship>
+    </object>
     <object class="EventMixerGroup" id="{f0e8796a-4490-4c54-a1dd-145d20f310e3}">
         <property name="name">
             <value>Audio 1</value>
