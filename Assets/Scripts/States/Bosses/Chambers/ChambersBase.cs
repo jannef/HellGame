@@ -31,6 +31,7 @@ namespace fi.tamk.hellgame.states
         protected BulletEmitter CogGun;
         protected CollectiableDropEffect Dropper;
         protected readonly Transform PlayerTransform;
+        protected OneShotSoundEffect SoundEffect;
 
         protected int HitCounter = 0;
 
@@ -54,6 +55,7 @@ namespace fi.tamk.hellgame.states
                 StartPosition = ControlledActor.transform.position;
                 StartSpeed = NavigationAgent.speed;
                 Dropper = ControlledActor.GetComponent<CollectiableDropEffect>();
+                SoundEffect = ControlledActor.GetComponent<OneShotSoundEffect>();
             }
             else
             {
@@ -67,6 +69,7 @@ namespace fi.tamk.hellgame.states
                 StartSpeed = clonedState.StartSpeed;
                 Dropper = clonedState.Dropper;
                 HitCounter = clonedState.HitCounter;
+                SoundEffect = clonedState.SoundEffect;
             }
         }
 
@@ -132,6 +135,8 @@ namespace fi.tamk.hellgame.states
 
         protected void SpawnTrapOnPlayer()
         {
+            if (SoundEffect != null) SoundEffect.Play();
+
             Object.Instantiate(Externals.PrefabsUsed[0], PlayerTransform.position, Quaternion.identity);
             var go = Object.Instantiate(Externals.PrefabsUsed[1], ControlledActor.transform.position,
                 Quaternion.identity).GetComponent<ChambersFireTrail>();

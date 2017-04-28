@@ -1,6 +1,7 @@
 ﻿using fi.tamk.hellgame.effector;
 using UnityEngine;
 using fi.tamk.hellgame.utils;
+using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.effectors
 {
@@ -12,6 +13,7 @@ namespace fi.tamk.hellgame.effectors
         [SerializeField] protected float ScatterForceVariance;
         [SerializeField] protected float TorqueForce;
         [SerializeField] protected float Height;
+        [SerializeField] protected UnityEvent OnDrop;
 
         public override void Activate()
         {
@@ -27,6 +29,7 @@ namespace fi.tamk.hellgame.effectors
 
         protected virtual void LaunchCollectiables(float[] args)
         {
+            if (OnDrop != null) OnDrop.Invoke();
             if (amountDropped == 0) return;
             var degrees = 360 / amountDropped; 
             for (int i = 0; i < amountDropped; i++)
