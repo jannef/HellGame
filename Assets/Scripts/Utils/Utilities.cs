@@ -61,6 +61,22 @@ namespace fi.tamk.hellgame.utils
             cols.ForEach(x => Pool.Instance.GetHealthComponent(x.gameObject).TakeDisplacingDamage(howMuch, trajectory.normalized * radius * 1.5f));
         }
 
+        public static string ReturnLocaleStringBasedOnLanguageEnum(SystemLanguage language)
+        {
+            switch (language)
+            {
+                case SystemLanguage.English:
+                    return Constants.EnglishLocaleString;
+                case SystemLanguage.Finnish:
+                    return Constants.FinnishLocaleString;
+                case SystemLanguage.Spanish:
+                    return Constants.SpanishLocaleString;
+                default:
+                    return Constants.EnglishLocaleString;
+                
+            }
+        }
+
         public static LegalScenes ReturnLevelSelectScreenBasedOnRoom(LegalScenes scene)
         {
             switch (scene)

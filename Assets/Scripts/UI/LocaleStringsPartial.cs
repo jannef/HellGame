@@ -1,7 +1,8 @@
-﻿    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using UnityEngine;
+﻿using fi.tamk.hellgame.utils;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using UnityEngine;
 
 public static partial class LocaleStrings
 {
@@ -87,7 +88,8 @@ public static partial class LocaleStrings
     /// </summary>
     private static void LoadLocale()
     {
-        SetCurrentLocale(PlayerPrefs.HasKey(PlayerLocaleKey) ? PlayerPrefs.GetString(PlayerLocaleKey) : "en_EN");
+        SetCurrentLocale(PlayerPrefs.HasKey(PlayerLocaleKey) ? PlayerPrefs.GetString(PlayerLocaleKey) : 
+            Utilities.ReturnLocaleStringBasedOnLanguageEnum(Application.systemLanguage));
     }
 
     /// <summary>
