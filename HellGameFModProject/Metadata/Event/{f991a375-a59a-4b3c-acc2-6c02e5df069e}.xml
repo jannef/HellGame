@@ -67,7 +67,11 @@
             <destination>{fb0cb392-58a1-4cfb-aeff-0f69d88c5000}</destination>
         </relationship>
     </object>
-    <object class="EventAutomatableProperties" id="{bead2a2d-f630-4cfd-8e74-998aea900616}"/>
+    <object class="EventAutomatableProperties" id="{bead2a2d-f630-4cfd-8e74-998aea900616}">
+        <property name="priority">
+            <value>3</value>
+        </property>
+    </object>
     <object class="MarkerTrack" id="{433e0d81-3b29-4493-a103-d99c7a675a45}"/>
     <object class="MarkerTrack" id="{d6137431-e0f7-40e4-882f-1de8815c8372}"/>
     <object class="MarkerTrack" id="{c0532da4-09f0-4b18-bba4-d2455d20ac8b}"/>
@@ -103,7 +107,7 @@
     </object>
     <object class="EventMixerMaster" id="{722ce20f-282f-417f-b4ea-d412a41bde17}">
         <property name="volume">
-            <value>-2.5</value>
+            <value>-2</value>
         </property>
         <relationship name="effectChain">
             <destination>{6781fd3f-dc7d-488f-80ff-055a9bc0821c}</destination>
@@ -146,7 +150,7 @@
             <value>7.6217291666666664</value>
         </property>
         <property name="volume">
-            <value>2</value>
+            <value>4</value>
         </property>
         <relationship name="fadeOutCurve">
             <destination>{b151a77c-bacd-428a-b3e3-755a9a961fd6}</destination>
@@ -204,9 +208,6 @@
         <property name="length">
             <value>7.6144166666666671</value>
         </property>
-        <relationship name="triggerConditions">
-            <destination>{064fb312-5f51-46c7-821d-49bf61b69e64}</destination>
-        </relationship>
         <relationship name="destination">
             <destination>{6cee6645-ec8f-4527-ae87-986fbe32b72f}</destination>
         </relationship>
@@ -215,6 +216,9 @@
         </relationship>
         <relationship name="markerTrack">
             <destination>{c0532da4-09f0-4b18-bba4-d2455d20ac8b}</destination>
+        </relationship>
+        <relationship name="triggerConditions">
+            <destination>{064fb312-5f51-46c7-821d-49bf61b69e64}</destination>
         </relationship>
     </object>
     <object class="MixerBusEffectChain" id="{6781fd3f-dc7d-488f-80ff-055a9bc0821c}">

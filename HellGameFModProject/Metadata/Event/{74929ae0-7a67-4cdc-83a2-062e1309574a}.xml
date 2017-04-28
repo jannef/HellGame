@@ -99,6 +99,9 @@
         </relationship>
     </object>
     <object class="EventMixerMaster" id="{03d7b8e3-435a-4fbd-9e2a-a6861f3721d9}">
+        <property name="volume">
+            <value>-1</value>
+        </property>
         <relationship name="effectChain">
             <destination>{99266ec3-bbc3-4953-97fc-3002203116ce}</destination>
         </relationship>
@@ -183,9 +186,6 @@
         <property name="length">
             <value>27.428571428571427</value>
         </property>
-        <relationship name="triggerConditions">
-            <destination>{e8bb8e3b-04c4-46aa-8160-3fcbce23cb98}</destination>
-        </relationship>
         <relationship name="destination">
             <destination>{111a7fba-dd72-4fca-b28f-20da43b5c96f}</destination>
         </relationship>
@@ -194,6 +194,9 @@
         </relationship>
         <relationship name="markerTrack">
             <destination>{9e95e5d5-5006-4bd8-9bae-ae070179b07f}</destination>
+        </relationship>
+        <relationship name="triggerConditions">
+            <destination>{e8bb8e3b-04c4-46aa-8160-3fcbce23cb98}</destination>
         </relationship>
     </object>
     <object class="AutomationCurve" id="{6c7c6d33-e608-4cc4-8640-8aeeaed2274f}">

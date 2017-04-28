@@ -62,7 +62,11 @@
             <destination>{fb0cb392-58a1-4cfb-aeff-0f69d88c5000}</destination>
         </relationship>
     </object>
-    <object class="EventAutomatableProperties" id="{03bee3f4-f461-4aee-ad41-743e783d7809}"/>
+    <object class="EventAutomatableProperties" id="{03bee3f4-f461-4aee-ad41-743e783d7809}">
+        <property name="priority">
+            <value>3</value>
+        </property>
+    </object>
     <object class="MarkerTrack" id="{394d9322-258f-4fca-b966-f937fa219f8d}"/>
     <object class="GroupTrack" id="{2f829868-7553-40b7-9059-92330389ec93}">
         <relationship name="modules">
@@ -103,6 +107,9 @@
         </relationship>
     </object>
     <object class="EventMixerGroup" id="{4f904372-f6d7-43c3-b236-744e660aaa24}">
+        <property name="volume">
+            <value>2</value>
+        </property>
         <property name="name">
             <value>Audio 1</value>
         </property>

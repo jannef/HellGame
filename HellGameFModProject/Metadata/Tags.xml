@@ -38,6 +38,7 @@
             <destination>{1103d59f-da1c-410e-8790-50705b98152f}</destination>
             <destination>{f69a9b36-6bb1-44ef-bb15-bd27a4558280}</destination>
             <destination>{0ad968eb-7dc6-4169-90c4-3b91c0696f07}</destination>
+            <destination>{b523fd23-b55d-4823-8dbc-99b67faf73c6}</destination>
         </relationship>
     </object>
     <object class="Tag" id="{8af7924b-0958-481d-bc5c-121358480496}">
@@ -297,6 +298,14 @@
         </relationship>
     </object>
     <object class="Tag" id="{0ad968eb-7dc6-4169-90c4-3b91c0696f07}">
+        <property name="name">
+            <value>placeholder</value>
+        </property>
+        <relationship name="folder">
+            <destination>{26ec8477-aa83-4857-9848-5296ca6c75ba}</destination>
+        </relationship>
+    </object>
+    <object class="Tag" id="{b523fd23-b55d-4823-8dbc-99b67faf73c6}">
         <property name="name">
             <value>placeholder</value>
         </property>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.09.00">
     <object class="MixerMaster" id="{462c7c0e-525a-4ee2-928f-7367ad1bef74}">
+        <property name="instanceStealing">
+            <value>1</value>
+        </property>
         <property name="name">
             <value>Master Bus</value>
         </property>
