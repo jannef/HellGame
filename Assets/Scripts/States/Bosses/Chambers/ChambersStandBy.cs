@@ -21,6 +21,12 @@ namespace fi.tamk.hellgame.states
             if (_triggered) return;
             _triggered = true;
 
+            var wu = ControlledActor.GetComponent<WakeBossUpEvent>();
+            if (wu != null)
+            {
+                if (wu.BossWakeUp != null) wu.BossWakeUp.Invoke();
+            }
+
             ControlledActor.StartCoroutine(TransitionToPhaseOne(
                 NumericData.ActorFloatData[(int)FloatDataLabels.CogBurstDuration],
                 (int)NumericData.ActorFloatData[(int)FloatDataLabels.CogBursts]));

@@ -3,6 +3,7 @@ using System.Collections;
 using fi.tamk.hellgame.character;
 using fi.tamk.hellgame.effects;
 using fi.tamk.hellgame.interfaces;
+using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.states
 {
@@ -17,6 +18,12 @@ namespace fi.tamk.hellgame.states
         protected override void OnHealthChange(float percentage, int currentHp, int maxHp)
         {
             if (_transferInProgress) return;
+
+            var wu = ControlledActor.GetComponent<WakeBossUpEvent>();
+            if (wu != null)
+            {
+                if (wu.BossWakeUp != null) wu.BossWakeUp.Invoke();
+            }
 
             _transferInProgress = true;
             TransitionPercentage = 0.75f;

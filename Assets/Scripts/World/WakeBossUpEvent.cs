@@ -19,7 +19,15 @@ namespace fi.tamk.hellgame.world
             if (BossWakeUp != null) BossWakeUp.Invoke();
             hasActivated = true;
 
-            StartCoroutine(StaticCoroutines.DoAfterDelay(DelayToActivation, Activate));
+            if (DelayToActivation <= 0)
+            {
+                Activate();
+            }
+            else
+            {
+                StartCoroutine(StaticCoroutines.DoAfterDelay(DelayToActivation, Activate));
+            }
+            
         }
 
         public void Activate()
