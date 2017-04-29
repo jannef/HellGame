@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using UnityEngine;
 
 public class PlayerShootingSound : MonoBehaviour {
@@ -51,6 +52,10 @@ public class PlayerShootingSound : MonoBehaviour {
 
     private void OnDestroy()
     {
-        if (_shootingLoop != null) _shootingLoop.release();
+        if (_shootingLoop != null)
+        {
+            _shootingLoop.stop(STOP_MODE.IMMEDIATE);
+            _shootingLoop.release();
+        }
     }
 }
