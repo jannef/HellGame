@@ -1,6 +1,7 @@
 ﻿using FMODUnity;
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace fi.tamk.hellgame.effects
 {
@@ -26,6 +27,13 @@ namespace fi.tamk.hellgame.effects
                 throw new UnityException(string.Format("Parameters out of range [0, {0}]: {1}", EventArray.Length - 1, index));
             }
 
+            if (String.IsNullOrEmpty(EventArray[index])) return;
+            RuntimeManager.PlayOneShot(EventArray[index], transform.position);
+        }
+
+        public void PlayRandomFromArray()
+        {
+            var index = Random.Range(0, EventArray.Length - 1);
             if (String.IsNullOrEmpty(EventArray[index])) return;
             RuntimeManager.PlayOneShot(EventArray[index], transform.position);
         }
