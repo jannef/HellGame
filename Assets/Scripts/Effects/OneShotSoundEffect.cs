@@ -27,7 +27,7 @@ namespace fi.tamk.hellgame.effects
             }
 
             if (String.IsNullOrEmpty(EventArray[index])) return;
-            RuntimeManager.PlayOneShot(Event, transform.position);
+            RuntimeManager.PlayOneShot(EventArray[index], transform.position);
         }
     }
 }
