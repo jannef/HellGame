@@ -7,6 +7,11 @@ namespace fi.tamk.hellgame.ui
 
     public class UIGenericPopUp : MonoBehaviour
     {
+        private enum CurrentState
+        {
+            Retracting, StartingToShow, Inactive
+        }
+
         private Vector2 endPosition;
         [SerializeField]
         private Vector2 offSet;
@@ -22,6 +27,8 @@ namespace fi.tamk.hellgame.ui
         [SerializeField]
         private AnimationCurve retractionCurve;
 
+        private CurrentState _state = CurrentState.Inactive;
+
         private void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
@@ -33,13 +40,22 @@ namespace fi.tamk.hellgame.ui
         public void StartPopUp()
         {
             StopAllCoroutines();
-            StartCoroutine(MoveCanvas(_rectTransform, movementLenght, endPosition, startingPosition, movementCurve));
+            if (_state != CurrentState.StartingToShow)
+            {
+                StartCoroutine(MoveCanvas(_rectTransform, movementLenght, endPosition, startingPosition, movementCurve));
+                _state = CurrentState.StartingToShow;
+            }
+            
         }
 
         public void RemovePopUp()
         {
             StopAllCoroutines();
-            StartCoroutine(MoveCanvas(_rectTransform, retractionLenght, _rectTransform.anchoredPosition, endPosition, retractionCurve));
+            if (_state != CurrentState.Retracting)
+            {
+                StartCoroutine(MoveCanvas(_rectTransform, retractionLenght, _rectTransform.anchoredPosition, endPosition, retractionCurve));
+                _state = CurrentState.Retracting;
+            }
         }
 
         private IEnumerator MoveCanvas(RectTransform rect, float lenght, Vector3 startPosition, Vector3 endPosition, AnimationCurve curve)
@@ -54,7 +70,7 @@ namespace fi.tamk.hellgame.ui
             }
 
             rect.anchoredPosition = endPosition;
-
+            _state = CurrentState.Inactive;
             yield return null;
         }
     }

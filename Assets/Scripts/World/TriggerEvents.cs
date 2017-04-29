@@ -16,6 +16,7 @@ namespace fi.tamk.hellgame.world
         {
             if (!_playerIsInside)
             {
+                _playerIsInside = true;
                 if (PlayerEnters != null) PlayerEnters.Invoke();
             }
         }
