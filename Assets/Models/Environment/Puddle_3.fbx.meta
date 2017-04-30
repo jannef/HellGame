@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 75e5e884f69449d45933870dc359e5dc
-timeCreated: 1491841060
+guid: 93a516bef37313b47bf53501d7b6c28c
+timeCreated: 1493567412
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,12 +9,12 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube1
+    4300000: Puddle3
     9500000: //RootNode
   materials:
     importMaterials: 1
-    materialName: 1
-    materialSearch: 2
+    materialName: 0
+    materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
