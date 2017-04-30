@@ -19,6 +19,7 @@ namespace fi.tamk.hellgame.world
         // Use this for initialization
         void Start()
         {
+
             if (OpenEvenIfRoomNotFound)
             {
                 if (RoomFoundInSaveData != null) RoomFoundInSaveData.Invoke();
