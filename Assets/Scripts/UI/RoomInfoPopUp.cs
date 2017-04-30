@@ -1,5 +1,8 @@
 ﻿using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.utils;
 using fi.tamk.hellgame.world;
+using FMODUnity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -24,6 +27,11 @@ namespace fi.tamk.hellgame.ui
         [SerializeField] private AnimationCurve movementCurve;
         [SerializeField] private float retractionLenght;
         [SerializeField] private AnimationCurve retractionCurve;
+
+        [EventRef]
+        public String ActivateSound = "";
+        [EventRef]
+        public String RetractionSound = "";
 
         private void Awake()
         {
@@ -60,12 +68,14 @@ namespace fi.tamk.hellgame.ui
             }
 
             StopAllCoroutines();
+            Utilities.PlayOneShotSound(ActivateSound, transform.position);
             StartCoroutine(MoveCanvas(_rectTransform, movementLenght, endPosition, startingPosition, movementCurve));
         }
 
         public void RemovePopUp()
         {
             StopAllCoroutines();
+            Utilities.PlayOneShotSound(RetractionSound, transform.position);
             StartCoroutine(MoveCanvas(_rectTransform, retractionLenght, _rectTransform.anchoredPosition, endPosition, retractionCurve));
         }
 

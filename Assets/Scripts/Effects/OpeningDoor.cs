@@ -55,6 +55,7 @@ public class OpeningDoor : MonoBehaviour
         var t = 0f;
         var lastT = 0f;
         var baseSpeed = openingDegreeAmount;
+        yield return null;
 
         while (t < 1)
         {
