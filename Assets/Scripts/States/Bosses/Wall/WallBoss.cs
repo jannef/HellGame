@@ -15,7 +15,7 @@ namespace fi.tamk.hellgame.states
     {
         private enum AttackState
         {
-            LaserHop, BulletHell
+            LaserHop, BulletHell, BulletHellSecond
         }
 
 
@@ -32,9 +32,13 @@ namespace fi.tamk.hellgame.states
         private WallBossLaserAttackStats _secondLaserAttack;
         private WallBossBulletHellPhaseStats _thirdBulletHellPhase;
         private WallBossLaserAttackStats _thirdLaserAttack;
+        private WallBossBulletHellPhaseStats _firstSecondBulletHellPhase;
+        private WallBossBulletHellPhaseStats _secondSecondBulletHellPhase;
+        private WallBossBulletHellPhaseStats _thirdSecondBulletHellPhase;
 
         private WallBossLaserAttackStats _currentLaserAttack;
         private WallBossBulletHellPhaseStats _currentBulletHellStats;
+        private WallBossBulletHellPhaseStats _secondBulletHellStats;
 
         public WallBoss(ActorComponent controlledHero) : base(controlledHero)
         {
@@ -60,6 +64,10 @@ namespace fi.tamk.hellgame.states
             _thirdBulletHellPhase = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[7]) as WallBossBulletHellPhaseStats;
             _thirdLaserAttack = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[8]) as WallBossLaserAttackStats;
 
+            _firstSecondBulletHellPhase = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[11]) as WallBossBulletHellPhaseStats;
+            _secondSecondBulletHellPhase = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[12]) as WallBossBulletHellPhaseStats;
+            _thirdSecondBulletHellPhase = UnityEngine.Object.Instantiate(externalObjects.ScriptableObjects[13]) as WallBossBulletHellPhaseStats;
+
             SetupStats();
         }
 
@@ -69,14 +77,17 @@ namespace fi.tamk.hellgame.states
             {
                 _currentLaserAttack = _firstLaserAttack;
                 _currentBulletHellStats = _firstBulletHellPhase;
+                _secondBulletHellStats = _firstSecondBulletHellPhase;
             } else if (BaseValues.phaseNumber == 1)
             {
                 _currentLaserAttack = _secondLaserAttack;
                 _currentBulletHellStats = _secondBulletHellPhase;
+                _secondBulletHellStats = _secondSecondBulletHellPhase;
             } else
             {
                 _currentLaserAttack = _thirdLaserAttack;
                 _currentBulletHellStats = _thirdBulletHellPhase;
+                _secondBulletHellStats = _thirdSecondBulletHellPhase;
             }
         }
 
@@ -93,11 +104,15 @@ namespace fi.tamk.hellgame.states
             switch (_currentAttackState)
             {
                 case AttackState.BulletHell:
+                    BulletHell(_secondBulletHellStats);
+                    _currentAttackState = AttackState.BulletHellSecond;
+                    break;
+                case AttackState.BulletHellSecond:
                     StartLaserAttack();
                     _currentAttackState = AttackState.LaserHop;
                     break;
                 case AttackState.LaserHop:
-                    BulletHell();
+                    BulletHell(_currentBulletHellStats);
                     _currentAttackState = AttackState.BulletHell;
                     break;
             }
@@ -111,9 +126,9 @@ namespace fi.tamk.hellgame.states
             
         }
 
-        private void BulletHell()
+        private void BulletHell(WallBossBulletHellPhaseStats stats)
         {
-            ControlledActor.GoToState(new WallBossBulletHell(ControlledActor, BaseValues, _leftEye, _rightEye, _currentBulletHellStats));
+            ControlledActor.GoToState(new WallBossBulletHell(ControlledActor, BaseValues, _leftEye, _rightEye, stats));
             
         }
 
