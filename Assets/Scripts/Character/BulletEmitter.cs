@@ -50,17 +50,19 @@ namespace fi.tamk.hellgame.character
 
         protected void FireBullets(Vector3 tra)
         {
+            var startRot = BulletOrigin.transform.rotation;
             var startPos = BulletOrigin.transform.position;
             BulletOrigin.RotateAround(transform.position, -transform.up, (Spread / 2) + StartAngle);
 
             for (var i = 0; i < NumberOfBullets; i++)
             {
                 var offset = Spread / NumberOfBullets;
-                FireBullet(GunVector, BulletOrigin.transform.rotation.eulerAngles - new Vector3( 0, offset, 0), false);
+                FireBullet(GunVector, BulletOrigin.transform.rotation.eulerAngles, false);
                 BulletOrigin.transform.RotateAround(transform.position, transform.up, offset);
             }
 
             BulletOrigin.transform.position = startPos;
+            BulletOrigin.transform.rotation = startRot;
         }
 
         protected void RestoreStatsToDefault()
