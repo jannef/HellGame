@@ -90,7 +90,7 @@ namespace fi.tamk.hellgame.character
         /// <summary>
         /// If this limit break is active.
         /// </summary>
-        private bool _limitActive;
+        public bool LimitActive;
 
         [SerializeField] private PlayerCollectiableSoundEffect _collectionSoundEffect;
 
@@ -102,7 +102,7 @@ namespace fi.tamk.hellgame.character
             _modifiableStats = ScriptableObject.Instantiate(_originalStats) as PlayerLimitBreakStats;
             _hc = GetComponent<HealthComponent>();
             LimitAvailableOrActive = false;
-            _limitActive = false;
+            LimitActive = false;
             _hc.HealthChangeEvent += OnPlayerHit;
             _lastSeenHp = _hc.Health;
         }
@@ -136,7 +136,7 @@ namespace fi.tamk.hellgame.character
         public void GainPoints(float howMany)
         {
             if (_collectionSoundEffect != null) _collectionSoundEffect.GemCollected();
-            if ((LimitAvailableOrActive && !_limitActive) && howMany > 0) return;
+            if ((LimitAvailableOrActive && !LimitActive) && howMany > 0) return;
 
 
             _collectedPoints = Mathf.Clamp(_collectedPoints + howMany, 0, _modifiableStats.Cost);
@@ -145,7 +145,7 @@ namespace fi.tamk.hellgame.character
             if(PowerUpGained != null) PowerUpGained.Invoke(_collectedPoints, _modifiableStats.Cost);
             LimitAvailableOrActive = _collectedPoints >= _modifiableStats.Cost;
 
-            if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(_limitActive, LimitAvailableOrActive);
+            if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(LimitActive, LimitAvailableOrActive);
         }
 
         /// <summary>
@@ -159,13 +159,12 @@ namespace fi.tamk.hellgame.character
                 return;
             }
 
-            _limitActive = true;            
+            LimitActive = true;            
             LimitBreakActivation.Invoke();
             if (PowerUpGained != null) PowerUpGained.Invoke(0, _modifiableStats.Cost); // Indicator is hooked into this.
             _hc.ActivateInvulnerability(_modifiableStats.DesiredBaseLenght);            
             StartCoroutine(LimitBreakTimer());
-            _modifiableStats.Cost += _modifiableStats.GetLatestBreakPointIncrease;
-            if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(_limitActive, LimitAvailableOrActive); // Indicator will change state. 
+            if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(LimitActive, LimitAvailableOrActive); // Indicator will change state. 
         }
 
         private void DudLimitBreakEffect()
@@ -208,8 +207,8 @@ namespace fi.tamk.hellgame.character
             }
 
             DeactivateLimitbreak();
-            _limitActive = false;
-            if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(_limitActive, LimitAvailableOrActive);
+            LimitActive = false;
+            if (LimitBreakStateChange != null) LimitBreakStateChange.Invoke(LimitActive, LimitAvailableOrActive);
         }
     }
 }

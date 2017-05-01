@@ -66,7 +66,7 @@ namespace fi.tamk.hellgame.states
             }
             else if (MyInputController.PollButton(Buttons.ButtonScheme.Fire_1))
             {
-                ControlledActor.FireGunByIndex(0);
+                ControlledActor.FireGunByIndex(MyLimitBreak.LimitActive ? 1 : 0);
             }
         }
 
