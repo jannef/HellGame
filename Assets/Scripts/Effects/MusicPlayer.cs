@@ -42,7 +42,6 @@ namespace fi.tamk.hellgame
         public Playlist[] Playlists;
 
         private int _iterator = 0;
-        private bool _stopped = true;
 
         private bool _playingPlaylist = false;
         private int _playlistIndex = -1;

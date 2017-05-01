@@ -16,11 +16,9 @@ namespace fi.tamk.hellgame.states
         private AirSpawnerWithSetSpawnPoints _myCenterSpawner;
         private OneShotSoundEffect _spawnWaveStartSoundEffect;
         private PatrolWayPoint[] _patrolWayPoint;
-        private TransitionTrigger _transitionTrigger;
 
         private int _activeMinions = 0;
         private int _phase = 0;
-        private float StartDelay = 0f;
 
         public MobRoomZero(ActorComponent controlledHero) : base(controlledHero)
         {
@@ -41,14 +39,6 @@ namespace fi.tamk.hellgame.states
                 var wave = GameObject.Instantiate(sobj) as SpawnWave;
 
                 waveTemp.Add(wave);
-            }
-
-            if (ControlledActor.ActorNumericData != null)
-            {
-                if (ControlledActor.ActorNumericData != null && ControlledActor.ActorNumericData.ActorFloatData.Length > 0)
-                {
-                    StartDelay = ControlledActor.ActorNumericData.ActorFloatData[0];
-                }
             }
 
             _spawnWaves = waveTemp.ToArray();

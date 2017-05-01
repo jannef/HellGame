@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCollectiableSoundEffect : MonoBehaviour {
@@ -8,7 +7,6 @@ public class PlayerCollectiableSoundEffect : MonoBehaviour {
     [FMODUnity.EventRef]
     public String GemCollectionSoundEffect = "";
     private float GemsCollectedParameter = 0f;
-    [SerializeField] private float MaxGemsCollected = 100f;
     [SerializeField] private float PitchResetDelay;
     [SerializeField] private float PitchResetLenghtGemsPerSecond;
     [SerializeField] private AnimationCurve FadeCurve;
@@ -36,7 +34,6 @@ public class PlayerCollectiableSoundEffect : MonoBehaviour {
         }
 
         t = 0f;
-        var lenght = GemsCollectedParameter / PitchResetLenghtGemsPerSecond;
         var startGems = GemsCollectedParameter;
 
         while (t <= PitchResetDelay)

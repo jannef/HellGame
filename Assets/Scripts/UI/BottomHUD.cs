@@ -9,15 +9,12 @@ namespace fi.tamk.hellgame.ui
 {
     public class BottomHUD : MonoBehaviour
     {
-
-        [SerializeField] private float Duration = 5f;
         [SerializeField] private GameObject BottomHudPrefab;
         [SerializeField] private float FadeInLenght = 5f;
         [SerializeField] private AnimationCurve FadeInCurve;
         [SerializeField] private float FadeOutLenght = 5f;
         [SerializeField] private AnimationCurve FadeOutCurve;
 
-        private CanvasScaler _canvasScaler;
         private bool _initialized = false;
         private Transform _canvasTransform;
         private GameObject _hud;
@@ -27,7 +24,6 @@ namespace fi.tamk.hellgame.ui
         {
             var references = FindObjectOfType<GUIReferences>() ?? new UnityException("GUIReference MonoBehaviour component could not be found in the scene!").Throw<GUIReferences>();
             if (BottomHudPrefab == null) throw new UnityException("Prefab for BottomHUD not set in " + gameObject);
-            _canvasScaler = references.Scaler;
             _initialized = true;
             _canvasTransform = references.HudParent;
         }
@@ -48,7 +44,6 @@ namespace fi.tamk.hellgame.ui
 
         private IEnumerator MakeBottomHudAppear(GameObject hud, string message, float duration, AnimationCurve fadeInCurve)
         {
-            var width = _canvasScaler.referenceResolution.y;
             var text = hud.GetComponentInChildren<TextMeshProUGUI>();
             var image = hud.GetComponentInChildren<Image>();
 
