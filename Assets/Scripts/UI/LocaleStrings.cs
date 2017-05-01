@@ -39,7 +39,7 @@ public static partial class LocaleStrings
 		"Keyboard",
 		"Effects",
 		"Music",
-		"Quit",
+		"Exit Game",
 		"Level Select",
 		"Game Over",
 		"Credits",
@@ -59,6 +59,7 @@ public static partial class LocaleStrings
 		"Kitchen Wing",
 		"Library Wing",
 		"Start",
+		"Quit to Title",
 		""
 	};
 
@@ -82,7 +83,7 @@ public static partial class LocaleStrings
 		"Kirjastonhoitajan kuula",
 		"Sinisilmä",
 		"Opintohalli",
-		"Uudestaan!!!",
+		"Uudestaan!",
 		"Yhteisaika",
 		"Päihitetty",
 		"Jatka",
@@ -95,7 +96,7 @@ public static partial class LocaleStrings
 		"Näppäimistö",
 		"Efektit",
 		"Musiikki",
-		"Poistu",
+		"Sulje peli",
 		"Tasonvalinta",
 		"Ohi on!",
 		"Höbönasut",
@@ -115,6 +116,7 @@ public static partial class LocaleStrings
 		"Keittiösiipi",
 		"Kirjastosiipi",
 		"Aloita",
+		"Päävalikkoon",
 		""
 	};
 
@@ -171,6 +173,7 @@ public static partial class LocaleStrings
 		"Cocina",
 		"Biblioteca",
 		"Comienzo",
+		"Al menú principal",
 		""
 	};
 
@@ -278,6 +281,8 @@ public static partial class LocaleStrings
 
 	public static string UI_MENU_PLAYGAME { get { return CurrentLocale[51]; } }
 
+	public static string UI_MENU_QUITTOTITLE { get { return CurrentLocale[52]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -332,5 +337,6 @@ public static partial class LocaleStrings
 		UI_ROOM_KITCHEN_LEVELSELECT=49,
 		UI_ROOM_LIBRARY_LEVELSELECT=50,
 		UI_MENU_PLAYGAME=51,
+		UI_MENU_QUITTOTITLE=52,
 	}
 }
