@@ -56,7 +56,7 @@ namespace fi.tamk.hellgame.character
             for (var i = 0; i < NumberOfBullets; i++)
             {
                 var offset = Spread / NumberOfBullets;
-                FireBullet(GunVector, BulletOrigin.transform.localRotation.eulerAngles - new Vector3( 0, offset, 0), false);
+                FireBullet(GunVector, BulletOrigin.transform.rotation.eulerAngles - new Vector3( 0, offset, 0), false);
                 BulletOrigin.transform.RotateAround(transform.position, transform.up, offset);
             }
 
