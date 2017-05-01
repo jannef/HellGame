@@ -113,7 +113,7 @@ namespace fi.tamk.hellgame.character
             if (FiringEvent != null) FiringEvent.Invoke();
         }
 
-        private IEnumerator FiringCoroutine(int shotAmount, float t)
+        protected IEnumerator FiringCoroutine(int shotAmount, float t)
         {
             float time = t;
 

@@ -135,10 +135,12 @@ namespace fi.tamk.hellgame.states
 
         protected void SpawnTrapOnPlayer()
         {
-            Object.Instantiate(Externals.PrefabsUsed[0], PlayerTransform.position, Quaternion.identity);
+            var pos = PlayerTransform.position;
+            pos.y = 0f;
+            Object.Instantiate(Externals.PrefabsUsed[0], pos, Quaternion.identity);
             var go = Object.Instantiate(Externals.PrefabsUsed[1], ControlledActor.transform.position,
                 Quaternion.identity).GetComponent<ChambersFireTrail>();
-            go.StartRun(PlayerTransform.position);
+            go.StartRun(pos);
         }
     }
 }

@@ -19,6 +19,9 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private float _flameActiveLenght;
         [SerializeField] private float _coolDownLenght;
         [SerializeField] private float _startCoolDown;
+
+        [SerializeField] private bool _leavePermanentlyOn = false;
+
         [EventRef]
         public String TelegraphcSoundEvent = "";
         [EventRef]
@@ -67,7 +70,7 @@ namespace fi.tamk.hellgame.world
             _damagingCollider.enabled = true;
             Utilities.PlayOneShotSound(StartSoundEvent, transform.position);
 
-            StartCoroutine(StaticCoroutines.DoAfterDelay(_flameActiveLenght, StopFlames));
+            if (!_leavePermanentlyOn) StartCoroutine(StaticCoroutines.DoAfterDelay(_flameActiveLenght, StopFlames));
         }
 
         private void StopFlames()
