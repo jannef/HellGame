@@ -2,7 +2,7 @@
 using fi.tamk.hellgame.utils;
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using fi.tamk.hellgame.character;
 using UnityEngine;
 using UnityEngine.Events;
 

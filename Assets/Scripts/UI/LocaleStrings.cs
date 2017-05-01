@@ -60,6 +60,7 @@ public static partial class LocaleStrings
 		"Library Wing",
 		"Start",
 		"Quit to Title",
+		"Big Daddy Belurker",
 		""
 	};
 
@@ -117,6 +118,7 @@ public static partial class LocaleStrings
 		"Kirjastosiipi",
 		"Aloita",
 		"Päävalikkoon",
+		"Big Daddy Belurker",
 		""
 	};
 
@@ -174,6 +176,7 @@ public static partial class LocaleStrings
 		"Biblioteca",
 		"Comienzo",
 		"Al menú principal",
+		"Big Daddy Belurker",
 		""
 	};
 
@@ -283,6 +286,8 @@ public static partial class LocaleStrings
 
 	public static string UI_MENU_QUITTOTITLE { get { return CurrentLocale[52]; } }
 
+	public static string UI_ROOM_HEROIC_BELURKER { get { return CurrentLocale[53]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -338,5 +343,6 @@ public static partial class LocaleStrings
 		UI_ROOM_LIBRARY_LEVELSELECT=50,
 		UI_MENU_PLAYGAME=51,
 		UI_MENU_QUITTOTITLE=52,
+		UI_ROOM_HEROIC_BELURKER=53,
 	}
 }

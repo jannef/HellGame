@@ -36,7 +36,7 @@ namespace fi.tamk.hellgame.world
             _startAcidRadius = _acidSystem.shape.radius;
             _acidEmissionPerAreaUnit = _acidSystem.emission.rateOverTimeMultiplier / _startAcidRadius.AreaFromRadius();
 
-            _shapeRadiusMehtod =  typeof(ParticleSystem.ShapeModule).GetMethod("SetRadius",
+            _shapeRadiusMehtod = typeof(ParticleSystem.ShapeModule).GetMethod("SetRadius",
                 BindingFlags.NonPublic | BindingFlags.Static);
            _emissionRateMethod = typeof(ParticleSystem.EmissionModule).GetMethod("set_rateOverTimeMultiplier");
         }
