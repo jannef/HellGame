@@ -56,5 +56,10 @@ namespace fi.tamk.hellgame.character
             FireAfterAnticipation();
         }
 
+        private void OnDestroy()
+        {
+            InterruptAnticipation();
+        }
+
     }
 }

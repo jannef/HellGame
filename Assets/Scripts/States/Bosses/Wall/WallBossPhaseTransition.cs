@@ -23,6 +23,7 @@ namespace fi.tamk.hellgame.states
         private PassiveTurret _leftEye;
         private PassiveTurret _rightEye;
         bool hasStoppedTransitionEffects = false;
+        private int _activeMinions = 0;
 
         public WallBossPhaseTransition(ActorComponent controlledHero, WallBossAbstractValues values, WallBossTransitionPhaseStats stats) : base(controlledHero, values)
         {
@@ -79,13 +80,30 @@ namespace fi.tamk.hellgame.states
         public override void OnResumeState()
         {
             base.OnResumeState();
+            HealthComponent[] minions;
 
-            foreach(SpawnerInstruction ins in _spawnWave.instructions)
+            foreach (SpawnerInstruction ins in _spawnWave.instructions)
             {
-                _mobSpawner.Spawn(ins);
-            }
+                minions = _mobSpawner.Spawn(ins);
 
-            
+                foreach (var hc in minions)
+                {
+                    hc.DeathEffect.AddListener(MinionHasDied);
+                    _activeMinions++;
+                }
+            }
+        }
+
+        private void MinionHasDied()
+        {
+            _activeMinions--;
+            if (_activeMinions <= 0)
+            {
+                var PhaseEndedEvent = ControlledActor.GetComponent<BossStateCompletedEvent>();
+                if (PhaseEndedEvent != null) PhaseEndedEvent.TransitionPhaseCompleted();
+                hasStoppedTransitionEffects = true;
+                StateTime = lenght - 1.5f; 
+            }
         }
 
         public override bool TakeDamage(int howMuch, ref int health, ref bool flinch)

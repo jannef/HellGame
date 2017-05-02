@@ -76,7 +76,10 @@ namespace fi.tamk.hellgame.states
         {
             if (BaseValues.phaseNumber < 2)
             {
-                if (health <= BaseValues.MaxHealth - (.33f * BaseValues.MaxHealth * (BaseValues.phaseNumber + 1)))
+                if (BaseValues.phaseNumber == 0 && health <= BaseValues.MaxHealth * .75)
+                {
+                    ControlledActor.GoToState(new WallBossPhaseTransition(ControlledActor, BaseValues, GetTransitionStats(BaseValues.phaseNumber)));
+                } else if (BaseValues.phaseNumber == 1 && health <= BaseValues.MaxHealth * .42)
                 {
                     ControlledActor.GoToState(new WallBossPhaseTransition(ControlledActor, BaseValues, GetTransitionStats(BaseValues.phaseNumber)));
                 }
