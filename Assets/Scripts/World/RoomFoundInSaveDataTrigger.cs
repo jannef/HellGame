@@ -12,6 +12,7 @@ namespace fi.tamk.hellgame.world
     {
         public UnityEvent RoomFoundInSaveData;
         public UnityEvent RoomFirstTimeOpen;
+        public UnityEvent RoomNotEnteredEvent;
         [SerializeField] private LegalScenes targetRoom;
         [SerializeField] private LegalScenes theRoomBeforeInProgression;
         [SerializeField] private bool OpenEvenIfRoomNotFound = false;
@@ -36,9 +37,11 @@ namespace fi.tamk.hellgame.world
                     if (!UserStaticData.GetIfRoomAlreadyOpenedOnce((int) targetRoom))
                     {
                         if (RoomFirstTimeOpen != null) RoomFirstTimeOpen.Invoke();
+                        if (RoomNotEnteredEvent != null) RoomNotEnteredEvent.Invoke();
                         return;
                     } else
                     {
+                        if (RoomNotEnteredEvent != null) RoomNotEnteredEvent.Invoke();
                         if (RoomFoundInSaveData != null) RoomFoundInSaveData.Invoke();
                     }
                 }
