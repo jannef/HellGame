@@ -19,6 +19,8 @@ public class CameraDolly : MonoBehaviour {
 	void Start () {
         _cameraDollyPoints = _dollyPointParent.GetComponentsInChildren<CameraDollyPoint>();
         NextPoint();
+        transform.position = _lastPoint.transform.position;
+        transform.forward = _lastPoint.transform.forward;
 	}
 
     private void NextPoint()
