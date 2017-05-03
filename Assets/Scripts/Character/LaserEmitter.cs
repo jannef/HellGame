@@ -184,9 +184,8 @@ namespace fi.tamk.hellgame.character
             }
 
             time = 0;
-            width = Mathf.Lerp(warningShotWidth, fullShotWidth, warningToShotEasing.Evaluate(1));
-            ShotLaserRenderer.startWidth = width;
-            ShotLaserRenderer.endWidth = width;
+            ShotLaserRenderer.startWidth = fullShotWidth;
+            ShotLaserRenderer.endWidth = fullShotWidth;
             _laserCollider.enabled = true;
             if (_endPointParticle != null) _endPointParticle.Play();
             if (_rootParticles != null) _rootParticles.Play();
