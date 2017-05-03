@@ -8,7 +8,7 @@
             <value>Placeholder created via Unity</value>
         </property>
         <property name="outputFormat">
-            <value>0</value>
+            <value>1</value>
         </property>
         <relationship name="folder">
             <destination>{fd22558b-6d1b-47c3-aa19-4c52e58cead7}</destination>
@@ -65,12 +65,22 @@
     <object class="EventAutomatableProperties" id="{7539d553-8ec7-4ad1-8e50-04eb9d68a098}"/>
     <object class="MarkerTrack" id="{f30a170b-5db9-441c-88a1-db187432e581}"/>
     <object class="GroupTrack" id="{1adb6e43-06ef-4ff5-93fb-59bdfc85469e}">
+        <relationship name="modules">
+            <destination>{873c535d-2eea-4502-8953-7a185c6ce708}</destination>
+        </relationship>
         <relationship name="mixerGroup">
             <destination>{8ce5f313-b3b4-4f29-97f1-a0cadd42637c}</destination>
         </relationship>
     </object>
-    <object class="Timeline" id="{7e330bb2-b40e-45f9-a68f-97aacfa8815d}"/>
+    <object class="Timeline" id="{7e330bb2-b40e-45f9-a68f-97aacfa8815d}">
+        <relationship name="modules">
+            <destination>{873c535d-2eea-4502-8953-7a185c6ce708}</destination>
+        </relationship>
+    </object>
     <object class="EventMixerMaster" id="{552f2775-6515-4afe-a494-572608c854bd}">
+        <property name="volume">
+            <value>2</value>
+        </property>
         <relationship name="effectChain">
             <destination>{ec0b7b68-0bdd-4d60-8711-bfec92342422}</destination>
         </relationship>
@@ -87,6 +97,14 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{a591f042-b967-4786-8e9a-949bc5237459}"/>
+    <object class="SingleSound" id="{873c535d-2eea-4502-8953-7a185c6ce708}">
+        <property name="length">
+            <value>3.4285714285714284</value>
+        </property>
+        <relationship name="audioFile">
+            <destination>{2c256536-1f3a-425b-8b54-975e85c10cd6}</destination>
+        </relationship>
+    </object>
     <object class="EventMixerGroup" id="{8ce5f313-b3b4-4f29-97f1-a0cadd42637c}">
         <property name="name">
             <value>Audio 1</value>

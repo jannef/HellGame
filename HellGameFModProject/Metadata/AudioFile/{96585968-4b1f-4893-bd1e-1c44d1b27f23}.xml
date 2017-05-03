@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.09.00">
+    <object class="AudioFile" id="{96585968-4b1f-4893-bd1e-1c44d1b27f23}">
+        <property name="assetPath">
+            <value>WallBoss_Death_Explosion_Bigger.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>4.9278911564625849</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{bf28b2a1-3d97-4644-8fd1-ebc243ba4767}</destination>
+        </relationship>
+    </object>
+</objects>

@@ -8,7 +8,7 @@
             <value>Placeholder created via Unity</value>
         </property>
         <property name="outputFormat">
-            <value>0</value>
+            <value>1</value>
         </property>
         <relationship name="folder">
             <destination>{d68b2e2c-2f0e-4c51-8377-a0c569437bd8}</destination>
@@ -65,11 +65,18 @@
     <object class="EventAutomatableProperties" id="{3f536802-f69d-4728-ac65-41d934a2c8af}"/>
     <object class="MarkerTrack" id="{d5fb7d44-de95-4a23-9c07-a8e32a4d29b5}"/>
     <object class="GroupTrack" id="{f5475790-12ff-45e6-aea3-f99835d43ea9}">
+        <relationship name="modules">
+            <destination>{d99e7cc5-5626-4ef4-9f80-1378f84466c3}</destination>
+        </relationship>
         <relationship name="mixerGroup">
             <destination>{9366a461-3fa9-44b7-8588-57b9c38f34e6}</destination>
         </relationship>
     </object>
-    <object class="Timeline" id="{8751b35b-bd9d-4bdf-b396-925166d2a55a}"/>
+    <object class="Timeline" id="{8751b35b-bd9d-4bdf-b396-925166d2a55a}">
+        <relationship name="modules">
+            <destination>{d99e7cc5-5626-4ef4-9f80-1378f84466c3}</destination>
+        </relationship>
+    </object>
     <object class="EventMixerMaster" id="{416d8488-cbb5-4060-986b-272abf4c6c33}">
         <relationship name="effectChain">
             <destination>{63c1dd83-ada4-46e0-b3a6-b31c8fcf409b}</destination>
@@ -87,6 +94,14 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{bd41455e-bbd0-444a-91b5-90f45dd6c565}"/>
+    <object class="SingleSound" id="{d99e7cc5-5626-4ef4-9f80-1378f84466c3}">
+        <property name="length">
+            <value>4.1125623582766444</value>
+        </property>
+        <relationship name="audioFile">
+            <destination>{196f04b1-1397-4374-9d6c-762b3c1bedba}</destination>
+        </relationship>
+    </object>
     <object class="EventMixerGroup" id="{9366a461-3fa9-44b7-8588-57b9c38f34e6}">
         <property name="name">
             <value>Audio 1</value>
