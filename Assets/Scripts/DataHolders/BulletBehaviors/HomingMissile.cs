@@ -18,6 +18,7 @@ namespace fi.tamk.hellgame.dataholders
         {
             var rotatedVelocity = Vector3.RotateTowards(particle.velocity.normalized, (_playerPosition - particle.position).normalized, DeltaTime * _degreesTurnedPerSecond, 0f);
             particle.velocity = rotatedVelocity * _speed;
+            particle.rotation3D = Quaternion.LookRotation(rotatedVelocity).eulerAngles;
         }
 
         public override void CacheFrameData(float deltaTime, params object[] additionalParams)
