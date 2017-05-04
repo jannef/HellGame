@@ -35,7 +35,8 @@ namespace fi.tamk.hellgame.world
         Chambers_Boss_Heroic = 19,
         Chambers_1          = 20,
         Chambers_2          = 21,
-        Chambers_3          = 22
+        Chambers_3          = 22,
+        Chambers_LevelSelect = 23
     }
 
     public static class SceneLoadLock

@@ -53,7 +53,8 @@ namespace fi.tamk.hellgame.dataholders
                 {LocaleStrings.StringsEnum.UI_ROOM_HEROIC_BELURKER, 19 },
                 {LocaleStrings.StringsEnum.UI_ROOM_CHAMBERS_1, 20 },
                 {LocaleStrings.StringsEnum.UI_ROOM_CHAMBERS_2, 21 },
-                {LocaleStrings.StringsEnum.UI_ROOM_CHAMBERS_3, 22 }
+                {LocaleStrings.StringsEnum.UI_ROOM_CHAMBERS_3, 22 },
+                {LocaleStrings.StringsEnum.UI_ROOM_CHAMBERS_LEVELSELECT, 23 }
             };
 
             LoadData();
