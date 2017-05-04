@@ -61,6 +61,10 @@ public static partial class LocaleStrings
 		"Start",
 		"Quit to Title",
 		"Big Daddy Belurker",
+		"Monster Closet",
+		"Dance Dance Incineration",
+		"Laser Revolution",
+		"Chambers Wing",
 		""
 	};
 
@@ -119,6 +123,10 @@ public static partial class LocaleStrings
 		"Aloita",
 		"Päävalikkoon",
 		"Big Daddy Belurker",
+		"Hirviökomero",
+		"Palavan Kissan Tango",
+		"Karulaaseriselli",
+		"Asuinsiipi",
 		""
 	};
 
@@ -176,7 +184,11 @@ public static partial class LocaleStrings
 		"Biblioteca",
 		"Comienzo",
 		"Al menú principal",
-		"Big Daddy Belurker",
+		"Gran Papá Fantasma",
+		"Armario Monstruo",
+		"Dance Dance Incineración",
+		"Revolución Láser",
+		"Cámaras",
 		""
 	};
 
@@ -288,6 +300,14 @@ public static partial class LocaleStrings
 
 	public static string UI_ROOM_HEROIC_BELURKER { get { return CurrentLocale[53]; } }
 
+	public static string UI_ROOM_CHAMBERS_1 { get { return CurrentLocale[54]; } }
+
+	public static string UI_ROOM_CHAMBERS_2 { get { return CurrentLocale[55]; } }
+
+	public static string UI_ROOM_CHAMBERS_3 { get { return CurrentLocale[56]; } }
+
+	public static string UI_ROOM_CHAMBERS_LEVELSELECT { get { return CurrentLocale[57]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -344,5 +364,9 @@ public static partial class LocaleStrings
 		UI_MENU_PLAYGAME=51,
 		UI_MENU_QUITTOTITLE=52,
 		UI_ROOM_HEROIC_BELURKER=53,
+		UI_ROOM_CHAMBERS_1=54,
+		UI_ROOM_CHAMBERS_2=55,
+		UI_ROOM_CHAMBERS_3=56,
+		UI_ROOM_CHAMBERS_LEVELSELECT=57,
 	}
 }
