@@ -99,7 +99,7 @@
             <value>1.1381859410430839</value>
         </property>
         <property name="volume">
-            <value>3.5</value>
+            <value>5.5</value>
         </property>
         <relationship name="modulators">
             <destination>{4d34d20d-aa97-4f45-a2d1-c1bf5469f3ad}</destination>
