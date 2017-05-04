@@ -1,5 +1,6 @@
 ﻿using fi.tamk.hellgame.dataholders;
 using fi.tamk.hellgame.utils;
+using fi.tamk.hellgame.world;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,9 +32,15 @@ namespace fi.tamk.hellgame.ui
 
         public override void MovePointerFromThis()
         {
+            GameResumed();
+            if (PointerRemovedFromThis != null) PointerRemovedFromThis.Invoke();
+        }
+
+        void GameResumed()
+        {
+            RoomIdentifier.GameResumed -= GameResumed;
             _canvasGroup.alpha = 0;
             _canvasGroup.blocksRaycasts = false;
-            if (PointerRemovedFromThis != null) PointerRemovedFromThis.Invoke();
         }
 
         public virtual void ReturnToPreviousCanvas(MenuCommander commander)
@@ -46,7 +53,7 @@ namespace fi.tamk.hellgame.ui
 
         public override void MovePointerToThis(MenuCommander commander)
         {
-            
+            RoomIdentifier.GameResumed += GameResumed;
             gameObject.SetActive(true);
             _startButton.MovePointerToHisWithoutSound(commander);
             if (_canvasGroup == null)

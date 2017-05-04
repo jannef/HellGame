@@ -39,8 +39,8 @@ namespace fi.tamk.hellgame.dataholders
 
         [SerializeField] public ButtonMap.SerializedForm _gamepadSettings;
         [SerializeField] public ButtonMap.SerializedForm _mouseAndKeyboardSettings;
-        [SerializeField] public float SFXVolume = .1f;
-        [SerializeField] public float MusicVolume = .1f;
+        [SerializeField] public float SFXVolume = .33f;
+        [SerializeField] public float MusicVolume = .33f;
         [SerializeField] public List<int> DoorsThatHaveAlreadyOpened = new List<int>();
 
         public void BeforeSerialization()

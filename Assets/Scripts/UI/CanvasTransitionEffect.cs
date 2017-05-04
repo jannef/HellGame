@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using fi.tamk.hellgame.world;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,8 +23,16 @@ namespace fi.tamk.hellgame.ui
            _canvasGroup.alpha = 0;
         }
 
+        void StopRoutine()
+        {
+            RoomIdentifier.GameResumed -= StopRoutine;
+            StopAllCoroutines();
+            _canvasGroup.alpha = 0;
+        }
+
         IEnumerator FadeInRoutine(CanvasGroup canvasGroup, float lenght, AnimationCurve curve)
         {
+            RoomIdentifier.GameResumed += StopRoutine;
             var t = 0f;
             while (t < 1)
             {
@@ -32,7 +41,7 @@ namespace fi.tamk.hellgame.ui
 
                 yield return null;
             }
-
+            RoomIdentifier.GameResumed -= StopRoutine;
             canvasGroup.alpha = curve.Evaluate(1);
         }
     }

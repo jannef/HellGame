@@ -24,7 +24,7 @@ namespace fi.tamk.hellgame
 
             public int NextIndex()
             {
-                Index = (Index + 1) % Tracks.Length;
+                Index = Index % Tracks.Length;
                 return Tracks[Index];
             }
 
