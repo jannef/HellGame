@@ -8,7 +8,7 @@
             <value>Placeholder created via Unity</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>2</value>
         </property>
         <relationship name="folder">
             <destination>{c6202711-6357-42d9-a197-cca7a0ad3ff0}</destination>
@@ -121,6 +121,7 @@
     </object>
     <object class="MixerBusEffectChain" id="{5e8e8693-e066-44d8-921a-e4e1b2dccf7d}">
         <relationship name="effects">
+            <destination>{c3794239-f131-4636-b681-5806589480e4}</destination>
             <destination>{c0889330-b344-4c8b-a976-62ce90f6dbb9}</destination>
         </relationship>
     </object>
@@ -132,6 +133,11 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{ef705f6b-59b1-4373-a706-dc524cd82902}"/>
+    <object class="SpatialiserEffect" id="{c3794239-f131-4636-b681-5806589480e4}">
+        <property name="maximumDistance">
+            <value>150</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{c0889330-b344-4c8b-a976-62ce90f6dbb9}"/>
     <object class="MixerBusFader" id="{6a9033da-f123-456e-a12b-198caa9972f6}"/>
 </objects>
