@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using fi.tamk.hellgame.utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,22 +11,28 @@ namespace fi.tamk.hellgame.world
         Vector3 _startingPosition;
         [SerializeField] private Transform _endPosition;
         [SerializeField] private AnimationCurve _movementEasing;
+        [SerializeField] private float singleTripLenght;
         private bool isInStartingPosition = true;
 
         public void Awake()
         {
             _startingPosition = transform.position;
-            StartMove(25f);
+            StartCoroutine(StaticCoroutines.DoAfterDelay(0.2f, StartMove));
         }
 
-        public void StartMove(float lenght)
+        public void StopTrap()
+        {
+
+        }
+
+        public void StartMove()
         {
             if (isInStartingPosition)
             {
-                StartCoroutine(MovingCoroutine(lenght, _movementEasing, _startingPosition, _endPosition.position, transform));
+                StartCoroutine(MovingCoroutine(singleTripLenght, _movementEasing, _startingPosition, _endPosition.position, transform));
             } else
             {
-                StartCoroutine(MovingCoroutine(lenght, _movementEasing, _endPosition.position, _startingPosition, transform));
+                StartCoroutine(MovingCoroutine(singleTripLenght, _movementEasing, _endPosition.position, _startingPosition, transform));
             }
         }
 
@@ -40,7 +47,8 @@ namespace fi.tamk.hellgame.world
                 yield return null;
             }
             transformToMove.position = endPosition;
-
+            isInStartingPosition = !isInStartingPosition;
+            StartMove();
         }
     }
 }
