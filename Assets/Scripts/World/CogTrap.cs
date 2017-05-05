@@ -14,15 +14,18 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private float singleTripLenght;
         private bool isInStartingPosition = true;
 
-        public void Awake()
+        public void Start()
         {
             _startingPosition = transform.position;
             StartCoroutine(StaticCoroutines.DoAfterDelay(0.2f, StartMove));
+            RoomIdentifier.RoomCompleted += StopTrap;
         }
 
         public void StopTrap()
         {
-
+            RoomIdentifier.RoomCompleted -= StopTrap;
+            StopAllCoroutines();
+            this.enabled = false;
         }
 
         public void StartMove()
