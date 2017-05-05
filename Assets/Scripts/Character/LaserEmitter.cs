@@ -160,12 +160,14 @@ namespace fi.tamk.hellgame.character
         protected IEnumerator LaserRoutine(bool endWithTime = false)
         {
             coroutineRunning = true;
+            var laserRendererWidthCurve = new AnimationCurve();
             float time = 0;
             Vector3[] laserPositions = new Vector3[2];
             var width = 0f;
             ShotLaserRenderer.enabled = true;
-            ShotLaserRenderer.startWidth = warningShotWidth;
-            ShotLaserRenderer.endWidth = fullShotWidth;
+            laserRendererWidthCurve.AddKey(0, warningShotWidth);
+            laserRendererWidthCurve.AddKey(1, warningShotWidth);
+            ShotLaserRenderer.widthCurve = laserRendererWidthCurve;
             StartLaserSound();
             if (AtFireStart != null) AtFireStart.Invoke();
 
@@ -175,8 +177,9 @@ namespace fi.tamk.hellgame.character
 
                 ShotLaserRenderer.SetPositions(laserPositions);
                 width = Mathf.Lerp(warningShotWidth, fullShotWidth, warningToShotEasing.Evaluate(time / WarningLenght));
-                ShotLaserRenderer.startWidth = width;
-                ShotLaserRenderer.endWidth = width;
+                laserRendererWidthCurve = new AnimationCurve(new Keyframe(0, width), new Keyframe(1, width));
+
+                ShotLaserRenderer.widthCurve = laserRendererWidthCurve;
 
 
                 time += WorldStateMachine.Instance.DeltaTime;
@@ -184,8 +187,10 @@ namespace fi.tamk.hellgame.character
             }
 
             time = 0;
-            ShotLaserRenderer.startWidth = fullShotWidth;
-            ShotLaserRenderer.endWidth = fullShotWidth;
+            laserRendererWidthCurve = new AnimationCurve(new Keyframe(0, fullShotWidth), new Keyframe(1, fullShotWidth));
+
+            ShotLaserRenderer.widthCurve = laserRendererWidthCurve;
+
             _laserCollider.enabled = true;
             if (_endPointParticle != null) _endPointParticle.Play();
             if (_rootParticles != null) _rootParticles.Play();
@@ -218,8 +223,9 @@ namespace fi.tamk.hellgame.character
             while (time > 0)
             {
                 width = Mathf.Lerp(warningShotWidth, fullShotWidth, warningToShotEasing.Evaluate(time / shotEndLenght));
-                ShotLaserRenderer.startWidth = width;
-                ShotLaserRenderer.endWidth = width;
+                laserRendererWidthCurve = new AnimationCurve(new Keyframe(0, width), new Keyframe(1, width));
+
+                ShotLaserRenderer.widthCurve = laserRendererWidthCurve;
 
                 FindLaserPositions(ref laserPositions);
                 ShotLaserRenderer.SetPositions(laserPositions);
