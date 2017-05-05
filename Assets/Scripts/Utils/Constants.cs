@@ -64,6 +64,7 @@ namespace fi.tamk.hellgame.utils
         public const string EnglishLocaleString = "en_EN";
         public const string FinnishLocaleString = "fi_FI";
         public const string SpanishLocaleString = "es_ES";
+        public const float PenaltyTimePerHit = 6f; 
 
         public static MenuActionType[] ActionsToAlwaysSetOnBasicButtons = new MenuActionType[5]
         {

@@ -115,11 +115,11 @@ namespace fi.tamk.hellgame.ui
             RoomIdentifier.GameResumed -= SetActive;
         }
 
-        public void SetData(GameClock clock, int hits, RoomClearingRanks ranks, float penaltyPerHit = 10f)
+        public void SetData(GameClock clock, int hits, RoomClearingRanks ranks)
         {
-            TotalField.text = GameClock.FormatTime(TimeSpan.FromSeconds(clock.Time + hits * penaltyPerHit));
+            TotalField.text = GameClock.FormatTime(TimeSpan.FromSeconds(clock.Time + hits * Constants.PenaltyTimePerHit));
             UpdateLabelTexts();
-            StartCoroutine(Animated(2f, clock, hits, penaltyPerHit, ranks, _delay));
+            StartCoroutine(Animated(2f, clock, hits, Constants.PenaltyTimePerHit, ranks, _delay));
         }
 
         public static ScoreWindow GetScoreWindowGo(Transform parent = null)
