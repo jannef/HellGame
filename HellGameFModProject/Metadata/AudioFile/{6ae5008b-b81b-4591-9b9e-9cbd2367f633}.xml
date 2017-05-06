@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{6ae5008b-b81b-4591-9b9e-9cbd2367f633}">
         <property name="assetPath">
-            <value>BeholderLaser.wav</value>
+            <value>EyeBoss/BeholderLaser.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>48</value>
