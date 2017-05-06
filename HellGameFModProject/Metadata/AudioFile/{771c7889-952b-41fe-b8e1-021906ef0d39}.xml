@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{771c7889-952b-41fe-b8e1-021906ef0d39}">
         <property name="assetPath">
-            <value>Slime/SlimeBoss_Death.wav</value>
+            <value>SlimeBoss/SlimeBoss_Death.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>

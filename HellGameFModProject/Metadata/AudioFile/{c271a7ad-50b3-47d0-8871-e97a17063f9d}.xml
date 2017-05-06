@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{c271a7ad-50b3-47d0-8871-e97a17063f9d}">
         <property name="assetPath">
-            <value>LibraryBoss/LibraryBoss_Magnetics_Loop_Lower.wav</value>
+            <value>SphereBoss/LibraryBoss_Magnetics_Loop_Lower.wav</value>
         </property>
         <property name="isStreaming">
             <value>true</value>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{ed17216e-d288-45cc-828c-8a7868c06c01}">
         <property name="assetPath">
-            <value>Firestaff11.wav</value>
+            <value>Player/Firestaff11.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>48</value>

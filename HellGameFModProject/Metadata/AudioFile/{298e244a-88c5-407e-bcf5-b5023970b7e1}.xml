@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{298e244a-88c5-407e-bcf5-b5023970b7e1}">
         <property name="assetPath">
-            <value>LibraryBoss/LibraryBoss_EvilShieldOn_Loop.wav</value>
+            <value>SphereBoss/LibraryBoss_EvilShieldOn_Loop.wav</value>
         </property>
         <property name="isStreaming">
             <value>true</value>

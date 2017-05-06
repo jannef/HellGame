@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{57974082-8d43-4e58-8880-017f95fc711a}">
         <property name="assetPath">
-            <value>UI/Aerial_Alert.wav</value>
+            <value>World/Aerial_Alert.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>

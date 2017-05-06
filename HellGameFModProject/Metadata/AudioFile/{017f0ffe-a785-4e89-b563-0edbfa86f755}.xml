@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{017f0ffe-a785-4e89-b563-0edbfa86f755}">
         <property name="assetPath">
-            <value>BeholderBoss_Pain2.wav</value>
+            <value>EyeBoss/BeholderBoss_Pain2.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>22.0499992</value>

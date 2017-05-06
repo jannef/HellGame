@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{311e40ce-df8e-4374-b4a8-af8b0e3af4f6}">
         <property name="assetPath">
-            <value>Slime/SlimeBoss_Jump.wav</value>
+            <value>SlimeBoss/SlimeBoss_Jump.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{491d5a11-e820-4317-95f7-b5b6e1c41ee2}">
         <property name="assetPath">
-            <value>Slime/Slime_AcidSizzle_Loop.wav</value>
+            <value>SlimeBoss/Slime_AcidSizzle_Loop.wav</value>
         </property>
         <property name="isStreaming">
             <value>true</value>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{6203d954-2a7e-4c23-8563-7c58ec23f9f3}">
         <property name="assetPath">
-            <value>LibraryBoss/LibraryBoss_Fire_FireAllaround.wav</value>
+            <value>SphereBoss/LibraryBoss_Fire_FireAllaround.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>

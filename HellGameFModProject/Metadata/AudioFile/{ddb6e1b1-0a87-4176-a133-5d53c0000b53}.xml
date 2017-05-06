@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{ddb6e1b1-0a87-4176-a133-5d53c0000b53}">
         <property name="assetPath">
-            <value>FireTrap_Lights.wav</value>
+            <value>World/FireTrap_Lights.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>48</value>

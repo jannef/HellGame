@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{0303782d-4803-4809-9253-093e02641ff2}">
         <property name="assetPath">
-            <value>UI/Hub_DoorSlam.wav</value>
+            <value>World/Hub_DoorSlam.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>

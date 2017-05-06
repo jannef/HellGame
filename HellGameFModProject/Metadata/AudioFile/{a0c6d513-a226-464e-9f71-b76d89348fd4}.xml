@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{a0c6d513-a226-464e-9f71-b76d89348fd4}">
         <property name="assetPath">
-            <value>RoomEntryPopup_In.wav</value>
+            <value>UI/RoomEntryPopup_In.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>48</value>

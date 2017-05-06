@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{101bcd57-abc5-40a2-b6e3-b5b897ba5973}">
         <property name="assetPath">
-            <value>Automaton_Laser.wav</value>
+            <value>Automatons/Automaton_Laser.wav</value>
         </property>
         <property name="isStreaming">
             <value>true</value>

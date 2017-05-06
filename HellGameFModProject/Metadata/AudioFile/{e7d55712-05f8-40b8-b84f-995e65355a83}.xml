@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{e7d55712-05f8-40b8-b84f-995e65355a83}">
         <property name="assetPath">
-            <value>LibraryBoss_SmallExplo.wav</value>
+            <value>SphereBoss/LibraryBoss_SmallExplo.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>48</value>

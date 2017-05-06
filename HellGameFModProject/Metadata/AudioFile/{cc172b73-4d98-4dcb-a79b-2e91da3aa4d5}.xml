@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{cc172b73-4d98-4dcb-a79b-2e91da3aa4d5}">
         <property name="assetPath">
-            <value>Automaton_RailsSmall.wav</value>
+            <value>Automatons/Automaton_RailsSmall.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{49e4bc3e-5e56-429d-ba3e-1c75136e61c8}">
         <property name="assetPath">
-            <value>LibraryBoss/LibraryBoss_Magnetics_3.wav</value>
+            <value>SphereBoss/LibraryBoss_Magnetics_3.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>

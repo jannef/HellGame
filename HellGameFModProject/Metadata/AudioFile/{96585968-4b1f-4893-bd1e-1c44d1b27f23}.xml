@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{96585968-4b1f-4893-bd1e-1c44d1b27f23}">
         <property name="assetPath">
-            <value>WallBoss_Death_Explosion_Bigger.wav</value>
+            <value>WallBoss/WallBoss_Death_Explosion_Bigger.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>

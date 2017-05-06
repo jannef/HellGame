@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{50508283-f28f-4d5a-9788-ad2b2e1d25b8}">
         <property name="assetPath">
-            <value>Automaton/Large_Automaton_Destroyed.wav</value>
+            <value>Automatons/Large_Automaton_Destroyed.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>

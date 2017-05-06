@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{d9058d3e-6262-48dc-b7c0-8ff5e6ffc1bf}">
         <property name="assetPath">
-            <value>LibraryBoss/LibraryBoss_MagicBall_Electricity_Loop.wav</value>
+            <value>SphereBoss/LibraryBoss_MagicBall_Electricity_Loop.wav</value>
         </property>
         <property name="isStreaming">
             <value>true</value>

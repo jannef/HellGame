@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="EncodableAsset" id="{b5ce381b-c4be-4d17-8e33-d90f947b268c}">
         <property name="assetPath">
-            <value>Slime/</value>
+            <value>SlimeBoss/</value>
         </property>
         <relationship name="masterAssetFolder">
             <destination>{bf28b2a1-3d97-4644-8fd1-ebc243ba4767}</destination>

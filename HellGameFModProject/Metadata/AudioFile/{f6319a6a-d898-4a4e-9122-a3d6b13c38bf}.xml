@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{f6319a6a-d898-4a4e-9122-a3d6b13c38bf}">
         <property name="assetPath">
-            <value>LorePopup_Out.wav</value>
+            <value>UI/LorePopup_Out.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>

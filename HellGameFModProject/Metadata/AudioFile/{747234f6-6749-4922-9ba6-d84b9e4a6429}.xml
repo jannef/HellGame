@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{747234f6-6749-4922-9ba6-d84b9e4a6429}">
         <property name="assetPath">
-            <value>LimitBreakStart_M.wav</value>
+            <value>Player/LimitBreakStart_M.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>48</value>

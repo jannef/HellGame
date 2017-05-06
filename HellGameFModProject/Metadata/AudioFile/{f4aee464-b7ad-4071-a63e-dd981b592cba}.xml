@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{f4aee464-b7ad-4071-a63e-dd981b592cba}">
         <property name="assetPath">
-            <value>LimitBreakAvailable_M.wav</value>
+            <value>Player/LimitBreakAvailable_M.wav</value>
         </property>
         <property name="isStreaming">
             <value>true</value>

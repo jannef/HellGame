@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{f63cc3f1-d69f-4a4e-9011-ead0d7f5bcc1}">
         <property name="assetPath">
-            <value>742517_Root-Of-Betrayal-boss-figh.mp3</value>
+            <value>Music/742517_Root-Of-Betrayal-boss-figh.mp3</value>
         </property>
         <property name="isStreaming">
             <value>true</value>

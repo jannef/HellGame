@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="AudioFile" id="{a6e04a7e-586f-42e1-b796-3e7675c35a10}">
         <property name="assetPath">
-            <value>Walboss_Wake.wav</value>
+            <value>WallBoss/Walboss_Wake.wav</value>
         </property>
         <property name="frequencyInKHz">
             <value>44.0999985</value>

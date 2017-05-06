@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.09.00">
+    <object class="EncodableAsset" id="{1fa5beb9-6c2d-47e5-bab9-d4dff319a0f9}">
+        <property name="assetPath">
+            <value>EyeBoss/</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{bf28b2a1-3d97-4644-8fd1-ebc243ba4767}</destination>
+        </relationship>
+    </object>
+</objects>
