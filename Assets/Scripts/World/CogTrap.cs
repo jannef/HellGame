@@ -21,11 +21,12 @@ namespace fi.tamk.hellgame.world
         public UnityEvent CogLaunchedFromStartEvent;
         public UnityEvent CogLaunchedFromEndEvent;
         private bool isInStartingPosition = true;
+        private float endCoolDown;
 
         public void Start()
         {
             _startingPosition = transform.position;
-            StartCoroutine(StaticCoroutines.DoAfterDelay(0.2f, StartTelegraph));
+            StartCoroutine(StaticCoroutines.DoAfterDelay(0.2f, StartAttack));
             RoomIdentifier.RoomCompleted += StopTrap;
         }
 
@@ -34,6 +35,13 @@ namespace fi.tamk.hellgame.world
             RoomIdentifier.RoomCompleted -= StopTrap;
             StopAllCoroutines();
             this.enabled = false;
+        }
+
+        public void StartAttack()
+        {
+            var delay = Random.value * cooldownRandomness;
+            endCoolDown = cooldownRandomness - delay;
+            StartCoroutine(StaticCoroutines.DoAfterDelay(cooldownLenght + delay, StartTelegraph));
         }
 
         public void StartTelegraph()
@@ -74,7 +82,7 @@ namespace fi.tamk.hellgame.world
             }
             transformToMove.position = endPosition;
             isInStartingPosition = !isInStartingPosition;
-            StartCoroutine(StaticCoroutines.DoAfterDelay(cooldownLenght + (Random.value * cooldownRandomness), StartTelegraph));
+            StartCoroutine(StaticCoroutines.DoAfterDelay(endCoolDown, StartAttack));
         }
     }
 }
