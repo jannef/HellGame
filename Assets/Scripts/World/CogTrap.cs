@@ -22,6 +22,7 @@ namespace fi.tamk.hellgame.world
         public UnityEvent CogLaunchedFromEndEvent;
         private bool isInStartingPosition = true;
         private float endCoolDown;
+        private bool isRunning = true;
 
         public void Start()
         {
@@ -33,12 +34,17 @@ namespace fi.tamk.hellgame.world
         public void StopTrap()
         {
             RoomIdentifier.RoomCompleted -= StopTrap;
-            StopAllCoroutines();
-            this.enabled = false;
+            isRunning = false;
         }
 
         public void StartAttack()
         {
+            if (!isRunning)
+            {
+                StopAllCoroutines();
+                return;
+            }
+
             var delay = Random.value * cooldownRandomness;
             endCoolDown = cooldownRandomness - delay;
             StartCoroutine(StaticCoroutines.DoAfterDelay(cooldownLenght + delay, StartTelegraph));
@@ -46,6 +52,12 @@ namespace fi.tamk.hellgame.world
 
         public void StartTelegraph()
         {
+            if (!isRunning)
+            {
+                StopAllCoroutines();
+                return;
+            }
+
             if (isInStartingPosition)
             {
                 if (TelegraphFromStartPoint != null) TelegraphFromStartPoint.Invoke();
@@ -59,6 +71,12 @@ namespace fi.tamk.hellgame.world
 
         public void StartMove()
         {
+            if (!isRunning)
+            {
+                StopAllCoroutines();
+                return;
+            }
+
             if (isInStartingPosition)
             {
                 if (CogLaunchedFromStartEvent != null) CogLaunchedFromStartEvent.Invoke();
