@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace fi.tamk.hellgame.world
 {
@@ -12,12 +13,19 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private Transform _endPosition;
         [SerializeField] private AnimationCurve _movementEasing;
         [SerializeField] private float singleTripLenght;
+        [SerializeField] private float telegraphLenght;
+        [SerializeField] private float cooldownLenght;
+        [SerializeField] private float cooldownRandomness;
+        public UnityEvent TelegraphFromStartPoint;
+        public UnityEvent TelegraphFromEndPoint;
+        public UnityEvent CogLaunchedFromStartEvent;
+        public UnityEvent CogLaunchedFromEndEvent;
         private bool isInStartingPosition = true;
 
         public void Start()
         {
             _startingPosition = transform.position;
-            StartCoroutine(StaticCoroutines.DoAfterDelay(0.2f, StartMove));
+            StartCoroutine(StaticCoroutines.DoAfterDelay(0.2f, StartTelegraph));
             RoomIdentifier.RoomCompleted += StopTrap;
         }
 
@@ -28,13 +36,28 @@ namespace fi.tamk.hellgame.world
             this.enabled = false;
         }
 
+        public void StartTelegraph()
+        {
+            if (isInStartingPosition)
+            {
+                if (TelegraphFromStartPoint != null) TelegraphFromStartPoint.Invoke();
+            } else
+            {
+                if (TelegraphFromEndPoint != null) TelegraphFromEndPoint.Invoke();
+            }
+            
+            StartCoroutine(StaticCoroutines.DoAfterDelay(telegraphLenght, StartMove));
+        }
+
         public void StartMove()
         {
             if (isInStartingPosition)
             {
+                if (CogLaunchedFromStartEvent != null) CogLaunchedFromStartEvent.Invoke();
                 StartCoroutine(MovingCoroutine(singleTripLenght, _movementEasing, _startingPosition, _endPosition.position, transform));
             } else
             {
+                if (CogLaunchedFromEndEvent != null) CogLaunchedFromEndEvent.Invoke();
                 StartCoroutine(MovingCoroutine(singleTripLenght, _movementEasing, _endPosition.position, _startingPosition, transform));
             }
         }
@@ -51,7 +74,7 @@ namespace fi.tamk.hellgame.world
             }
             transformToMove.position = endPosition;
             isInStartingPosition = !isInStartingPosition;
-            StartMove();
+            StartCoroutine(StaticCoroutines.DoAfterDelay(cooldownLenght + (Random.value * cooldownRandomness), StartTelegraph));
         }
     }
 }
