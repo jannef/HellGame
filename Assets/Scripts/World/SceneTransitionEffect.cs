@@ -34,6 +34,7 @@ namespace fi.tamk.hellgame.world
         IEnumerator FadeOutine()
         {
             var t = 0f;
+            yield return null;
             while (t < 1)
             {
                 t += Time.unscaledDeltaTime / fadeOutLenght;
