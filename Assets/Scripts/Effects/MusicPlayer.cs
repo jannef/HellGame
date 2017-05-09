@@ -24,7 +24,8 @@ namespace fi.tamk.hellgame
 
             public int NextIndex()
             {
-                Index = Index % Tracks.Length;
+                Index++;
+                Index = Mathf.Clamp(Index % Tracks.Length, 0, Tracks.Length-1);
                 return Tracks[Index];
             }
 
@@ -64,8 +65,9 @@ namespace fi.tamk.hellgame
         {
             PLAYBACK_STATE state;
             _musicTracks[_iterator].getPlaybackState(out state);
+            
 
-            if (state == PLAYBACK_STATE.STOPPED)
+            if (state == PLAYBACK_STATE.STOPPED || state == PLAYBACK_STATE.STOPPING)
             {
                 if (_playingPlaylist)
                 {
