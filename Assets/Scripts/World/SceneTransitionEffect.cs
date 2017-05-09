@@ -24,7 +24,7 @@ namespace fi.tamk.hellgame.world
             StartCoroutine(FadeOutine());
         }
 
-        public void StartSceneTransition(int sceneToLoad)
+        public virtual void StartSceneTransition(int sceneToLoad)
         {
             if (SceneTransitionEvent != null) SceneTransitionEvent.Invoke();
             StartCoroutine(FadeInRoutine(sceneToLoad));
@@ -46,7 +46,7 @@ namespace fi.tamk.hellgame.world
             _blackCanvas.alpha = 0;
         }
 
-        IEnumerator FadeInRoutine(int sceneToLoad)
+        protected IEnumerator FadeInRoutine(int sceneToLoad)
         {
             var t = 0f;
             while (t < 1)

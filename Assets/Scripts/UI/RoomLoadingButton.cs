@@ -33,7 +33,9 @@ namespace fi.tamk.hellgame.ui
 
         private void Activate()
         {
-            if(targetScene != LegalScenes.ErrorOrNone)
+            if (SceneLoadLock.SceneChangeInProgress) return;
+
+            if (targetScene != LegalScenes.ErrorOrNone)
                 if (targetScene == LegalScenes.LevelSelectHub)
                 {
                     var scene = Utilities.ReturnLevelSelectScreenBasedOnRoom((LegalScenes)SceneManager.GetActiveScene().buildIndex);

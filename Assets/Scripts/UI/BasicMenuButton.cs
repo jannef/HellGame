@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Linq;
 using fi.tamk.hellgame.dataholders;
+using fi.tamk.hellgame.world;
 
 namespace fi.tamk.hellgame.ui
 {
@@ -81,6 +82,7 @@ namespace fi.tamk.hellgame.ui
 
         public virtual void Submit(MenuCommander commander)
         {
+            if (SceneLoadLock.SceneChangeInProgress) return;
             Activate();
             _button.onClick.Invoke();
         }

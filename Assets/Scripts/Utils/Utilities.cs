@@ -96,6 +96,11 @@ namespace fi.tamk.hellgame.utils
                 case LegalScenes.Library_3:
                 case LegalScenes.Library_Boss:
                     return LegalScenes.Library_LevelSelect;
+                case LegalScenes.Chambers_1:
+                case LegalScenes.Chambers_2:
+                case LegalScenes.Chambers_3:
+                case LegalScenes.Chambers_Boss:
+                    return LegalScenes.Chambers_LevelSelect;
                 default:
                     return LegalScenes.LevelSelectHub;
             }

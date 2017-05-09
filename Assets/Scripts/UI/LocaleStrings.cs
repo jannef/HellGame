@@ -65,6 +65,11 @@ public static partial class LocaleStrings
 		"Dance Dance Incineration",
 		"Laser Revolution",
 		"Chambers Wing",
+		"Language",
+		"English",
+		"Spanish",
+		"Finnish",
+		"Your progress is saved automatically",
 		""
 	};
 
@@ -127,6 +132,11 @@ public static partial class LocaleStrings
 		"Palavan Kissan Tango",
 		"Karulaaseriselli",
 		"Asuinsiipi",
+		"Kieli",
+		"Englanti",
+		"Espanja",
+		"Suomi",
+		"Peli tallentaa automaattisesti",
 		""
 	};
 
@@ -189,6 +199,11 @@ public static partial class LocaleStrings
 		"Dance Dance Incineración",
 		"Revolución Láser",
 		"Cámaras",
+		"Lenguaje",
+		"Inglés",
+		"Español",
+		"Finlandés",
+		"Tu progreso se guarda automáticamente",
 		""
 	};
 
@@ -308,6 +323,16 @@ public static partial class LocaleStrings
 
 	public static string UI_ROOM_CHAMBERS_LEVELSELECT { get { return CurrentLocale[57]; } }
 
+	public static string UI_LANGUAGE { get { return CurrentLocale[58]; } }
+
+	public static string UI_LANGUAGE_ENGLISH { get { return CurrentLocale[59]; } }
+
+	public static string UI_LANGUAGE_SPANISH { get { return CurrentLocale[60]; } }
+
+	public static string UI_LANGUAGE_FINNISH { get { return CurrentLocale[61]; } }
+
+	public static string UI_MENU_AUTOSAVEREMINDER { get { return CurrentLocale[62]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -368,5 +393,10 @@ public static partial class LocaleStrings
 		UI_ROOM_CHAMBERS_2=55,
 		UI_ROOM_CHAMBERS_3=56,
 		UI_ROOM_CHAMBERS_LEVELSELECT=57,
+		UI_LANGUAGE=58,
+		UI_LANGUAGE_ENGLISH=59,
+		UI_LANGUAGE_SPANISH=60,
+		UI_LANGUAGE_FINNISH=61,
+		UI_MENU_AUTOSAVEREMINDER=62,
 	}
 }
