@@ -16,18 +16,23 @@ namespace fi.tamk.hellgame.world
         [SerializeField] private LegalScenes targetRoom;
         [SerializeField] private LegalScenes theRoomBeforeInProgression;
         [SerializeField] private bool OpenEvenIfRoomNotFound = false;
+        [SerializeField] private bool ShowHaloIfOpenedAutomatically = false;
 
         // Use this for initialization
         void Start()
         {
 
+            var roomData = UserStaticData.GetRoomData((int)targetRoom);
+
             if (OpenEvenIfRoomNotFound)
             {
                 if (RoomFoundInSaveData != null) RoomFoundInSaveData.Invoke();
+                if (ShowHaloIfOpenedAutomatically && roomData == null)
+                {
+                    if (RoomNotEnteredEvent != null) RoomNotEnteredEvent.Invoke();
+                }
                 return;
             }
-
-            var roomData = UserStaticData.GetRoomData((int)targetRoom);
 
             if (roomData == null)
             {
