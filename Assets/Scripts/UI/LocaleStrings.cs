@@ -51,7 +51,7 @@ public static partial class LocaleStrings
 		"Developer",
 		"Contributor",
 		"Archmage",
-		"Battle Wizard",
+		"Battle Mage",
 		"Wizard",
 		"Apprentice",
 		"Novice",
@@ -76,6 +76,7 @@ public static partial class LocaleStrings
 		"Apprentice,\n\nThe secret I now pass on to you may be your doom. Deep in the library, in my private archives, there is a wellspring of infinite knowledge. For decades I have communed with it, my fingertips running over its surface, my mind fed by its mysteries and whispered propositions. At first it meant to consume my thoughts from within, but over the decades I subdued the urges it seeded in my subconscious. Most of them at least. You have no such time to spare. Whether demon, god, or spirit, you must destroy it. Though, the thought bears down on my soul with unsettling weight...",
 		"Apprentice,\n\nI know not what awaits you in my private chambers, but it may well have been the agent of my fate... some powerful entity with a grudge, or simply a lust for what is mine. I have prepared you as well as I can for what's to come, but was it enough to succeed where I failed?",
 		"Apprentice,",
+		"German",
 		""
 	};
 
@@ -149,6 +150,7 @@ public static partial class LocaleStrings
 		"Oppilaani,\n\nOstin nuorena oppilaana kiertelevältä kauppiaalta ikuisen tiedon kuulan. Mitä tulee tämän suunnattoman kirjaston järjestelemiseen, se on ollut erittäin hyvä apuri. Epäilen sen kuitenkin olevan kyltymättömän tiedon demoni, joka on kirjaston tiedon avulla kasvattanut mahtiaan. Olen pahoillani, mutta jätän tämän olennon sinun vastuullesi. En raaskinut sitä surmata, sillä huolimatta sen pahasta sisimmästä, sen kantama viisaus on kaunimpaa kuin yhdeksän ihmiselämää.",
 		"Rakas oppilaani\n\nEn tiedä mikä hirviö odottaa makuutilassani, mutta se on varmasti ollut surmaajani. Olen valmistellut sinua tätä viimeistä koitosta varten, mutta lopulta teräksen voima nousee palavasta sielustasi. Toivon koko sydämestäni, että onnistut siinä mikä minut kaatoi.",
 		"Oppilaani,",
+		"Saksa",
 		""
 	};
 
@@ -222,6 +224,81 @@ public static partial class LocaleStrings
 		"Aprendiz, \n\nEl secreto que ahora te transmito puede ser tu perdición. Profundamente en la biblioteca, en mis archivos privados, hay una fuente de conocimiento infinito. Durante décadas he hablado con él, con las yemas de mis dedos corriendo sobre su superficie, mi mente alimentada por sus misterios y proposiciones susurradas. Al principio significaba consumir mis pensamientos desde dentro, pero durante las décadas subjugué los impulsos que sembraba en mi subconsciente. La mayoría de ellos al menos. No tienes tiempo de sobra. Ya sea demonio, dios o espíritu, debes destruirlo. Sin embargo, el pensamiento se apaga en mi alma con un peso inquietante ...",
 		"Aprendiz, \n\nNo sé lo que os espera en mis cámaras privadas, pero bien pudo haber sido el agente de mi destino ... una entidad poderosa con rencor, o simplemente una lujuria por lo que es mío. Te he preparado lo mejor que he podido para lo que vendrá, pero ¿fue suficiente para tener éxito donde fracasé?",
 		"Aprendiz,",
+		"Alemán",
+		""
+	};
+
+	public static readonly string[] de_DE = {
+		"Drücken Sie, um die ultimative Kraft zu aktivieren!",
+		"ULTIMATIVE KRAFT!",
+		"Fertigstellungszeit",
+		"Hits Getroffen",
+		"Endgültige Zeit",
+		"{0}: {1}",
+		"Automatisierte Diner",
+		"Uhrwerk Ausdrücklich",
+		"Hall of Unbequemlichkeit",
+		"Der Eiserne Chef",
+		"Lehrlingskeller",
+		"Nasse Schätze",
+		"Schleim des Todes",
+		"Gefährliche Bibliothe",
+		"Laser-Gefahr",
+		"Buchbrenner",
+		"Bibliothekarsphäre",
+		"Die Blauen Augen Braunes Monster",
+		"Die Studium",
+		"Wiederholen",
+		"Gesamtzeit",
+		"Abgeschlossen",
+		"Fortsetzen",
+		"Pause",
+		"Feuerball",
+		"Meteorschlag",
+		"Geräusche",
+		"Optionen",
+		"Spielcontroller",
+		"Tastatur",
+		"Auswirkungen",
+		"Musik",
+		"Spiel Verlassen",
+		"Ebene Auswählen",
+		"Spiel Ist Aus",
+		"Gutschriften",
+		"Schmeißen",
+		"Rückkehr",
+		"Drücke Irgendeine Taste",
+		"Säulenlagerung",
+		"Metall-Zauberer",
+		"Entwickler",
+		"Mitwirkender",
+		"Erzmagier",
+		"Schlacht Magier",
+		"Zauberer",
+		"Lehrling",
+		"Anfänger",
+		"Kellerflügel",
+		"Küchenflügel",
+		"Bibliothek flügel",
+		"Anfang",
+		"Zurück Zum Titel",
+		"Großes Vatermonster",
+		"Monster Schrank",
+		"Tanzverbrennung",
+		"Laser-Revolution",
+		"Kammern Flügel",
+		"Sprache",
+		"Englisch",
+		"Spanisch",
+		"Finnisch",
+		"Ihr fortschritt wird automatisch gespeichert",
+		"So ist der Erzmagier endlich tot. \n\nVor Jahren kam ich vor der Haustür, voller Hoffnung, voller Potenzial. Jetzt kann ich mich kaum an das Leben außerhalb dieses Ortes erinnern ... mein Atem trägt den Geruch von alten Büchern, poliertem Messing und die Hitze der Dampfwerke. Jeder Schritt wird von einem Uhrwerk Horror verfolgt er \"erfunden\" in einem seiner Träume. Jetzt ist er weg, und das Herrenhaus hat sich gegen mich gewandt! Ich höre seine Uhrwerk-Tiere, die die Dampfpfeifen überstreifen, und die meisten Türen haben sich verschlossen. \n\nEs scheint, als ob ich endlich etwas üben würde ... wenn nichts anderes, werde ich all dieses Feuer und Metall Magie verwenden, um mir einen Weg von hier zu schmieden.",
+		"Lehrling, \n\nDas Herrenhaus wird sich hier zuerst gegen dich wenden. Die Automaten werden versuchen, Sie zu stoppen. Doch wenn es irgendwo einen Fuß zu fassen gibt, muss es hier in den dunklen und feuchten Kellern sein, denn es ist wenigstens frei von meinen genialeren Sicherheitsgeräten. Aber vorsichtig vorgehen! Vor vielen Jahren hat mir ein Kollege ein eigenartiges Tier geschenkt. Keine Augen, kein Mund, aber es gab keine Wärme, die es nicht erkennen konnte und nichts, was es nicht verbrauchen konnte. Es wuchs, bis ich es nicht mehr im Labor aufnehmen konnte und seitdem in den tiefsten Wegen der Keller versiegelt ist. Es muss sehr hungrig sein.",
+		"Lehrling, \n\nNiemals habe ich meine Tapferkeit als Erfinder bereut, aber wenn ich noch lebte, würde ich es heute bereuen. Meine größte Idee schlug, als mein Kopf leer war; Über einen späten Nacht-Snack. In meinem privaten Speisesaal legt eine meiner größten Belagerungsarbeiten still. Es war zuerst ein Wunder ... aber als die fieberhafte Erinnerung an die Inspiration verblaßte, Wochen nach ihrer Schöpfung wurde es zu einer wachsamen, vorzeitigen Gegenwart. Es war niemals gerührt, als ich im Zimmer war, aber ich fing an, immer mehr Haufen von Asche zu finden, und entschieden weniger von meinen Katzen. Ich habe meine Mahlzeiten in meinen Kammern seitdem genommen.",
+		"Lehrling, \n\nDas Geheimnis, das ich jetzt weitergebe, kann dein Schicksal sein. Tief in der Bibliothek, in meinem privaten Archiv, gibt es eine Quelle von unendlichem Wissen. Seit Jahrzehnten habe ich mit ihm kommuniziert, meine Fingerspitzen über seine Oberfläche, mein Geist von seinen Mysterien gefüttert und flüsterte Sätze. Zuerst bedeutete es, meine Gedanken von innen zu verbrauchen, aber über die Jahrzehnte unterwarf ich die Triebe, die es in meinem Unterbewusstsein seeded Die meisten von ihnen zumindest. Sie haben keine solche Zeit zu ersparen. Ob Dämon, Gott oder Geist, du musst es zerstören. Obwohl der Gedanke auf meine Seele mit beunruhigendem Gewicht ...",
+		"Lehrling, \n\nIch weiß nicht, was dich in meinen privaten Kammern erwartet, aber es ist wohl der Agent meines Schicksals gewesen ... eine mächtige Einheit mit einem Groll oder einfach nur eine Lust auf das, was mir gehört. Ich habe dich so gut vorbereitet wie ich kann, was kommt, aber war es genug, um erfolgreich zu sein, wo ich versagte?",
+		"Lehrling,",
+		"Deutsche",
 		""
 	};
 
@@ -363,6 +440,8 @@ public static partial class LocaleStrings
 
 	public static string UI_LORE_GENERAL_APPRENTICE { get { return CurrentLocale[68]; } }
 
+	public static string UI_LANGUAGE_GERMAN { get { return CurrentLocale[69]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -434,5 +513,6 @@ public static partial class LocaleStrings
 		UI_LORE_LIBRARY_LEVELSELECT=66,
 		UI_LORE_CHAMBERS_LEVELSELECT=67,
 		UI_LORE_GENERAL_APPRENTICE=68,
+		UI_LANGUAGE_GERMAN=69,
 	}
 }
