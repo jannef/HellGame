@@ -70,6 +70,12 @@ public static partial class LocaleStrings
 		"Spanish",
 		"Finnish",
 		"Your progress is saved automatically",
+		"So the Archmage is finally dead. \n\nYears ago I arrived on his doorstep, full of hope, brimming with potential. Now, I can scarcely remember life outside of this place... my every breath carries the smell of old books, polished brass, and the heat of the steamworks. Every step is haunted by some clockwork horror he \"invented\" in one of his dreams. Now he's gone, and the manor has turned against me! I can hear his clockwork beasts roaming the steam pipes above, and most of the doors have locked themselves. \n\nIt seems as though I'm about to get some exercise at last... if nothing else, I'll use all this fire and metal magic to forge myself a path out of here.",
+		"Apprentice,\n\nThe manor will turn against you here first. The automatons will try to stop you. Yet if there is anywhere to gain a foothold, it must be here in the dark and humid cellars, because it is at least free of my more ingenious security devices. But tread carefully! Many years ago, a colleague gifted me a most peculiar beast. No eyes, no mouth, yet there was no warmth it could not detect and nothing it could not consume. It grew until I could no longer contain it in the laboratory, and has remained sealed in the deepest reaches of the cellars since. It must be very hungry.",
+		"Apprentice,\n\nNever have I regretted my prowess as an inventor, but if I still lived, I would regret it today. My greatest idea struck when my head was emptiest; over a late night snack. In my private dining room, one of my greatest siege works lays dormant. It was at first a marvel... but as the fevered memory of inspiration faded, weeks after its creation, it became a watchful, foreboding presence. It never stirred when I was in the room, but I began to find increasingly more piles of ash, and decidedly fewer of my cats. I've taken my meals in my chambers since.",
+		"Apprentice,\n\nThe secret I now pass on to you may be your doom. Deep in the library, in my private archives, there is a wellspring of infinite knowledge. For decades I have communed with it, my fingertips running over its surface, my mind fed by its mysteries and whispered propositions. At first it meant to consume my thoughts from within, but over the decades I subdued the urges it seeded in my subconscious. Most of them at least. You have no such time to spare. Whether demon, god, or spirit, you must destroy it. Though, the thought bears down on my soul with unsettling weight...",
+		"Apprentice,\n\nI know not what awaits you in my private chambers, but it may well have been the agent of my fate... some powerful entity with a grudge, or simply a lust for what is mine. I have prepared you as well as I can for what's to come, but was it enough to succeed where I failed?",
+		"Apprentice,",
 		""
 	};
 
@@ -137,6 +143,12 @@ public static partial class LocaleStrings
 		"Espanja",
 		"Suomi",
 		"Peli tallentaa automaattisesti",
+		"So the Archmage is finally dead. \nYears ago I arrived on his doorstep, full of hope, brimming with potential. Now, I can scarcely remember life outside of this place... my every breath carries the smell of old books, polished brass, and the heat of the steamworks. Every step is haunted by some clockwork horror he \"invented\" in one of his dreams. Now he's gone, and the manor has turned against me! I can hear his clockwork beasts roaming the steam pipes above, and most of the doors have locked themselves.",
+		"Apprentice,The manor will turn against you here first. The automatons will try to stop you. Yet if there is anywhere to gain a foothold, it must be here in the dark and humid cellars, because it is at least free of my more ingenious security devices. But tread carefully! Many years ago, a colleague gifted me a most peculiar beast. No eyes, no mouth, yet there was no warmth it could not detect and nothing it could not consume. It grew until I could no longer contain it in the laboratory, and has remained sealed in the deepest reaches of the cellars since. It must be very hungry.",
+		"Apprentice,Never have I regretted my prowess as an inventor, but if I still lived, I would regret it today. My greatest idea struck when my head was emptiest; over a late night snack. In my private dining room, one of my greatest siege works lays dormant. It was at first a marvel... but as the fevered memory of inspiration faded, weeks after its creation, it became a watchful, foreboding presence. It never stirred when I was in the room, but I began to find increasingly more piles of ash, and decidedly fewer of my cats. I've taken my meals in my chambers since.",
+		"Apprentice,The secret I now pass on to you may be your doom. Deep in the library, in my private archives, there is a wellspring of infinite knowledge. For decades I have communed with it, my fingertips running over its surface, my mind fed by its mysteries and whispered propositions. At first it meant to consume my thoughts from within, but over the decades I subdued the urges it seeded in my subconscious. Most of them at least. You have no such time to spare. Whether demon, god, or spirit, you must destroy it. Though, the thought bears down on my soul with unsettling weight...",
+		"Apprentice,I know not what awaits you in my private chambers, but it may well have been the agent of my fate... some powerful entity with a grudge, or simply a lust for what is mine. I have prepared you as well as I can for what's to come, but was it enough to succeed where I failed?",
+		"Apprentice,",
 		""
 	};
 
@@ -204,6 +216,12 @@ public static partial class LocaleStrings
 		"Español",
 		"Finlandés",
 		"Tu progreso se guarda automáticamente",
+		"So the Archmage is finally dead.Years ago I arrived on his doorstep, full of hope, brimming with potential. Now, I can scarcely remember life outside of this place... my every breath carries the smell of old books, polished brass, and the heat of the steamworks. Every step is haunted by some clockwork horror he \"invented\" in one of his dreams. Now he's gone, and the manor has turned against me! I can hear his clockwork beasts roaming the steam pipes above, and most of the doors have locked themselves.",
+		"Apprentice,The manor will turn against you here first. The automatons will try to stop you. Yet if there is anywhere to gain a foothold, it must be here in the dark and humid cellars, because it is at least free of my more ingenious security devices. But tread carefully! Many years ago, a colleague gifted me a most peculiar beast. No eyes, no mouth, yet there was no warmth it could not detect and nothing it could not consume. It grew until I could no longer contain it in the laboratory, and has remained sealed in the deepest reaches of the cellars since. It must be very hungry.",
+		"Apprentice,Never have I regretted my prowess as an inventor, but if I still lived, I would regret it today. My greatest idea struck when my head was emptiest; over a late night snack. In my private dining room, one of my greatest siege works lays dormant. It was at first a marvel... but as the fevered memory of inspiration faded, weeks after its creation, it became a watchful, foreboding presence. It never stirred when I was in the room, but I began to find increasingly more piles of ash, and decidedly fewer of my cats. I've taken my meals in my chambers since.",
+		"Apprentice,The secret I now pass on to you may be your doom. Deep in the library, in my private archives, there is a wellspring of infinite knowledge. For decades I have communed with it, my fingertips running over its surface, my mind fed by its mysteries and whispered propositions. At first it meant to consume my thoughts from within, but over the decades I subdued the urges it seeded in my subconscious. Most of them at least. You have no such time to spare. Whether demon, god, or spirit, you must destroy it. Though, the thought bears down on my soul with unsettling weight...",
+		"Apprentice,I know not what awaits you in my private chambers, but it may well have been the agent of my fate... some powerful entity with a grudge, or simply a lust for what is mine. I have prepared you as well as I can for what's to come, but was it enough to succeed where I failed?",
+		"Apprentice,",
 		""
 	};
 
@@ -333,6 +351,18 @@ public static partial class LocaleStrings
 
 	public static string UI_MENU_AUTOSAVEREMINDER { get { return CurrentLocale[62]; } }
 
+	public static string UI_LORE_LEVELSELECT { get { return CurrentLocale[63]; } }
+
+	public static string UI_LORE_CELLAR_LEVELSELECT { get { return CurrentLocale[64]; } }
+
+	public static string UI_LORE_KITCHEN_LEVELSELECT { get { return CurrentLocale[65]; } }
+
+	public static string UI_LORE_LIBRARY_LEVELSELECT { get { return CurrentLocale[66]; } }
+
+	public static string UI_LORE_CHAMBERS_LEVELSELECT { get { return CurrentLocale[67]; } }
+
+	public static string UI_LORE_GENERAL_APPRENTICE { get { return CurrentLocale[68]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -398,5 +428,11 @@ public static partial class LocaleStrings
 		UI_LANGUAGE_SPANISH=60,
 		UI_LANGUAGE_FINNISH=61,
 		UI_MENU_AUTOSAVEREMINDER=62,
+		UI_LORE_LEVELSELECT=63,
+		UI_LORE_CELLAR_LEVELSELECT=64,
+		UI_LORE_KITCHEN_LEVELSELECT=65,
+		UI_LORE_LIBRARY_LEVELSELECT=66,
+		UI_LORE_CHAMBERS_LEVELSELECT=67,
+		UI_LORE_GENERAL_APPRENTICE=68,
 	}
 }
