@@ -73,6 +73,10 @@ namespace fi.tamk.hellgame.utils
                     return Constants.SpanishLocaleString;
                 case SystemLanguage.German:
                     return Constants.GermanLocaleString;
+                case SystemLanguage.French:
+                    return Constants.FrenchLocaleString;
+                case SystemLanguage.Portuguese:
+                    return Constants.PortuegeseLocaleString;
                 default:
                     return Constants.EnglishLocaleString;
                 
