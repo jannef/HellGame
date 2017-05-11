@@ -1,0 +1,90 @@
+{b6168933-acf0-46b9-a042-a7815eb28432} event:/Music/CellarBossAmbient
+{09ec75eb-1666-4284-b3fb-76857d61e233} event:/Music/CellarBossMusic
+{d88d5c47-cfb2-4d7f-872a-77ddfee708b5} event:/Music/ChambersBossAmbient
+{10382223-527a-4b50-b728-38abe45e6e29} event:/Music/ChambersBossMusic
+{51b01999-d2ba-4cfc-867d-64897d0bba74} event:/Music/Chopin Nocturne
+{d6d95e3c-5d70-4768-86d4-683d652c97f8} event:/Music/Gameplay1
+{77f1c056-f1e6-4c85-908e-5ef496dac6d4} event:/Music/Gameplay2
+{7481a35d-d980-48a9-8c83-f0ad1f5c5eaf} event:/Music/Gameplay3
+{0749e3b2-6584-4b72-9042-b00c3ed7003e} event:/Music/Gameplay4
+{466fe479-05bf-4913-9ae1-d4f4a1c6bc7d} event:/Music/Gameplay5
+{b3e8dee1-7d03-4f2d-844d-e1e1dc6875fd} event:/Music/Gameplay6
+{1e8064b4-70bf-4c16-99c9-51c64ca29248} event:/Music/Gameplay7
+{e172fe4e-9613-4b5c-b6ba-d6a7e3a55a67} event:/Music/GeneralAmbient
+{6aa7b5fe-5ad4-487a-8090-954c3eadb486} event:/Music/HubMusic
+{c5f85348-9337-491b-ac65-b141c3ae53a4} event:/Music/KitchenBossAmbient
+{ccefe83a-a465-45b6-8334-7a697b7fb713} event:/Music/KitchenBossMusic
+{5013efb2-7217-43ef-89da-2aeb6414bc7e} event:/Music/LibraryBossAmbient
+{d58863e4-4277-4f52-b148-74e669405046} event:/Music/LibraryBossMusic
+{60a41cf6-48a7-4384-b909-c1111f51f9d1} event:/Music/Schumann Reapers
+{117d4d77-3aaf-4f47-8cee-d6924d22a8ca} event:/Music/TestSound
+{20edbbe0-22eb-4700-ae34-5bd026d94a73} event:/Music/TitleMusic
+{303bbd54-375b-4bd7-9d2c-2075dd36f495} event:/Sound Effects/Automaton/Automaton_Gun_1
+{297e81b1-1f1e-4a3f-95f2-d36775aa0dbf} event:/Sound Effects/Automaton/Automaton_Gun_2
+{b1647397-fcc2-40dc-ae68-1c3edd64b41a} event:/Sound Effects/Automaton/Automaton_Large_Destroyed
+{cc3708f3-cecd-4d1c-b9d4-1d1d65295eba} event:/Sound Effects/Automaton/Automaton_Laser
+{520a61f9-a440-43d4-992b-b8f741bb3d9f} event:/Sound Effects/Automaton/Automaton_Small_Destroyed
+{73791299-b6a6-4d36-8f0d-e750e626d6c6} event:/Sound Effects/Automaton/Automaton_WallLaser_Grind
+{db4d5ae5-7282-465c-a519-cc2b5b2d5a7a} event:/Sound Effects/EyeBoss/Beholder_Pain
+{76098021-f20a-4751-8117-08822bbf88b2} event:/Sound Effects/EyeBoss/EyeBoss_Laser
+{02185cda-baa1-4efe-bdb4-90980091d40f} event:/Sound Effects/EyeBoss/EyeBoss_Wake
+{c1dd9de1-14ea-4d15-b389-dbbe7769f8c5} event:/Sound Effects/Player/Player_Dash
+{11460674-7dce-425f-a599-d81f2a8c30fe} event:/Sound Effects/Player/Player_Death
+{0a91a546-d16e-4b49-9d3b-9e58b28aa391} event:/Sound Effects/Player/Player_Flinch
+{f9d86cbd-86e8-4c8b-9363-b0b50140430a} event:/Sound Effects/Player/Player_GemPickUp
+{f991a375-a59a-4b3c-acc2-6c02e5df069e} event:/Sound Effects/Player/Player_LimitBreak
+{26c178de-c668-4fad-8061-9d1ffecc293f} event:/Sound Effects/Player/Player_LimitBreakAvailable
+{43ca8140-afa7-486b-8f79-3df7f71f042e} event:/Sound Effects/Player/Player_LimitBreakReached
+{5cfe6439-ab7b-4161-8164-eb10b4484091} event:/Sound Effects/Player/Player_LimitBreakStart
+{96760fef-4980-4867-b103-2d2d5f2c1534} event:/Sound Effects/Player/Player_ShieldLoop
+{991da992-85e5-4841-999d-5669b22be6a7} event:/Sound Effects/Player/Player_ShootingLoop
+{140b8ff7-15a1-4241-909d-8bfbeb87f0a0} event:/Sound Effects/SlimeBoss/SlimeBoss_AcidPoolSizzle
+{1443afdc-9331-4d28-a7d0-adbc96ab3cf9} event:/Sound Effects/SlimeBoss/SlimeBoss_Death
+{401c555d-bf86-466d-afe1-a7ec7f2b1824} event:/Sound Effects/SlimeBoss/SlimeBoss_Jump
+{6cb63362-8f3a-42e7-86d1-e35229e60895} event:/Sound Effects/SlimeBoss/SlimeBoss_Landing
+{69f75702-0707-4d27-a020-766e2545de11} event:/Sound Effects/SlimeBoss/SlimeBoss_Wake
+{7cc5faac-2fa0-43f4-bb7d-ae50be1f9a7a} event:/Sound Effects/SlimeBoss/SlimeMinion_Death
+{a6ba9054-88aa-458a-9075-6855d255e314} event:/Sound Effects/SlimeBoss/SlimeMinion_Landing
+{1b8a623c-3079-4ce2-a659-ad9072a704bb} event:/Sound Effects/SphereBoss/LibraryBoss_P1Gun
+{ea3fa917-dc00-49ab-a864-28def55f2fdd} event:/Sound Effects/SphereBoss/LibraryBoss_P2Gun
+{007f7cb1-0fc2-41dc-82ba-036e97e6a6d7} event:/Sound Effects/SphereBoss/LibraryBoss_PentagramFlash
+{0c5e4107-d075-4a5c-bdc8-27d0053014b3} event:/Sound Effects/SphereBoss/LibraryBoss_ShellBreak
+{5de9508f-0c0d-48a6-b3ab-3614742ae7c2} event:/Sound Effects/SphereBoss/SphereBoss_DeathExplosion
+{a3d132b8-b45d-416e-b962-0d465bcae3e4} event:/Sound Effects/SphereBoss/SphereBoss_SmallExplo
+{2a57759b-3355-44cf-b8db-45c8bc869dbf} event:/Sound Effects/SphereBoss/SphereBoss_Wake
+{e547ff7e-1c1a-4541-ba1f-c2bc14cffb53} event:/Sound Effects/UI/DoorSlam
+{97dc89b0-cb16-4aa2-954c-5b77577faf1b} event:/Sound Effects/UI/DoorSlam_Creak
+{1baab3e8-5bba-4088-8267-1896e1a88efe} event:/Sound Effects/UI/Lorebook_Spew
+{209f635c-9c41-4a28-a3a6-d5388c2dda81} event:/Sound Effects/UI/Lorebook_Unspew
+{450164c9-8919-43f5-bcc3-c28fa953c7eb} event:/Sound Effects/UI/MedalEarned
+{a7f49160-0003-42f3-914f-d351678dbc4b} event:/Sound Effects/UI/OpeningDoor
+{bdc3cfd8-feab-49f3-9ff1-81750d2089e1} event:/Sound Effects/UI/RoomInfoPopup_Spew
+{efb4f012-e792-4ffe-a685-e3f76a43acad} event:/Sound Effects/UI/RoominfoPopup_Spew2
+{e0240a15-4ee8-4cf4-9152-8dae8c30ab6c} event:/Sound Effects/UI/RoomInfoPopup_Unspew
+{bb4cab75-15a6-4ca1-89da-1d0ff5538bb6} event:/Sound Effects/UI/RoomInfoPopup_Unspew2
+{01ad0d09-5c2c-414c-8450-11a7919fd63c} event:/Sound Effects/UI/ScoreScreenAppears
+{ca659f4f-b337-4d80-8874-fc4c72dd9463} event:/Sound Effects/UI/UI_Click_High_1
+{e8a01513-fb08-4f98-ae8b-604e5c20827f} event:/Sound Effects/UI/UI_Click_High_2
+{65482325-ca44-4efe-b56f-17890f5d460f} event:/Sound Effects/UI/UI_Click_Low_1
+{ec3f9f22-ad3f-4bc1-bada-a915e0ba2c6a} event:/Sound Effects/UI/UI_Click_Low_2
+{7de8f35d-9130-49cf-8531-eeb0df0f030a} event:/Sound Effects/WallBoss/WallBoss_DeathExplosion
+{74929ae0-7a67-4cdc-83a2-062e1309574a} event:/Sound Effects/WallBoss/WallBoss_LaserFire_Loop
+{ec64454e-d2d3-423e-bce0-386df629a061} event:/Sound Effects/WallBoss/WallBoss_RailingGrind
+{e8a90d2d-e6cc-4699-b414-bc5f7b09381f} event:/Sound Effects/WallBoss/WallBoss_Torpedo
+{6ee0b733-165a-4811-a507-d0a1f02eca67} event:/Sound Effects/WallBoss/WallBoss_Wake
+{c94811bc-9a18-4005-92d8-a5fd0d063e02} event:/Sound Effects/World/AerialSpawner_Landing
+{ee26f8c1-32ff-48f8-ad54-ccd4e848babc} event:/Sound Effects/World/Chest_Explosion
+{9f727d9f-3f81-4abd-982c-faaff36a32da} event:/Sound Effects/World/ExplodingEntrance
+{820015ac-9aaf-41a2-abe2-6ad8633a1c65} event:/Sound Effects/World/FlameTrap_Activates
+{51b229a4-0d8a-4309-944e-7de67431bb92} event:/Sound Effects/World/FlameTrap_Telegraph
+{6e751946-f858-4722-834f-b9f8432ade4b} event:/Sound Effects/World/RailTrap_Grind
+{abfa8077-1cb1-40d3-b8d8-6944c53b97d3} event:/Sound Effects/World/SpawnWave_Start
+{462c7c0e-525a-4ee2-928f-7367ad1bef74} bus:/
+{5e708b0c-eb82-4e65-8458-a6b04310f489} bus:/Music
+{fb0cb392-58a1-4cfb-aeff-0f69d88c5000} bus:/SFX
+{bf6dae7e-5bb8-4c83-916f-d95ff35cc6f6} bus:/UI
+{e3a76c35-13bd-4963-80a4-f8afcf4d826d} bus:/Reverb
+{77f5c3fd-3ae4-440b-831e-b38cc0fb109e} vca:/music
+{a837d403-1f53-4556-8833-1b35851a6ae9} vca:/sfx
+{b76be8d9-2153-471f-b347-e5c81b80d515} vca:/ui
+{a79f3393-8b37-4ab7-8dab-d18705d7f273} bank:/Master Bank

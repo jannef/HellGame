@@ -197,6 +197,9 @@
         <property name="releaseTime">
             <value>0</value>
         </property>
+        <property name="releaseShape">
+            <value>0.544673562</value>
+        </property>
     </object>
     <object class="MixerBusEffectChain" id="{3ec1b8e9-5ee6-4f79-9623-0fae9c10b889}">
         <relationship name="effects">
