@@ -79,6 +79,7 @@ public static partial class LocaleStrings
 		"German",
 		"Portuguese",
 		"French",
+		"Italian",
 		""
 	};
 
@@ -118,7 +119,7 @@ public static partial class LocaleStrings
 		"Sulje peli",
 		"Tasonvalinta",
 		"Ohi on!",
-		"Höbönasut",
+		"Tekijät",
 		"Säkenöivä voima",
 		"Palaa",
 		"Paina nappulaa",
@@ -155,6 +156,7 @@ public static partial class LocaleStrings
 		"Saksa",
 		"Portugali",
 		"Ranska",
+		"Italia",
 		""
 	};
 
@@ -231,6 +233,7 @@ public static partial class LocaleStrings
 		"Alemán",
 		"Portugués",
 		"Francés",
+		"Italiano",
 		""
 	};
 
@@ -307,6 +310,7 @@ public static partial class LocaleStrings
 		"Deutsche",
 		"Portugiesisch",
 		"Französisch",
+		"Italienisch",
 		""
 	};
 
@@ -383,6 +387,7 @@ public static partial class LocaleStrings
 		"Alemão",
 		"Português",
 		"Francês",
+		"Italiano",
 		""
 	};
 
@@ -459,6 +464,84 @@ public static partial class LocaleStrings
 		"Allemand",
 		"Portugais",
 		"Français",
+		"Italien",
+		""
+	};
+
+	public static readonly string[] it_IT = {
+		"Premere per attivare la potenza massima!",
+		"Potere ultimo!",
+		"Tempo di Completamento",
+		"Colpi Effettuati",
+		"Tempo Libero Finale",
+		"{0}: {1}",
+		"Cenone Automatico",
+		"Orologio Espresso",
+		"Sala di Disagio",
+		"Lo Chef Del Ferro",
+		"Cantina Apprendista",
+		"Tesori Bagnati",
+		"La Melma Della Morte",
+		"Libreria Pericolosa",
+		"Pericolo Laser",
+		"Bruciatura del Libro",
+		"Sfera dei Bibliotecari",
+		"Occhi Azzurri Belurker Marrone",
+		"Lo Studio",
+		"Riprovare",
+		"Tempo Totale",
+		"Completato",
+		"Continua",
+		"Pausa",
+		"Bolide",
+		"Meteorite Trattino",
+		"Suoni",
+		"Opzioni",
+		"Controller",
+		"Tastiera",
+		"Effetti",
+		"Musica",
+		"Uscire dal Gioco",
+		"Selezione del Livello",
+		"Gioco Finito",
+		"Crediti",
+		"Forgiare la Furia",
+		"Ritorno",
+		"Premere un tasto qualsiasi",
+		"Memorizzazione Della Colonna",
+		"Metallo Guidato",
+		"Sviluppatore",
+		"Collaboratore",
+		"Arcimago",
+		"Magia Battaglia",
+		"Procedura Guidata",
+		"Apprendista",
+		"Novizio",
+		"Cantina",
+		"Ala Cucina",
+		"Biblioteca Ala",
+		"Inizio",
+		"Uscire Dal Titolo",
+		"Grande Papà Belurker",
+		"Armadio Mostro",
+		"Dance, Dance, Incenerimento",
+		"Rivoluzione Laser",
+		"Ali delle Camere",
+		"Lingua",
+		"Inglese",
+		"Spagnolo",
+		"Finlandese",
+		"I tuoi progressi vengono salvati automaticamente",
+		"Quindi l'Archmage è finalmente morto. \n\nAnni fa sono arrivata sulla soglia, piena di speranza, piena di potenzialità. Ora, non posso ricordare la vita al di fuori di questo posto ... ogni mio respiro porta l'odore di vecchi libri, l'ottone lucido e il caldo dei vapori. Ogni passo è infestato da un orrore di orologeria che ha \"inventato\" in uno dei suoi sogni. Ora è andato, e il castello si è rivolto contro di me! Posso sentire le sue bestie di orologeria che vagano i tubi di vapore sopra, e la maggior parte delle porte si sono bloccate. \n\nSembra che dovrei finalmente fare un esercizio ... se non altro, utilizzerò tutta questa magia di fuoco e metallo per forzarmi un percorso di qui.",
+		"Apprendista, \n\nIl castello si rivolge qui prima. Gli automi cercheranno di fermarti. Eppure se c'è da guadagnare un punto d'appoggio, deve essere qui nelle cantine buie e umide, perché è almeno libera dai miei più ingegnosi dispositivi di sicurezza. Ma seguite con attenzione! Molti anni fa, un collega mi ha regalato una bestia peculiare. Nessun occhi, nessuna bocca, ma non c'era calore che non riusciva a rilevare e niente che non potesse consumare. Cresce fino a che non posso più contenerlo in laboratorio, e da allora è rimasto sigillato nelle più profonde strade delle cantine. Deve essere molto affamato.",
+		"Apprendista, \n\nNon ho mai dispiaciuto la mia abilità come inventore, ma se ancora vivo, lo dispiacerei oggi. La mia idea più grande colpì quando la mia testa era più svuotata; Su uno spuntino di tarda notte. Nella mia sala da pranzo privata, una delle mie opere d'assedio più grandi si pone in silenzio. Era in un primo momento una meraviglia ... ma come la memoria fonte di ispirazione svanì, settimane dopo la sua creazione, divenne una presenza vigile e preoccupante. Non mi ha mai agitato quando ero in camera, ma ho cominciato a trovare sempre più pile di cenere e decisamente meno dei miei gatti. Da allora ho preso i miei pasti nelle mie camere.",
+		"Apprendista, \n\nIl segreto che ora ti passa per te può essere il tuo destino. Profondo nella biblioteca, nei miei archivi privati, c'è una sorgente di conoscenza infinita. Per decenni ho parlato con lui, le dita delle mie mani che corrono sulla sua superficie, la mia mente nutrita dai suoi misteri e dalle proposte bisbigliate. In un primo momento intendeva consumare i miei pensieri dall'interno, ma nel corso dei decenni ho sottomesso le sollecitazioni che sono state seminate nel mio subconscio. La maggior parte di loro almeno. Non hai tempo da risparmiare. Se sia demone, dio o spirito, devi distruggerlo. Sebbene il pensiero abbia la mia anima con un peso inquietante ...",
+		"Apprendista, \n\nNon so cosa ti aspetta nelle mie camere private, ma forse è stato l'agente del mio destino ... una potente entità con un rancore, o semplicemente una lussuria per ciò che è mio. Ti ho preparato, come posso per quello che deve venire, ma è stato sufficiente per avere successo quando ho fallito?",
+		"Apprendista,",
+		"Tedesco",
+		"Portoghese",
+		"Francese",
+		"Italiano",
 		""
 	};
 
@@ -606,6 +689,8 @@ public static partial class LocaleStrings
 
 	public static string UI_LANGUAGE_FRENCH { get { return CurrentLocale[71]; } }
 
+	public static string UI_LANGUAGE_ITALIAN { get { return CurrentLocale[72]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -680,5 +765,6 @@ public static partial class LocaleStrings
 		UI_LANGUAGE_GERMAN=69,
 		UI_LANGUAGE_PORTUGESE=70,
 		UI_LANGUAGE_FRENCH=71,
+		UI_LANGUAGE_ITALIAN=72,
 	}
 }
