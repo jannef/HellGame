@@ -121,7 +121,7 @@ namespace fi.tamk.hellgame.character
                 {
                     var go = Pool.Instance.GetObject(Pool.PickupPrefab);
                     go.transform.position = transform.position + Vector3.up * 3f + UnityEngine.Random.onUnitSphere * 3f;
-                    go.GetComponent<Rigidbody>().AddExplosionForce(250f, transform.position + Vector3.up * 4f, 5f);
+                    go.GetComponent<Rigidbody>().AddExplosionForce(180f, transform.position + Vector3.up * 4f, 5f);
                     go.GetComponent<Pickup>().DisablePickupTemporarily(1f);
                 }                
                 GainPoints(-_collectedPoints);

@@ -68,7 +68,9 @@ namespace fi.tamk.hellgame.utils
         public const string PortuegeseLocaleString = "pt_PT";
         public const string FrenchLocaleString = "fr_FR";
         public const string ItalianLocaleString = "it_IT";
-        public const float PenaltyTimePerHit = 6f; 
+        public const float PenaltyTimePerHit = 5f;
+        public const float PlayerRunningSpeed = 16f;
+        public const float PuddleSlowDownRate = .5f;
 
         public static MenuActionType[] ActionsToAlwaysSetOnBasicButtons = new MenuActionType[5]
         {
