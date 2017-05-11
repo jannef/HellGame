@@ -31,6 +31,15 @@ namespace fi.tamk.hellgame.effectors
             var actorComponent = GetComponent<ActorComponent>();
             actorComponent.enabled = false;
             _explosionPoints = _explosionPointsParent.GetComponentsInChildren<Transform>();
+
+            var player = ServiceLocator.Instance.GetNearestPlayer(Vector3.zero);
+
+            if (player != null)
+            {
+                var hc = player.GetComponent<HealthComponent>();
+                if (hc != null) hc.ActivateInfiniteInvulnerability();
+            }
+
             StartCoroutine(ExplosionRoutine());
         }
 
