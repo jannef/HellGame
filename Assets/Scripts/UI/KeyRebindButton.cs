@@ -94,13 +94,18 @@ namespace fi.tamk.hellgame.ui
 
         private IEnumerator WaitForInputCoroutine(Action callBack)
         {
-            yield return new WaitForEndOfFrame();
+            var t = 0f;
+
+            while (t < .25f)
+            {
+                t += Time.unscaledDeltaTime;
+                yield return null;
+            }
 
             while (true)
             {
                 if (Input.anyKeyDown)
                 {
-
                     KeyCode reboundKey = FetchPressedKey();
 
                     if (reboundKey == KeyCode.None)
