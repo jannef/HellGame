@@ -80,6 +80,16 @@ public static partial class LocaleStrings
 		"Portuguese",
 		"French",
 		"Italian",
+		"METAL SKIN",
+		"Shields you from harm, at the cost of a rune from your circle...",
+		"METEOR DASH",
+		"A burst of speed, a body of steel! Use it to charge or escape.",
+		"FORGEFURY",
+		"Collect ember gems and become a comet of fiery wrath!",
+		"FIREBALL",
+		"Channel energy through your staff to unleash a torrent of destructive blasts. Our primary weapon!",
+		"You must not fail!",
+		"If you're reading this, I have met my end. Perhaps it was at the hands of a rival, or the ghastly result of a failed invention. These halls will fall into chaos. The automaton servants will rebel. My experiments will escape. Havoc will be wrought!",
 		""
 	};
 
@@ -157,6 +167,16 @@ public static partial class LocaleStrings
 		"Portugali",
 		"Ranska",
 		"Italia",
+		"RAUTANAHKA",
+		"Suojelee sinua vahingolta, mutta maksaa riimun viereltäsi...",
+		"METEORIRYKÄISY",
+		"Räjähtävä nopeus, teräksinen keho. Väistä vastustajiasi tällä loitsulla!",
+		"SÄKENÖIVÄ VOIMA",
+		"Kerää kristalleja ja muutu koston komeetaksi!",
+		"TULIPALLO",
+		"Kanavoi sielusi ahjon voimaa ampuaksesi liekkejä. Voimakas ase!",
+		"Tämä on viimeinen kokeesi!",
+		"Jos luet tätä, olen kuollut. Lopullisesti. Ehkäpä surmani koitti vastustajani säilästä, tai oman keksintöni kourissa. Jätän kuitenkin kartanoni sinulle - olettaen että saat sen tyhjennettyä kapinoivien keksinöjeni ikeestä.",
 		""
 	};
 
@@ -234,6 +254,16 @@ public static partial class LocaleStrings
 		"Portugués",
 		"Francés",
 		"Italiano",
+		"PIEL DE METAL",
+		"Te protege del daño, a costa de una runa de tu círculo ...",
+		"EMBESTIDA METEORITO",
+		"¡Una explosión de velocidad, un cuerpo de acero! Úselo para cargar o escapar.",
+		"FORJAR LA FURIA",
+		"Recoge gemas de ascua y se convierte en un cometa de ira ardiente!",
+		"BOLA DE FUERGO",
+		"Canal de energía a través de su personal para desencadenar un torrente de explosiones destructivas. Nuestro arma principal!",
+		"¡No debes fallar!",
+		"Si estás leyendo esto, he conocido mi final. Tal vez fue a manos de un rival, o el resultado espantoso de una invención fracasada. Estas salas caerán en el caos. Los sirvientes del autómata se rebelarán. Mis experimentos escaparán. Havoc será forjado!",
 		""
 	};
 
@@ -311,6 +341,16 @@ public static partial class LocaleStrings
 		"Portugiesisch",
 		"Französisch",
 		"Italienisch",
+		"METALHAUT",
+		"Schützt dich vor Schaden, auf Kosten einer Rune aus deinem Kreis ...",
+		"METEORSCHLAG",
+		"Ein Platzen der Geschwindigkeit, ein Körper aus Stahl! Verwenden Sie es zu laden oder zu entkommen.",
+		"SCHMEISSEN",
+		"Sammle ember Edelsteine und werde ein Komet des feurigen Zorns!",
+		"FEUERBALL",
+		"Kanal Energie durch Ihre Mitarbeiter, um einen Strom von zerstörerischen Blasten zu entfesseln. Unsere primäre Waffe!",
+		"Du darfst nicht versagen!",
+		"Wenn du das liest, habe ich mein Ende getroffen. Vielleicht war es in den Händen eines Konkurrenten, oder das grässliche Ergebnis einer gescheiterten Erfindung. Diese Hallen werden ins Chaos fallen. Die automatischen Diener werden rebellieren. Meine Experimente werden entkommen. Havoc wird geschafft!k",
 		""
 	};
 
@@ -388,6 +428,16 @@ public static partial class LocaleStrings
 		"Português",
 		"Francês",
 		"Italiano",
+		"PELE DE METAL",
+		"Protege você de dano, ao custo de uma runa de seu círculo ...",
+		"COLISÃO DE METEOROS",
+		"Uma explosão de velocidade, um corpo de aço! Use-o para carregar ou escapar.",
+		"FORJAR FÚRIA",
+		"Colete gemas de brasa e torne-se um cometa de ira ardente!",
+		"BOLA FOGO",
+		"Canal de energia através de sua equipe para desencadear uma torrente de explosões destrutivas. Nossa arma principal!",
+		"Você não deve falhar!",
+		"Se você está lendo isso, eu conheci o meu fim. Talvez fosse nas mãos de um rival, ou o resultado horrível de uma invenção fracassada. Estes salões cairão no caos. Os servidores do autômato se rebelarão. Meus experimentos escapam. Havoc será forjado!",
 		""
 	};
 
@@ -465,6 +515,16 @@ public static partial class LocaleStrings
 		"Portugais",
 		"Français",
 		"Italien",
+		"PEAU MÉTALLIQUE",
+		"Vous évite de vous blesser, au prix d'une rune de votre cercle ...",
+		"TIRET DE MÉTÉORITE",
+		"Un éclatement de vitesse, un corps d'acier! Utilisez-le pour charger ou échapper.",
+		"FORGER LA FUREUR",
+		"Recueillir des gemmes de braise et devenir une comète de colère de feu!",
+		"BOULE DE FEU",
+		"Faites de l'énergie de la chaîne grâce à votre personnel pour déclencher un torrent de explosions destructrices. Notre arme principale!",
+		"Vous ne devez pas échouer!",
+		"Si vous lisez ceci, j'ai rencontré ma fin. Peut-être était-il entre les mains d'un rival, ou le résultat horrible d'une invention défaillante. Ces salles vont tomber dans le chaos. Les serviteurs de l'automate se rebelleront. Mes expériences s'échapperont. Havoc sera forgé!",
 		""
 	};
 
@@ -542,6 +602,16 @@ public static partial class LocaleStrings
 		"Portoghese",
 		"Francese",
 		"Italiano",
+		"PELLE METALLICA",
+		"Ti protegge dal male, a costo di una runa del tuo cerchio ...",
+		"METEORITE TRATTINO",
+		"Un colpo di velocità, un corpo d'acciaio! Usalo per caricare o sfuggire.",
+		"FORGIARE LA FURIA",
+		"Raccogli le gemme di uomini e diventate una cometa di collera infuocata!",
+		"BOLIDE",
+		"Canalizza l'energia attraverso il tuo personale per scatenare un torrente di esplosioni distruttive. La nostra arma primaria!",
+		"Non devi fallire!",
+		"Se stai leggendo questo, ho incontrato la mia fine. Forse era per mano di un rivale, o il risultato spaventoso di una invenzione fallita. Queste sale cadranno nel caos. I servi dell'automa si ribellano. I miei esperimenti sfuggiranno. L'inganno sarà fatta!",
 		""
 	};
 
@@ -691,6 +761,26 @@ public static partial class LocaleStrings
 
 	public static string UI_LANGUAGE_ITALIAN { get { return CurrentLocale[72]; } }
 
+	public static string UI_WORLD_METALSKIN_HEADER { get { return CurrentLocale[73]; } }
+
+	public static string UI_WORLD_METALSKIN_TEXT { get { return CurrentLocale[74]; } }
+
+	public static string UI_WORLD_METEORDASH_HEADER { get { return CurrentLocale[75]; } }
+
+	public static string UI_WORLD_METEORDASH_TEXT { get { return CurrentLocale[76]; } }
+
+	public static string UI_WORLD_FORGEFURY_HEADER { get { return CurrentLocale[77]; } }
+
+	public static string UI_WORLD_FORGEFURY_TEXT { get { return CurrentLocale[78]; } }
+
+	public static string UI_WORLD_FIREBALL_HEADER { get { return CurrentLocale[79]; } }
+
+	public static string UI_WORLD_FIREBALL_TEXT { get { return CurrentLocale[80]; } }
+
+	public static string UI_WORLD_INTROBOOK_SENDOFF { get { return CurrentLocale[81]; } }
+
+	public static string UI_WORLD_INTROBOOK_TEXT { get { return CurrentLocale[82]; } }
+
 	public enum StringsEnum : int
 	{
 		UI_LimitBreakPrompt=0,
@@ -766,5 +856,15 @@ public static partial class LocaleStrings
 		UI_LANGUAGE_PORTUGESE=70,
 		UI_LANGUAGE_FRENCH=71,
 		UI_LANGUAGE_ITALIAN=72,
+		UI_WORLD_METALSKIN_HEADER=73,
+		UI_WORLD_METALSKIN_TEXT=74,
+		UI_WORLD_METEORDASH_HEADER=75,
+		UI_WORLD_METEORDASH_TEXT=76,
+		UI_WORLD_FORGEFURY_HEADER=77,
+		UI_WORLD_FORGEFURY_TEXT=78,
+		UI_WORLD_FIREBALL_HEADER=79,
+		UI_WORLD_FIREBALL_TEXT=80,
+		UI_WORLD_INTROBOOK_SENDOFF=81,
+		UI_WORLD_INTROBOOK_TEXT=82,
 	}
 }

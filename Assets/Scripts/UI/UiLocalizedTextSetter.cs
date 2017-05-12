@@ -16,6 +16,15 @@ namespace fi.tamk.hellgame.ui
             if (textMesh != null)
             {
                 textMesh.text = LocaleStrings.LocalizedStringFromEnum(_textToUse);
+                return;
+            }
+
+            TextMeshPro mesh = GetComponent<TextMeshPro>();
+
+            if (mesh != null)
+            {
+                mesh.text = LocaleStrings.LocalizedStringFromEnum(_textToUse);
+                return;
             }
         }
     }
