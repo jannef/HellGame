@@ -80,7 +80,7 @@ namespace fi.tamk.hellgame.character
             StartChargingEvent.Invoke();
         }
 
-        private IEnumerator FiringCoroutine(int shotAmount, float t)
+        private new IEnumerator FiringCoroutine(int shotAmount, float t)
         {
             for (int i = 0; i < shotAmount; i++)
             {

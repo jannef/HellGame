@@ -49,7 +49,6 @@ namespace fi.tamk.hellgame.world
         public static PlayerSaveableData PlayerPersistentData = null;
         public static bool DebugMode;
         public ButtonMap[] DefaultInputs;
-        private static int currentInputModeIndex = 0;
         public static int LastSceneIndex = 0;
         public static bool RetryFlag = false;
 
@@ -146,7 +145,6 @@ namespace fi.tamk.hellgame.world
             var player = FindObjectOfType<PlayerLimitBreak>();
             if (player != null)
             {
-                currentInputModeIndex = 1;
                 if (PlayerPersistentData != null) PlayerPersistentData.MyConfig = scheme;
                 var input = player.gameObject.GetComponent<InputController>();
                 if (input != null) input.MyConfig = scheme;
