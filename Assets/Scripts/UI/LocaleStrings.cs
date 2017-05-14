@@ -70,7 +70,7 @@ public static partial class LocaleStrings
 		"Spanish",
 		"Finnish",
 		"Your progress is saved automatically",
-		"So the Archmage is finally dead. \n\nYears ago I arrived on his doorstep, full of hope, brimming with potential. Now, I can scarcely remember life outside of this place... my every breath carries the smell of old books, polished brass, and the heat of the steamworks. Every step is haunted by some clockwork horror he \"invented\" in one of his dreams. Now he's gone, and the manor has turned against me! I can hear his clockwork beasts roaming the steam pipes above, and most of the doors have locked themselves. \n\nIt seems as though I'm about to get some exercise at last... if nothing else, I'll use all this fire and metal magic to forge myself a path out of here.",
+		"So the Archmage is finally dead. \n\nYears ago I arrived on his doorstep, full of hope, brimming with potential. Now, I can scarcely remember life outside of this place... my every breath carries the smell of old books, polished brass, and the heat of the steamworks. Every step is haunted by some clockwork horror he \"invented\" in one of his dreams. Now he's gone, and the manor has turned against me! I can hear his clockwork beasts roaming the steam pipes above, and most of the doors have locked themselves. \n\nIt seems as though I'm about to get some exercise at last... if nothing else, I'll use all this fire and metal magic to forge myself a path out of here. ",
 		"Apprentice,\n\nThe manor will turn against you here first. The automatons will try to stop you. Yet if there is anywhere to gain a foothold, it must be here in the dark and humid cellars, because it is at least free of my more ingenious security devices. But tread carefully! Many years ago, a colleague gifted me a most peculiar beast. No eyes, no mouth, yet there was no warmth it could not detect and nothing it could not consume. It grew until I could no longer contain it in the laboratory, and has remained sealed in the deepest reaches of the cellars since. It must be very hungry.",
 		"Apprentice,\n\nNever have I regretted my prowess as an inventor, but if I still lived, I would regret it today. My greatest idea struck when my head was emptiest; over a late night snack. In my private dining room, one of my greatest siege works lays dormant. It was at first a marvel... but as the fevered memory of inspiration faded, weeks after its creation, it became a watchful, foreboding presence. It never stirred when I was in the room, but I began to find increasingly more piles of ash, and decidedly fewer of my cats. I've taken my meals in my chambers since.",
 		"Apprentice,\n\nThe secret I now pass on to you may be your doom. Deep in the library, in my private archives, there is a wellspring of infinite knowledge. For decades I have communed with it, my fingertips running over its surface, my mind fed by its mysteries and whispered propositions. At first it meant to consume my thoughts from within, but over the decades I subdued the urges it seeded in my subconscious. Most of them at least. You have no such time to spare. Whether demon, god, or spirit, you must destroy it. Though, the thought bears down on my soul with unsettling weight...",
@@ -89,7 +89,8 @@ public static partial class LocaleStrings
 		"FIREBALL",
 		"Channel energy through your staff to unleash a torrent of destructive blasts. Our primary weapon!",
 		"You must not fail!",
-		"If you're reading this, I have met my end. Perhaps it was at the hands of a rival, or the ghastly result of a failed invention. These halls will fall into chaos. The automaton servants will rebel. My experiments will escape. Havoc will be wrought!",
+		"If you're reading this, I have met my end. Perhaps it was at the hands of a rival, or the ghastly result of a failed invention. These halls will fall into chaos. The automaton servants will rebel. My experiments will escape. Havoc will be wrought! /n/n But I have prepared you well. Use the forge magic I've taught you to regain control. Prove yourself worthy, and the manor will bow to your will! ",
+		"",
 		""
 	};
 
@@ -157,7 +158,7 @@ public static partial class LocaleStrings
 		"Espanja",
 		"Suomi",
 		"Peli tallentaa automaattisesti",
-		"Vanha arkkimaagi on siis vihdoing kuollut. \n\nTämä kaameiden kojeiden ja kummallisten kokeiden pesä on ollut kotini niin kauan kuin muistan. Nyt vanhuksen keksinnöt ovat vapautuneet kahleistaan. Tutut käytävät ovat eittämättä nyt vaarallisemmat kuin koskaan. \n\n Ehkä vanhusta ehtii vielä tulla ikävä.",
+		"Vanha arkkimaagi on siis vihdoin kuollut. \n\nTämä kaameiden kojeiden ja kummallisten kokeiden pesä on ollut kotini niin kauan kuin muistan. Nyt vanhuksen keksinnöt ovat vapautuneet kahleistaan. Tutut käytävät ovat eittämättä nyt vaarallisemmat kuin koskaan. \n\n Ehkä vanhusta ehtii vielä tulla ikävä.",
 		"Oppilaani,\n\nJok'ikinen keksintö, koje ja kellopeli tässä kartanossa janoaa vertasi. Tämä kellari on siivoton ja unohdettu, mutta sen vallanneet olennot pitävät sitä kotonaan. Toivon että selviät tästä ensimmäisestä koetuksestasi. Varo eritoten vanhaa kellarin vartijaa - kasvotonta ja kylmää hirviötä jonka ikeen ovat monet seikkailijat kaatuneet. En ole muistanut ruokkia kyseistä hirviötä kuuteen vuoteen, ja sen nälän oletan olevan mahtava.",
 		"Oppilaani,\n\nNäin jälkeenpäin kadun kiintymystäni kuolettaviin kojeisiin. Vannoutuneiden yönaposteluhetkieni kulussa päädyin kehittämään hirvittävän sotakojeen, jonka jätin keittiön kaappien pohjalle. Juuston lailla uskon koneen kehittyneen näiden vuosien aikana, ja mitä kuolleiden kissojeni määrästä voin päätellä, uskon kehityksen olleen turmiollista. Olen sittemmin siirtynyt aterioimaan makuuhuoneeni puolella.",
 		"Oppilaani,\n\nOstin nuorena oppilaana kiertelevältä kauppiaalta ikuisen tiedon kuulan. Mitä tulee tämän suunnattoman kirjaston järjestelemiseen, se on ollut erittäin hyvä apuri. Epäilen sen kuitenkin olevan kyltymättömän tiedon demoni, joka on kirjaston tiedon avulla kasvattanut mahtiaan. Olen pahoillani, mutta jätän tämän olennon sinun vastuullesi. En raaskinut sitä surmata, sillä huolimatta sen pahasta sisimmästä, sen kantama viisaus on kaunimpaa kuin yhdeksän ihmiselämää.",
@@ -177,6 +178,7 @@ public static partial class LocaleStrings
 		"Kanavoi sielusi ahjon voimaa ampuaksesi liekkejä. Voimakas ase!",
 		"Tämä on viimeinen kokeesi!",
 		"Jos luet tätä, olen kuollut. Lopullisesti. Ehkäpä surmani koitti vastustajani säilästä, tai oman keksintöni kourissa. Jätän kuitenkin kartanoni sinulle - olettaen että saat sen tyhjennettyä kapinoivien keksinöjeni ikeestä.",
+		"",
 		""
 	};
 
@@ -264,6 +266,7 @@ public static partial class LocaleStrings
 		"Canal de energía a través de su personal para desencadenar un torrente de explosiones destructivas. Nuestro arma principal!",
 		"¡No debes fallar!",
 		"Si estás leyendo esto, he conocido mi final. Tal vez fue a manos de un rival, o el resultado espantoso de una invención fracasada. Estas salas caerán en el caos. Los sirvientes del autómata se rebelarán. Mis experimentos escaparán. Havoc será forjado!",
+		"",
 		""
 	};
 
@@ -351,6 +354,7 @@ public static partial class LocaleStrings
 		"Kanal Energie durch Ihre Mitarbeiter, um einen Strom von zerstörerischen Blasten zu entfesseln. Unsere primäre Waffe!",
 		"Du darfst nicht versagen!",
 		"Wenn du das liest, habe ich mein Ende getroffen. Vielleicht war es in den Händen eines Konkurrenten, oder das grässliche Ergebnis einer gescheiterten Erfindung. Diese Hallen werden ins Chaos fallen. Die automatischen Diener werden rebellieren. Meine Experimente werden entkommen. Havoc wird geschafft!k",
+		"",
 		""
 	};
 
@@ -438,6 +442,7 @@ public static partial class LocaleStrings
 		"Canal de energia através de sua equipe para desencadear uma torrente de explosões destrutivas. Nossa arma principal!",
 		"Você não deve falhar!",
 		"Se você está lendo isso, eu conheci o meu fim. Talvez fosse nas mãos de um rival, ou o resultado horrível de uma invenção fracassada. Estes salões cairão no caos. Os servidores do autômato se rebelarão. Meus experimentos escapam. Havoc será forjado!",
+		"",
 		""
 	};
 
@@ -525,6 +530,7 @@ public static partial class LocaleStrings
 		"Faites de l'énergie de la chaîne grâce à votre personnel pour déclencher un torrent de explosions destructrices. Notre arme principale!",
 		"Vous ne devez pas échouer!",
 		"Si vous lisez ceci, j'ai rencontré ma fin. Peut-être était-il entre les mains d'un rival, ou le résultat horrible d'une invention défaillante. Ces salles vont tomber dans le chaos. Les serviteurs de l'automate se rebelleront. Mes expériences s'échapperont. Havoc sera forgé!",
+		"",
 		""
 	};
 
@@ -612,6 +618,7 @@ public static partial class LocaleStrings
 		"Canalizza l'energia attraverso il tuo personale per scatenare un torrente di esplosioni distruttive. La nostra arma primaria!",
 		"Non devi fallire!",
 		"Se stai leggendo questo, ho incontrato la mia fine. Forse era per mano di un rivale, o il risultato spaventoso di una invenzione fallita. Queste sale cadranno nel caos. I servi dell'automa si ribellano. I miei esperimenti sfuggiranno. L'inganno sarà fatta!",
+		"",
 		""
 	};
 
