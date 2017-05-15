@@ -89,7 +89,7 @@ public static partial class LocaleStrings
 		"FIREBALL",
 		"Channel energy through your staff to unleash a torrent of destructive blasts. Our primary weapon!",
 		"You must not fail!",
-		"If you're reading this, I have met my end. Perhaps it was at the hands of a rival, or the ghastly result of a failed invention. These halls will fall into chaos. The automaton servants will rebel. My experiments will escape. Havoc will be wrought! /n/n But I have prepared you well. Use the forge magic I've taught you to regain control. Prove yourself worthy, and the manor will bow to your will! ",
+		"If you're reading this, I have met my end. Perhaps it was at the hands of a rival, or the ghastly result of a failed invention. These halls will fall into chaos. The automaton servants will rebel. My experiments will escape. Havoc will be wrought! But I have prepared you well. Use the forge magic I've taught you to regain control. Prove yourself worthy, and the manor will bow to your will! ",
 		"",
 		""
 	};
